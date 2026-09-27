@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabaseBrowser } from "../../lib/supabaseClient";
 
@@ -21,14 +22,14 @@ export default function Login() {
       setErr(error.message);
       return;
     }
-    router.push("/dashboard");
+    router.push("/app");
   }
 
   return (
     <div className="wrap">
       <div className="card">
         <h1>Connexion</h1>
-        <p className="sub">Compte directeur / créateur (Supabase Auth).</p>
+        <p className="sub">Compte du créateur ou du directeur. Les salariés badgent ensuite avec leur code dans l’app.</p>
         <form onSubmit={onSubmit}>
           <label htmlFor="email">E-mail</label>
           <input
@@ -51,6 +52,9 @@ export default function Login() {
           </button>
           {err && <p className="err">{err}</p>}
         </form>
+        <p className="links">
+          Pas encore de compte ? <Link href="/inscription">Créer un compte</Link>
+        </p>
       </div>
     </div>
   );

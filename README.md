@@ -42,38 +42,44 @@ Artifacts Claude actuels (référence visuelle / fonctionnelle) :
 - Version test (réseau multi-restos) : https://claude.ai/artifact/RM3VHbZkENuhXq58z6iGiW
 - Page vitrine : https://claude.ai/artifact/Jkh8P2cxFNewM7AyaN9JyP
 
-### 2. `app/`, `lib/`, `supabase/` — le début de la vraie version connectée
+### 2. `app/`, `lib/`, `supabase/` — la version connectée (Next.js + Supabase)
 
-Une app Next.js déployée sur Vercel, avec une vraie base de données
-Supabase (Postgres, hébergée à Paris — RGPD) et une vraie authentification.
-C'est le tout début : pour l'instant, seulement une page de connexion
-(Supabase Auth par e-mail/mot de passe) et une liste des restaurants du
-compte connecté. Le reste (planning, stocks, hygiène, stats...) reste à
-porter depuis `legacy/`, module par module.
+L'app v11 complète tourne maintenant dans Next.js avec une vraie base de
+données Supabase (Postgres, hébergée à Paris — RGPD) et une vraie
+authentification :
 
-Base de données : projet Supabase **leon** (organisation *choufe's Org*),
-région Paris (`eu-west-3`). Schéma de départ dans
-`supabase/migrations/0001_init_core_schema.sql` :
+- `/inscription`, `/login` : compte du créateur (Supabase Auth).
+- `/app` : vérifie la connexion, puis affiche l'app v11
+  (`public/leon/app.html`) en plein écran. Elle lui prête un stockage
+  Supabase qui a la même interface que celui des artifacts Claude
+  (`lib/leonStore.js`), si bien que la v11 tourne sans modification.
+- `/leon/demo.html` : la démo Petit Beffroi, autonome (données dans le
+  navigateur).
 
-- `orgs` — le compte du créateur (toi, Maurice)
-- `restaurants` — un restaurant, rattaché à un `org`
-- `memberships` — qui (compte Supabase Auth) a quel rôle sur quel restaurant
-  (admin / patron / manager)
-- `employees` — les salariés (pas de compte Supabase Auth : ils badgent au
-  code PIN sur l'appareil du resto — l'authentification par PIN reste à
-  construire, probablement via une fonction serveur dédiée)
-- `shift_types`, `shifts`, `absences`, `time_clock_events` — le cœur du
-  planning et du pointage
+Chaque document de la v11 (`net/config`, `restos/<id>`,
+`restos/<id>/data/planning`, `restos/<id>/pointages/<date>`…) est une
+ligne de la table `leon_docs` (migration `0002_leon_docs.sql`), rangée
+par organisation. Le RLS limite l'accès aux membres de l'organisation, et
+Supabase Realtime transmet les changements aux autres appareils en direct.
+Au premier passage, `my_org()` crée l'organisation du compte.
 
-Toutes les tables ont le RLS (Row Level Security) activé : un compte ne
-voit et ne modifie que les restaurants où il a un `membership`.
+Les tables relationnelles de `0001_init_core_schema.sql` (`employees`,
+`shifts`, `time_clock_events`…) ne servent pas encore : on y portera les
+modules un par un quand il faudra des requêtes, des exports ou des accès
+fins par salarié.
+
+Après une modification dans `legacy/` :
+
+```
+npm run legacy   # reconstruit legacy/*_v11.html puis les copie dans public/leon/
+```
 
 #### Lancer en local
 
 ```
 npm install
 cp .env.example .env.local   # déjà pré-rempli avec l'URL et la clé publique du projet
-npm run dev
+npm run dev                  # http://localhost:3000
 ```
 
 #### Déployer sur Vercel
@@ -85,30 +91,18 @@ sur `main` redéploie automatiquement.
 
 #### Premier compte / premier restaurant
 
-Il n'y a pas encore d'écran d'inscription. Pour créer ton compte et ton
-premier restaurant :
-
-1. Crée un compte via Supabase Auth (écran `/login` ne fait que la
-   connexion pour l'instant — l'inscription est à ajouter, ou on peut créer
-   le compte à la main dans le dashboard Supabase → Authentication → Users).
-2. Une fois le compte créé, insérer manuellement (SQL) une ligne dans `orgs`
-   avec `owner_user_id` = ton user id, une ligne dans `restaurants`, et une
-   ligne dans `memberships` (role = `admin`) pour relier ton compte à ce
-   restaurant.
-
-Cette étape sera automatisée dans un prochain lot (écran d'inscription +
-création du premier restaurant).
+1. `/inscription` : crée le compte du créateur.
+2. `/app` : l'écran « Crée ton Léon » de la v11 crée le réseau et le premier
+   restaurant. Il donne l'identifiant et le mot de passe qui connectent les
+   appareils du restaurant, puis les codes de chacun.
 
 ## Prochaines étapes
 
-- Écran d'inscription + création du premier restaurant (au lieu de le faire
-  à la main en SQL).
-- Porter le planning (`v9_plan_*.js`) vers de vraies requêtes Supabase sur
-  `shifts` / `absences` / `time_clock_events`.
-- Authentification des salariés par code PIN sur l'appareil partagé du
-  restaurant (fonction serveur dédiée, pas de compte Supabase Auth par
-  salarié).
-- Porter stocks, recettes, hygiène, statistiques (modules `v8_*`, `v11_*`)
-  au même rythme.
+- « Demander à Léon » : brancher l'assistant sur l'API Claude via une
+  fonction serveur (dans les artifacts, il passait par le runtime Claude).
+- Mots de passe et codes des appareils : ils sont aujourd'hui en clair dans
+  `net/config`, lisible par tout le compte. À déplacer côté serveur (hachés).
+- Porter les modules vers des tables dédiées au fil des besoins (pointage et
+  paie d'abord).
 - Brancher L'Addition (flux ventes/encaissements) via une fonction serveur
   qui écrit dans la base, une fois l'accès obtenu côté L'Addition.
