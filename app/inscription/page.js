@@ -34,6 +34,7 @@ export default function Inscription() {
 
   return (
     <div className="wrap">
+      <img className="logo" src="/brand/leon-logo-creme.png" alt="Léon" width={720} height={241} />
       <div className="card">
         <h1>Créer un compte</h1>
         <p className="sub">

@@ -27,6 +27,7 @@ export default function Login() {
 
   return (
     <div className="wrap">
+      <img className="logo" src="/brand/leon-logo-creme.png" alt="Léon" width={720} height={241} />
       <div className="card">
         <h1>Connexion</h1>
         <p className="sub">Compte du créateur ou du directeur. Les salariés badgent ensuite avec leur code dans l’app.</p>

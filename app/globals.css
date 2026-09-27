@@ -71,3 +71,10 @@ a { color: var(--gold); }
 }
 .links { margin-top: 18px; font-size: 14px; text-align: center; }
 .ok { color: #9be3b4; font-size: 13px; margin-top: 10px; }
+img.logo {
+  display: block;
+  width: 180px;
+  height: auto;
+  margin: 0 auto 28px;
+}
+.card img.logo { margin: 0 0 18px; width: 160px; }

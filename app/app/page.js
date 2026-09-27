@@ -48,8 +48,8 @@ export default function LeonApp() {
   if (err) {
     return (
       <div className="wrap">
+        <img className="logo" src="/brand/leon-logo-creme.png" alt="Léon" width={720} height={241} />
         <div className="card">
-          <h1>Léon</h1>
           <p className="err">{err}</p>
         </div>
       </div>
@@ -58,7 +58,8 @@ export default function LeonApp() {
   if (!ready) {
     return (
       <div className="wrap">
-        <p className="sub">Chargement de Léon…</p>
+        <img className="logo" src="/brand/leon-logo-creme.png" alt="Léon" width={720} height={241} />
+        <p className="sub">Chargement…</p>
       </div>
     );
   }
