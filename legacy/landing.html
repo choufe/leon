@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Léon — la gestion de restaurant qui vous prévient avant vous</title>
+<link rel="icon" type="image/png" href="/_blob/ded69897cda8c9c00fcd7695e047e57d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400..700&display=swap">
+<style>
+:root{
+  --bg:#F1F4EF; --surface:#FFFFFF; --surface-2:#E8EDE6; --line:#D7DED5; --line-2:#C3CCC1;
+  --ink:#13201A; --ink-2:#48574F; --ink-3:#6E7C75;
+  --side:#18352B; --side-2:#0F241D; --side-ink:#E6EEE9; --side-mute:#9DB4A8; --side-line:rgba(230,238,233,.14);
+  --brass:#93630F; --brass-soft:#F5EAD3; --brass-line:#DDBF86; --pop-accent:#E9C47A;
+  --shadow:0 1px 2px rgba(19,32,26,.06),0 20px 40px -18px rgba(19,32,26,.28);
+  --f-display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --f-ui:"Instrument Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--f-ui);background:var(--bg);color:var(--ink)}
+h1,h2,h3{font-family:var(--f-display);margin:0;letter-spacing:-.012em;font-weight:700}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+.wordmark{font-family:var(--f-display);font-weight:800;letter-spacing:-.04em}
+.eyebrow{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 24px;border-radius:11px;font-family:var(--f-ui);font-weight:700;font-size:15px;border:1.5px solid transparent;cursor:pointer;white-space:nowrap}
+.btn-brass{background:var(--brass);color:#FFF9EF}
+.btn-brass:hover{background:#7E5309}
+.btn-ghost-dark{background:transparent;border-color:var(--side-line);color:var(--side-ink)}
+.btn-ghost-dark:hover{border-color:var(--pop-accent);color:var(--pop-accent)}
+.btn-ghost-light{background:transparent;border-color:var(--line-2);color:var(--ink)}
+.btn-ghost-light:hover{border-color:var(--brass);color:var(--brass)}
+.navlink{font-size:14.5px;font-weight:600;color:var(--side-mute)}
+.navlink:hover{color:var(--pop-accent)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px}
+.icon-wrap{width:44px;height:44px;border-radius:11px;background:var(--brass-soft);display:flex;align-items:center;justify-content:center;color:var(--brass);flex:none}
+.check{color:var(--brass);flex:none}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--side-mute);margin-bottom:6px}
+.field input,.field textarea{width:100%;border-radius:10px;border:1.5px solid var(--side-line);background:var(--side-2);color:var(--side-ink);font-family:var(--f-ui);font-size:15px;padding:12px 14px;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:var(--side-mute)}
+.field input:focus,.field textarea:focus{outline:2px solid var(--pop-accent);outline-offset:1px}
+@media (max-width:860px){
+  .nav-links{display:none !important}
+  .hero-grid{grid-template-columns:1fr !important}
+  .feat-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+  .why-grid{grid-template-columns:1fr !important}
+  .price-grid{grid-template-columns:1fr !important}
+  .contact-grid{grid-template-columns:1fr !important}
+}
+@media (max-width:560px){
+  .feat-grid{grid-template-columns:1fr !important}
+}
+</style>
+</head>
+<body>
+
+<div id="top" style="width:100%;display:flex;flex-direction:column;font-family:var(--f-ui);color:var(--ink)">
+
+  <!-- HEADER -->
+  <header style="position:sticky;top:0;z-index:10;background:var(--side);border-bottom:1px solid var(--side-line)">
+    <div style="max-width:1200px;margin:0 auto;padding:0 32px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <a href="#top" style="display:flex;align-items:center" aria-label="Léon — retour en haut">
+        <img src="/_blob/ded69897cda8c9c00fcd7695e047e57d" alt="Léon" style="height:26px;width:auto;display:block">
+      </a>
+      <nav class="nav-links" style="display:flex;align-items:center;gap:32px">
+        <a class="navlink" href="#presentation">Présentation</a>
+        <a class="navlink" href="#pourquoi">Pourquoi Léon</a>
+        <a class="navlink" href="#histoire">Qui sommes-nous</a>
+        <a class="navlink" href="#tarifs">Tarifs</a>
+        <a class="navlink" href="#contact">Contact</a>
+      </nav>
+      <a class="btn btn-ghost-dark" style="height:40px;padding:0 18px;font-size:14px" href="https://claude.ai/artifact/RM3VHbZkENuhXq58z6iGiW">Se connecter</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="presentation" style="background:var(--side)">
+    <div class="hero-grid" style="max-width:1200px;margin:0 auto;padding:88px 32px 104px;display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <span class="eyebrow" style="color:var(--pop-accent)">Gestion de restaurant</span>
+        <h1 style="font-size:clamp(32px,4.2vw,48px);line-height:1.08;color:var(--side-ink)">Léon garde un œil sur votre restaurant, même quand vous n'y êtes pas.</h1>
+        <p style="font-size:18px;line-height:1.55;color:var(--side-mute);max-width:46ch">Planning, stocks, hygiène, ventes et alertes automatiques : Léon réunit votre restaurant au même endroit, et vous prévient avant que ça devienne un vrai problème.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:8px">
+          <a class="btn btn-brass" href="https://claude.ai/artifact/PaCPmhUKabpK2Sp5F4wJMC">Voir la démo</a>
+          <a class="btn btn-ghost-dark" href="#contact">Nous contacter</a>
+        </div>
+        <p style="font-size:13.5px;color:var(--side-mute);margin-top:4px">Actuellement en test dans un restaurant à Lille.</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="card" style="box-shadow:var(--shadow);border-color:var(--line)">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+            <span class="icon-wrap" style="width:32px;height:32px;border-radius:9px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><path d="M18.5 4.5 20 6"/><circle cx="12" cy="13" r="8"/><path d="M9 2h6"/></svg>
+            </span>
+            <span style="font-weight:700;font-size:15px">Infos importantes</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <span style="width:8px;height:8px;border-radius:50%;background:#C0402E;margin-top:6px;flex:none"></span>
+              <span style="font-size:14px;color:var(--ink-2)"><b style="color:var(--ink)">Léo</b> — 3 retards cette semaine, toujours le mardi</span>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <span style="width:8px;height:8px;border-radius:50%;background:#B87A12;margin-top:6px;flex:none"></span>
+              <span style="font-size:14px;color:var(--ink-2)">CA du soir en baisse de <b style="color:var(--ink)">12 %</b> par rapport à la semaine dernière</span>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <span style="width:8px;height:8px;border-radius:50%;background:#2C7A4E;margin-top:6px;flex:none"></span>
+              <span style="font-size:14px;color:var(--ink-2)">Coût matière à <b style="color:var(--ink)">27 %</b> — dans l'objectif</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="box-shadow:var(--shadow);border-color:var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+          <div>
+            <div style="font-size:11.5px;color:var(--ink-3);font-weight:600">Ce mois-ci</div>
+            <div style="font-family:var(--f-display);font-size:22px;font-weight:700;margin-top:2px">42 300 €</div>
+          </div>
+          <div>
+            <div style="font-size:11.5px;color:var(--ink-3);font-weight:600">Marge matière</div>
+            <div style="font-family:var(--f-display);font-size:22px;font-weight:700;margin-top:2px;color:#2C7A4E">68 %</div>
+          </div>
+          <div>
+            <div style="font-size:11.5px;color:var(--ink-3);font-weight:600">Résultat estimé</div>
+            <div style="font-family:var(--f-display);font-size:22px;font-weight:700;margin-top:2px;color:#2C7A4E">+3 100 €</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section style="background:var(--bg)">
+    <div style="max-width:1200px;margin:0 auto;padding:88px 32px">
+      <div style="max-width:640px;margin-bottom:48px">
+        <span class="eyebrow" style="color:var(--brass)">Ce que fait Léon</span>
+        <h2 style="font-size:clamp(26px,3vw,34px);margin-top:12px">Un seul endroit pour piloter votre restaurant</h2>
+      </div>
+      <div class="feat-grid" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px">
+
+        <div class="card" style="display:flex;flex-direction:column;gap:14px">
+          <span class="icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>
+          <h3 style="font-size:17px">Planning et pointage</h3>
+          <p style="font-size:14.5px;color:var(--ink-2);line-height:1.5">Plannings par poste, pointage par code personnel, heures sup et repos légaux vérifiés automatiquement.</p>
+        </div>
+
+        <div class="card" style="display:flex;flex-direction:column;gap:14px">
+          <span class="icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 12 4l9 4.5-9 4.5-9-4.5Z"/><path d="M3 8.5V16l9 4.5 9-4.5V8.5"/><path d="M12 13v7.5"/></svg></span>
+          <h3 style="font-size:17px">Stocks et fournisseurs</h3>
+          <p style="font-size:14.5px;color:var(--ink-2);line-height:1.5">Commandes suggérées, réception produit par produit, stock théorique comparé au réel.</p>
+        </div>
+
+        <div class="card" style="display:flex;flex-direction:column;gap:14px">
+          <span class="icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a2.5 2.5 0 0 0-2.5 2.5v8.55a4 4 0 1 0 5 0V5.5A2.5 2.5 0 0 0 12 3Z"/><path d="M12 15v-6"/></svg></span>
+          <h3 style="font-size:17px">Hygiène et traçabilité</h3>
+          <p style="font-size:14.5px;color:var(--ink-2);line-height:1.5">Relevés de température, étiquettes DLC, traçabilité des lots, prêts pour un contrôle.</p>
+        </div>
+
+        <div class="card" style="display:flex;flex-direction:column;gap:14px">
+          <span class="icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-7"/></svg></span>
+          <h3 style="font-size:17px">Statistiques</h3>
+          <p style="font-size:14.5px;color:var(--ink-2);line-height:1.5">CA, marge, pertes, produits les plus rentables : vos chiffres du mois en un coup d'œil.</p>
+        </div>
+
+        <div class="card" style="display:flex;flex-direction:column;gap:14px">
+          <span class="icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a5 5 0 0 0-5 5v3.2c0 .6-.2 1.2-.6 1.7L5 15h14l-1.4-2.1a2.8 2.8 0 0 1-.6-1.7V8a5 5 0 0 0-5-5Z"/><path d="M9.5 18a2.5 2.5 0 0 0 5 0"/></svg></span>
+          <h3 style="font-size:17px">Infos importantes</h3>
+          <p style="font-size:14.5px;color:var(--ink-2);line-height:1.5">Retards, absences, CA en baisse, pertes anormales : Léon les repère pour vous, sans avoir à fouiller.</p>
+        </div>
+
+        <div class="card" style="display:flex;flex-direction:column;gap:14px">
+          <span class="icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="10" width="7" height="11"/><rect x="14" y="4" width="7" height="17"/><path d="M6 14h1"/><path d="M17 8h1"/><path d="M17 12h1"/></svg></span>
+          <h3 style="font-size:17px">Plusieurs établissements</h3>
+          <p style="font-size:14.5px;color:var(--ink-2);line-height:1.5">Une vue d'ensemble sur tous vos restaurants, avec un comparatif resto par resto.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- POURQUOI LÉON -->
+  <section id="pourquoi" style="background:var(--brass-soft)">
+    <div style="max-width:1200px;margin:0 auto;padding:88px 32px">
+      <div style="max-width:640px;margin-bottom:48px">
+        <span class="eyebrow" style="color:var(--brass)">Pourquoi Léon</span>
+        <h2 style="font-size:clamp(26px,3vw,34px);margin-top:12px">Parce qu'un restaurant ne se pilote pas depuis un tableur</h2>
+      </div>
+      <div class="why-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px">
+
+        <div style="display:flex;gap:16px">
+          <span class="icon-wrap" style="background:var(--surface)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brass)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span>
+          <div>
+            <h3 style="font-size:17px;margin-bottom:6px">Tout au même endroit</h3>
+            <p style="font-size:14.5px;color:var(--ink-2);line-height:1.55">Planning, stocks, hygiène, ventes : plus besoin de jongler entre un tableur, des post-it et trois applications différentes.</p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:16px">
+          <span class="icon-wrap" style="background:var(--surface)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brass)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a5 5 0 0 0-5 5v3.2c0 .6-.2 1.2-.6 1.7L5 15h14l-1.4-2.1a2.8 2.8 0 0 1-.6-1.7V8a5 5 0 0 0-5-5Z"/><path d="M9.5 18a2.5 2.5 0 0 0 5 0"/></svg></span>
+          <div>
+            <h3 style="font-size:17px;margin-bottom:6px">Léon vous prévient, vous n'avez pas à chercher</h3>
+            <p style="font-size:14.5px;color:var(--ink-2);line-height:1.55">Retard répété, CA qui décroche, perte anormale sur un produit : Léon relit vos chiffres et ne garde que ce qui compte vraiment.</p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:16px">
+          <span class="icon-wrap" style="background:var(--surface)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brass)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="10" width="7" height="11"/><rect x="14" y="4" width="7" height="17"/></svg></span>
+          <div>
+            <h3 style="font-size:17px;margin-bottom:6px">Pensé pour plusieurs établissements</h3>
+            <p style="font-size:14.5px;color:var(--ink-2);line-height:1.55">Une vue réseau avec un comparatif entre vos restaurants et les alertes de chacun, même à distance.</p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:16px">
+          <span class="icon-wrap" style="background:var(--surface)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brass)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6.5V11c0 5.2 3.4 8.5 8 10 4.6-1.5 8-4.8 8-10V6.5Z"/><path d="m9 12 2 2 4-4.5"/></svg></span>
+          <div>
+            <h3 style="font-size:17px;margin-bottom:6px">Vos données restent chez vous</h3>
+            <p style="font-size:14.5px;color:var(--ink-2);line-height:1.55">Hébergement en Europe, aucune donnée biométrique pour le pointage, accès distinct par établissement.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- QUI SOMMES-NOUS -->
+  <section id="histoire" style="background:var(--surface)">
+    <div style="max-width:760px;margin:0 auto;padding:96px 32px;display:flex;flex-direction:column;gap:22px">
+      <span class="eyebrow" style="color:var(--brass);text-align:center">Qui sommes-nous</span>
+      <h2 style="font-size:clamp(26px,3vw,34px);text-align:center;margin-top:4px">Léon, c'est d'abord une histoire de terrain</h2>
+      <div style="display:flex;flex-direction:column;gap:20px;margin-top:12px;font-size:16.5px;line-height:1.7;color:var(--ink-2)">
+        <p>Moi c'est Maurice. J'ai grandi dans la restauration : ma famille tient une friterie près de Lille depuis plus de 26 ans. J'y ai fait mes premiers services très jeune, avant d'en devenir manager, puis de prendre la direction d'un restaurant au cœur de Lille.</p>
+        <p>Sur le terrain, j'ai vu revenir sans arrêt les mêmes galères : des plannings faits à la main qui changent tout le temps, des pertes qu'on découvre trop tard, des relevés d'hygiène sur papier qu'on ne retrouve jamais quand il en faudrait, et surtout, jamais assez de temps pour vraiment savoir ce qu'il se passe dans son propre restaurant.</p>
+        <p>Léon, c'est cette expérience-là mise au service des autres restaurateurs. Pas un logiciel pensé depuis un bureau, mais un outil construit à partir de ce que j'ai vécu en cuisine, en salle, et en gérant une équipe au quotidien.</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;margin-top:8px;padding-top:22px;border-top:1px solid var(--line)">
+        <span class="wordmark" style="font-size:20px;color:var(--brass)">M<em>.</em></span>
+        <div>
+          <div style="font-weight:700;font-size:14.5px">Maurice</div>
+          <div style="font-size:13px;color:var(--ink-3)">Créateur de Léon, directeur de restaurant</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TARIFS -->
+  <section id="tarifs" style="background:var(--bg)">
+    <div style="max-width:1200px;margin:0 auto;padding:88px 32px">
+      <div style="max-width:640px;margin-bottom:48px">
+        <span class="eyebrow" style="color:var(--brass)">Tarifs</span>
+        <h2 style="font-size:clamp(26px,3vw,34px);margin-top:12px">Un tarif simple, par établissement</h2>
+        <p style="font-size:15.5px;color:var(--ink-2);margin-top:10px">Tarifs indicatifs — on ajuste ensemble selon vos besoins et le nombre d'établissements.</p>
+      </div>
+
+      <div class="price-grid" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:stretch">
+
+        <div class="card" style="display:flex;flex-direction:column;gap:20px">
+          <div>
+            <div style="font-weight:700;font-size:16px">Essentiel</div>
+            <div style="display:flex;align-items:baseline;gap:6px;margin-top:10px">
+              <span style="font-family:var(--f-display);font-size:36px;font-weight:700">49 €</span>
+              <span style="font-size:13.5px;color:var(--ink-3)">/ mois / établissement</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;flex-grow:1">
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2)"><span class="check">✓</span>Planning et pointage</div>
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2)"><span class="check">✓</span>Stocks et fournisseurs</div>
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2)"><span class="check">✓</span>Hygiène et traçabilité</div>
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2)"><span class="check">✓</span>1 établissement</div>
+          </div>
+          <a class="btn btn-ghost-light" href="#contact">Nous contacter</a>
+        </div>
+
+        <div class="card" style="display:flex;flex-direction:column;gap:20px;border-color:var(--brass);border-width:2px;position:relative">
+          <span style="position:absolute;top:-13px;left:26px;background:var(--brass);color:#FFF9EF;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:20px">Le plus choisi</span>
+          <div>
+            <div style="font-weight:700;font-size:16px">Pro</div>
+            <div style="display:flex;align-items:baseline;gap:6px;margin-top:10px">
+              <span style="font-family:var(--f-display);font-size:36px;font-weight:700">89 €</span>
+              <span style="font-size:13.5px;color:var(--ink-3)">/ mois / établissement</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;flex-grow:1">
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2)"><span class="check">✓</span>Tout Essentiel, plus :</div>
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2)"><span class="check">✓</span>Statistiques complètes</div>
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2)"><span class="check">✓</span>Infos importantes automatiques</div>
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2)"><span class="check">✓</span>Connexion à votre caisse</div>
+          </div>
+          <a class="btn btn-brass" href="#contact">Nous contacter</a>
+        </div>
+
+        <div class="card" style="display:flex;flex-direction:column;gap:20px">
+          <div>
+            <div style="font-weight:700;font-size:16px">Réseau</div>
+            <div style="display:flex;align-items:baseline;gap:6px;margin-top:10px">
+              <span style="font-family:var(--f-display);font-size:36px;font-weight:700">Sur devis</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;flex-grow:1">
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2)"><span class="check">✓</span>Tout Pro, plus :</div>
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2)"><span class="check">✓</span>Vue créateur multi-établissements</div>
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2)"><span class="check">✓</span>Comparatif réseau</div>
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2)"><span class="check">✓</span>Accompagnement dédié</div>
+          </div>
+          <a class="btn btn-ghost-light" href="#contact">Nous contacter</a>
+        </div>
+
+      </div>
+      <p style="font-size:12.5px;color:var(--ink-3);margin-top:20px">* Tarifs à titre indicatif, encore en construction.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="background:var(--side)">
+    <div class="contact-grid" style="max-width:1200px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:.9fr 1.1fr;gap:64px">
+
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <span class="eyebrow" style="color:var(--pop-accent)">Contact</span>
+        <h2 style="font-size:clamp(26px,3vw,34px);color:var(--side-ink)">On en discute ?</h2>
+        <p style="font-size:15.5px;color:var(--side-mute);line-height:1.6;max-width:38ch">Une question, une démo à organiser, un tarif à affiner : écrivez-nous, on répond en général en moins de 24 h.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">
+          <a href="mailto:contact@leon-app.fr" style="font-size:15px;font-weight:600;color:var(--side-ink)">contact@leon-app.fr</a>
+          <span style="font-size:13.5px;color:var(--side-mute)">Lille, France</span>
+        </div>
+      </div>
+
+      <form style="display:flex;flex-direction:column;gap:18px" onsubmit="return false">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div class="field">
+            <label for="c-name">Nom</label>
+            <input id="c-name" type="text" placeholder="Votre nom">
+          </div>
+          <div class="field">
+            <label for="c-email">Email</label>
+            <input id="c-email" type="email" placeholder="vous@exemple.fr">
+          </div>
+        </div>
+        <div class="field">
+          <label for="c-resto">Établissement</label>
+          <input id="c-resto" type="text" placeholder="Nom de votre restaurant">
+        </div>
+        <div class="field">
+          <label for="c-msg">Message</label>
+          <textarea id="c-msg" rows="4" placeholder="Dites-nous en un peu plus sur votre besoin"></textarea>
+        </div>
+        <button type="submit" class="btn btn-brass" style="align-self:flex-start">Envoyer</button>
+      </form>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:var(--side-2)">
+    <div style="max-width:1200px;margin:0 auto;padding:28px 32px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+      <img src="/_blob/ded69897cda8c9c00fcd7695e047e57d" alt="Léon" style="height:19px;width:auto;opacity:.82;display:block">
+      <div style="display:flex;flex-wrap:wrap;gap:24px">
+        <a class="navlink" href="#presentation">Présentation</a>
+        <a class="navlink" href="#pourquoi">Pourquoi Léon</a>
+        <a class="navlink" href="#histoire">Qui sommes-nous</a>
+        <a class="navlink" href="#tarifs">Tarifs</a>
+        <a class="navlink" href="#contact">Contact</a>
+      </div>
+      <span style="font-size:12.5px;color:var(--side-mute)">© 2026 Léon</span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
