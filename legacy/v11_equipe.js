@@ -343,3 +343,23 @@ Object.assign(ACT,{
     const ev=ensureEv(E.emp,E.iso);ev.splice(0,ev.length,...evFromSegs(segs));hokSet(E.emp,E.iso,'fix',$('#hok-m').value);UI.hokEdit=null;closeModal();renderView();toast('Heures corrigées','check');},
   'hok-go'(){const f=UI.hokOk;UI.hokOk=null;const m=($('#hok-m')||{}).value;closeModal();if(f){f(m);save();}renderView();toast('C’est corrigé','check');},
 });
+
+/* ---------- 4. accueil borne : accès rapide depuis l'écran de badge ---------- */
+const KIOSK_TILES=[
+  {v:'hygiene',l:'Hygiène',i:'thermo'},
+  {v:'recettes',l:'Recettes',i:'chef'},
+  {v:'planning',l:'Mon planning',i:'calendar'},
+];
+function kioskTilesHTML(){
+  const tiles=KIOSK_TILES.filter(x=>navItems().some(n=>n.v===x.v));
+  if(!tiles.length)return '';
+  return `<div class="who" style="margin-top:20px">${T('Accès rapide')}</div><div class="badge-acts">${tiles.map(x=>`<button class="btn demo-link big block" data-act="badge-goto" data-v="${x.v}">${ic(x.i)} ${T(x.l)}</button>`).join('')}</div>`;
+}
+{const f=badgeHTML;badgeHTML=function(){
+  const html=f();
+  if(U.screen!=='badge'||!U.empId)return html;
+  return html.replace('<div class="row"', kioskTilesHTML()+'<div class="row"');
+};}
+Object.assign(ACT,{
+  'badge-goto'(t){U.badgeMsg=null;U.screen='app';go(t.dataset.v);},
+});
