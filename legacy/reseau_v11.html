@@ -9384,17 +9384,14 @@ function borneFaces(R){
 function borneWho(R){
   const e=(R.emp||[]).find(x=>x.id===BORNE.who);if(!e){BORNE.who=null;return '';}
   return withCtx(R,()=>{
-    const acts=nextActions(e.id);const sh=todayShifts(e.id);const st=presence(e.id);
-    const act=BORNE.act||(acts.length===1?acts[0]:null);
-    const choose=!act?`<div class="bw-acts">${acts.map(a=>`<button class="btn launch big block" data-act="borne-act" data-t="${a}">${ic(PT[a].ic)} ${T(PT[a].l)}</button>`).join('')}</div>`:'';
-    const pad=act?`<div class="bw-do"><span class="pill ok">${ic(PT[act].ic,'s')} ${T(PT[act].s)}</span></div><h1>${T('Tape ton code')}</h1>${pinPadHTML()}`:'';
+    const sh=todayShifts(e.id);const st=presence(e.id);
     return `<div class="stage"><div class="lock bw" style="width:min(460px,100%)">
       <div class="bw-av">${avatar(e,'xl')}</div>
       <div class="wordmark bw-n">${esc(e.prenom)}</div>
       <p class="sub">${sh.length?sh.map(x=>x.s+'–'+x.e).join(' · '):T('Pas de service prévu aujourd’hui')} · ${esc(T(st.l))}</p>
-      ${choose}${pad}
+      <h1>${T('Tape ton code')}</h1>${pinPadHTML()}
       <div class="row" style="justify-content:center;margin-top:16px"><button class="btn demo-link" data-act="borne-back">${ic('chevL','s')} ${T('Retour')}</button></div>
-      ${act&&typeof demoCodesHTML==='function'?`<div data-noi18n style="width:100%">${demoCodesHTML()}</div>`:''}
+      ${typeof demoCodesHTML==='function'?`<div data-noi18n style="width:100%">${demoCodesHTML()}</div>`:''}
     </div></div>`;
   });
 }
@@ -9407,7 +9404,7 @@ function borneWho(R){
   const sec=`<div class="bfaces"><div class="bf-h"><b>${T('Qui es-tu ?')}</b><span>${T('Touche ta photo')}</span></div><div class="bf-grid">${faces.map(({e,st})=>`<button class="bf" data-act="borne-who" data-id="${e.id}">${withCtx(R,()=>avatar(e,'xl'))}<b>${esc(e.prenom)}</b><small class="pill ${st.tone}">${st.tone?'<span class="dot"></span>':''}${esc(st.l)}</small>${st.d?`<small class="bf-d">${esc(st.d)}</small>`:''}</button>`).join('')}</div><div class="bf-or">${T('Autre personne')} : ${T('Tape ton code').toLowerCase()}</div></div>`;
   return h.replace(/<h1>Tape ton code<\/h1>\s*<p class="sub">Pour pointer ou ouvrir ton espace\.<\/p>/,sec);
 };}
-{const f=lock;lock=function(){BORNE.who=null;BORNE.act=null;return f.apply(this,arguments);};}
+{const f=lock;lock=function(){BORNE.who=null;return f.apply(this,arguments);};}
 function borneMsg(empId,type,m){
   const e=empById(empId);const sh=todayShifts(empId);const ev=evsOn(empId,TODAY_ISO);
   let t='',s=[],tone='ok';
@@ -9446,18 +9443,16 @@ function borneDo(empId,type){
     const R=NET.restos[U.lockRid];const e=R&&(R.emp||[]).find(x=>x.id===BORNE.who);
     if(!e){BORNE.who=null;return f();}
     if(PIN.buf!==e.code)return pinFail(T('Ce n’est pas ton code.'));
-    const act=BORNE.act||withCtx(R,()=>nextActions(e.id)[0]);
-    PIN.buf='';PIN.ctx=null;
-    U.role=e.acces==='manager'?'manager':'staff';U.empId=e.id;U.rid=R.id;U.viewAs=null;
-    mountFull(R.id);S=R;syncCtx();
-    borneDo(e.id,act);return;
+    PIN.buf='';PIN.ctx=null;BORNE.who=null;
+    U.role=e.acces==='manager'?'manager':'staff';U.empId=e.id;U.rid=R.id;U.viewAs=null;U.badgeMsg=null;
+    mountFull(R.id);S=R;syncCtx();LAST_ACT=Date.now();
+    U.screen='badge';render();return;
   }
   return f();
 };}
 Object.assign(ACT,{
-  'borne-who'(t){BORNE.who=t.dataset.id;BORNE.act=null;PIN.buf='';render();},
-  'borne-act'(t){BORNE.act=t.dataset.t;PIN.buf='';render();},
-  'borne-back'(){BORNE.who=null;BORNE.act=null;PIN.buf='';render();},
+  'borne-who'(t){BORNE.who=t.dataset.id;PIN.buf='';render();},
+  'borne-back'(){BORNE.who=null;PIN.buf='';render();},
   'badge-go'(t){borneDo(U.empId,t.dataset.t);},
 });
 /* le pointage depuis son téléphone : même message, dans sa langue */
