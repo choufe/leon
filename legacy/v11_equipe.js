@@ -361,5 +361,118 @@ function kioskTilesHTML(){
   return html.replace('<div class="row"', kioskTilesHTML()+'<div class="row"');
 };}
 Object.assign(ACT,{
-  'badge-goto'(t){U.badgeMsg=null;U.screen='app';go(t.dataset.v);},
+  'badge-goto'(t){
+    const v=t.dataset.v;U.badgeMsg=null;
+    if(v==='hygiene'||v==='planning'){UI.kiosk={view:v};U.screen='kiosk';render();return;}
+    U.screen='app';go(v);
+  },
+});
+
+/* =========================================================
+   MODE BORNE : écrans dédiés, plein écran, qui ne renvoient
+   jamais vers le site complet. Pensés pour rester ouverts H24
+   sur la tablette du restaurant : gros boutons, peu de texte,
+   et le même verrouillage automatique après inactivité que
+   l'écran de badge.
+   ========================================================= */
+UI.kiosk=null;
+function kioskShellHTML(){
+  if(!UI.kiosk)UI.kiosk={view:'hygiene'};
+  const v=UI.kiosk.view;
+  const title=v==='planning'?T('Mon planning'):T('Hygiène');
+  const body=v==='planning'?kioskPlanningHTML():kioskHygieneHTML();
+  return `<div class="stage kiosk-stage"><div class="kiosk-shell">
+    <header class="kiosk-top"><button class="btn demo-link sm" data-act="kiosk-home">${ic('chevL','s')} ${T('Accueil')}</button><b class="kiosk-title">${esc(title)}</b><span class="clock" data-clock>${hhmm(nowMin())}</span></header>
+    <div class="kiosk-body">${body}</div>
+  </div></div>`;
+}
+{const f=render;render=function(){
+  if(U.screen==='kiosk'){
+    closeInfo();$('#chat-root').innerHTML='';$('#app').innerHTML=kioskShellHTML();
+    return;
+  }
+  return f.apply(this,arguments);
+};}
+/* même filet de sécurité qu'en mode badge : personne ne reste dessus H24 */
+setInterval(()=>{if(U.screen==='kiosk'&&!MODAL&&Date.now()-LAST_ACT>180e3)lock();},3000);
+
+/* ---------- Mon planning (lecture seule, très simple) ---------- */
+function kioskPlanningHTML(){
+  const e=empById(U.empId);if(!e)return `<p class="faint">${T('Compte introuvable.')}</p>`;
+  const rows=[0,1,2,3,4,5,6].map(d=>{
+    const date=addDays(MON0,d);const iso=isoD(date);const today=iso===TODAY_ISO;
+    const sh=empShifts(U.empId,0,d);const closed=isClosed(d);
+    const body=closed?`<span class="faint">${T('Fermé')}</span>`:sh.length?sh.map(x=>`<span class="pill ok">${esc(x.s)}–${esc(x.e)}</span>`).join(' '):`<span class="faint">${T('Repos')}</span>`;
+    return `<div class="kiosk-day ${today?'today':''}"><div class="kiosk-day-h">${ic('calendar','s')} ${JC[d]} ${date.getDate()}${today?` <span class="pill info">${T('Aujourd’hui')}</span>`:''}</div><div class="kiosk-day-b">${body}</div></div>`;
+  }).join('');
+  return `<p class="sub" style="margin:0 0 14px">${T('Ta semaine,')} ${esc(e.prenom)}.</p>${rows}`;
+}
+
+/* ---------- Hygiène : tâches, produit ouvert (photo), étiquette ---------- */
+function kioskTaskItemHTML(L,iso,i,it){
+  const done=!!tkDoneOf(iso,L.id).items[i];
+  return `<button class="kiosk-item ${done?'done':''}" data-act="kiosk-tk-tick" data-l="${L.id}" data-i="${i}"><span class="kiosk-check">${done?ic('check','s'):''}</span><span>${ic(it.ic,'s')} ${esc(it.t)}</span></button>`;
+}
+function kioskTasksHTML(){
+  const iso=TODAY_ISO;const L=tasksOf().filter(x=>tkAssign(x,iso).length);
+  if(!L.length)return `<p class="faint">${T('Aucune liste pour aujourd’hui.')}</p>`;
+  return L.map(x=>{
+    const p=tkProgress(x,iso);const st=tkState(x,iso);
+    return `<div class="panel kiosk-tasklist ${st.k}" style="margin-bottom:14px"><div class="panel-h"><h3>${ic((TK_MOMENTS[x.moment]||{}).i||'check','s')} ${esc(x.n)}</h3><span class="pill ${st.tone||''}">${p.k}/${p.n}</span></div><div class="panel-b">${x.items.map((it,i)=>kioskTaskItemHTML(x,iso,i,it)).join('')}</div></div>`;
+  }).join('');
+}
+function kioskLotCard(lot){
+  const eff=lotEffDlc(lot);const expired=eff&&eff<TODAY_ISO;const soon=eff&&!expired&&eff<=isoD(addDays(TODAY,1));
+  const ph=photoOf('lot_'+lot.id);
+  return `<div class="kiosk-lot">${ph?`<img class="kiosk-lot-ph" src="${ph}" alt="">`:`<span class="kiosk-lot-ph ph-empty">${ic('camera')}</span>`}
+   <div class="kiosk-lot-b"><b>${esc(lot.nom)}</b><span class="pill ${expired?'bad':soon?'warn':'ok'}">${T('à consommer avant le')} ${eff?frLongDate(eff):'—'}</span></div>
+   <div class="kiosk-lot-acts"><button class="btn sm" data-act="kiosk-lot-print" data-id="${lot.id}">${ic('print','s')} ${T('Étiquette')}</button><button class="icon-btn" data-act="kiosk-lot-del" data-id="${lot.id}" aria-label="${T('Retirer')}">${ic('trash','s')}</button></div></div>`;
+}
+function kioskHygieneHTML(){
+  if(!S.hyg)S.hyg={equip:defaultHygEquip(),temps:[],lots:[]};
+  const lots=(S.hyg.lots||[]).filter(l=>l.statut==='ouvert').sort((a,b)=>(lotEffDlc(a)||'9999').localeCompare(lotEffDlc(b)||'9999'));
+  return `<h2 class="kiosk-h2">${ic('check','s')} ${T('Tâches importantes')}</h2>${kioskTasksHTML()}
+   <h2 class="kiosk-h2" style="margin-top:22px">${ic('camera','s')} ${T('Produits ouverts')}</h2>
+   <button class="btn launch big block" data-act="kiosk-lot-new" style="margin-bottom:14px">${ic('camera','s')} ${T('Photo d’un produit qu’on vient d’ouvrir')}</button>
+   <div class="kiosk-lots">${lots.length?lots.map(kioskLotCard).join(''):`<p class="faint">${T('Aucun produit ouvert suivi pour l’instant.')}</p>`}</div>
+   <h2 class="kiosk-h2" style="margin-top:22px">${ic('tag','s')} ${T('Étiquette rapide')}</h2>
+   <div class="field"><label for="kq-n">${T('Produit')}</label><input class="inp" id="kq-n" placeholder="${T('Ex. sauce maison')}"></div>
+   <div class="field" style="margin-top:8px"><label for="kq-d">${T('À consommer avant le')}</label><input class="inp" id="kq-d" type="date" value="${isoD(addDays(TODAY,3))}"></div>
+   <button class="btn primary big block" data-act="kiosk-quick-print" style="margin-top:12px">${ic('print','s')} ${T('Imprimer l’étiquette')}</button>`;
+}
+Object.assign(ACT,{
+  'kiosk-home'(){UI.kiosk=null;U.screen='badge';render();},
+  'kiosk-tk-tick'(t){
+    const L=tasksOf().find(x=>x.id===t.dataset.l);if(!L)return;const i=+t.dataset.i;const iso=TODAY_ISO;
+    const on=!tkDoneOf(iso,L.id).items[i];tkMark(L,i,on);save();render();
+    if(on&&tkProgress(L,iso).done)toast(`${esc(L.n)} : ${T('Tout est fait')}`,'check');
+  },
+  'kiosk-lot-new'(){
+    const inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.setAttribute('capture','environment');inp.style.display='none';document.body.appendChild(inp);
+    inp.onchange=async()=>{
+      const f=inp.files&&inp.files[0];inp.remove();if(!f)return;
+      let d;try{d=await imgToDataUrl(f,640,false,0.7);}catch(e){toast('Impossible de lire cette photo','alert');return;}
+      UI.kiosk=UI.kiosk||{};UI.kiosk.photo=d;
+      openModal(`<div class="mh"><div><h3>${T('Produit ouvert')}</h3><p>${T('La photo garde la date de péremption visible, en plus de la date ci-dessous.')}</p></div></div>
+       <img src="${d}" style="width:100%;border-radius:12px;margin-bottom:12px">
+       <div class="field"><label for="kl-n">${T('Produit')}</label><input class="inp" id="kl-n" autofocus placeholder="${T('Ex. jambon blanc')}"></div>
+       <div class="field" style="margin-top:8px"><label for="kl-d">${T('À consommer avant le')}</label><input class="inp" id="kl-d" type="date" value="${isoD(addDays(TODAY,3))}"></div>
+       <div class="mf"><button class="btn" data-act="modal-close">${T('Annuler')}</button><button class="btn primary" data-act="kiosk-lot-save">${T('Enregistrer')}</button></div>`,'wide');
+    };
+    inp.click();
+  },
+  'kiosk-lot-save'(){
+    const n=(($('#kl-n')||{}).value||'').trim();if(!n){toast('Indique un produit','alert');return;}
+    const dlc=($('#kl-d')||{}).value||null;const id=uid('lot');
+    S.hyg.lots=[{id,nom:n,dlc,recep:TODAY_ISO,dateOuverture:TODAY_ISO,statut:'ouvert'},...(S.hyg.lots||[])];
+    if(UI.kiosk&&UI.kiosk.photo)photoSet('lot_'+id,UI.kiosk.photo);
+    if(UI.kiosk)UI.kiosk.photo=null;
+    save();closeModal();render();toast(T('Produit enregistré'),'camera');
+  },
+  'kiosk-lot-print'(t){const lot=(S.hyg.lots||[]).find(l=>l.id===t.dataset.id);if(!lot)return;printLabel({nom:lot.nom,dlc:lotEffDlc(lot)});},
+  'kiosk-lot-del'(t){S.hyg.lots=(S.hyg.lots||[]).filter(l=>l.id!==t.dataset.id);save();render();},
+  'kiosk-quick-print'(){
+    const n=(($('#kq-n')||{}).value||'').trim();if(!n){toast('Indique un nom de produit','alert');return;}
+    printLabel({nom:n,dlc:($('#kq-d')||{}).value});
+  },
 });
