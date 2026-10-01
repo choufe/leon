@@ -429,20 +429,62 @@ function kioskLotCard(lot){
    <div class="kiosk-lot-b"><b>${esc(lot.nom)}</b><span class="pill ${expired?'bad':soon?'warn':'ok'}">${T('à consommer avant le')} ${eff?frLongDate(eff):'—'}</span></div>
    <div class="kiosk-lot-acts"><button class="btn sm" data-act="kiosk-lot-print" data-id="${lot.id}">${ic('print','s')} ${T('Étiquette')}</button><button class="icon-btn" data-act="kiosk-lot-del" data-id="${lot.id}" aria-label="${T('Retirer')}">${ic('trash','s')}</button></div></div>`;
 }
-function kioskHygieneHTML(){
-  if(!S.hyg)S.hyg={equip:defaultHygEquip(),temps:[],lots:[]};
+function kioskChoiceHTML(c){
+  const badge=c.badge==null?`<span class="kiosk-choice-go">${ic('chevR','s')}</span>`:c.badge.ok?`<span class="pill ok">${ic('check','s')}</span>`:`<span class="pill ${c.badge.tone||''}">${c.badge.n}</span>`;
+  return `<button class="kiosk-choice" data-act="${c.act}" data-v="${c.v||''}" data-k="${c.k||''}"><span class="kiosk-choice-ic">${ic(c.ic)}</span><span class="kiosk-choice-b"><b>${esc(T(c.t))}</b><small>${esc(T(c.s))}</small></span>${badge}</button>`;
+}
+function kioskBackHTML(act,label){return `<button class="btn demo-link sm" data-act="${act}" style="margin-bottom:14px">${ic('chevL','s')} ${esc(T(label))}</button>`;}
+function kioskHygieneHomeHTML(){
+  const iso=TODAY_ISO;
+  const todo=tasksOf().filter(L=>tkAssign(L,iso).length&&!tkProgress(L,iso).done).length;
+  const openLots=(S.hyg.lots||[]).filter(l=>l.statut==='ouvert').length;
+  const choices=[
+    {act:'kiosk-hyg-go',v:'taches',ic:'check',t:'Entretien du restaurant',s:todo?plur(todo,'tâche à faire avant la fermeture','tâches à faire avant la fermeture'):'Tout est fait pour l’instant',badge:todo?{n:todo,tone:'bad'}:{ok:true}},
+    {act:'kiosk-hyg-go',v:'etiquetage',ic:'tag',t:'Étiquetage',s:'Une étiquette en un clic, par catégorie de produit'},
+    {act:'kiosk-hyg-go',v:'ouverts',ic:'camera',t:'Produits ouverts',s:openLots?plur(openLots,'produit suivi en ce moment','produits suivis en ce moment'):'Photo + date à l’ouverture d’un produit',badge:openLots?{n:openLots}:null},
+  ];
+  return `<div class="kiosk-choices">${choices.map(kioskChoiceHTML).join('')}</div>`;
+}
+function kioskTachesHTML(){
+  return kioskBackHTML('kiosk-hyg-home','Hygiène')+`<h2 class="kiosk-h2">${ic('check','s')} ${T('Entretien du restaurant')}</h2>${kioskTasksHTML()}`;
+}
+function kioskOuvertsHTML(){
   const lots=(S.hyg.lots||[]).filter(l=>l.statut==='ouvert').sort((a,b)=>(lotEffDlc(a)||'9999').localeCompare(lotEffDlc(b)||'9999'));
-  return `<h2 class="kiosk-h2">${ic('check','s')} ${T('Tâches importantes')}</h2>${kioskTasksHTML()}
-   <h2 class="kiosk-h2" style="margin-top:22px">${ic('camera','s')} ${T('Produits ouverts')}</h2>
+  return kioskBackHTML('kiosk-hyg-home','Hygiène')+`<h2 class="kiosk-h2">${ic('camera','s')} ${T('Produits ouverts')}</h2>
    <button class="btn launch big block" data-act="kiosk-lot-new" style="margin-bottom:14px">${ic('camera','s')} ${T('Photo d’un produit qu’on vient d’ouvrir')}</button>
-   <div class="kiosk-lots">${lots.length?lots.map(kioskLotCard).join(''):`<p class="faint">${T('Aucun produit ouvert suivi pour l’instant.')}</p>`}</div>
-   <h2 class="kiosk-h2" style="margin-top:22px">${ic('tag','s')} ${T('Étiquette rapide')}</h2>
+   <div class="kiosk-lots">${lots.length?lots.map(kioskLotCard).join(''):`<p class="faint">${T('Aucun produit ouvert suivi pour l’instant.')}</p>`}</div>`;
+}
+function kioskEtiquetageHTML(){
+  const zone=UI.kiosk.etqZone;
+  const back=kioskBackHTML('kiosk-hyg-home','Hygiène');
+  if(zone&&INV_ZONES[zone]){
+    const items=invItems(zone);
+    return back+`<button class="btn demo-link sm" data-act="kiosk-etq-zone" data-k="" style="margin-bottom:14px">${ic('chevL','s')} ${T('Catégories')}</button>
+     <h2 class="kiosk-h2">${ic(INV_ZONES[zone].i,'s')} ${T(INV_ZONES[zone].l)}</h2>
+     <div class="kiosk-tags">${items.length?items.map(i=>`<button class="kiosk-tag" data-act="kiosk-tag-print" data-id="${i.id}">${ic('tag','s')}<b>${esc(i.n)}</b></button>`).join(''):`<p class="faint">${T('Aucun produit dans cette catégorie.')}</p>`}</div>`;
+  }
+  const zones=Object.keys(INV_ZONES).map(k=>({k,items:invItems(k)})).filter(x=>x.items.length);
+  return back+`<h2 class="kiosk-h2">${ic('tag','s')} ${T('Étiquetage')}</h2><p class="sub" style="margin:0 0 14px">${T('Choisis la catégorie, puis le produit : l’étiquette part direct à l’imprimante.')}</p>
+   ${zones.length?`<div class="kiosk-choices">${zones.map(({k,items})=>kioskChoiceHTML({act:'kiosk-etq-zone',k,ic:INV_ZONES[k].i,t:INV_ZONES[k].l,s:plur(items.length,'produit')})).join('')}</div>`:`<p class="faint">${T('Pas encore de produits en stock.')}</p>`}
+   <h2 class="kiosk-h2" style="margin-top:22px">${ic('edit','s')} ${T('Autre produit')}</h2>
    <div class="field"><label for="kq-n">${T('Produit')}</label><input class="inp" id="kq-n" placeholder="${T('Ex. sauce maison')}"></div>
    <div class="field" style="margin-top:8px"><label for="kq-d">${T('À consommer avant le')}</label><input class="inp" id="kq-d" type="date" value="${isoD(addDays(TODAY,3))}"></div>
    <button class="btn primary big block" data-act="kiosk-quick-print" style="margin-top:12px">${ic('print','s')} ${T('Imprimer l’étiquette')}</button>`;
 }
+function kioskHygieneHTML(){
+  if(!S.hyg)S.hyg={equip:defaultHygEquip(),temps:[],lots:[]};
+  const sub=UI.kiosk.hyg;
+  if(sub==='taches')return kioskTachesHTML();
+  if(sub==='etiquetage')return kioskEtiquetageHTML();
+  if(sub==='ouverts')return kioskOuvertsHTML();
+  return kioskHygieneHomeHTML();
+}
 Object.assign(ACT,{
   'kiosk-home'(){UI.kiosk=null;U.screen='badge';render();},
+  'kiosk-hyg-home'(){UI.kiosk.hyg=null;UI.kiosk.etqZone=null;render();},
+  'kiosk-hyg-go'(t){UI.kiosk.hyg=t.dataset.v;UI.kiosk.etqZone=null;render();},
+  'kiosk-etq-zone'(t){UI.kiosk.etqZone=t.dataset.k||null;render();},
+  'kiosk-tag-print'(t){const i=ING(t.dataset.id);if(!i)return;printLabel({nom:i.n,dlc:isoD(addDays(TODAY,3))});toast(`${T('Étiquette')} ${esc(i.n)}`,'tag');},
   'kiosk-tk-tick'(t){
     const L=tasksOf().find(x=>x.id===t.dataset.l);if(!L)return;const i=+t.dataset.i;const iso=TODAY_ISO;
     const on=!tkDoneOf(iso,L.id).items[i];tkMark(L,i,on);save();render();

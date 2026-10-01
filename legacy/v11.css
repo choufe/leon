@@ -401,3 +401,13 @@ body.cook-on{overflow:hidden}
 .kiosk-day-h{display:flex;align-items:center;gap:8px;font-weight:650}
 .kiosk-day-b{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 @media (max-width:640px){.kiosk-body{padding:14px}.kiosk-top{padding:12px 14px}}
+.kiosk-choices{display:flex;flex-direction:column;gap:10px}
+.kiosk-choice{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:1px solid var(--line-2);background:var(--surface);border-radius:14px;padding:1rem 1.1rem}
+.kiosk-choice-ic{width:42px;height:42px;border-radius:12px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;flex:none;color:var(--ink-2)}
+.kiosk-choice-b{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kiosk-choice-b b{font-size:15.5px}
+.kiosk-choice-b small{color:var(--ink-3);font-size:12.5px}
+.kiosk-choice-go{color:var(--ink-3)}
+.kiosk-tags{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+.kiosk-tag{display:flex;flex-direction:column;align-items:center;gap:6px;border:1px solid var(--line-2);background:var(--surface);border-radius:12px;padding:16px 10px;font-size:13.5px;font-weight:650;text-align:center}
+.kiosk-tag:active{background:var(--hover)}
