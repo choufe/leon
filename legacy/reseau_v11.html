@@ -9696,12 +9696,13 @@ Object.assign(ACT,{
 
 /* ---------- 4. accueil borne : accès rapide depuis l'écran de badge ---------- */
 const KIOSK_TILES=[
+  {v:'dispo',l:'Disponibilités',i:'flame'},
   {v:'hygiene',l:'Hygiène',i:'thermo'},
-  {v:'recettes',l:'Recettes',i:'chef'},
   {v:'planning',l:'Mon planning',i:'calendar'},
 ];
+const KIOSK_NAV_MAP={dispo:'service'};
 function kioskTilesHTML(){
-  const tiles=KIOSK_TILES.filter(x=>navItems().some(n=>n.v===x.v));
+  const tiles=KIOSK_TILES.filter(x=>navItems().some(n=>n.v===(KIOSK_NAV_MAP[x.v]||x.v)));
   if(!tiles.length)return '';
   return `<div class="who" style="margin-top:20px">${T('Accès rapide')}</div><div class="badge-acts">${tiles.map(x=>`<button class="btn demo-link big block" data-act="badge-goto" data-v="${x.v}">${ic(x.i)} ${T(x.l)}</button>`).join('')}</div>`;
 }
@@ -9713,7 +9714,7 @@ function kioskTilesHTML(){
 Object.assign(ACT,{
   'badge-goto'(t){
     const v=t.dataset.v;U.badgeMsg=null;
-    if(v==='hygiene'||v==='planning'){UI.kiosk={view:v};U.screen='kiosk';render();return;}
+    if(v==='hygiene'||v==='planning'||v==='dispo'){UI.kiosk={view:v};U.screen='kiosk';render();return;}
     U.screen='app';go(v);
   },
 });
@@ -9729,8 +9730,8 @@ UI.kiosk=null;
 function kioskShellHTML(){
   if(!UI.kiosk)UI.kiosk={view:'hygiene'};
   const v=UI.kiosk.view;
-  const title=v==='planning'?T('Mon planning'):T('Hygiène');
-  const body=v==='planning'?kioskPlanningHTML():kioskHygieneHTML();
+  const title=v==='planning'?T('Mon planning'):v==='dispo'?T('Disponibilités'):T('Hygiène');
+  const body=v==='planning'?kioskPlanningHTML():v==='dispo'?kioskDispoHTML():kioskHygieneHTML();
   return `<div class="stage kiosk-stage"><div class="kiosk-shell">
     <header class="kiosk-top"><button class="btn demo-link sm" data-act="kiosk-home">${ic('chevL','s')} ${T('Accueil')}</button><b class="kiosk-title">${esc(title)}</b><span class="clock" data-clock>${hhmm(nowMin())}</span></header>
     <div class="kiosk-body">${body}</div>
@@ -9824,6 +9825,44 @@ Object.assign(ACT,{
   'kiosk-quick-print'(){
     const n=(($('#kq-n')||{}).value||'').trim();if(!n){toast('Indique un nom de produit','alert');return;}
     printLabel({nom:n,dlc:($('#kq-d')||{}).value});
+  },
+});
+
+/* ---------- Disponibilités : ce qu'il reste de chaque plat, en direct ---------- */
+function kioskDispoCard(r){
+  const {d,off,tracked,low}=dispoOf(r);
+  return `<article class="pc2 ${off?'off':low?'low':''}">${recThumb(r)}
+   <div class="pc2-b"><div class="pc2-t"><b>${esc(r.n)}</b></div>
+    <div class="pc2-c"><button class="pc2-num ${tracked||off?'':'inf'}" data-act="kiosk-dispo-set" data-id="${r.id}">${off?'0':tracked?d.n:'∞'}</button><span class="pc2-l ${off?'bad':low?'warn':''}">${off?T('Épuisé'):tracked?(low?T('Bientôt épuisé'):T('restants')):T('Pas de limite')}</span></div>
+    <div class="pc2-a">
+     <button class="btn pc2-m" data-act="kiosk-dispo-minus" data-id="${r.id}" aria-label="${T('Un de moins')}" ${!tracked||off?'disabled':''}>−</button>
+     <button class="btn pc2-m" data-act="kiosk-dispo-plus" data-id="${r.id}" aria-label="${T('Un de plus')}" ${!tracked&&!off?'disabled':''}>+</button>
+     <button class="btn pc2-off ${off?'on':''}" data-act="kiosk-dispo-off" data-id="${r.id}">${off?ic('refresh','s')+' '+T('Remettre'):ic('x','s')+' '+T('Épuisé')}</button>
+    </div>
+    ${d.by?`<small class="pc2-by" data-noi18n>${esc(d.by)} · ${hhmm(d.at||0)}</small>`:''}
+   </div></article>`;
+}
+function kioskDispoHTML(){
+  const recs=S.recipes.filter(r=>r.t!=='prep');
+  if(!recs.length)return `<p class="faint">${T('Pas encore de carte.')}</p>`;
+  return `<p class="sub" style="margin:0 0 14px">${T('Touche « Épuisé » quand il n’y en a plus : toute l’équipe le voit tout de suite, sur toutes les tablettes.')}</p><div class="pc2-grid">${recs.map(kioskDispoCard).join('')}</div>`;
+}
+Object.assign(ACT,{
+  'kiosk-dispo-minus'(t){const id=t.dataset.id;const d=S.dispo[id];if(!d||d.n==null)return;touchDispo(id,{n:d.n-1});save();render();},
+  'kiosk-dispo-plus'(t){const id=t.dataset.id;const d=S.dispo[id]||{};const n=(d.n==null?0:d.n)+1;touchDispo(id,{n,off:false});save();render();},
+  'kiosk-dispo-off'(t){
+    const id=t.dataset.id;const d=S.dispo[id]||{};const off=!(d.off||d.n===0);
+    touchDispo(id,off?{off:true,n:d.n!=null?0:null}:{off:false,n:null});save();render();
+    toast(off?`${esc(REC(id).n)} : ${T('épuisé sur toutes les tablettes')}`:`${esc(REC(id).n)} ${T('de nouveau disponible')}`,off?'x':'check');
+  },
+  'kiosk-dispo-set'(t){
+    const id=t.dataset.id;const r=REC(id);const d=S.dispo[id]||{};
+    openModal(`<div class="mh"><div><h3>${esc(r.n)}</h3><p>${T('Combien il en reste ? Toutes les tablettes verront le nouveau chiffre.')}</p></div></div><div class="field"><label for="kds-n">${T('Portions restantes')}</label><input class="inp" id="kds-n" type="number" min="0" value="${d.n!=null?d.n:''}" placeholder="${T('Laisse vide = pas de limite')}" style="max-width:200px;font-size:20px;font-weight:650" autofocus></div><div class="mf"><button class="btn" data-act="modal-close">${T('Annuler')}</button><button class="btn primary" data-act="kiosk-dispo-save" data-id="${id}">${T('Enregistrer')}</button></div>`,'narrow');
+  },
+  'kiosk-dispo-save'(t){
+    const id=t.dataset.id;const v=(($('#kds-n')||{}).value||'').trim();
+    if(v==='')touchDispo(id,{n:null,off:false});else{const n=Math.max(0,parseInt(v)||0);touchDispo(id,{n,off:n===0});}
+    save();closeModal();render();
   },
 });
 
