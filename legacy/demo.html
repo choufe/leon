@@ -5046,7 +5046,14 @@ function viewService(){
   return `<div class="ph"><div><h1>Service en direct</h1><p class="sub">Ce qu’il reste de chaque plat, partagé sur toutes les tablettes. Chaque ticket encaissé dans L’Addition fait baisser le compteur et le stock tout seul.</p></div><div class="acts">${connected?`<span class="pill ok"><span class="dot"></span>Caisse ${esc(S.caisse.provider)} connectée</span>`:''}${can.board?`<button class="btn" data-act="mep">${ic('list','s')} Mise en place</button>`:''}</div></div>
   <div class="grid2"><div>${ard}</div><div class="stack">${feed}</div></div>`;
 }
-async function boot(){STORE.mode='demo';seedDemo();U.screen='landing';render();}
+async function boot(){
+  STORE.mode='demo';seedDemo();
+  // Raccourci /leon/demo.html?tablette=1 : saute direct sur l'écran de la
+  // tablette du Petit Beffroi (photo/code), pour tester le mode borne en
+  // un tap depuis un lien, sans passer par la page d'accueil de la démo.
+  if(new URLSearchParams(location.search).has('tablette')){U.screen='login';doLogin('petit-beffroi','beffroi26',false);return;}
+  U.screen='landing';render();
+}
 Object.assign(ACT,{
  'demo-start'(){U.screen='login';render();window.scrollTo({top:0});},
  'demo-login'(t){$('#lg-id').value=t.dataset.id;$('#lg-pass').value=t.dataset.pass;const err=doLogin(t.dataset.id,t.dataset.pass,false);if(err)$('#lg-err').textContent=err;},

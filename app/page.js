@@ -16,6 +16,8 @@ export default function Home() {
         <p className="links">
           <a href="/leon/demo.html">Voir la démo (Petit Beffroi)</a>
           {" · "}
+          <a href="/leon/demo.html?tablette=1">📱 Tester le mode borne (tablette)</a>
+          {" · "}
           <Link href="/inscription">Créer un compte</Link>
         </p>
       </div>
