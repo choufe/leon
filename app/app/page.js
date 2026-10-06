@@ -29,8 +29,26 @@ export default function LeonApp() {
         return;
       }
       db = createLeonDb(supabase, orgId);
+      // "Demander à Léon" : passe par /api/ask (clé Claude côté serveur).
+      const ask = async (turns, opts = {}) => {
+        const { data: sess } = await supabase.auth.getSession();
+        const r = await fetch("/api/ask", {
+          method: "POST",
+          signal: opts.signal,
+          headers: { "content-type": "application/json", authorization: `Bearer ${sess.session?.access_token || ""}` },
+          body: JSON.stringify({ turns }),
+        });
+        const out = await r.json().catch(() => ({}));
+        if (!r.ok) {
+          const e = new Error(out.error || "Erreur");
+          e.code = out.code || "unavailable";
+          throw e;
+        }
+        if (opts.onText) opts.onText({ text: out.text });
+        return { text: out.text };
+      };
       window.__leonClaude = {
-        use: async (name) => (name === "db" ? db : null),
+        use: async (name) => (name === "db" ? db : name === "sample" ? ask : null),
       };
       setReady(true);
     })();
