@@ -19,6 +19,12 @@ Premier usage réel prévu : en privé, dans le restaurant de son beau-père. Pa
 - `npm run build` pour vérifier que ça compile avant un push.
 - Déploiement : le repo est connecté à Vercel, chaque push sur `main` redéploie. Variables d'environnement à renseigner aussi dans Vercel.
 
+## Mises à jour (MAJ) et push
+- Maurice parle en **mises à jour**. Numérotation : `11.00` = point de départ (ex-V11) ; petites tâches = `11.01`, `11.02`… ; quand un gros chapitre est terminé, on passe à `12.00`.
+- **Je push tout, tout le temps** (autorisation de Maurice) sur la branche de travail de la session, après vérification (`npm run build` si le code a changé). Pas besoin de redemander.
+- Une MAJ terminée = entrée dans `MAJ.md` (la plus récente en haut) + **résumé en langage simple** pour Maurice (ce qui change, comment tester, ce qui reste).
+- Passage en ligne (fusion dans `main` → redéploiement Vercel) : à la validation de Maurice, MAJ par MAJ. Migrations Supabase et suppressions de données : toujours confirmer avant.
+
 ## Règles de travail
 - Petits changements, testables. Vérifier que ça marche (lancer l'app, `npm run build`) avant de dire que c'est fini.
 - Toujours confirmer avec Maurice avant : de pousser sur `main`, de modifier la base Supabase (migrations), ou de supprimer des données.
