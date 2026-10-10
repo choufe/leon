@@ -20,9 +20,9 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 ## Deux versions de Léon
 - 📋 **Officielle** (Irish Corner) : vraies données, on n'y touche que par MAJ validées.
 - 📋 **Test / démo** : resto fictif avec fausses données, pour simuler et montrer Léon à d'autres restaurateurs. Même code que l'officielle, données séparées.
-  - 💡 Bouton « remettre à zéro » avant chaque présentation.
+  - ✅ Bouton « remettre à zéro » avant chaque présentation (11.04).
   - 💡 Scénario guidé de 5 minutes (planning, alertes heures sup, hygiène…).
-  - Plan : 11.03 page d'accueil à deux portes (✅ fait) · 11.04 démo propre (bandeau, remise à zéro) · 11.05 entrée officielle Irish Corner (compte + organisation, accord Maurice avant toute modif de la base).
+  - Plan : 11.03 page d'accueil à deux portes (✅ fait) · 11.04 démo propre (pastille « mode démo » + remise à zéro, ✅ fait) · 11.05 entrée officielle Irish Corner (compte + organisation, accord Maurice avant toute modif de la base).
 
 ## Façon de travailler ensemble
 - ✅ `MAJ.md` : journal des mises à jour + résumé simple à chaque MAJ.

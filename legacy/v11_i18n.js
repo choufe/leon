@@ -116,6 +116,10 @@ const I18N_ROWS=[
  ['Salle','Floor','பரிமாறல்','الصالة','Sala','Sala'],['Cuisine','Kitchen','சமையலறை','المطبخ','Cozinha','Cocina'],['Bar','Bar','பார்','البار','Bar','Barra'],['Plonge','Dishwashing','பாத்திரம் கழுவுதல்','غسل الأطباق','Copa','Friegaplatos'],['Management','Management','நிர்வாகம்','الإدارة','Gestão','Gerencia'],
  /* plats dispo */
  ['Épuisé','Sold out','தீர்ந்துவிட்டது','نفد','Esgotado','Agotado'],
+ ['Mode démo','Demo mode','டெமோ முறை','وضع العرض','Modo demonstração','Modo demostración'],
+ ['Données fictives : rien ne sort de cet appareil.','Fake data: nothing leaves this device.','போலி தரவு: இந்த சாதனத்தை விட்டு எதுவும் வெளியே செல்லாது.','بيانات وهمية: لا شيء يغادر هذا الجهاز.','Dados fictícios: nada sai deste aparelho.','Datos ficticios: nada sale de este dispositivo.'],
+ ['Remettre à zéro','Reset','மீட்டமை','إعادة التعيين','Repor','Restablecer'],
+ ['Effacer tes essais et repartir de la démo d’origine ?','Erase your tests and start again from the original demo?','உங்கள் சோதனைகளை அழித்து அசல் டெமோவிலிருந்து தொடங்கவா?','هل تريد مسح تجاربك والبدء من العرض الأصلي؟','Apagar os teus testes e recomeçar da demonstração original?','¿Borrar tus pruebas y empezar de nuevo desde la demostración original?'],
  ['Épuisés','Sold out','தீர்ந்தவை','نفدت','Esgotados','Agotados'],
  ['Bientôt épuisé','Almost sold out','விரைவில் தீரும்','على وشك النفاد','Quase esgotado','Casi agotado'],
  ['Bientôt','Almost out','விரைவில்','قريبًا','Quase','Casi'],

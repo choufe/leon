@@ -5,6 +5,11 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 11.04 — Démo : pastille « Mode démo » + remise à zéro
+- Dans la démo uniquement : une pastille en haut de l'écran « MODE DÉMO · Données fictives : rien ne sort de cet appareil » avec un bouton **Remettre à zéro** (efface les essais faits sur cet appareil, puis recharge la démo d'origine).
+- Absente de l'app officielle connectée à Supabase.
+- Traduite dans les 6 langues (tamoul à faire relire).
+
 ## 11.03 — Nouvelle page d'accueil : deux portes
 - Accueil simplifié : logo, une phrase, deux gros boutons « Entrer dans mon resto » (→ connexion puis app officielle) et « Essayer la démo » (sans compte).
 - « Mode borne » passe en petit lien en bas ; « Créer un compte » est masqué pour l'instant (la page `/inscription` existe toujours).
