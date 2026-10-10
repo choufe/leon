@@ -9379,6 +9379,10 @@ const I18N_ROWS=[
  ['Salle','Floor','பரிமாறல்','الصالة','Sala','Sala'],['Cuisine','Kitchen','சமையலறை','المطبخ','Cozinha','Cocina'],['Bar','Bar','பார்','البار','Bar','Barra'],['Plonge','Dishwashing','பாத்திரம் கழுவுதல்','غسل الأطباق','Copa','Friegaplatos'],['Management','Management','நிர்வாகம்','الإدارة','Gestão','Gerencia'],
  /* plats dispo */
  ['Épuisé','Sold out','தீர்ந்துவிட்டது','نفد','Esgotado','Agotado'],
+ ['Mode démo','Demo mode','டெமோ முறை','وضع العرض','Modo demonstração','Modo demostración'],
+ ['Données fictives : rien ne sort de cet appareil.','Fake data: nothing leaves this device.','போலி தரவு: இந்த சாதனத்தை விட்டு எதுவும் வெளியே செல்லாது.','بيانات وهمية: لا شيء يغادر هذا الجهاز.','Dados fictícios: nada sai deste aparelho.','Datos ficticios: nada sale de este dispositivo.'],
+ ['Remettre à zéro','Reset','மீட்டமை','إعادة التعيين','Repor','Restablecer'],
+ ['Effacer tes essais et repartir de la démo d’origine ?','Erase your tests and start again from the original demo?','உங்கள் சோதனைகளை அழித்து அசல் டெமோவிலிருந்து தொடங்கவா?','هل تريد مسح تجاربك والبدء من العرض الأصلي؟','Apagar os teus testes e recomeçar da demonstração original?','¿Borrar tus pruebas y empezar de nuevo desde la demostración original?'],
  ['Épuisés','Sold out','தீர்ந்தவை','نفدت','Esgotados','Agotados'],
  ['Bientôt épuisé','Almost sold out','விரைவில் தீரும்','على وشك النفاد','Quase esgotado','Casi agotado'],
  ['Bientôt','Almost out','விரைவில்','قريبًا','Quase','Casi'],
@@ -11235,6 +11239,38 @@ function v11DemoSeed(){
     Tr.liaison=[{id:uid('lia'),ts:at(1,23,50),date:isoD(addDays(TODAY,-1)),svc:'soir',by:'Paul',byId:'paul',cat:'rupture',txt:'Plus de stout en réserve : deux fûts à commander pour la soirée quiz.',read:{}}];}
   const Sa=NET.restos.salon;if(Sa){ensureV11(Sa);Sa.fcst={mode:'auto',zone:'B',vac:0,fer:0,ovr:{}};}
 }
+
+/* =========================================================
+   V11 · DÉMO : pastille « Mode démo » + remise à zéro
+   Visible seulement quand l'app tourne seule dans le navigateur (la démo),
+   jamais dans l'app connectée à Supabase.
+   ========================================================= */
+(function(){
+  if(window.claude&&typeof window.claude.use==='function')return;
+  const KEYS=['leon2:','leon.device'];
+  function reset(){
+    if(!confirm(T('Effacer tes essais et repartir de la démo d’origine ?')))return;
+    try{
+      for(let i=localStorage.length-1;i>=0;i--){
+        const k=localStorage.key(i);
+        if(k&&KEYS.some(p=>k.startsWith(p)))localStorage.removeItem(k);
+      }
+    }catch(e){}
+    location.reload();
+  }
+  function mount(){
+    if(document.getElementById('demo-pill'))return;
+    const css=document.createElement('style');
+    css.textContent='#demo-pill{position:fixed;left:50%;top:8px;transform:translateX(-50%);z-index:99999;display:flex;align-items:center;gap:10px;max-width:calc(100vw - 20px);padding:6px 8px 6px 12px;border-radius:999px;background:#18352B;color:#E6EEE9;font:600 12.5px/1.2 var(--f-ui,system-ui,sans-serif);box-shadow:0 6px 20px rgba(0,0,0,.35);opacity:.94}#demo-pill b{white-space:nowrap;color:#E9C47A;letter-spacing:.04em;text-transform:uppercase;font-size:11.5px}#demo-pill span{opacity:.8;font-weight:500}#demo-pill button{border:0;border-radius:999px;padding:6px 12px;background:#E9C47A;color:#18352B;font:700 12.5px var(--f-ui,system-ui,sans-serif);cursor:pointer;white-space:nowrap}@media (max-width:640px){#demo-pill span{display:none}}';
+    document.head.appendChild(css);
+    const p=document.createElement('div');
+    p.id='demo-pill';p.setAttribute('role','status');
+    p.innerHTML='<b>'+T('Mode démo')+'</b><span>'+T('Données fictives : rien ne sort de cet appareil.')+'</span><button type="button">'+T('Remettre à zéro')+'</button>';
+    p.querySelector('button').addEventListener('click',reset);
+    document.body.appendChild(p);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
+})();
 
 /* ---------- V7 : tableaux → cartes sur mobile (générique, sans toucher chaque vue) ---------- */
 function mcardify(){

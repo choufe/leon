@@ -38,7 +38,7 @@ def build(name, out, demo_patch=None):
     for f in WRAP:
         t = last_fn(src, f)
         copies.append(t.replace('function ' + f + '(', 'function ' + f + '__v7(', 1))
-    js = '\n'.join(open(D + p).read() for p in ['v8_core.js', 'v8_stats.js', 'v8_infos.js', 'v8_glue.js', 'v9_apps.js', 'v9_plan_data.js', 'v9_plan_view.js', 'v9_plan_act.js', 'v9_equipe.js', 'v9_demo.js', 'v10_lisible.js', 'v11_core.js', 'v11_i18n.js', 'v11_service.js', 'v11_equipe.js', 'v11_hygiene.js', 'v11_cuisine.js', 'v11_chiffres.js', 'v11_setup.js', 'v11_home.js', 'v11_demo.js'])
+    js = '\n'.join(open(D + p).read() for p in ['v8_core.js', 'v8_stats.js', 'v8_infos.js', 'v8_glue.js', 'v9_apps.js', 'v9_plan_data.js', 'v9_plan_view.js', 'v9_plan_act.js', 'v9_equipe.js', 'v9_demo.js', 'v10_lisible.js', 'v11_core.js', 'v11_i18n.js', 'v11_service.js', 'v11_equipe.js', 'v11_hygiene.js', 'v11_cuisine.js', 'v11_chiffres.js', 'v11_setup.js', 'v11_home.js', 'v11_demo.js', 'v11_demo_banner.js'])
     js = '/* copies des versions précédentes, enveloppées par la V8 */\n' + '\n'.join(copies) + '\n' + js + '\n'
     css = open(D + 'v8.css').read() + open(D + 'v9.css').read() + open(D + 'v10.css').read() + open(D + 'v11.css').read()
     for a, b in [('const CAN=()=>{', 'let CAN=()=>{'), ("const avatar=(p,cls='')=>", "let avatar=(p,cls='')=>"), ('const prevOf=d=>', 'let prevOf=d=>'),
