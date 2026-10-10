@@ -25,6 +25,8 @@ Premier usage réel prévu : en privé, dans le restaurant de son beau-père. Pa
 - Une MAJ terminée = entrée dans `MAJ.md` (la plus récente en haut) + **résumé en langage simple** pour Maurice (ce qui change, comment tester, ce qui reste).
 - Passage en ligne (fusion dans `main` → redéploiement Vercel) : à la validation de Maurice, MAJ par MAJ. Migrations Supabase et suppressions de données : toujours confirmer avant.
 
+- **Mémoire entre sessions** : au début d'une session, lire `IDEES.md` et `MAJ.md`. Quand Maurice donne une idée ou prend une décision, la noter en quelques lignes dans `IDEES.md` (pas la conversation entière) et la pousser.
+
 ## Règles de travail
 - Petits changements, testables. Vérifier que ça marche (lancer l'app, `npm run build`) avant de dire que c'est fini.
 - Toujours confirmer avec Maurice avant : de pousser sur `main`, de modifier la base Supabase (migrations), ou de supprimer des données.
