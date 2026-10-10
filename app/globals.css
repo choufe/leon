@@ -78,3 +78,35 @@ img.logo {
   margin: 0 auto 28px;
 }
 .card img.logo { margin: 0 0 18px; width: 160px; }
+
+/* Page d'accueil : une phrase, deux portes */
+.home { text-align: center; padding-top: 64px; }
+.home img.logo { width: 200px; margin-bottom: 18px; }
+.tagline {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: 26px;
+  color: var(--cream);
+  margin: 0 0 10px;
+}
+.home .sub { margin-bottom: 32px; }
+.door {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-align: left;
+  padding: 18px 20px;
+  margin-bottom: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: var(--card);
+  color: var(--cream);
+  text-decoration: none;
+}
+.door:hover, .door:focus-visible { border-color: var(--gold); }
+.door-main { background: var(--gold); color: #1a1a1a; border-color: var(--gold); }
+.door-ic { font-size: 28px; line-height: 1; }
+.door-t { display: flex; flex-direction: column; gap: 2px; }
+.door-t b { font-size: 17px; }
+.door-t small { font-size: 13px; opacity: .75; }
+.foot { margin-top: 28px; font-size: 13px; }
+.foot a { color: rgba(244, 236, 216, 0.6); }
