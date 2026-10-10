@@ -5,6 +5,10 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 11.02 — IDEES.md : la mémoire des idées
+- Création de `IDEES.md` (décisions, idées, deux versions officielle/démo, façon de travailler).
+- Claude le relit à chaque session et le met à jour. Aucun changement dans l'app.
+
 ## 11.01 — Mise en place du suivi des MAJ
 - Création de ce journal et des règles de versionnage (voir `CLAUDE.md`).
 - Aucun changement dans l'app elle-même.
