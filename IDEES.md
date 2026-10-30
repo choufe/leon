@@ -46,4 +46,9 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - ✅ **On ne pointe QUE sur la tablette du resto.** Jamais depuis un téléphone perso. (Pointer à la place d'un autre = faute grave pour Maurice.)
 - ✅ Le patron garde un e-mail + mot de passe pour entrer depuis n'importe où.
 - ✅ Léon s'installe depuis le lien (écran d'accueil), pas d'App Store pour l'instant. Affiche « Installer Léon » faite.
-- 💡 Codes à 6 chiffres envisagés (au moins pour managers et patron) + blocage après plusieurs erreurs.
+- ✅ Code à 4 chiffres pour tout le monde (on verra plus tard). Après 5 erreurs : « attends un peu », personne n'est prévenu.
+- ✅ On pense en RÔLES, pas patron/employé : propriétaire, directeur, responsables, équipe (ex. boîte de nuit : le propriétaire ne touche jamais la tablette). Le patron/directeur décide qui a un accès par e-mail.
+- ✅ Compte créateur (Maurice) : e-mail + mot de passe, puis un 2e code à 4 chiffres. (Code qui change sur téléphone proposé, pas retenu pour l'instant.)
+- ✅ Propriétaire / directeur : e-mail + mot de passe la 1re fois, puis code à 4 chiffres pour rouvrir.
+- ✅ Tablette = la borne : écran de repos (heure, qui travaille, plats épuisés, dernière info) ; équipe : badger, son planning, plat épuisé, allergènes, cahier, relevés/tâches, étiquette DLC ; responsable : + corriger un pointage oublié, retards/absents, réception livraison, casse/perte, CA du jour ; directeur : + CA du jour vs prévu. Ça s'arrête là.
+- ✅ Jamais sur la tablette : salaires, coûts/marges, stats du mois, modifier le planning, ajouter un salarié, réglages.
