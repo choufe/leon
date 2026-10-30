@@ -257,7 +257,7 @@ export default function Vitrine() {
             <a href="#offre">L'offre</a>
             <Link href="/demande">Demander une démo</Link>
             <Link href="/login">Se connecter</Link>
-            <a href="/leon/demo.html?tablette=1">Mode borne</a>
+            <a href="/leon/demo.html?tablette=1">Mode borne (démo)</a>
           </nav>
           <span>© 2026 Léon · Lille</span>
         </div>

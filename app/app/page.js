@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabaseBrowser } from "../../lib/supabaseClient";
 import { createLeonDb } from "../../lib/leonStore";
+import Link from "next/link";
+import "../vitrine.css";
 
 // L'app Léon v11 (public/leon/app.html) dans un cadre plein écran. Avant de
 // l'afficher, on vérifie la connexion et on lui prête le stockage Supabase de
@@ -45,23 +47,25 @@ export default function LeonApp() {
     };
   }, [router]);
 
+  const shell = (body) => (
+    <div className="v v-form-page">
+      <main className="v-wrap v-login-grid one" style={{ paddingTop: 72 }}>
+        <img src="/brand/leon-logo-creme.png" alt="Léon" width={720} height={241} style={{ width: 170, height: "auto", justifySelf: "center" }} />
+        {body}
+      </main>
+    </div>
+  );
   if (err) {
-    return (
-      <div className="wrap">
-        <img className="logo" src="/brand/leon-logo-creme.png" alt="Léon" width={720} height={241} />
-        <div className="card">
-          <p className="err">{err}</p>
-        </div>
-      </div>
+    return shell(
+      <section className="v-door-main">
+        <h1>On n'arrive pas à ouvrir votre resto</h1>
+        <p className="v-hint">Votre compte est bien connecté, mais il n'est relié à aucun restaurant pour l'instant. Si ça continue, appelez Maurice.</p>
+        <Link className="v-btn v-btn-line" href="/login">Retour à la connexion</Link>
+      </section>
     );
   }
   if (!ready) {
-    return (
-      <div className="wrap">
-        <img className="logo" src="/brand/leon-logo-creme.png" alt="Léon" width={720} height={241} />
-        <p className="sub">Chargement…</p>
-      </div>
-    );
+    return shell(<p style={{ textAlign: "center", color: "var(--v-side-mute)" }}>Ouverture de votre resto…</p>);
   }
   return <iframe src="/leon/app.html" title="Léon" className="leon-frame" allow="clipboard-write" />;
 }

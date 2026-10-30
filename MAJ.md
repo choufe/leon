@@ -5,6 +5,15 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 11.07 — Page « Se connecter » refaite
+- Même look que la vitrine. À gauche la porte principale « Patron ou directeur » (e-mail + mot de passe), à droite les autres accès : « Pas encore client ? Demander une démo » et « Juste voir à quoi ça ressemble » (démo).
+- Œil pour afficher le mot de passe, erreurs en français (« E-mail ou mot de passe incorrect »…).
+- **Mot de passe oublié** : lien reçu par mail → nouvelle page `/login/nouveau` pour en choisir un autre, puis entrée directe dans Léon.
+- Déjà connecté : « Vous êtes connecté avec … · Entrer dans Léon · Changer de compte ».
+- « Créer un compte » retiré (les comptes sont créés par Maurice).
+- Écran « Ouverture de votre resto… » et message d'erreur de `/app` au même style.
+- Reste : une seule connexion au lieu de deux (aujourd'hui l'app redemande l'identifiant du resto après l'e-mail). Lié au chantier sécurité.
+
 ## 11.06 — Le tronc : vitrine, tunnel « Demander une démo », icône
 - **Nouvelle page d'accueil = vitrine de Léon** (vouvoiement) : film en haut, les 4 promesses (masse salariale, marchandise, paperasse, le resto dans la poche), 3 clips, « Comment ça marche » en 3 étapes, l'histoire de Maurice, l'offre tout compris (tarif présenté pendant la démo), appel final. « Se connecter » en haut à droite.
 - **Tunnel de vente** : tous les boutons mènent à `/demande` → formulaire court (prénom, téléphone, resto, ville, e-mail, nombre d'établissements, créneau de rappel, message) → écran « C'est noté ».
