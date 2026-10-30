@@ -5,6 +5,15 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 11.05 — Objectif de masse salariale dans le planning
+- Le patron fixe son **objectif de masse salariale** (% du CA HT, 30 % par défaut) depuis le planning.
+- Au-dessus du planning (semaine et jour), un bandeau **Budget de la semaine** : masse salariale prévue vs objectif, heures planifiées vs heures que les ventes prévues peuvent payer, « X h de trop » ou « X h de marge », et les jours qui dépassent.
+- Bouton **Détail** : jour par jour, ventes prévues, budget en heures, heures planifiées, écart, % ; « Voir » ouvre la vue Jour.
+- Les couleurs du bas du planning suivent l'objectif (vert = dans l'objectif, orange = jusqu'à 4 points au-dessus, rouge au-delà).
+- Accueil : l'ancienne alerte « un jour à 34 % » est remplacée par une alerte sur la semaine (en cours et suivante) dès qu'elle dépasse l'objectif de plus de 2 h. Marquable « C'est géré ».
+- Un manager sans accès aux salaires voit le budget **en heures seulement** ; sans accès au CA, pas de ventes affichées.
+- Fichier : `legacy/v11_masse.js` (+ style dans `v11.css`, seuils du bas de grille dans `v9_plan_view.js`).
+
 ## 11.04 — Démo : pastille « Mode démo » + remise à zéro
 - Dans la démo uniquement : une pastille en haut de l'écran « MODE DÉMO · Données fictives : rien ne sort de cet appareil » avec un bouton **Remettre à zéro** (efface les essais faits sur cet appareil, puis recharge la démo d'origine).
 - Absente de l'app officielle connectée à Supabase.

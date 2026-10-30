@@ -411,3 +411,18 @@ body.cook-on{overflow:hidden}
 .kiosk-tags{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:16px}
 .kiosk-tag{display:flex;flex-direction:column;align-items:center;gap:6px;border:1px solid var(--line-2);background:var(--surface);border-radius:12px;padding:16px 10px;font-size:13.5px;font-weight:650;text-align:center}
 .kiosk-tag:active{background:var(--hover)}
+
+/* 11.05 · budget masse salariale au-dessus du planning */
+.ms-strip{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--ok);border-radius:12px;padding:10px 14px;margin:0 0 14px}
+.ms-strip.warn{border-left-color:var(--warn)}
+.ms-strip.bad{border-left-color:var(--bad)}
+.ms-strip .ms-txt{flex:1;min-width:0;font-size:14px}
+.ms-strip .ms-txt p{margin:2px 0 0;color:var(--ink-2);font-size:13px}
+.ms-meter{height:5px;border-radius:99px;background:var(--line);margin-top:7px;overflow:hidden;max-width:420px}
+.ms-meter i{display:block;height:100%;background:var(--ok);border-radius:99px}
+.ms-strip.warn .ms-meter i{background:var(--warn)}
+.ms-strip.bad .ms-meter i{background:var(--bad)}
+.ok-t{color:var(--ok)}
+.ms-tg{margin-bottom:14px}
+.ms-tg small{display:block;margin-top:4px}
+@media (max-width:640px){.ms-strip{flex-wrap:wrap}.ms-strip .btn{margin-left:auto}}

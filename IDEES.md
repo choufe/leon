@@ -34,3 +34,8 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - 💡 Sauvegarde (export des données) avant chaque grosse MAJ.
 - 💡 Résumé de MAJ « pour les restaurateurs » à partir de `MAJ.md`.
 - 💡 Onglets « Idées » et « MAJ » directement dans l'app Léon (plus tard).
+
+## Les 4 grands points (décidé le 29 oct.)
+Masse salariale maîtrisée · marchandise qui ne fuit plus · paperasse au minimum · le resto dans la poche à distance.
+- 🚧 **Masse salariale** (30 oct.) : ✅ 11.05 objectif + budget heures dans le planning. Reste : heures prêtes pour le comptable (export propre depuis la badgeuse, heures validées), budget au créneau (où couper exactement).
+- 📋 Entrée officielle Irish Corner décalée en 11.06.
