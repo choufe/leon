@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { supabaseBrowser } from "../../lib/supabaseClient";
+import { supabaseBrowser, NO_DB_MSG } from "../../lib/supabaseClient";
 import "../vitrine.css";
 
 // Messages de Supabase traduits en phrases simples.
@@ -26,14 +26,18 @@ export default function Login() {
   const router = useRouter();
 
   useEffect(() => {
-    supabaseBrowser().auth.getUser().then(({ data }) => setCurrent(data.user || null)).catch(() => {});
+    const sb = supabaseBrowser();
+    if (!sb) return;
+    sb.auth.getUser().then(({ data }) => setCurrent(data.user || null)).catch(() => {});
   }, []);
 
   async function onLogin(e) {
     e.preventDefault();
+    const sb = supabaseBrowser();
+    if (!sb) { setErr(NO_DB_MSG); return; }
     setBusy(true);
     setErr("");
-    const { error } = await supabaseBrowser().auth.signInWithPassword({ email: email.trim(), password });
+    const { error } = await sb.auth.signInWithPassword({ email: email.trim(), password });
     setBusy(false);
     if (error) { setErr(frError(error)); return; }
     router.push("/app");
@@ -41,9 +45,11 @@ export default function Login() {
 
   async function onForgot(e) {
     e.preventDefault();
+    const sb = supabaseBrowser();
+    if (!sb) { setErr(NO_DB_MSG); return; }
     setBusy(true);
     setErr("");
-    const { error } = await supabaseBrowser().auth.resetPasswordForEmail(email.trim(), {
+    const { error } = await sb.auth.resetPasswordForEmail(email.trim(), {
       redirectTo: `${window.location.origin}/login/nouveau`,
     });
     setBusy(false);
@@ -52,7 +58,8 @@ export default function Login() {
   }
 
   async function signOut() {
-    await supabaseBrowser().auth.signOut();
+    const sb = supabaseBrowser();
+    if (sb) await sb.auth.signOut();
     setCurrent(null);
   }
 

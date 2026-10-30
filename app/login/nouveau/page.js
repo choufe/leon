@@ -16,6 +16,7 @@ export default function NouveauMotDePasse() {
 
   useEffect(() => {
     const supabase = supabaseBrowser();
+    if (!supabase) { setOk(false); return; }
     const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "PASSWORD_RECOVERY" || session) setOk(true);
     });
@@ -32,7 +33,9 @@ export default function NouveauMotDePasse() {
     if (pass.length < 8) { setErr("Choisissez au moins 8 caractères."); return; }
     if (pass !== pass2) { setErr("Les deux mots de passe ne sont pas identiques."); return; }
     setBusy(true);
-    const { error } = await supabaseBrowser().auth.updateUser({ password: pass });
+    const sb = supabaseBrowser();
+    if (!sb) { setBusy(false); setErr("Lien invalide sur cette adresse."); return; }
+    const { error } = await sb.auth.updateUser({ password: pass });
     setBusy(false);
     if (error) { setErr("Le changement n'a pas marché. Redemandez un lien depuis la page de connexion."); return; }
     router.push("/app");

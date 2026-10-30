@@ -12,6 +12,7 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 - Déjà connecté : « Vous êtes connecté avec … · Entrer dans Léon · Changer de compte ».
 - « Créer un compte » retiré (les comptes sont créés par Maurice).
 - Écran « Ouverture de votre resto… » et message d'erreur de `/app` au même style.
+- Correctif : plus d'écran « Application error » quand la base de données n'est pas joignable (ex. lien d'aperçu) : un message clair à la place. Les 5 pages testées.
 - Reste : une seule connexion au lieu de deux (aujourd'hui l'app redemande l'identifiant du resto après l'e-mail). Lié au chantier sécurité.
 
 ## 11.06 — Le tronc : vitrine, tunnel « Demander une démo », icône

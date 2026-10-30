@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { supabaseBrowser } from "../../lib/supabaseClient";
+import { supabaseBrowser, NO_DB_MSG } from "../../lib/supabaseClient";
 import "../vitrine.css";
 
 const CRENEAUX = [
@@ -33,6 +33,7 @@ export default function Demande() {
     setBusy(true);
     try {
       const supabase = supabaseBrowser();
+      if (!supabase) throw new Error("no db");
       const { error } = await supabase.from("demandes").insert({
         prenom: f.prenom.trim(),
         resto: f.resto.trim(),

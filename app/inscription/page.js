@@ -17,6 +17,7 @@ export default function Inscription() {
     setBusy(true);
     setErr("");
     const supabase = supabaseBrowser();
+    if (!supabase) { setBusy(false); setErr("Base de données introuvable sur cette adresse."); return; }
     const { data, error } = await supabase.auth.signUp({
       email,
       password,

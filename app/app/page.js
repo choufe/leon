@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabaseBrowser } from "../../lib/supabaseClient";
+import { supabaseBrowser, NO_DB_MSG } from "../../lib/supabaseClient";
 import { createLeonDb } from "../../lib/leonStore";
 import Link from "next/link";
 import "../vitrine.css";
@@ -16,6 +16,7 @@ export default function LeonApp() {
 
   useEffect(() => {
     const supabase = supabaseBrowser();
+    if (!supabase) { setErr(NO_DB_MSG); return; }
     let db = null;
     let cancelled = false;
     (async () => {
@@ -59,7 +60,7 @@ export default function LeonApp() {
     return shell(
       <section className="v-door-main">
         <h1>On n'arrive pas à ouvrir votre resto</h1>
-        <p className="v-hint">Votre compte est bien connecté, mais il n'est relié à aucun restaurant pour l'instant. Si ça continue, appelez Maurice.</p>
+        <p className="v-hint">{err === NO_DB_MSG ? err : "Votre compte est bien connecté, mais il n'est relié à aucun restaurant pour l'instant. Si ça continue, appelez Maurice."}</p>
         <Link className="v-btn v-btn-line" href="/login">Retour à la connexion</Link>
       </section>
     );
