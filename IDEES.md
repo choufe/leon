@@ -34,3 +34,8 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - 💡 Sauvegarde (export des données) avant chaque grosse MAJ.
 - 💡 Résumé de MAJ « pour les restaurateurs » à partir de `MAJ.md`.
 - 💡 Onglets « Idées » et « MAJ » directement dans l'app Léon (plus tard).
+
+## Organisation en arbre (décidé le 30 oct.)
+- **Le tronc d'abord** (vitrine, tunnel de vente qui ramène à Maurice, logo partout, démo, connexion, navigation, nom de domaine, mentions légales, sécurité), jusqu'à 90 %. Ensuite seulement les 4 branches, en commençant par la masse salariale.
+- Maurice est très visuel : montrer le résultat (lien d'aperçu, captures) à chaque étape.
+- 🚧 11.06 vitrine + tunnel « Demander une démo ». 💡 Ensuite : liste des demandes dans l'espace créateur + notification à Maurice.
