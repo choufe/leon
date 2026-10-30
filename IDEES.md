@@ -39,3 +39,11 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - **Le tronc d'abord** (vitrine, tunnel de vente qui ramène à Maurice, logo partout, démo, connexion, navigation, nom de domaine, mentions légales, sécurité), jusqu'à 90 %. Ensuite seulement les 4 branches, en commençant par la masse salariale.
 - Maurice est très visuel : montrer le résultat (lien d'aperçu, captures) à chaque étape.
 - 🚧 11.06 vitrine + tunnel « Demander une démo ». 💡 Ensuite : liste des demandes dans l'espace créateur + notification à Maurice.
+
+## Comptes et connexion (décidé le 30 oct.)
+- ✅ Personne ne crée de compte tout seul : Maurice crée le resto et le compte du patron (mail « choisissez votre mot de passe »). Le patron crée ses employés (prénom, poste, langue, accès) et Léon leur donne un code. Maurice est présent au lancement pour aider.
+- ✅ Le code dit QUI on est, l'appareil décide OÙ on arrive : tablette du resto = la borne (se reverrouille) ; téléphone/PC perso = son espace (reste connecté), relié une fois par un lien perso. Le code ne marche jamais seul, sur un appareil non relié.
+- ✅ **On ne pointe QUE sur la tablette du resto.** Jamais depuis un téléphone perso. (Pointer à la place d'un autre = faute grave pour Maurice.)
+- ✅ Le patron garde un e-mail + mot de passe pour entrer depuis n'importe où.
+- ✅ Léon s'installe depuis le lien (écran d'accueil), pas d'App Store pour l'instant. Affiche « Installer Léon » faite.
+- 💡 Codes à 6 chiffres envisagés (au moins pour managers et patron) + blocage après plusieurs erreurs.
