@@ -21,7 +21,7 @@ export default function Inscription() {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { emailRedirectTo: `${window.location.origin}/app` },
+      options: { emailRedirectTo: `${window.location.origin}/createur` },
     });
     setBusy(false);
     if (error) {
@@ -29,7 +29,7 @@ export default function Inscription() {
       return;
     }
     // Sans confirmation par e-mail, la session est ouverte tout de suite.
-    if (data.session) router.push("/app");
+    if (data.session) router.push("/createur");
     else setSent(true);
   }
 
@@ -37,10 +37,10 @@ export default function Inscription() {
     <div className="wrap">
       <img className="logo" src="/brand/leon-logo-creme.png" alt="Léon" width={720} height={241} />
       <div className="card">
-        <h1>Créer un compte</h1>
+        <h1>Compte créateur</h1>
         <p className="sub">
-          Ton compte de créateur. Tu ajouteras ensuite tes restaurants, ton
-          équipe et leurs codes directement dans Léon.
+          Page réservée au tout premier compte : celui du créateur de Léon.
+          Les patrons, eux, reçoivent une invitation par mail.
         </p>
         {sent ? (
           <p className="ok">

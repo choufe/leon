@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabaseBrowser, NO_DB_MSG } from "../../lib/supabaseClient";
+import { marquerDeverrouille, oublierDeverrouillage } from "../_ui/verrou";
 import "../vitrine.css";
 
 // Messages de Supabase traduits en phrases simples.
@@ -40,7 +41,12 @@ export default function Login() {
     const { error } = await sb.auth.signInWithPassword({ email: email.trim(), password });
     setBusy(false);
     if (error) { setErr(frError(error)); return; }
-    router.push("/app");
+    // Le mot de passe vient d'être tapé : pas besoin du code juste après.
+    marquerDeverrouille();
+    const suite = new URLSearchParams(window.location.search).get("suite");
+    if (suite === "/createur") { router.push("/createur"); return; }
+    const { data: createur } = await sb.rpc("suis_createur");
+    router.push(createur ? "/createur" : "/app");
   }
 
   async function onForgot(e) {
@@ -60,6 +66,7 @@ export default function Login() {
   async function signOut() {
     const sb = supabaseBrowser();
     if (sb) await sb.auth.signOut();
+    oublierDeverrouillage();
     setCurrent(null);
   }
 

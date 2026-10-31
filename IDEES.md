@@ -52,3 +52,11 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - ✅ Propriétaire / directeur : e-mail + mot de passe la 1re fois, puis code à 4 chiffres pour rouvrir.
 - ✅ Tablette = la borne : écran de repos (heure, qui travaille, plats épuisés, dernière info) ; équipe : badger, son planning, plat épuisé, allergènes, cahier, relevés/tâches, étiquette DLC ; responsable : + retards/absents, réception livraison, casse/perte, CA du jour ; directeur : + corriger un pointage (lui seul) et CA du jour vs prévu. Ça s'arrête là.
 - ✅ Jamais sur la tablette : salaires, coûts/marges, stats du mois, modifier le planning, ajouter un salarié, réglages.
+
+## Comptes et appareils (31 oct.)
+- ✅ Tablette du resto = la borne (badger, service), même quand le patron l'utilise. Le patron GÈRE sur PC (planning, carte, réglages, salariés) et SUIT sur téléphone (« Aujourd'hui », congés, chiffres).
+- ✅ Créateur sur PC : liste des restos à gauche + « Ajouter un restaurant » (tunnel 3 étapes). Aucune création depuis une tablette.
+- ✅ Léon doit être ultra autonome : le patron crée son Léon tout seul. Maurice aide 1-2 semaines max (accès d'aide 15 jours). Chaque blocage d'un patron = un écran à corriger dans Léon.
+- ✅ Le patron choisit lui-même son code à la 1re connexion. 5 erreurs → 30 s d'attente qui double.
+- 💡 Démarrage d'un resto : resto, équipe, carte, produits/fournisseurs, tablette + imprimante (étiquette test), HACCP de base. Les restos ne partent pas toujours de zéro (bouton « Tester mon imprimante »).
+- 💡 Matériel : Maurice achète le kit (tablette + Brother QL-820NWBc ~185 € HT) avec l'argent du resto ; le matériel est au resto. Location plus tard, en option.

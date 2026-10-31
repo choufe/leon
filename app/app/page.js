@@ -4,7 +4,10 @@ import { useRouter } from "next/navigation";
 import { supabaseBrowser, NO_DB_MSG } from "../../lib/supabaseClient";
 import { createLeonDb } from "../../lib/leonStore";
 import Link from "next/link";
+import CodePad from "../_ui/CodePad";
+import { estDeverrouille, marquerDeverrouille, oublierDeverrouillage } from "../_ui/verrou";
 import "../vitrine.css";
+import "../comptes.css";
 
 // L'app Léon v11 (public/leon/app.html) dans un cadre plein écran. Avant de
 // l'afficher, on vérifie la connexion et on lui prête le stockage Supabase de
@@ -12,6 +15,8 @@ import "../vitrine.css";
 export default function LeonApp() {
   const [ready, setReady] = useState(false);
   const [err, setErr] = useState("");
+  const [verrou, setVerrou] = useState(null); // null | { prenom, email } : code à taper
+  const [aide, setAide] = useState(false); // le créateur est dans le Léon d'un patron
   const router = useRouter();
 
   useEffect(() => {
@@ -25,11 +30,33 @@ export default function LeonApp() {
         router.replace("/login");
         return;
       }
-      const { data: orgId, error } = await supabase.rpc("my_org");
-      if (cancelled) return;
-      if (error || !orgId) {
-        setErr(error?.message || "Organisation introuvable");
-        return;
+      // Le créateur qui entre chez un patron pour l'aider : /app?resto=<id>.
+      const resto = new URLSearchParams(window.location.search).get("resto");
+      let orgId = null;
+      if (resto) {
+        const { data: peut } = await supabase.rpc("createur_peut_aider", { o_id: resto });
+        if (cancelled) return;
+        if (!peut) { router.replace("/createur"); return; }
+        orgId = resto;
+        setAide(true);
+      } else {
+        // Code à 4 chiffres pour rouvrir l'appli (comptes qui en ont un).
+        const { data: aCode } = await supabase.rpc("mon_code_existe");
+        if (cancelled) return;
+        if (aCode && !estDeverrouille()) {
+          const { data: a } = await supabase.rpc("mon_accueil");
+          if (cancelled) return;
+          await new Promise((resolve) => setVerrou({ prenom: a && a.prenom, email: data.user.email, resolve }));
+          if (cancelled) return;
+          setVerrou(null);
+        }
+        const r = await supabase.rpc("my_org");
+        if (cancelled) return;
+        if (r.error || !r.data) {
+          setErr(r.error?.message || "Organisation introuvable");
+          return;
+        }
+        orgId = r.data;
       }
       db = createLeonDb(supabase, orgId);
       window.__leonClaude = {
@@ -38,7 +65,7 @@ export default function LeonApp() {
       setReady(true);
     })();
     const { data: sub } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "SIGNED_OUT") router.replace("/login");
+      if (event === "SIGNED_OUT") { oublierDeverrouillage(); router.replace("/login"); }
     });
     return () => {
       cancelled = true;
@@ -56,6 +83,32 @@ export default function LeonApp() {
       </main>
     </div>
   );
+  if (verrou) {
+    return (
+      <div className="v v-form-page">
+        <main className="cx-solo">
+          <div className="cx-card">
+            <img className="cx-logo" src="/brand/leon-logo-vert.png" alt="Léon" width={720} height={241} />
+            <CodePad
+              titre={verrou.prenom ? `Bonjour ${verrou.prenom}` : "Bonjour"}
+              sousTitre="Tapez votre code pour ouvrir Léon."
+              onComplete={async (c) => {
+                const { data, error } = await supabaseBrowser().rpc("verifier_mon_code", { pin: c });
+                if (error) return { ok: false, message: "Pas de connexion. Réessayez." };
+                if (data?.ok) { marquerDeverrouille(); verrou.resolve(); return { ok: true }; }
+                return { ok: false, attente: data?.attente || 0 };
+              }}
+              bas={
+                <button type="button" className="v-link cp-link" onClick={async () => { oublierDeverrouillage(); await supabaseBrowser().auth.signOut(); router.replace("/login"); }}>
+                  Code oublié ? Se reconnecter avec le mot de passe
+                </button>
+              }
+            />
+          </div>
+        </main>
+      </div>
+    );
+  }
   if (err) {
     return shell(
       <section className="v-door-main">
@@ -68,5 +121,12 @@ export default function LeonApp() {
   if (!ready) {
     return shell(<p style={{ textAlign: "center", color: "var(--v-side-mute)" }}>Ouverture de votre resto…</p>);
   }
-  return <iframe src="/leon/app.html" title="Léon" className="leon-frame" allow="clipboard-write" />;
+  return (
+    <>
+      <iframe src="/leon/app.html" title="Léon" className="leon-frame" allow="clipboard-write" />
+      {aide && (
+        <a href="/createur" className="aide-pill">Mode aide · Revenir à mes restos</a>
+      )}
+    </>
+  );
 }

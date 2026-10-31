@@ -5,6 +5,17 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 11.08 — Comptes : espace créateur, « Ajouter un restaurant », invitation du patron, codes à 4 chiffres
+- **Espace créateur `/createur`** (Maurice, sur PC) : mot de passe puis **2e code à 4 chiffres** (choisi la 1re fois, redemandé toutes les 12 h). À gauche la liste de tous les restos (badge « Invité » tant que le patron n'a pas ouvert son compte), à droite la fiche du resto (patron, statut, accès d'aide) et « Entrer dans ce resto ».
+- **Tunnel « Ajouter un restaurant »** en 3 étapes : le resto (nom, ville, type), le patron (prénom, e-mail), le récap → **Créer et inviter**. Le mail d'invitation part tout seul (fonction serveur `inviter-patron`).
+- **Première connexion du patron `/bienvenue`** (depuis le mail) : il choisit son mot de passe, puis son code à 4 chiffres, et il entre dans son Léon. Son resto passe de « Invité » à « Actif ».
+- **Rouvrir Léon avec son code** : sur un appareil déjà connecté, « Bonjour Nadia, tapez votre code ». L'appareil reste ouvert 12 h. « Code oublié ? » → reconnexion avec le mot de passe.
+- **5 mauvais codes** → attente de 30 s, qui double si ça continue, personne n'est prévenu. Codes stockés hachés côté serveur, jamais en clair.
+- **Accès d'aide** : le créateur peut entrer dans le Léon d'un patron pendant 15 jours après l'invitation (pastille « Mode aide · Revenir à mes restos »).
+- Après connexion, le créateur arrive sur `/createur`, les autres sur `/app`. `/inscription` ne sert plus qu'à créer le tout premier compte (celui du créateur).
+- Base : migration `0004_comptes.sql` + fonction `inviter-patron`. **À appliquer après validation de Maurice.**
+- Pas encore fait : lien perso des employés sur leur téléphone (prochaine MAJ), parcours « Démarrer Léon », bandeau « Maurice t'aide » côté patron, mail d'invitation aux couleurs de Léon (il faut un nom de domaine + un service d'envoi ; en attendant c'est le mail par défaut, limité à quelques envois par heure).
+
 ## 11.07 — Page « Se connecter » refaite
 - Même look que la vitrine. À gauche la porte principale « Patron ou directeur » (e-mail + mot de passe), à droite les autres accès : « Pas encore client ? Demander une démo » et « Juste voir à quoi ça ressemble » (démo).
 - Œil pour afficher le mot de passe, erreurs en français (« E-mail ou mot de passe incorrect »…).
