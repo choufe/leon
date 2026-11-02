@@ -5,6 +5,14 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.00 — Un seul chemin (1re partie)
+- Dans le vrai site, la connexion Léon (e-mail + mot de passe, puis code à 4 chiffres) est la **seule porte**. L'ancienne app ne montre plus jamais ses vieux écrans : « Crée ton Léon », identifiant + mot de passe du resto, verrou de l'appareil.
+- Premier passage d'un patron : son resto est créé tout seul avec le nom donné à l'invitation, vide, avec la « Mise en route » (équipe, carte, produits, inventaire, planning, caisse).
+- Chaque compte = un resto : plus de « Mes restaurants », plus de vue réseau, plus de « Admin Léon » (→ « Patron »), plus de « Tu y es en créateur ». La liste des restos, c'est l'espace créateur `/createur`.
+- Page `/dashboard` supprimée. La démo n'est pas touchée.
+- Module `legacy/v12_chemin.js` (ajouté par-dessus, rien de réécrit).
+- Reste : la tablette du resto (mode borne) reliée par un lien perso ; « Réglages » à trier (zone admin, identifiants de l'ancienne version).
+
 ## 11.10 — Tunnel du compte créateur réparé + inscription qui se ferme
 - Bug trouvé le 2 nov. par Maurice : après le lien du mail de confirmation, il n'était pas connecté et n'arrivait jamais à l'écran « Choisissez votre 2e code ». Et même en se connectant, `/login` l'envoyait vers `/app` (il n'était pas encore inscrit comme créateur).
 - Le lien du mail mène maintenant à `/login?confirme=1` : bandeau vert « Adresse confirmée, connectez-vous », puis Léon emmène directement au choix du code. Sur le même appareil, la connexion se fait toute seule.
