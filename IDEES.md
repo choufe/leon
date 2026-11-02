@@ -65,3 +65,8 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - « Finir » une page = ~90 %, le reste viendra plus tard.
 - À chaque message de Maurice sur Léon, Claude avance AUSSI en parallèle sur une autre page ou fonction (prendre des initiatives).
 - ✅ 11.09 vitrine finie + demandes de démo côté créateur. 💡 Ensuite : notification à Maurice (mail/SMS) à chaque nouvelle demande.
+
+## Un seul chemin (décidé le 2 nov.)
+- Maurice veut un parcours LINÉAIRE : site Léon → Se connecter → son compte. Jamais retomber sur une ancienne version en un clic.
+- Inventaire fait : le problème vient surtout de l'ancienne app v11 (dans `/app`) qui a encore ses propres écrans de compte : « Crée ton Léon » (setup, si `net/config` vide), identifiant + mot de passe du resto (login), écran de verrou de l'appareil. Ça fait une 2e porte après la connexion.
+- 💡 12.00 « Un seul chemin » : dans `/app`, Léon saute ces vieux écrans (le compte Supabase + code à 4 chiffres = la seule porte) ; le resto est créé à partir du nom donné à l'invitation ; retirer « Mon compte créateur » de la v11 ; `/dashboard` supprimé ; `/inscription` fermée (11.10) ; la tablette reliée plus tard par lien perso.
