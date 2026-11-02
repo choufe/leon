@@ -14,7 +14,7 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 - Correctif : les textes des boutons sur fond vert (« Se connecter », « Essayer », « Demander une démo ») sortaient en foncé, illisibles. Corrigé sur toutes les pages.
 - **Espace créateur → « Demandes de démo »** : pastille « X à rappeler », bouton Appeler, notes, suivi (À rappeler, Rappelée, Démo faite, Gagnée, Perdue) et « Créer son Léon » qui ouvre le tunnel avec le resto et le patron déjà remplis.
 - Ton numéro (06 45 86 90 03) : dans les mentions légales, la confidentialité, l'appel final de la vitrine (« Ou appelez-moi ») et l'écran « C'est noté ». Restent à remplir : SIRET (entreprise pas encore créée) et e-mail pro.
-- Base : migration `0005_demandes_createur.sql` (lecture réservée au créateur). **À appliquer avec 0003, après validation de Maurice.**
+- Base : migrations 0003, 0004 (corrigée : chiffrement via le schéma `extensions`) et 0005 appliquées le 2 nov., fonction `inviter-patron` déployée. **Mis en ligne le 2 nov. (11.05 à 11.09) avec l'accord de Maurice.**
 
 ## 11.08 — Comptes : espace créateur, « Ajouter un restaurant », invitation du patron, codes à 4 chiffres
 - **Espace créateur `/createur`** (Maurice, sur PC) : mot de passe puis **2e code à 4 chiffres** (choisi la 1re fois, redemandé toutes les 12 h). À gauche la liste de tous les restos (badge « Invité » tant que le patron n'a pas ouvert son compte), à droite la fiche du resto (patron, statut, accès d'aide) et « Entrer dans ce resto ».
