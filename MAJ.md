@@ -10,6 +10,7 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 - Le lien du mail mène maintenant à `/login?confirme=1` : bandeau vert « Adresse confirmée, connectez-vous », puis Léon emmène directement au choix du code. Sur le même appareil, la connexion se fait toute seule.
 - Après connexion, le tout premier compte devient créateur et part sur `/createur` (choix du 2e code). Bouton « Entrer dans Léon » (déjà connecté) : même aiguillage.
 - Un lien de mail qui tomberait sur l'accueil (confirmation, invitation, mot de passe oublié) est renvoyé vers la bonne page.
+- `/app` : le créateur qui y arrive sans resto choisi est renvoyé vers son espace (fini le vieil écran « Crée ton Léon » vu par Maurice le 2 nov.). Pour entrer dans son propre resto depuis `/createur` : `/app?moi=1`.
 - `/inscription` se ferme dès que le créateur a choisi son code (« comptes sur invitation, demandez une démo »). Migration `0006_inscription_fermee.sql` **à appliquer avec l'accord de Maurice** (sans elle, la page reste simplement ouverte).
 
 ## 11.09 — Page d'accueil finie (~90 %) + demandes de démo dans l'espace créateur

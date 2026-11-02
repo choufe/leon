@@ -40,6 +40,13 @@ export default function LeonApp() {
         orgId = resto;
         setAide(true);
       } else {
+        // Le créateur n'a rien à faire ici sans resto choisi : direction son espace (2e code, liste des restos).
+        // /app?moi=1 = il entre volontairement dans son propre resto depuis /createur.
+        if (!new URLSearchParams(window.location.search).get("moi")) {
+          const { data: createur } = await supabase.rpc("devenir_createur");
+          if (cancelled) return;
+          if (createur) { router.replace("/createur"); return; }
+        }
         // Code à 4 chiffres pour rouvrir l'appli (comptes qui en ont un).
         const { data: aCode } = await supabase.rpc("mon_code_existe");
         if (cancelled) return;
