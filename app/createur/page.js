@@ -7,6 +7,7 @@ import CodePad from "../_ui/CodePad";
 import ChoisirCode from "../_ui/ChoisirCode";
 import AjouterResto, { KINDS } from "./AjouterResto";
 import Demandes, { useDemandes } from "./Demandes";
+import SupprimerResto from "./SupprimerResto";
 import "../vitrine.css";
 import "../comptes.css";
 
@@ -95,6 +96,16 @@ function Espace({ email, onDeconnexion, onCodeExpire }) {
   const [tunnel, setTunnel] = useState(false);
   const [vue, setVue] = useState("restos"); // restos | demandes
   const dem = useDemandes(onCodeExpire);
+  const [suppr, setSuppr] = useState(false);
+  const [info, setInfo] = useState("");
+  const actifs = (restos || []).filter((x) => !x.supprime_le);
+  const supprimes = (restos || []).filter((x) => x.supprime_le);
+  async function recuperer(id) {
+    const { error } = await supabaseBrowser().rpc("createur_recuperer_resto", { o_id: id });
+    if (error) { setErr("Le resto n'a pas pu être récupéré. Réessaie."); return; }
+    setInfo("Resto récupéré : son équipe peut de nouveau y entrer.");
+    charger(id);
+  }
   const [err, setErr] = useState("");
 
   const charger = useCallback(async (choisir) => {
@@ -105,7 +116,7 @@ function Espace({ email, onDeconnexion, onCodeExpire }) {
       return;
     }
     setRestos(data || []);
-    setSel((cur) => choisir || cur || (data && data[0] ? data[0].id : null));
+    setSel((cur) => choisir || cur || ((data || []).find((x) => !x.supprime_le) || {}).id || null);
   }, [onCodeExpire]);
 
   useEffect(() => { charger(); }, [charger]);
@@ -128,13 +139,23 @@ function Espace({ email, onDeconnexion, onCodeExpire }) {
               <b>Demandes de démo{dem.aRappeler > 0 && <span className="cr-badge hot">{dem.aRappeler} à rappeler</span>}</b>
               <small>Les prospects venus du site</small>
             </button>
-            <h2>Mes restaurants · {restos ? restos.length : "…"}</h2>
-            {(restos || []).map((x) => (
+            <h2>Mes restaurants · {restos ? actifs.length : "…"}</h2>
+            {actifs.map((x) => (
               <button key={x.id} type="button" className={"cr-item" + (vue === "restos" && x.id === sel ? " on" : "")} onClick={() => { setSel(x.id); setVue("restos"); }}>
                 <b>{x.nom}{x.statut === "invite" ? <span className="cr-badge">Invité</span> : x.a_moi ? <span className="cr-badge ok">Mon resto</span> : null}</b>
                 <small>{[x.ville, x.patron_prenom].filter(Boolean).join(" · ") || kindLabel(x.kind)}</small>
               </button>
             ))}
+            {supprimes.length > 0 && (
+              <details className="cr-suppr">
+                <summary>Supprimés · {supprimes.length}</summary>
+                {supprimes.map((x) => (
+                  <button key={x.id} type="button" className={"cr-item" + (vue === "restos" && x.id === sel ? " on" : "")} onClick={() => { setSel(x.id); setVue("restos"); }}>
+                    <b>{x.nom}</b><small>Supprimé le {dateFr(x.supprime_le)}</small>
+                  </button>
+                ))}
+              </details>
+            )}
             <button type="button" className="cr-add" onClick={() => setTunnel(true)}>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
               Ajouter un restaurant
@@ -143,7 +164,8 @@ function Espace({ email, onDeconnexion, onCodeExpire }) {
           <main className="cr-main">
             {vue === "demandes" && <Demandes d={dem} onCreerResto={(depart) => setTunnel(depart)} />}
             {vue === "restos" && err && <div className="v-err" role="alert">{err}</div>}
-            {vue === "restos" && restos && restos.length === 0 && (
+            {vue === "restos" && info && <div className="v-ok-msg" role="status">{info}</div>}
+            {vue === "restos" && restos && actifs.length === 0 && !(r && r.supprime_le) && (
               <div className="cr-empty">
                 <h2>Lancez votre premier resto</h2>
                 <p>Vous créez le resto et vous invitez le patron. Il reçoit un mail, choisit son mot de passe et son code, puis Léon le guide pour tout installer.</p>
@@ -162,14 +184,25 @@ function Espace({ email, onDeconnexion, onCodeExpire }) {
                   <div className="cr-tile"><span>Votre accès d'aide</span><b>{r.a_moi ? "Votre resto" : aideActive ? `Jusqu'au ${dateFr(r.aide_jusqu)}` : "Terminé"}</b><span>{r.a_moi ? "Toujours accessible" : aideActive ? "Pour aider au démarrage" : "Le patron gère seul"}</span></div>
                 </div>
                 <div className="cr-acts">
-                  {(r.a_moi || aideActive) && <a className="v-btn v-btn-brass" href={r.a_moi ? "/app?moi=1" : `/app?resto=${r.id}`}>Entrer dans ce resto</a>}
+                  {!r.supprime_le && (r.a_moi || aideActive) && <a className="v-btn v-btn-brass" href={r.a_moi ? "/app?moi=1" : `/app?resto=${r.id}`}>Entrer dans ce resto</a>}
                 </div>
-                {!r.a_moi && aideActive && <p className="v-hint">En entrant, vous voyez le Léon du patron comme lui, pour l'aider à s'installer. L'accès s'arrête tout seul après 15 jours.</p>}
+                {!r.a_moi && aideActive && !r.supprime_le && <p className="v-hint">En entrant, vous voyez le Léon du patron comme lui, pour l'aider à s'installer. L'accès s'arrête tout seul après 15 jours.</p>}
+                {r.supprime_le ? (
+                  <div className="cr-zone">
+                    <p><b>Supprimé le {dateFr(r.supprime_le)}.</b> Personne ne peut y entrer, mais toutes ses données sont gardées.</p>
+                    <button type="button" className="v-btn v-btn-brass" onClick={() => recuperer(r.id)}>Récupérer ce restaurant</button>
+                  </div>
+                ) : (
+                  <div className="cr-zone">
+                    <button type="button" className="cr-del" onClick={() => setSuppr(true)}>Supprimer ce restaurant</button>
+                  </div>
+                )}
               </>
             )}
           </main>
         </div>
       </div>
+      {suppr && r && <SupprimerResto r={r} onClose={() => setSuppr(false)} onFait={() => { setSuppr(false); setInfo(`${r.nom} est supprimé. Tu le retrouves dans « Supprimés » si besoin.`); setSel(null); charger(); }} />}
       {tunnel && <AjouterResto depart={typeof tunnel === "object" ? tunnel : null} onClose={() => setTunnel(false)} onCree={(id) => { charger(id); setVue("restos"); }} onCodeExpire={onCodeExpire} />}
     </div>
   );

@@ -119,3 +119,16 @@
 .v .dm-acts button { min-height: 34px; padding: 0 12px; border-radius: 99px; border: 1.5px solid var(--v-line-2); background: #fff; color: var(--v-ink-2); font: 600 13px var(--v-ui); cursor: pointer; }
 .v .dm-acts button[aria-pressed="true"] { border-color: var(--c); background: color-mix(in srgb, var(--c) 12%, #fff); color: var(--v-ink); }
 .v .dm-acts .dm-go { margin-left: auto; border-color: #23734A; background: #23734A; color: #fff; }
+
+/* 12.01 · supprimer un resto (mis de côté, récupérable) */
+.v .cr-zone { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--v-line); display: grid; gap: 10px; justify-items: start; }
+.v .cr-zone p { color: var(--v-ink-2); font-size: 14.5px; line-height: 1.5; }
+.v .cr-del { background: none; border: 0; padding: 6px 0; color: #A33A26; font: 600 14px var(--v-ui); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.v .cr-suppr { margin-top: 8px; }
+.v .cr-suppr summary { cursor: pointer; font-family: var(--v-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--v-ink-3); padding: 6px 8px; }
+.v .cr-suppr .cr-item { opacity: .75; }
+.v .sr-warn { background: #FBE9E6; color: #6E2416; border-radius: 12px; padding: 14px 16px; display: grid; gap: 8px; }
+.v .sr-warn ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 14.5px; line-height: 1.5; }
+.v .sr-acts { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+.v .sr-danger { background: #A33A26; color: #fff; }
+.v .sr-danger:hover { background: #8A2A1C; }

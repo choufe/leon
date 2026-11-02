@@ -70,6 +70,7 @@ export default function LeonApp() {
         // Ce que l'app a besoin de savoir pour entrer directement (sans ses vieux écrans de compte).
         const { data: acc } = await supabase.rpc("mon_accueil");
         if (cancelled) return;
+        if (acc && acc.ferme) { setErr("Ce Léon est fermé. Pour le rouvrir, appelez Maurice au 06 45 86 90 03."); return; }
         const mail = data.user.email || "";
         const prenom = (acc && acc.prenom) || mail.split("@")[0].split(/[._-]/)[0];
         window.__leonCompte = {
