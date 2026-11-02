@@ -5,6 +5,15 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.03 — Pointage : la « Feuille de jour » (prévu / badgé / payé)
+- Nouvel onglet en premier dans Pointage (directeur et managers) : la journée d'hier, salarié par salarié, avec **prévu**, **badgé** (chaque badge), **payé** (calculé par Léon), total et ce qui est à regarder.
+- Règles de paie : en avance ou jusqu'à 5 min de retard = payé à l'heure prévue ; plus tard = payé à l'arrivée ; parti jusqu'à 15 min après = fin prévue ; au-delà = le directeur choisit « Garder les heures sup » ou « Ramener à la fin prévue » ; pause badgée sinon pause prévue. Les journées en coupure (midi + soir) sont calculées service par service.
+- En haut : prévu, payé (+/- par rapport au prévu), retards, coût de la journée (si on voit les salaires).
+- Lignes rouges (départ pas badgé, pas de badge du tout) : à régler avant de valider (« Il était là », « Corriger »).
+- **Valider la journée** : réservé au directeur / patron. Ensuite c'est verrouillé pour la paie (plus de correction possible, sauf « Rouvrir » par le directeur). Les managers voient « En attente du directeur ».
+- Le relevé d'heures pour la paie compte désormais les **heures payées**, plus les badges bruts.
+- On peut revenir jusqu'à 14 jours en arrière. Module `legacy/v12_feuille.js` + `legacy/v12.css`, rien de réécrit. Aucune mise à jour de la base.
+
 ## 12.02 — « Mon entreprise » : le suivi de Maurice
 - Nouvel onglet en haut de l'espace créateur (c'est là qu'on arrive) : **objectif 5 restos à 400 €** avec barre de progression, revenu par mois, encaissé ce mois, **à encaisser** (qui te doit), résultat de l'année.
 - **Mes clients** : formule (Fondateur 400 €, Normal 450 €, Offert ; mensuel ou à l'année avec 2 mois offerts ; mois offerts pour le parrainage ; prix sur mesure possible), date de début, prochaine échéance, payé, situation (À jour / Doit X €), bouton « Encaissé ». Les restos de test et ceux de Maurice ne comptent pas.
