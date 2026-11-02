@@ -7,10 +7,9 @@ export default function Mentions() {
     <PageLegale titre="Mentions légales" maj="2 novembre 2026">
       <section>
         <h2>Éditeur du site</h2>
-        <p>Léon est édité par <ACompleter>nom de la société ou de l'entreprise individuelle</ACompleter>, <ACompleter>forme juridique</ACompleter>, immatriculée sous le numéro SIRET <ACompleter>SIRET</ACompleter>.</p>
-        <p>Adresse : <ACompleter>adresse</ACompleter>, Lille.</p>
+        <p>Léon est édité par Maurice, créateur de Léon. Entreprise en cours de création : SIRET <ACompleter>à venir</ACompleter>.</p>
         <p>Directeur de la publication : Maurice, créateur de Léon.</p>
-        <p>Contact : <ACompleter>e-mail pro</ACompleter> · <ACompleter>téléphone pro</ACompleter></p>
+        <p>Contact : <a className="v-back" href="tel:+33645869003">06 45 86 90 03</a> · <ACompleter>e-mail pro</ACompleter></p>
       </section>
       <section>
         <h2>Hébergement</h2>

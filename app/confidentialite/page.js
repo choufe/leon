@@ -39,7 +39,7 @@ export default function Confidentialite() {
       </section>
       <section>
         <h2>Vos droits</h2>
-        <p>Pour voir, corriger, récupérer ou supprimer vos données, écrivez à <ACompleter>e-mail pro</ACompleter>. Réponse sous un mois au plus. En cas de désaccord, vous pouvez saisir la CNIL (cnil.fr).</p>
+        <p>Pour voir, corriger, récupérer ou supprimer vos données, appelez le <a className="v-back" href="tel:+33645869003">06 45 86 90 03</a> ou écrivez à <ACompleter>e-mail pro</ACompleter>. Réponse sous un mois au plus. En cas de désaccord, vous pouvez saisir la CNIL (cnil.fr).</p>
       </section>
     </PageLegale>
   );

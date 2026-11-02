@@ -85,7 +85,7 @@ export default function Demande() {
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
             </span>
             <h2>C'est noté{f.prenom ? `, ${f.prenom.trim()}` : ""} !</h2>
-            <p>Je vous rappelle {creneau === "matin" ? "un matin" : creneau === "soir" ? "après le service" : "dans l'après-midi"}, en général sous 24 h. En attendant, vous pouvez essayer Léon avec un restaurant fictif.</p>
+            <p>Je vous rappelle {creneau === "matin" ? "un matin" : creneau === "soir" ? "après le service" : "dans l'après-midi"}, en général sous 24 h. Pressé ? Appelez-moi directement au <a href="tel:+33645869003" style={{ fontWeight: 700, textDecoration: "underline" }}>06 45 86 90 03</a>. En attendant, vous pouvez essayer Léon avec un restaurant fictif.</p>
             <div className="v-ctas">
               <a className="v-btn v-btn-brass" href="/leon/demo.html">Essayer Léon en ligne</a>
               <Link className="v-btn" href="/" style={{ border: "1.5px solid var(--v-line-2)" }}>Retour à l'accueil</Link>

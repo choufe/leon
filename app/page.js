@@ -304,7 +304,10 @@ export default function Vitrine() {
               <h2>Voyons si Léon colle à votre resto</h2>
               <p>Laissez votre numéro, je vous rappelle pour en parler 20 minutes. Sans engagement.</p>
             </div>
-            <Link className="v-btn v-btn-brass" href="/demande">Demander une démo</Link>
+            <div className="v-ctas">
+              <Link className="v-btn v-btn-brass" href="/demande">Demander une démo</Link>
+              <a className="v-btn v-btn-ghost" href="tel:+33645869003">Ou appelez-moi : 06 45 86 90 03</a>
+            </div>
           </div>
         </section>
       </main>
