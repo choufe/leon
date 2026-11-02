@@ -41,7 +41,7 @@ export default function LeonApp() {
         setAide(true);
         const { data: liste } = await supabase.rpc("createur_restos");
         const o = (liste || []).find((x) => x.id === resto);
-        window.__leonCompte = { prenom: o && o.patron_prenom, resto: o && o.nom, ville: o && o.ville };
+        window.__leonCompte = { prenom: (o && !o.test && o.patron_prenom) || "Maurice", resto: o && o.nom, ville: o && o.ville };
       } else {
         // Le créateur n'a rien à faire ici sans resto choisi : direction son espace (2e code, liste des restos).
         // /app?moi=1 = il entre volontairement dans son propre resto depuis /createur.

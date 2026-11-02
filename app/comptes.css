@@ -132,3 +132,7 @@
 .v .sr-acts { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
 .v .sr-danger { background: #A33A26; color: #fff; }
 .v .sr-danger:hover { background: #8A2A1C; }
+.v .cr-badge.test { background: #E7E0F5; color: #5B3A99; }
+.v .tn-test { align-items: flex-start; background: var(--v-bg); border-radius: 12px; padding: 12px 14px; }
+.v .tn-test span { display: grid; gap: 2px; }
+.v .tn-test small { color: var(--v-ink-3); font-size: 13px; }

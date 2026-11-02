@@ -19,18 +19,35 @@ export default function AjouterResto({ onClose, onCree, onCodeExpire, depart }) 
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
   const [fini, setFini] = useState(null);
+  const [test, setTest] = useState(false);
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
 
   function suivant(e) {
     e.preventDefault();
     setErr("");
     if (etape === 0 && !f.nom.trim()) { setErr("Donnez un nom au resto."); return; }
+    if (etape === 0 && test) { creerTest(); return; }
     if (etape === 1) {
       if (!f.prenom.trim()) { setErr("Il manque le prénom du patron."); return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim())) { setErr("L'e-mail n'a pas l'air bon. C'est là que partira l'invitation."); return; }
     }
     if (etape < 2) { setEtape(etape + 1); return; }
     creer();
+  }
+
+  // Resto de test : pas de patron, pas de mail, c'est le créateur qui y entre.
+  async function creerTest() {
+    setBusy(true);
+    setErr("");
+    const { data, error } = await supabaseBrowser().rpc("createur_creer_test", { nom: f.nom, ville: f.ville, kind: f.kind });
+    setBusy(false);
+    if (error) {
+      if (/réservé au créateur/.test(error.message || "")) { onCodeExpire(); return; }
+      setErr("Le resto de test n'a pas pu être créé. Réessayez.");
+      return;
+    }
+    setFini({ id: data, name: f.nom.trim(), test: true });
+    onCree(data);
   }
 
   async function creer() {
@@ -65,8 +82,12 @@ export default function AjouterResto({ onClose, onCree, onCodeExpire, depart }) 
             <div className="tn-ok">
               <span className="tn-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span>
               <h2>{fini.name} est créé</h2>
+              {fini.test ? (
+                <p className="v-hint">C'est un resto de test : pas de patron, pas de mail. Entrez-y depuis sa fiche avec « Entrer dans ce resto ».</p>
+              ) : (<>
               <p className="v-hint">L'invitation est partie à <b>{f.email.trim()}</b>. {f.prenom.trim()} va choisir son mot de passe et son code, puis Léon le guide pour tout installer.</p>
               <p className="v-hint">Pas reçu ? Qu'il regarde dans ses spams.</p>
+              </>)}
             </div>
           </div>
         ) : (
@@ -92,6 +113,10 @@ export default function AjouterResto({ onClose, onCree, onCodeExpire, depart }) 
                     ))}
                   </div>
                 </div>
+                <label className="cx-check tn-test">
+                  <input type="checkbox" checked={test} onChange={(e) => setTest(e.target.checked)} />
+                  <span><b>Resto de test</b><small>Pour essayer Léon en vrai : pas de patron, pas de mail. Vous y entrez vous-même.</small></span>
+                </label>
               </>
             )}
 
@@ -128,7 +153,7 @@ export default function AjouterResto({ onClose, onCree, onCodeExpire, depart }) 
           ) : (
             <>
               <button type="button" className="v-btn v-btn-line" onClick={() => (etape === 0 ? onClose() : setEtape(etape - 1))} disabled={busy}>{etape === 0 ? "Annuler" : "Retour"}</button>
-              <button type="submit" className="v-btn v-btn-brass" disabled={busy}>{busy ? "Création…" : etape === 2 ? "Créer et inviter" : "Suivant"}</button>
+              <button type="submit" className="v-btn v-btn-brass" disabled={busy}>{busy ? "Création…" : etape === 2 ? "Créer et inviter" : etape === 0 && test ? "Créer le resto de test" : "Suivant"}</button>
             </>
           )}
         </div>
