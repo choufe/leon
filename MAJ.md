@@ -11,7 +11,7 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 - Après connexion, le tout premier compte devient créateur et part sur `/createur` (choix du 2e code). Bouton « Entrer dans Léon » (déjà connecté) : même aiguillage.
 - Un lien de mail qui tomberait sur l'accueil (confirmation, invitation, mot de passe oublié) est renvoyé vers la bonne page.
 - `/app` : le créateur qui y arrive sans resto choisi est renvoyé vers son espace (fini le vieil écran « Crée ton Léon » vu par Maurice le 2 nov.). Pour entrer dans son propre resto depuis `/createur` : `/app?moi=1`.
-- `/inscription` se ferme dès que le créateur a choisi son code (« comptes sur invitation, demandez une démo »). Migration `0006_inscription_fermee.sql` **à appliquer avec l'accord de Maurice** (sans elle, la page reste simplement ouverte).
+- `/inscription` se ferme dès que le créateur a choisi son code (« comptes sur invitation, demandez une démo »). Migration `0006_inscription_fermee.sql` appliquée le 2 nov.
 
 ## 11.09 — Page d'accueil finie (~90 %) + demandes de démo dans l'espace créateur
 - **Vitrine** : l'offre affiche les vrais prix (450 € barré, **400 € HT/mois offre fondateur** pendant l'année de lancement), mise en route offerte, 2 mois offerts si l'année est payée d'un coup, 1 mois offert par resto recommandé, matériel acheté au prix coûtant et qui reste au resto.
