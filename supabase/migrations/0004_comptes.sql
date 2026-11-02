@@ -42,19 +42,19 @@ alter table leon_codes enable row level security;
 
 -- Le compte connecté est un créateur (sans vérifier le 2e code) : sert à aiguiller.
 create or replace function suis_createur() returns boolean
-language sql security definer stable set search_path = public, pg_temp as $$
+language sql security definer stable set search_path = public, extensions, pg_temp as $$
   select exists (select 1 from leon_createurs where user_id = auth.uid());
 $$;
 
 -- Créateur ET 2e code validé récemment : c'est ce qui ouvre les droits.
 create or replace function est_createur() returns boolean
-language sql security definer stable set search_path = public, pg_temp as $$
+language sql security definer stable set search_path = public, extensions, pg_temp as $$
   select exists (select 1 from leon_createurs where user_id = auth.uid() and pin_ok_jusqu > now());
 $$;
 
 -- Premier compte créateur : seulement tant qu'il n'y en a aucun.
 create or replace function devenir_createur() returns boolean
-language plpgsql security definer set search_path = public, pg_temp as $$
+language plpgsql security definer set search_path = public, extensions, pg_temp as $$
 begin
   if auth.uid() is null then raise exception 'non connecté'; end if;
   if exists (select 1 from leon_createurs) then
@@ -66,13 +66,13 @@ end $$;
 
 -- État du 2e code : 'aucun' (à choisir), 'a_verifier', 'ok'. null si pas créateur.
 create or replace function createur_etat() returns text
-language sql security definer stable set search_path = public, pg_temp as $$
+language sql security definer stable set search_path = public, extensions, pg_temp as $$
   select case when pin_hash is null then 'aucun' when pin_ok_jusqu > now() then 'ok' else 'a_verifier' end
   from leon_createurs where user_id = auth.uid();
 $$;
 
 create or replace function createur_definir_code(pin text) returns boolean
-language plpgsql security definer set search_path = public, pg_temp as $$
+language plpgsql security definer set search_path = public, extensions, pg_temp as $$
 begin
   if pin !~ '^[0-9]{4}$' then raise exception 'code à 4 chiffres'; end if;
   update leon_createurs set pin_hash = crypt(pin, gen_salt('bf')), pin_ok_jusqu = now() + interval '12 hours', echecs = 0, bloque_jusqu = null
@@ -82,7 +82,7 @@ end $$;
 
 -- Renvoie {ok, attente} : attente = secondes à patienter si trop d'erreurs.
 create or replace function createur_verifier_code(pin text) returns jsonb
-language plpgsql security definer set search_path = public, pg_temp as $$
+language plpgsql security definer set search_path = public, extensions, pg_temp as $$
 declare c leon_createurs;
 begin
   select * into c from leon_createurs where user_id = auth.uid() for update;
@@ -104,7 +104,7 @@ end $$;
 -- Liste des restos pour la page créateur.
 create or replace function createur_restos()
 returns table (id uuid, nom text, ville text, kind text, patron_prenom text, patron_email text, statut text, invite_le timestamptz, aide_jusqu timestamptz, created_at timestamptz, a_moi boolean)
-language plpgsql security definer stable set search_path = public, pg_temp as $$
+language plpgsql security definer stable set search_path = public, extensions, pg_temp as $$
 begin
   if not est_createur() then raise exception 'réservé au créateur'; end if;
   return query
@@ -114,7 +114,7 @@ end $$;
 
 -- Accès d'aide : le créateur (2e code validé) peut travailler dans un resto pendant son aide.
 create or replace function createur_peut_aider(o_id uuid) returns boolean
-language sql security definer stable set search_path = public, pg_temp as $$
+language sql security definer stable set search_path = public, extensions, pg_temp as $$
   select est_createur() and exists (select 1 from orgs where id = o_id and aide_jusqu > now());
 $$;
 
@@ -126,13 +126,13 @@ create policy "leon_docs: aide du créateur" on leon_docs
 -- ---------- Patron / directeur ----------
 
 create or replace function mon_code_existe() returns boolean
-language sql security definer stable set search_path = public, pg_temp as $$
+language sql security definer stable set search_path = public, extensions, pg_temp as $$
   select exists (select 1 from leon_codes where user_id = auth.uid());
 $$;
 
 -- Choisir son code (une seule fois ; pour le changer, on passera par le mot de passe).
 create or replace function definir_mon_code(pin text) returns boolean
-language plpgsql security definer set search_path = public, pg_temp as $$
+language plpgsql security definer set search_path = public, extensions, pg_temp as $$
 begin
   if auth.uid() is null then raise exception 'non connecté'; end if;
   if pin !~ '^[0-9]{4}$' then raise exception 'code à 4 chiffres'; end if;
@@ -142,7 +142,7 @@ begin
 end $$;
 
 create or replace function verifier_mon_code(pin text) returns jsonb
-language plpgsql security definer set search_path = public, pg_temp as $$
+language plpgsql security definer set search_path = public, extensions, pg_temp as $$
 declare c leon_codes;
 begin
   select * into c from leon_codes where user_id = auth.uid() for update;
@@ -163,13 +163,13 @@ end $$;
 
 -- Le patron a fini sa première connexion : son resto passe de « Invité » à « Actif ».
 create or replace function marquer_actif() returns void
-language sql security definer set search_path = public, pg_temp as $$
+language sql security definer set search_path = public, extensions, pg_temp as $$
   update orgs set statut = 'actif' where owner_user_id = auth.uid() and statut = 'invite';
 $$;
 
 -- Infos de bienvenue (prénom du patron, nom du resto).
 create or replace function mon_accueil() returns jsonb
-language sql security definer stable set search_path = public, pg_temp as $$
+language sql security definer stable set search_path = public, extensions, pg_temp as $$
   select jsonb_build_object('prenom', patron_prenom, 'resto', name)
   from orgs where owner_user_id = auth.uid() order by created_at limit 1;
 $$;
