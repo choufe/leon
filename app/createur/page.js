@@ -8,6 +8,7 @@ import ChoisirCode from "../_ui/ChoisirCode";
 import AjouterResto, { KINDS } from "./AjouterResto";
 import Demandes, { useDemandes } from "./Demandes";
 import SupprimerResto from "./SupprimerResto";
+import Entreprise from "./Entreprise";
 import "../vitrine.css";
 import "../comptes.css";
 
@@ -94,7 +95,7 @@ function Espace({ email, onDeconnexion, onCodeExpire }) {
   const [restos, setRestos] = useState(null);
   const [sel, setSel] = useState(null);
   const [tunnel, setTunnel] = useState(false);
-  const [vue, setVue] = useState("restos"); // restos | demandes
+  const [vue, setVue] = useState("entreprise"); // entreprise | demandes | restos
   const dem = useDemandes(onCodeExpire);
   const [suppr, setSuppr] = useState(false);
   const [info, setInfo] = useState("");
@@ -135,6 +136,10 @@ function Espace({ email, onDeconnexion, onCodeExpire }) {
         </header>
         <div className="cr-body">
           <aside className="cr-side" aria-label="Mes restaurants">
+            <button type="button" className={"cr-item cr-dem cr-ent" + (vue === "entreprise" ? " on" : "")} onClick={() => setVue("entreprise")}>
+              <b>Mon entreprise</b>
+              <small>Clients, paiements, cahier de compte</small>
+            </button>
             <button type="button" className={"cr-item cr-dem" + (vue === "demandes" ? " on" : "")} onClick={() => setVue("demandes")}>
               <b>Demandes de démo{dem.aRappeler > 0 && <span className="cr-badge hot">{dem.aRappeler} à rappeler</span>}</b>
               <small>Les prospects venus du site</small>
@@ -162,6 +167,7 @@ function Espace({ email, onDeconnexion, onCodeExpire }) {
             </button>
           </aside>
           <main className="cr-main">
+            {vue === "entreprise" && <Entreprise onCodeExpire={onCodeExpire} />}
             {vue === "demandes" && <Demandes d={dem} onCreerResto={(depart) => setTunnel(depart)} />}
             {vue === "restos" && err && <div className="v-err" role="alert">{err}</div>}
             {vue === "restos" && info && <div className="v-ok-msg" role="status">{info}</div>}

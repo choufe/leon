@@ -5,6 +5,13 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.02 — « Mon entreprise » : le suivi de Maurice
+- Nouvel onglet en haut de l'espace créateur (c'est là qu'on arrive) : **objectif 5 restos à 400 €** avec barre de progression, revenu par mois, encaissé ce mois, **à encaisser** (qui te doit), résultat de l'année.
+- **Mes clients** : formule (Fondateur 400 €, Normal 450 €, Offert ; mensuel ou à l'année avec 2 mois offerts ; mois offerts pour le parrainage ; prix sur mesure possible), date de début, prochaine échéance, payé, situation (À jour / Doit X €), bouton « Encaissé ». Les restos de test et ceux de Maurice ne comptent pas.
+- **Demandes de démo** en entonnoir : demandes → rappelées → démos → gagnées, avec les %.
+- **Le cahier de compte** : chaque entrée (abonnements, kits) et sortie (matériel, logiciels, nom de domaine, pub…), total de l'année, et **« Fichier pour le comptable »** (tableur CSV).
+- Base : migration `0008_entreprise.sql` appliquée le 2 nov. (formule sur chaque resto + table `leon_compta`, lecture réservée au créateur). Mis en ligne le 2 nov.
+
 ## 12.01 — Espace créateur : supprimer un resto en sécurité
 - Sur la fiche d'un resto : « Supprimer ce restaurant » → « Tu es sûr ? » (ce qui va se passer) → **retaper son 2e code**. Impossible de supprimer par erreur d'un clic.
 - « Supprimer » = mettre de côté : plus personne n'y entre (le patron voit « Ce Léon est fermé, appelez Maurice »), mais **toutes les données sont gardées**. Le resto passe dans « Supprimés » en bas de la liste, avec un bouton « Récupérer ».
