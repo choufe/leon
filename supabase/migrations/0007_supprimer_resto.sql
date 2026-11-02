@@ -55,7 +55,8 @@ create or replace function createur_recuperer_resto(o_id uuid) returns boolean
 language plpgsql security definer set search_path = public, extensions, pg_temp as $$
 begin
   if not est_createur() then raise exception 'réservé au créateur'; end if;
-  update orgs set supprime_le = null where id = o_id and supprime_le is not null;
+  update orgs set supprime_le = null, aide_jusqu = case when test then now() + interval '10 years' else aide_jusqu end
+    where id = o_id and supprime_le is not null;
   return found;
 end $$;
 

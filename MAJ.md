@@ -10,7 +10,7 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 - « Supprimer » = mettre de côté : plus personne n'y entre (le patron voit « Ce Léon est fermé, appelez Maurice »), mais **toutes les données sont gardées**. Le resto passe dans « Supprimés » en bas de la liste, avec un bouton « Récupérer ».
 - Mauvais code : mêmes règles que d'habitude (5 erreurs → attente).
 - **Resto de test** : dans « Ajouter un restaurant », case « Resto de test » → créé tout de suite, sans patron ni mail, badge violet « Test ». Maurice y entre depuis sa fiche (« Entrer dans ce resto »).
-- Base : migration `0007_supprimer_resto.sql`. **À appliquer avec l'accord de Maurice, AVANT de mettre ce code en ligne.**
+- Base : migration `0007_supprimer_resto.sql` appliquée le 2 nov. Mis en ligne le 2 nov.
 
 ## 12.00 — Un seul chemin (1re partie)
 - Dans le vrai site, la connexion Léon (e-mail + mot de passe, puis code à 4 chiffres) est la **seule porte**. L'ancienne app ne montre plus jamais ses vieux écrans : « Crée ton Léon », identifiant + mot de passe du resto, verrou de l'appareil.
