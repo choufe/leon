@@ -10,7 +10,7 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 - **Mes clients** : formule (Fondateur 400 €, Normal 450 €, Offert ; mensuel ou à l'année avec 2 mois offerts ; mois offerts pour le parrainage ; prix sur mesure possible), date de début, prochaine échéance, payé, situation (À jour / Doit X €), bouton « Encaissé ». Les restos de test et ceux de Maurice ne comptent pas.
 - **Demandes de démo** en entonnoir : demandes → rappelées → démos → gagnées, avec les %.
 - **Le cahier de compte** : chaque entrée (abonnements, kits) et sortie (matériel, logiciels, nom de domaine, pub…), total de l'année, et **« Fichier pour le comptable »** (tableur CSV).
-- Base : migration `0008_entreprise.sql` (formule sur chaque resto + table `leon_compta`, lecture réservée au créateur).
+- Base : migration `0008_entreprise.sql` appliquée le 2 nov. (formule sur chaque resto + table `leon_compta`, lecture réservée au créateur). Mis en ligne le 2 nov.
 
 ## 12.01 — Espace créateur : supprimer un resto en sécurité
 - Sur la fiche d'un resto : « Supprimer ce restaurant » → « Tu es sûr ? » (ce qui va se passer) → **retaper son 2e code**. Impossible de supprimer par erreur d'un clic.
