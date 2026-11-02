@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabaseBrowser } from "../../lib/supabaseClient";
@@ -11,6 +11,14 @@ export default function Inscription() {
   const [err, setErr] = useState("");
   const [sent, setSent] = useState(false);
   const router = useRouter();
+  const [ferme, setFerme] = useState(false);
+
+  // Dès que le créateur a choisi son 2e code, cette page ne sert plus.
+  useEffect(() => {
+    const sb = supabaseBrowser();
+    if (!sb) return;
+    sb.rpc("createur_existe").then(({ data }) => { if (data === true) setFerme(true); });
+  }, []);
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -42,7 +50,12 @@ export default function Inscription() {
           Page réservée au tout premier compte : celui du créateur de Léon.
           Les patrons, eux, reçoivent une invitation par mail.
         </p>
-        {sent ? (
+        {ferme ? (
+          <p className="sub">
+            Les comptes Léon sont créés sur invitation. Vous êtes restaurateur ?{" "}
+            <Link href="/demande">Demandez une démo</Link>, je vous rappelle.
+          </p>
+        ) : sent ? (
           <p className="ok">
             C’est presque fini : clique sur le lien reçu à {email} pour
             confirmer ton adresse.
