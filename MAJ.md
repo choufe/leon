@@ -5,6 +5,16 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 11.09 — Page d'accueil finie (~90 %) + demandes de démo dans l'espace créateur
+- **Vitrine** : l'offre affiche les vrais prix (450 € barré, **400 € HT/mois offre fondateur** pendant l'année de lancement), mise en route offerte, 2 mois offerts si l'année est payée d'un coup, 1 mois offert par resto recommandé, matériel acheté au prix coûtant et qui reste au resto.
+- **« Ce qu'on me demande souvent »** : 7 questions (matériel, langues, pointage uniquement sur la tablette, caisse, démarrage, plusieurs établissements, données).
+- « Comment ça marche » mis à jour (Léon guide l'installation, 2 semaines d'accompagnement).
+- **Barre « Demander une démo » collée en bas** sur téléphone.
+- **Pages légales** `/mentions-legales` et `/confidentialite` (liens en pied de page et sous le formulaire). Trous surlignés à remplir : société, SIRET, adresse, e-mail et téléphone pro.
+- Correctif : les textes des boutons sur fond vert (« Se connecter », « Essayer », « Demander une démo ») sortaient en foncé, illisibles. Corrigé sur toutes les pages.
+- **Espace créateur → « Demandes de démo »** : pastille « X à rappeler », bouton Appeler, notes, suivi (À rappeler, Rappelée, Démo faite, Gagnée, Perdue) et « Créer son Léon » qui ouvre le tunnel avec le resto et le patron déjà remplis.
+- Base : migration `0005_demandes_createur.sql` (lecture réservée au créateur). **À appliquer avec 0003, après validation de Maurice.**
+
 ## 11.08 — Comptes : espace créateur, « Ajouter un restaurant », invitation du patron, codes à 4 chiffres
 - **Espace créateur `/createur`** (Maurice, sur PC) : mot de passe puis **2e code à 4 chiffres** (choisi la 1re fois, redemandé toutes les 12 h). À gauche la liste de tous les restos (badge « Invité » tant que le patron n'a pas ouvert son compte), à droite la fiche du resto (patron, statut, accès d'aide) et « Entrer dans ce resto ».
 - **Tunnel « Ajouter un restaurant »** en 3 étapes : le resto (nom, ville, type), le patron (prénom, e-mail), le récap → **Créer et inviter**. Le mail d'invitation part tout seul (fonction serveur `inviter-patron`).

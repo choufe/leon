@@ -96,3 +96,26 @@
 .v a.v-btn-brass { color: #FFF9EF; }
 .v .cx-check { display: flex; gap: 10px; align-items: center; cursor: pointer; }
 .v .cx-check input { width: 18px; height: 18px; min-height: 0; margin: 0; flex: none; accent-color: var(--v-brass); }
+
+/* 11.09 · demandes de démo dans l'espace créateur */
+.v .cr-dem { background: #fff; border-color: var(--v-line); margin-bottom: 10px; }
+.v .cr-badge.hot { background: #FBE9E6; color: #8A2A1C; }
+.v .dm-filtres { display: flex; gap: 8px; flex-wrap: wrap; }
+.v .dm-filtres button { min-height: 38px; padding: 0 14px; border-radius: 99px; border: 1.5px solid var(--v-line-2); background: #fff; color: var(--v-ink-2); font: 600 13.5px var(--v-ui); cursor: pointer; }
+.v .dm-filtres button[aria-pressed="true"] { border-color: var(--v-brass); background: var(--v-brass-soft); color: var(--v-ink); }
+.v .dm-liste { display: grid; gap: 12px; }
+.v .dm-carte { background: #fff; border: 1px solid var(--v-line); border-left: 5px solid var(--c); border-radius: 14px; padding: 16px 18px; display: grid; gap: 12px; }
+.v .dm-h { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.v .dm-h b { font: 700 18px var(--v-display); display: block; }
+.v .dm-h small { font-size: 13px; color: var(--v-ink-3); }
+.v .dm-st { font: 700 12px var(--v-ui); color: var(--c); background: color-mix(in srgb, var(--c) 12%, #fff); padding: 4px 10px; border-radius: 99px; white-space: nowrap; }
+.v .dm-contact { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.v .dm-cren { font-size: 13px; color: var(--v-ink-3); }
+.v .dm-msg { font-size: 14.5px; line-height: 1.5; color: var(--v-ink-2); background: var(--v-bg); border-radius: 10px; padding: 10px 12px; }
+.v .dm-note { display: grid; gap: 4px; }
+.v .dm-note span { font-size: 12.5px; color: var(--v-ink-3); font-weight: 600; }
+.v .dm-note textarea { width: 100%; border: 1.5px solid var(--v-line-2); border-radius: 10px; padding: 8px 10px; font: 14.5px var(--v-ui); background: var(--v-bg); resize: vertical; }
+.v .dm-acts { display: flex; flex-wrap: wrap; gap: 6px; }
+.v .dm-acts button { min-height: 34px; padding: 0 12px; border-radius: 99px; border: 1.5px solid var(--v-line-2); background: #fff; color: var(--v-ink-2); font: 600 13px var(--v-ui); cursor: pointer; }
+.v .dm-acts button[aria-pressed="true"] { border-color: var(--c); background: color-mix(in srgb, var(--c) 12%, #fff); color: var(--v-ink); }
+.v .dm-acts .dm-go { margin-left: auto; border-color: #23734A; background: #23734A; color: #fff; }

@@ -13,9 +13,9 @@ export const KINDS = [
 const ETAPES = ["Le resto", "Le patron", "Récap"];
 
 // Tunnel en 3 étapes : le resto, le patron, le récap → « Créer et inviter ».
-export default function AjouterResto({ onClose, onCree, onCodeExpire }) {
+export default function AjouterResto({ onClose, onCree, onCodeExpire, depart }) {
   const [etape, setEtape] = useState(0);
-  const [f, setF] = useState({ nom: "", ville: "", kind: "restaurant", prenom: "", email: "" });
+  const [f, setF] = useState({ nom: "", ville: "", kind: "restaurant", prenom: "", email: "", ...(depart || {}) });
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
   const [fini, setFini] = useState(null);

@@ -61,6 +61,37 @@ const POINTS = [
   },
 ];
 
+const FAQ = [
+  {
+    q: "Est-ce qu'il faut acheter du matériel ?",
+    r: "Une tablette pour la borne du resto et une petite imprimante d'étiquettes. Si vous en avez déjà, on vérifie ensemble qu'elles marchent avec Léon. Sinon, je les achète pour vous au prix coûtant : le matériel est à vous, pas de location.",
+  },
+  {
+    q: "Mon équipe ne lit pas bien le français, ça marche quand même ?",
+    r: "Oui. Chaque salarié choisit sa langue (français, anglais, arabe, portugais, espagnol, tamoul) et l'écran de la borne parle surtout en icônes : badger, voir son planning, imprimer une étiquette.",
+  },
+  {
+    q: "Mes salariés peuvent pointer depuis leur téléphone ?",
+    r: "Non, et c'est voulu. On pointe uniquement sur la tablette du resto, avec son code perso à 4 chiffres. Personne ne peut badger depuis chez lui ou à la place d'un collègue.",
+  },
+  {
+    q: "Léon remplace ma caisse ?",
+    r: "Non. Votre caisse continue de prendre les commandes. Léon s'occupe de tout le reste : l'équipe, la marchandise, l'hygiène et le suivi. On regarde ensemble si votre caisse peut lui envoyer vos ventes pour suivre le chiffre en direct.",
+  },
+  {
+    q: "Combien de temps pour démarrer ?",
+    r: "Léon vous guide écran par écran : le resto, l'équipe, la carte, les produits, la tablette et l'imprimante. Et je vous accompagne personnellement pendant les deux premières semaines.",
+  },
+  {
+    q: "J'ai plusieurs établissements.",
+    r: "Chaque établissement a son Léon complet, et vous les voyez tous au même endroit depuis votre téléphone ou votre ordinateur.",
+  },
+  {
+    q: "Où sont mes données ?",
+    r: "Hébergées en France, à Paris. Elles sont à vous et ne sont ni revendues ni partagées. Pas de biométrie pour la badgeuse.",
+  },
+];
+
 const CLIPS = [
   { f: "clip-equipe", c: "#6E9EDB", t: "Équipe", d: "Le planning qui se remplit, la borne qui repère les retards, chacun dans sa langue." },
   { f: "clip-hygiene", c: "#2DB5A1", t: "Hygiène", d: "Les frigos surveillés et les étiquettes DLC imprimées en un clic." },
@@ -80,6 +111,7 @@ export default function Vitrine() {
             <a href="#comment">Comment ça marche</a>
             <a href="#histoire">Qui suis-je</a>
             <a href="#offre">L'offre</a>
+            <a href="#questions">Questions</a>
           </nav>
           <div className="v-top-acts">
             <Link className="v-login" href="/login">Se connecter</Link>
@@ -174,14 +206,14 @@ export default function Vitrine() {
               <div className="v-step">
                 <span className="v-n">2</span>
                 <h3>On installe Léon</h3>
-                <p>Votre équipe, votre carte et vos produits sont importés depuis vos fichiers. La tablette du resto devient la borne de pointage.</p>
-                <small>Environ 30 minutes</small>
+                <p>Léon vous guide écran par écran : l'équipe, la carte, les produits. La tablette du resto devient la borne, l'imprimante sort vos étiquettes DLC.</p>
+                <small>Mise en route offerte</small>
               </div>
               <div className="v-step">
                 <span className="v-n">3</span>
                 <h3>Léon tourne, je reste là</h3>
                 <p>Léon vous prévient de ce qui compte. Une question, un réglage à faire : vous m'appelez directement, pas un centre d'appel.</p>
-                <small>Au quotidien</small>
+                <small>Deux semaines à vos côtés</small>
               </div>
             </div>
           </div>
@@ -215,7 +247,15 @@ export default function Vitrine() {
             </div>
             <div className="v-offer">
               <div className="v-offer-card">
-                <h3>Léon, par établissement</h3>
+                <div className="v-price">
+                  <h3>Léon, par établissement</h3>
+                  <div className="v-price-row">
+                    <s>450 €</s>
+                    <b>400 €</b>
+                    <span>HT / mois</span>
+                  </div>
+                  <p className="v-price-tag">Offre fondateur : 400 € pendant toute l'année de lancement</p>
+                </div>
                 <ul>
                   <li>Planning et badgeuse</li>
                   <li>Heures pour le comptable</li>
@@ -225,15 +265,35 @@ export default function Vitrine() {
                   <li>Hygiène et étiquettes DLC</li>
                   <li>Écran « Aujourd'hui » et alertes</li>
                   <li>Six langues pour l'équipe</li>
-                  <li>Installation avec moi</li>
+                  <li>Accompagnement avec moi</li>
                   <li>Données hébergées en France</li>
                 </ul>
                 <Link className="v-btn v-btn-brass" href="/demande" style={{ alignSelf: "start" }}>Demander une démo</Link>
               </div>
               <div className="v-offer-side">
-                <p><b>Le tarif est présenté pendant la démo.</b> Il dépend du nombre d'établissements et de la taille de l'équipe.</p>
-                <p>Pour comparer : un outil de planning, un outil de stocks et un outil d'hygiène séparés coûtent souvent entre 190 et 350 € par mois, sans se parler entre eux.</p>
+                <div className="v-perk"><b>Mise en route offerte</b><span>Léon vous guide, et je suis là les deux premières semaines.</span></div>
+                <div className="v-perk"><b>2 mois offerts</b><span>si vous réglez l'année en une fois.</span></div>
+                <div className="v-perk"><b>1 mois offert</b><span>pour chaque restaurateur que vous nous recommandez et qui rejoint Léon.</span></div>
+                <div className="v-perk"><b>Le matériel est à vous</b><span>Tablette et imprimante d'étiquettes achetées pour vous au prix coûtant, sans location.</span></div>
+                <p className="v-cmp">Pour comparer : un outil de planning, un de stocks et un d'hygiène séparés coûtent souvent entre 190 et 350 € par mois, sans se parler entre eux.</p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="v-sec v-faq-sec" id="questions">
+          <div className="v-wrap">
+            <div className="v-head">
+              <span className="v-eyebrow" style={{ color: "var(--v-brass)" }}>Questions</span>
+              <h2>Ce qu'on me demande souvent</h2>
+            </div>
+            <div className="v-faq">
+              {FAQ.map((x) => (
+                <details key={x.q} className="v-q">
+                  <summary>{x.q}<i aria-hidden="true" /></summary>
+                  <p>{x.r}</p>
+                </details>
+              ))}
             </div>
           </div>
         </section>
@@ -258,10 +318,17 @@ export default function Vitrine() {
             <Link href="/demande">Demander une démo</Link>
             <Link href="/login">Se connecter</Link>
             <a href="/leon/demo.html?tablette=1">Mode borne (démo)</a>
+            <Link href="/mentions-legales">Mentions légales</Link>
+            <Link href="/confidentialite">Confidentialité</Link>
           </nav>
           <span>© 2026 Léon · Lille</span>
         </div>
       </footer>
+
+      <div className="v-sticky" aria-hidden="false">
+        <a className="v-btn v-btn-ghost v-btn-sm" href="/leon/demo.html">Essayer</a>
+        <Link className="v-btn v-btn-brass v-btn-sm" href="/demande">Demander une démo</Link>
+      </div>
     </div>
   );
 }

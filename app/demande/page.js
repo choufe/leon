@@ -144,7 +144,7 @@ export default function Demande() {
             </div>
             {err && <div className="v-err" role="alert">{err}</div>}
             <button className="v-btn v-btn-brass" type="submit" disabled={busy}>{busy ? "Envoi…" : "Être rappelé"}</button>
-            <p className="v-legal">Vos coordonnées servent uniquement à vous rappeler au sujet de Léon. Elles ne sont ni revendues ni partagées.</p>
+            <p className="v-legal">Vos coordonnées servent uniquement à vous rappeler au sujet de Léon. Elles ne sont ni revendues ni partagées. <a href="/confidentialite" style={{ textDecoration: "underline" }}>En savoir plus</a></p>
           </form>
         )}
       </main>

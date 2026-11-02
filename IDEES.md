@@ -60,3 +60,8 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - ✅ Le patron choisit lui-même son code à la 1re connexion. 5 erreurs → 30 s d'attente qui double.
 - 💡 Démarrage d'un resto : resto, équipe, carte, produits/fournisseurs, tablette + imprimante (étiquette test), HACCP de base. Les restos ne partent pas toujours de zéro (bouton « Tester mon imprimante »).
 - 💡 Matériel : Maurice achète le kit (tablette + Brother QL-820NWBc ~185 € HT) avec l'argent du resto ; le matériel est au resto. Location plus tard, en option.
+
+## Façon de travailler (2 nov.)
+- « Finir » une page = ~90 %, le reste viendra plus tard.
+- À chaque message de Maurice sur Léon, Claude avance AUSSI en parallèle sur une autre page ou fonction (prendre des initiatives).
+- ✅ 11.09 vitrine finie + demandes de démo côté créateur. 💡 Ensuite : notification à Maurice (mail/SMS) à chaque nouvelle demande.

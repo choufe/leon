@@ -6,6 +6,7 @@ import { supabaseBrowser, NO_DB_MSG } from "../../lib/supabaseClient";
 import CodePad from "../_ui/CodePad";
 import ChoisirCode from "../_ui/ChoisirCode";
 import AjouterResto, { KINDS } from "./AjouterResto";
+import Demandes, { useDemandes } from "./Demandes";
 import "../vitrine.css";
 import "../comptes.css";
 
@@ -92,6 +93,8 @@ function Espace({ email, onDeconnexion, onCodeExpire }) {
   const [restos, setRestos] = useState(null);
   const [sel, setSel] = useState(null);
   const [tunnel, setTunnel] = useState(false);
+  const [vue, setVue] = useState("restos"); // restos | demandes
+  const dem = useDemandes(onCodeExpire);
   const [err, setErr] = useState("");
 
   const charger = useCallback(async (choisir) => {
@@ -121,9 +124,13 @@ function Espace({ email, onDeconnexion, onCodeExpire }) {
         </header>
         <div className="cr-body">
           <aside className="cr-side" aria-label="Mes restaurants">
+            <button type="button" className={"cr-item cr-dem" + (vue === "demandes" ? " on" : "")} onClick={() => setVue("demandes")}>
+              <b>Demandes de démo{dem.aRappeler > 0 && <span className="cr-badge hot">{dem.aRappeler} à rappeler</span>}</b>
+              <small>Les prospects venus du site</small>
+            </button>
             <h2>Mes restaurants · {restos ? restos.length : "…"}</h2>
             {(restos || []).map((x) => (
-              <button key={x.id} type="button" className={"cr-item" + (x.id === sel ? " on" : "")} onClick={() => setSel(x.id)}>
+              <button key={x.id} type="button" className={"cr-item" + (vue === "restos" && x.id === sel ? " on" : "")} onClick={() => { setSel(x.id); setVue("restos"); }}>
                 <b>{x.nom}{x.statut === "invite" ? <span className="cr-badge">Invité</span> : x.a_moi ? <span className="cr-badge ok">Mon resto</span> : null}</b>
                 <small>{[x.ville, x.patron_prenom].filter(Boolean).join(" · ") || kindLabel(x.kind)}</small>
               </button>
@@ -134,15 +141,16 @@ function Espace({ email, onDeconnexion, onCodeExpire }) {
             </button>
           </aside>
           <main className="cr-main">
-            {err && <div className="v-err" role="alert">{err}</div>}
-            {restos && restos.length === 0 && (
+            {vue === "demandes" && <Demandes d={dem} onCreerResto={(depart) => setTunnel(depart)} />}
+            {vue === "restos" && err && <div className="v-err" role="alert">{err}</div>}
+            {vue === "restos" && restos && restos.length === 0 && (
               <div className="cr-empty">
                 <h2>Lancez votre premier resto</h2>
                 <p>Vous créez le resto et vous invitez le patron. Il reçoit un mail, choisit son mot de passe et son code, puis Léon le guide pour tout installer.</p>
                 <button type="button" className="v-btn v-btn-brass" onClick={() => setTunnel(true)}>Ajouter un restaurant</button>
               </div>
             )}
-            {r && (
+            {vue === "restos" && r && (
               <>
                 <div>
                   <h1>{r.nom}</h1>
@@ -162,7 +170,7 @@ function Espace({ email, onDeconnexion, onCodeExpire }) {
           </main>
         </div>
       </div>
-      {tunnel && <AjouterResto onClose={() => setTunnel(false)} onCree={(id) => { charger(id); }} onCodeExpire={onCodeExpire} />}
+      {tunnel && <AjouterResto depart={typeof tunnel === "object" ? tunnel : null} onClose={() => setTunnel(false)} onCree={(id) => { charger(id); setVue("restos"); }} onCodeExpire={onCodeExpire} />}
     </div>
   );
 }
