@@ -39,7 +39,17 @@ export default function LeonApp() {
         if (!peut) { router.replace("/createur"); return; }
         orgId = resto;
         setAide(true);
+        const { data: liste } = await supabase.rpc("createur_restos");
+        const o = (liste || []).find((x) => x.id === resto);
+        window.__leonCompte = { prenom: o && o.patron_prenom, resto: o && o.nom, ville: o && o.ville };
       } else {
+        // Le créateur n'a rien à faire ici sans resto choisi : direction son espace (2e code, liste des restos).
+        // /app?moi=1 = il entre volontairement dans son propre resto depuis /createur.
+        if (!new URLSearchParams(window.location.search).get("moi")) {
+          const { data: createur } = await supabase.rpc("devenir_createur");
+          if (cancelled) return;
+          if (createur) { router.replace("/createur"); return; }
+        }
         // Code à 4 chiffres pour rouvrir l'appli (comptes qui en ont un).
         const { data: aCode } = await supabase.rpc("mon_code_existe");
         if (cancelled) return;
@@ -57,6 +67,15 @@ export default function LeonApp() {
           return;
         }
         orgId = r.data;
+        // Ce que l'app a besoin de savoir pour entrer directement (sans ses vieux écrans de compte).
+        const { data: acc } = await supabase.rpc("mon_accueil");
+        if (cancelled) return;
+        const mail = data.user.email || "";
+        const prenom = (acc && acc.prenom) || mail.split("@")[0].split(/[._-]/)[0];
+        window.__leonCompte = {
+          prenom: prenom ? prenom.charAt(0).toUpperCase() + prenom.slice(1) : "",
+          resto: acc && acc.resto && !acc.resto.includes("@") ? acc.resto : "Mon restaurant",
+        };
       }
       db = createLeonDb(supabase, orgId);
       window.__leonClaude = {
