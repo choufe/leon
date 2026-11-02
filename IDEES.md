@@ -70,3 +70,20 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - Maurice veut un parcours LINÉAIRE : site Léon → Se connecter → son compte. Jamais retomber sur une ancienne version en un clic.
 - Inventaire fait : le problème vient surtout de l'ancienne app v11 (dans `/app`) qui a encore ses propres écrans de compte : « Crée ton Léon » (setup, si `net/config` vide), identifiant + mot de passe du resto (login), écran de verrou de l'appareil. Ça fait une 2e porte après la connexion.
 - 💡 12.00 « Un seul chemin » : dans `/app`, Léon saute ces vieux écrans (le compte Supabase + code à 4 chiffres = la seule porte) ; le resto est créé à partir du nom donné à l'invitation ; retirer « Mon compte créateur » de la v11 ; `/dashboard` supprimé ; `/inscription` fermée (11.10) ; la tablette reliée plus tard par lien perso.
+
+## Planning + badgeuse : ce qu'on retient de Skello (visite du compte Burgouzz, 3 nov., lecture seule)
+Objectif de Maurice : Skello + Inpulse + Octopus en un seul outil. Côté Skello, Léon ne garde QUE planning + badgeuse (pas de RH : contrats, documents, signatures).
+**Planning (vue Semaine)**
+- 2 façons de voir : par salarié (une ligne par personne, avec ses heures contrat 35h/39h…) ou par poste (Plancha, Caisse, Frites, Manager…).
+- Chaque créneau = une carte colorée par poste : heures (09:00-16:30), durée, poste. Les jours sans travail : carte grise « Repos hebdomadaire » / « Congé payé ».
+- Colonne Total par salarié : heures planifiées vs contrat, écart en rouge (« +04h00 »).
+- Bas de page par jour : nombre de personnes + heures. Petite pastille rouge sur une carte = alerte légale.
+- Vues Jour (frise 0h-24h, nombre de personnes présentes quart d'heure par quart d'heure) et Mois.
+- Menu : trier les postes, verrouiller la semaine pour la paie, créer à partir d'un modèle / enregistrer comme modèle, effacer la semaine. Planning brouillon → « publié ». Annuler / refaire. Imprimer.
+- Chez eux, le pilotage (prévu vs réalisé, masse salariale vs CA) est une option payante → chez Léon c'est inclus, c'est un argument de vente.
+**Badgeuse (par jour ou par salarié)**
+- Tableau : prévu | badgé (heure réelle d'arrivée/départ, lieu) | **rémunéré** (corrigeable) | pause | absence | total | note.
+- Arrivé en avance → payé à l'heure prévue ; parti plus tard → l'heure réelle compte. « Pas de badge » → le prévu sert de base.
+- Le manager valide chaque journée (ou la semaine par salarié), puis c'est verrouillé pour la paie. Compteurs : heures travaillées, retards.
+- Synchronisation avec la tablette.
+**Pour Léon (branche masse salariale)** : une bonne partie existe déjà dans la v11 (planning HCR, badgeuse, heures sup). À vérifier/ajouter : vue par poste, heures contrat vs planifiées, modèles de semaine, verrou paie, validation journée par le directeur (lui seul corrige un pointage), règle « payé = prévu sauf si plus tard », export paie pour le comptable.
