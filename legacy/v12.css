@@ -1,0 +1,8 @@
+/* V12 · feuille de jour */
+.pj-date{font-size:15px}
+.pj-tbl td{vertical-align:top}
+.pj-tbl tr.pj-bad td{background:var(--bad-soft)}
+.pj-tbl .pj-paye b{font-size:13.5px}
+.pj-up{font-size:11.5px;color:var(--info);font-weight:650}
+.pj-down{font-size:11.5px;color:var(--warn);font-weight:650}
+.pj-acts .btn{white-space:nowrap}
