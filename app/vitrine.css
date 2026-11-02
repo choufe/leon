@@ -253,3 +253,5 @@
   .v-login-grid { grid-template-columns: minmax(0, 1fr); padding-block: 24px 56px; gap: 20px; }
   .v-door-main { padding: 24px; }
 }
+
+.v-ok-msg { background: #DFF0E5; color: #1D6B44; border-radius: 10px; padding: 12px 14px; font-size: 14.5px; line-height: 1.5; font-weight: 600; }

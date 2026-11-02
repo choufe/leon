@@ -29,7 +29,7 @@ export default function Inscription() {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { emailRedirectTo: `${window.location.origin}/createur` },
+      options: { emailRedirectTo: `${window.location.origin}/login?confirme=1` },
     });
     setBusy(false);
     if (error) {
@@ -58,7 +58,8 @@ export default function Inscription() {
         ) : sent ? (
           <p className="ok">
             C’est presque fini : clique sur le lien reçu à {email} pour
-            confirmer ton adresse.
+            confirmer ton adresse. Tu reviendras ici pour te connecter, puis
+            Léon te fera choisir ton code à 4 chiffres.
           </p>
         ) : (
           <form onSubmit={onSubmit}>

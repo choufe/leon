@@ -5,6 +5,13 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 11.10 — Tunnel du compte créateur réparé + inscription qui se ferme
+- Bug trouvé le 2 nov. par Maurice : après le lien du mail de confirmation, il n'était pas connecté et n'arrivait jamais à l'écran « Choisissez votre 2e code ». Et même en se connectant, `/login` l'envoyait vers `/app` (il n'était pas encore inscrit comme créateur).
+- Le lien du mail mène maintenant à `/login?confirme=1` : bandeau vert « Adresse confirmée, connectez-vous », puis Léon emmène directement au choix du code. Sur le même appareil, la connexion se fait toute seule.
+- Après connexion, le tout premier compte devient créateur et part sur `/createur` (choix du 2e code). Bouton « Entrer dans Léon » (déjà connecté) : même aiguillage.
+- Un lien de mail qui tomberait sur l'accueil (confirmation, invitation, mot de passe oublié) est renvoyé vers la bonne page.
+- `/inscription` se ferme dès que le créateur a choisi son code (« comptes sur invitation, demandez une démo »). Migration `0006_inscription_fermee.sql` **à appliquer avec l'accord de Maurice** (sans elle, la page reste simplement ouverte).
+
 ## 11.09 — Page d'accueil finie (~90 %) + demandes de démo dans l'espace créateur
 - **Vitrine** : l'offre affiche les vrais prix (450 € barré, **400 € HT/mois offre fondateur** pendant l'année de lancement), mise en route offerte, 2 mois offerts si l'année est payée d'un coup, 1 mois offert par resto recommandé, matériel acheté au prix coûtant et qui reste au resto.
 - **« Ce qu'on me demande souvent »** : 7 questions (matériel, langues, pointage uniquement sur la tablette, caisse, démarrage, plusieurs établissements, données).

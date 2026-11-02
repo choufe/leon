@@ -25,11 +25,30 @@ export default function Login() {
   const [err, setErr] = useState("");
   const [current, setCurrent] = useState(null);
   const router = useRouter();
+  const [confirme, setConfirme] = useState(false);
+
+  // Après connexion : le créateur va dans son espace (où il choisit son 2e code), les autres dans leur resto.
+  async function allerChezMoi(sb) {
+    const { data: createur } = await sb.rpc("devenir_createur");
+    router.push(createur ? "/createur" : "/app");
+  }
 
   useEffect(() => {
     const sb = supabaseBrowser();
     if (!sb) return;
-    sb.auth.getUser().then(({ data }) => setCurrent(data.user || null)).catch(() => {});
+    const q = new URLSearchParams(window.location.search);
+    if (q.get("confirme")) setConfirme(true);
+    (async () => {
+      // Lien du mail de confirmation ouvert sur le même appareil : on connecte directement.
+      const code = q.get("code");
+      if (code) {
+        const { error } = await sb.auth.exchangeCodeForSession(code);
+        if (!error) { marquerDeverrouille(); await allerChezMoi(sb); return; }
+      }
+      const { data } = await sb.auth.getUser();
+      setCurrent(data.user || null);
+    })().catch(() => {});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function onLogin(e) {
@@ -43,10 +62,7 @@ export default function Login() {
     if (error) { setErr(frError(error)); return; }
     // Le mot de passe vient d'être tapé : pas besoin du code juste après.
     marquerDeverrouille();
-    const suite = new URLSearchParams(window.location.search).get("suite");
-    if (suite === "/createur") { router.push("/createur"); return; }
-    const { data: createur } = await sb.rpc("suis_createur");
-    router.push(createur ? "/createur" : "/app");
+    await allerChezMoi(sb);
   }
 
   async function onForgot(e) {
@@ -94,12 +110,15 @@ export default function Login() {
               <h1 id="lg-title">Se connecter</h1>
             </div>
           </div>
+          {confirme && !current && (
+            <div className="v-ok-msg" role="status">✓ Adresse confirmée. Connectez-vous : Léon vous fera ensuite choisir votre code à 4 chiffres.</div>
+          )}
 
           {current && mode === "login" ? (
             <div className="v-already">
               <p>Vous êtes déjà connecté avec <b>{current.email}</b>.</p>
               <div className="v-ctas">
-                <Link className="v-btn v-btn-brass" href="/app">Entrer dans Léon</Link>
+                <button type="button" className="v-btn v-btn-brass" onClick={() => allerChezMoi(supabaseBrowser())}>Entrer dans Léon</button>
                 <button type="button" className="v-btn v-btn-line" onClick={signOut}>Changer de compte</button>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import "./vitrine.css";
+import RetourMail from "./_ui/RetourMail";
 
 export const metadata = {
   title: "Léon · la gestion de restaurant qui vous prévient avant vous",
@@ -101,6 +102,7 @@ const CLIPS = [
 export default function Vitrine() {
   return (
     <div className="v">
+      <RetourMail />
       <header className="v-top">
         <div className="v-wrap">
           <Link href="/" aria-label="Léon, accueil">
