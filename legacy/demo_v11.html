@@ -13015,12 +13015,13 @@ Object.assign(ACT,{
 const V12_INV=(()=>{try{return window.parent!==window&&window.parent.__leonInviter||null;}catch(e){return null;}})();
 const V12_CONN=(()=>{try{return window.parent!==window&&window.parent.__leonConnectes||null;}catch(e){return null;}})();
 let CONNECTES=null;
-function chargerConnectes(){if(!V12_CONN||CONNECTES)return;CONNECTES=[];V12_CONN().then(l=>{CONNECTES=l||[];if(UI.view==='equipe')renderView();}).catch(()=>{});}
+let INV_PRET=false;
+function chargerConnectes(){if(!V12_CONN||CONNECTES)return;CONNECTES=[];V12_CONN().then(l=>{CONNECTES=l||[];INV_PRET=true;if(UI.view==='equipe')renderView();}).catch(()=>{});}
 
 {const f=viewEquipe2;viewEquipe2=function(){
   let h=f.apply(this,arguments);
   if(!V12_INV||!CAN().settings)return h;
-  chargerConnectes();
+  chargerConnectes();if(!INV_PRET)return h; // tant que la base n'a pas les invitations, pas de bouton
   EMP.forEach(e=>{
     const k=`<button class="btn sm" data-act="emp-edit" data-id="${e.id}">`;
     const on=(CONNECTES||[]).includes(e.id);
@@ -13054,17 +13055,13 @@ ACT['inv-copier']=function(){const i=document.getElementById('inv-url');if(!i)re
    L'hygiène (relevés, étiquettes), ça se fait sur la tablette du resto. */
 if(V12_COMPTE&&V12_COMPTE.salarie){const f=navItems;navItems=function(){return (f.apply(this,arguments)||[]).filter(n=>n.v!=='hygiene'&&n.v!=='pointage');};}
 
-/* ---------- planning d'équipe (vue salarié) : « avec qui tu bosses » ---------- */
+/* ---------- planning d'équipe (vue salarié) : sa ligne en couleur pour se repérer ---------- */
 function avecQui(){
   if(UI.view!=='planning'||!U.empId)return;const moi=empById(U.empId);if(!moi)return;
   const w=UI.plan.w;
   document.querySelectorAll('.ag .ag-d').forEach((sec,d)=>{
     if(sec.querySelector('.ag-avec'))return;
     sec.querySelectorAll('.ag-r').forEach(r=>{const b=r.querySelector('.ag-n b');if(b&&b.textContent.trim()===moi.prenom)r.classList.add('ag-moi');});
-    const mes=empShifts(moi.id,w,d);if(!mes.length)return;
-    const bits=mes.map(x=>{const col=[...new Set(shiftsWD(w,d).filter(y=>y.emp!==moi.id&&sMin(y)<eMin(x)&&eMin(y)>sMin(x)).map(y=>y.emp))].map(empById).filter(Boolean).map(e=>e.prenom);
-      return `<b>${x.s}–${x.e}</b> ${col.length?'avec '+esc(col.join(', ')):'seul(e)'}`;});
-    const h=sec.querySelector('header');if(h)h.insertAdjacentHTML('afterend',`<div class="ag-avec">${ic('users','s')} Toi : ${bits.join(' · ')}</div>`);
   });
 }
 {const f=renderView;renderView=function(){const o=f.apply(this,arguments);try{if(['staff','manager'].includes(effRole()))avecQui();}catch(e){}return o;};}

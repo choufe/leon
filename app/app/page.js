@@ -95,7 +95,8 @@ export default function LeonApp() {
         return `${window.location.origin}/rejoindre?c=${data}`;
       };
       window.__leonConnectes = async () => {
-        const { data } = await supabase.rpc("mes_salaries_connectes");
+        const { data, error } = await supabase.rpc("mes_salaries_connectes");
+        if (error) throw error; // base pas encore prête : le bouton « Inviter » reste caché
         return (data || []).map((x) => x.emp_id);
       };
       setReady(true);
