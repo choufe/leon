@@ -81,3 +81,5 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - 💬 À décider avec Maurice : comment dire à Léon qu'il y a un événement (formulaire simple « + Événement » : jour, midi/soir, type, affluence, finit plus tard ?) + calendrier partagé des matchs pour tous les bars/restos Léon qui les diffusent.
 - 💡 Échange de shift : le patron fait l'échange avec Léon, Léon vérifie les règles et change le moins possible les plannings des autres. Shifts à pourvoir : noté (gadget mais OK).
 - Principe (3 nov.) : pas trop d'options pour ne pas se perdre. Léon propose le planning le plus opti possible, mais le patron doit pouvoir le changer facilement.
+
+- 3 nov. : notifications sur le téléphone (vibrer) validées par Maurice, à faire en même temps que l’envoi des mails (domaine + service d’envoi).
