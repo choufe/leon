@@ -184,3 +184,11 @@
 .toast.leon-avis{max-width:520px;align-items:flex-start}
 .toast.leon-avis .la-ic{color:var(--pop-accent,#E9C47A);font-size:16px;line-height:1.2}
 .pg9 .ec{width:236px}
+/* alerte de publication */
+.pub-al{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;margin:0 0 12px;background:var(--warn-soft);color:var(--ink)}
+.pub-al>svg{color:var(--warn);flex:none}
+.pub-al.bad{background:var(--bad-soft)}
+.pub-al.bad>svg{color:var(--bad)}
+.pub-al b{font-size:14px}
+.pub-al p{margin:2px 0 0;font-size:13px;color:var(--ink-2)}
+.pub-al>div:not(.pub-acts){flex:1}

@@ -94,8 +94,25 @@ function v12Repos(){
 /* ---------- 5. Les employés voient toute l'équipe ---------- */
 {const f=viewPlanning;viewPlanning=function(){
   if(S&&effRole()==='staff'&&UI.plan._v12team==null){UI.plan._v12team=1;UI.plan.team=true;}
-  return f.apply(this,arguments);
+  const html=f.apply(this,arguments);
+  try{const b=v12AlertePub();if(b){const i=html.indexOf('<div class="pl-bar">');if(i>=0)return html.slice(0,i)+b+html.slice(i);}}catch(e){}
+  return html;
 };}
+/* ---------- 6. Alerte de publication : l'équipe doit connaître ses horaires 7 jours avant ---------- */
+const V12_PUB_JOURS=7;
+function v12AlertePub(){
+  if(!S||effRole()==='staff'||!CAN().editPlanning||UI.plan.mode==='mois')return '';
+  const w=1;if(S.published[String(w)])return '';
+  const lundi=dateAt(w,0);const j=Math.round((lundi-TODAY)/864e5);if(j>V12_PUB_JOURS)return '';
+  const vide=!S.shifts.some(x=>x.w===w);
+  const quand=j<=0?'aujourd’hui':j===1?'demain':`dans ${j} jours`;
+  const ici=UI.plan.w===w;
+  return `<div class="pub-al ${j<=3?'bad':'warn'}">${ic('bell','s')}<div><b>La semaine prochaine n’est pas encore publiée</b><p>Elle commence ${quand}. L’équipe doit connaître ses horaires au moins ${V12_PUB_JOURS} jours avant.${vide?' Elle est encore vide : Léon peut la remplir pour toi.':''}</p></div>
+    <div class="pub-acts">${ici?(vide?`<button class="btn sm brass" data-act="pl-fill">${ic('wand','s')} Léon remplit</button>`:`<button class="btn sm primary" data-act="pl-publish">${ic('send','s')} Publier</button>`):`<button class="btn sm" data-act="pl-goto-w" data-w="${w}">Voir la semaine prochaine</button>`}</div></div>`;
+}
+ACT['pl-goto-w']=function(t){qeClose();UI.plan.w=+t.dataset.w;UI.plan.mode='semaine';UI.plan.sel=null;renderView();};
+// petit rappel sur l'entrée « Planning » du menu
+{const f=modInfo;modInfo=function(v){const x=f(v);if(v!=='planning'||!S)return x;try{if(v12AlertePub())return {...x,n:(x.n||0)+1,tone:x.tone==='bad'?'bad':'warn',s:(x.s?x.s+' · ':'')+'semaine prochaine à publier'};}catch(e){}return x;};}
 if(typeof VIEWS!=='undefined'&&VIEWS.planning)VIEWS.planning=viewPlanning;
 
 /* ---------- après chaque affichage ---------- */

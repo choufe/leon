@@ -76,3 +76,8 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - ✅ 12.05 (3 nov.) Pointage réduit à la seule Badgeuse (Maurice : le reste « ça sert à rien, c'est juste trop »). Payé au quart d'heure en un clic + saisie libre. Seuls patron/directeur modifient. Menu en marque-page qui libère toute la largeur. Plus de bouton Retour.
 - ✅ 12.07 (3 nov.) « Léon remplit » malin : événements de la note du jour (match du LOSC → plus de monde + fin plus tard), lissage des heures sup sur le mois, 2 repos/semaine, explication de chaque choix. Règle n°1 de Maurice : « il doit être malin ».
 - 💡 Plus tard : calendrier automatique des matchs du LOSC et des gros événements de Lille (sans que le patron ait à les noter), météo (terrasse), apprendre des semaines passées (couverts réels vs prévus).
+- ❌ (3 nov.) Note du planning sur 100 : abandonnée. Maurice : Léon ne connaît pas les arrangements de l'équipe, une note pourrait dire « t'es nul » alors que le planning est bon pour le patron.
+- ✅ 12.09 Alerte de publication (7 jours avant).
+- 💬 À décider avec Maurice : comment dire à Léon qu'il y a un événement (formulaire simple « + Événement » : jour, midi/soir, type, affluence, finit plus tard ?) + calendrier partagé des matchs pour tous les bars/restos Léon qui les diffusent.
+- 💡 Échange de shift : le patron fait l'échange avec Léon, Léon vérifie les règles et change le moins possible les plannings des autres. Shifts à pourvoir : noté (gadget mais OK).
+- Principe (3 nov.) : pas trop d'options pour ne pas se perdre. Léon propose le planning le plus opti possible, mais le patron doit pouvoir le changer facilement.
