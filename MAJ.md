@@ -5,6 +5,19 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.13 — Léon propose une solution à chaque problème
+- Dans « Léon a vérifié ce planning » et dans le ⚠ des cases : sous chaque problème, **une** solution calculée par Léon, avec un bouton **Faire** (annulable).
+- Ce qu'il sait faire :
+  - **11 h de repos** : il partage la coupure, finir un peu plus tôt la veille ET commencer un peu plus tard le lendemain, au quart d'heure (« Yanis finit à 00:30 jeudi et commence à 11:30 vendredi : 11 h pile, chaque journée ne bouge que de 30 min ») ;
+  - trop d'heures sur la journée ou amplitude > 13 h : finir plus tôt (ou commencer plus tard) ;
+  - heures sup, complémentaires, 48 h : donner un shift à quelqu'un, seulement si le total d'heures en plus baisse ;
+  - sous le contrat : récupérer un shift de quelqu'un qui fait des heures en plus ;
+  - 2 jours de repos : libérer le jour le plus simple à redonner ;
+  - pas dispo, absent mais planifié : donner le shift à quelqu'un de dispo (sinon à pourvoir) ;
+  - pause manquante : ajouter 20 min ; shifts qui se chevauchent : les remettre bout à bout ;
+  - il manque du monde à un service : ajouter la bonne personne au bon horaire, sinon créer un shift à pourvoir.
+- Léon ne touche jamais au passé ni à aujourd'hui (trop tard pour prévenir), et signale quand une solution donne des heures en plus.
+
 ## 12.12 — Shift à pourvoir : toute l'équipe est prévenue
 - Dès qu'un shift à pourvoir est dans une semaine publiée, chaque salarié reçoit une notif dans « Ce qui a changé » : « Shift à pourvoir vendredi 13 nov. · 18:30–23:30 (salle) : propose-toi si ça te va ».
 - Ne la reçoivent pas : ceux qui bossent déjà sur ce créneau, ou qui sont absents ce jour-là. Quelqu'un qui est du matin peut se proposer pour le soir : c'est son choix, le patron valide.
