@@ -5,6 +5,12 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.12 — Shift à pourvoir : toute l'équipe est prévenue
+- Dès qu'un shift à pourvoir est dans une semaine publiée, chaque salarié reçoit une notif dans « Ce qui a changé » : « Shift à pourvoir vendredi 13 nov. · 18:30–23:30 (salle) : propose-toi si ça te va ».
+- Ne la reçoivent pas : ceux qui bossent déjà sur ce créneau, ou qui sont absents ce jour-là. Quelqu'un qui est du matin peut se proposer pour le soir : c'est son choix, le patron valide.
+- Semaine pas encore publiée : la notif part au moment de la publication. Une seule notif par shift.
+- Au survol du shift à pourvoir sur le planning : « Notif envoyée à N personnes ».
+
 ## 12.11 — Voir ce que change une demande
 - Dans Congés & absences, chaque demande a un bouton **« Voir ce que ça change »** (ou « Voir » pour un échange) : ça ouvre le planning de la bonne semaine avec la demande dessinée dessus. Le shift qui part est barré en rouge, celui qui arrive est en pointillés verts.
 - Le bandeau d'aperçu en haut permet de **Refuser / Accepter** sans repasser par la liste, et signale les problèmes (ex. « Inès travaille déjà sur ce créneau »).

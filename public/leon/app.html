@@ -12053,6 +12053,27 @@ Object.assign(ACT,{
   },
 });
 
+/* ---------- shift à pourvoir : notif à toute l'équipe ----------
+   Dès qu'un shift à pourvoir est visible (semaine publiée, date pas passée), chaque salarié reçoit
+   « Shift à pourvoir … : propose-toi ». Sauf ceux qui bossent déjà sur ce créneau ou sont absents ce jour-là.
+   Faire une grosse journée, c'est son choix : il se propose, le patron valide. Une seule notif par shift. */
+function openNotifier(){
+  let n=0;
+  (S.openShifts||[]).forEach(o=>{
+    if(o.nf!=null||!S.published||!S.published[String(o.w)])return;
+    const dt=dateAt(o.w,o.d);if(dt<TODAY&&isoD(dt)!==TODAY_ISO){o.nf=0;return;}
+    const qui=EMP.filter(e=>!e.hidden&&!(absOf(e.id,o.w,o.d)&&absOf(e.id,o.w,o.d).type!=='repos')
+      &&!empShifts(e.id,o.w,o.d).some(y=>sMin(y)<eMin(o)&&eMin(y)>sMin(o)));
+    const when=`${JOURS[o.d].toLowerCase()} ${dt.getDate()} ${MC[dt.getMonth()]} · ${o.s}–${o.e}`;
+    qui.forEach(e=>pushNews(e.id,o.w,`Shift à pourvoir ${when} (${(POSTES[o.poste]||{l:o.poste}).l.toLowerCase()}) : propose-toi si ça te va`));
+    o.nf=qui.length;n++;
+  });
+  return n;
+}
+{const f=save;save=function(){try{openNotifier();}catch(e){}return f.apply(this,arguments);};}
+{const f=renderView;renderView=function(){const o=f.apply(this,arguments);try{if(UI.view==='planning')document.querySelectorAll('.pg9 .open-s[data-oid]').forEach(el=>{const x=(S.openShifts||[]).find(z=>z.id===el.dataset.oid);if(!x)return;
+  el.dataset.tip=x.nf!=null?(x.nf?`Notif envoyée à ${plur(x.nf,'personne')}  : tous ceux qui ne bossent pas déjà sur ce créneau. Chacun peut se proposer, tu valides.`:'Personne de libre sur ce créneau à prévenir.'):'L’équipe sera prévenue dès que la semaine sera publiée.';el.removeAttribute('title');});}catch(e){}return o;};}
+
 /* ---------- V7 · mobile : tableaux en cartes (data-label/data-first auto) ---------- */
 function mcardify(){
   $$('.tbl-wrap table.tbl').forEach(tbl=>{
