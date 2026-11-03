@@ -34,4 +34,16 @@ let demo = readFileSync(join(root, "legacy/demo_v11.html"), "utf8");
 demo = replaceOnce(demo, DEMO_URL, "DEMO_URL='/leon/demo.html'");
 writeFileSync(join(out, "demo.html"), demo);
 
+// Tablette de démo : même démo, ouverte direct sur l'écran des codes, installable comme une vraie appli
+// (pas de barre d'adresse ni de « retour » du navigateur quand on l'ouvre depuis l'écran d'accueil).
+const TAB_HEAD =
+  '<link rel="manifest" href="/tablette-demo.webmanifest">' +
+  '<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">' +
+  '<meta name="apple-mobile-web-app-title" content="Léon Tablette"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">' +
+  '<meta name="theme-color" content="#18352B"><link rel="apple-touch-icon" href="/brand/icon-192.png">' +
+  "<script>window.__LEON_TAB=1;</script>";
+let tab = replaceOnce(demo, "<head>", "<head>" + TAB_HEAD);
+tab = tab.replace(/<title>[^<]*<\/title>/, "<title>Léon Tablette</title>");
+writeFileSync(join(out, "tablette.html"), tab);
+
 console.log("public/leon/app.html", app.length, "· public/leon/demo.html", demo.length);

@@ -2,7 +2,7 @@
   "name": "Léon Tablette (démo)",
   "short_name": "Léon Tablette",
   "description": "La tablette du resto : badger, hygiène, planning.",
-  "start_url": "/leon/demo.html?tablette=1",
+  "start_url": "/leon/tablette.html",
   "scope": "/leon/",
   "display": "standalone",
   "orientation": "any",
