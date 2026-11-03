@@ -5,6 +5,12 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.08 — Léon assume ses choix
+- Ce que Léon a rempli reste marqué d'un petit **✦** (coin de la case) ; en survolant : « proposé par Léon : match du LOSC… ».
+- Quand Léon vise volontairement moins que le contrat (heures sup du mois à lisser), c'est affiché à côté du nom : « 36h30 / **✦33h30** » (survol = la raison).
+- Si on modifie le planning et que ça dépasse ce que Léon avait visé, un message **sans bloquer** : « Lucas : Léon avait mis 33h30 au lieu de 35h exprès (déjà +1h37 d'heures sup ce mois-ci). Ça fait maintenant 36h30. » avec **Annuler** ou **Garder**.
+- Les cibles de Léon sont enregistrées avec le planning (elles restent après rechargement).
+
 ## 12.07 — « Léon remplit », version maline
 - Repart de l'existant (couverts prévus, dispos, contrats, règles HCR, semaine type) et ajoute :
   - **Les événements** notés dans la note du jour : match (LOSC, PSG, foot, rugby…) → +30 % le soir, un barman en plus et **fin repoussée de 30 min** ; concert / spectacle → +25 % le soir ; braderie, marché de Noël, fêtes… → +35 % toute la journée ; groupe / anniversaire / privatisation → on ajoute le nombre de personnes au bon service (midi ou soir, deviné dans la note).

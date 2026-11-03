@@ -178,3 +178,9 @@
 .rm-c b{font-family:var(--f-ui);font-weight:650;margin-right:3px}
 .rm-c i{font-style:normal;font-family:var(--f-ui);color:var(--brass);font-weight:650}
 @media (max-width:640px){.rm-r{grid-template-columns:1fr}}
+/* Léon assume ses choix */
+.pg9 td.cell-leon::after{content:"✦";position:absolute;top:0;left:2px;font-size:9px;line-height:1;color:var(--brass);pointer-events:none}
+.leon-cib{font-weight:700;color:var(--brass);cursor:help}
+.toast.leon-avis{max-width:520px;align-items:flex-start}
+.toast.leon-avis .la-ic{color:var(--pop-accent,#E9C47A);font-size:16px;line-height:1.2}
+.pg9 .ec{width:236px}
