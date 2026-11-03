@@ -5,6 +5,10 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.22 — Tablette : correctif
+- Démo tablette : « Mon planning », « Hygiène » et « Disponibilités » ramenaient à l'écran du code. Corrigé : ils s'ouvrent bien.
+- Sur ces écrans, le bouton du haut s'appelle « Retour » (il était presque invisible) et ramène à l'écran du salarié.
+
 ## 12.21 — Tablette : juste le code
 - L'écran de la tablette n'affiche plus les photos de l'équipe : **juste le pavé de code** (+ qui est au travail et la note du jour).
 - Code d'un salarié → son écran (pointer, accès rapide) avec un seul bouton **« Retour »** vers le code (plus d'« Ouvrir mon espace » ni d'« Annuler »). Retour automatique au code après un moment sans rien faire (déjà là).
