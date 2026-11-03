@@ -5,6 +5,11 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.20 — Tablette de démo (Le Petit Beffroi)
+- Espace créateur, colonne de gauche : bloc **« Démo · Le Petit Beffroi »** avec « Ouvrir la démo » et **« Tablette de démo »**.
+- La tablette de démo (/tablette-demo) s'installe avec sa propre icône et se comporte comme chez un vrai client : écran « Tablette du restaurant », photos de l'équipe du jour, pavé de code, **sans bandeau démo**. Les codes de test sont repliés tout en bas (« Codes de test »).
+- Même menu limité que la vraie tablette pour le directeur ou un manager.
+
 ## 12.19 — Trois appareils : PC, téléphone, tablette
 - **Appli « Léon Tablette »** : l'adresse /tablette s'installe avec sa propre icône (Safari → Partager → « Sur l'écran d'accueil »). Elle reste **toujours sur l'écran des codes** : chacun tape le sien pour badger ; le patron ou un manager entre avec son code et a seulement : Aujourd'hui, planning (lecture), hygiène, cahier, plats dispo, allergènes, fiches, stocks (réceptions, inventaire). Pas de paie, de réglages, de badgeuse à corriger ni de modif du planning. Aucun chemin vers la version PC / téléphone.
 - Espace créateur : bouton **« Mode tablette »** à côté de chaque resto (pour tes tests).
