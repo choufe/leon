@@ -77,10 +77,27 @@ export default function LeonApp() {
           prenom: prenom ? prenom.charAt(0).toUpperCase() + prenom.slice(1) : "",
           resto: acc && acc.resto && !acc.resto.includes("@") ? acc.resto : "Mon restaurant",
         };
+        // Salarié invité par son patron : il entre dans le Léon de son resto, avec sa vue à lui.
+        const { data: sal } = await supabase.rpc("mon_salarie");
+        if (cancelled) return;
+        if (sal && sal.emp_id) {
+          window.__leonCompte = { salarie: true, empId: sal.emp_id, resto: sal.resto || "", prenom: "" };
+        }
       }
       db = createLeonDb(supabase, orgId);
       window.__leonClaude = {
         use: async (name) => (name === "db" ? db : null),
+      };
+      // Le patron invite un salarié : Léon fait un lien à envoyer par SMS / WhatsApp.
+      window.__leonInviter = async (empId, prenom) => {
+        const { data, error } = await supabase.rpc("inviter_salarie", { e_id: empId, e_prenom: prenom || "" });
+        if (error || !data) throw new Error((error && error.message) || "invitation impossible");
+        return `${window.location.origin}/rejoindre?c=${data}`;
+      };
+      window.__leonConnectes = async () => {
+        const { data, error } = await supabase.rpc("mes_salaries_connectes");
+        if (error) throw error; // base pas encore prête : le bouton « Inviter » reste caché
+        return (data || []).map((x) => x.emp_id);
       };
       setReady(true);
     })();
@@ -92,6 +109,8 @@ export default function LeonApp() {
       sub.subscription.unsubscribe();
       db?.close();
       delete window.__leonClaude;
+      delete window.__leonInviter;
+      delete window.__leonConnectes;
     };
   }, [router]);
 

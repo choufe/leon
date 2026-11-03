@@ -29,6 +29,16 @@ export default function Login() {
 
   // Après connexion : le créateur va dans son espace (où il choisit son 2e code), les autres dans leur resto.
   async function allerChezMoi(sb) {
+    // Un salarié qui a ouvert son lien d'invitation puis confirmé son mail : on le rattache à son resto.
+    let invit = null;
+    try { invit = localStorage.getItem("leon:rejoindre"); } catch (_) {}
+    if (invit) {
+      const { data: ok } = await sb.rpc("rejoindre", { c: invit });
+      try { localStorage.removeItem("leon:rejoindre"); } catch (_) {}
+      if (ok) { router.push("/app"); return; }
+    }
+    const { data: salarie } = await sb.rpc("mon_salarie");
+    if (salarie) { router.push("/app"); return; }
     const { data: createur } = await sb.rpc("devenir_createur");
     router.push(createur ? "/createur" : "/app");
   }
@@ -106,7 +116,7 @@ export default function Login() {
               <svg viewBox="0 0 24 24"><path d="M3.5 9 5 4h14l1.5 5" /><path d="M3.5 9a2.8 2.8 0 0 0 5.7 0 2.8 2.8 0 0 0 5.6 0 2.8 2.8 0 0 0 5.7 0" /><path d="M5 11.5V20h14v-8.5M10 20v-5h4v5" /></svg>
             </span>
             <div>
-              <span className="v-eyebrow" style={{ color: "var(--v-brass)" }}>Patron ou directeur</span>
+              <span className="v-eyebrow" style={{ color: "var(--v-brass)" }}>Patron, directeur ou salarié</span>
               <h1 id="lg-title">Se connecter</h1>
             </div>
           </div>
@@ -157,7 +167,7 @@ export default function Login() {
                 {busy ? "Un instant…" : mode === "login" ? "Se connecter" : "Recevoir le lien"}
               </button>
               {mode === "forgot" && <button type="button" className="v-link" style={{ justifySelf: "center" }} onClick={() => { setMode("login"); setErr(""); }}>Retour à la connexion</button>}
-              <p className="v-hint">Votre équipe n'a pas besoin de compte : chacun badge avec son code sur l'appareil du resto. Pour la tablette du resto, connectez-vous une fois ici : elle reste ensuite sur l'écran de badge.</p>
+              <p className="v-hint">Salariés : votre responsable vous envoie un lien pour créer votre compte. Pour badger, c'est sur la tablette du resto, avec votre code.</p>
             </form>
           )}
         </section>

@@ -256,3 +256,9 @@
 .tj-do:hover{border-color:var(--brass,#b07a2a)}.tj-do.bad{border-color:color-mix(in oklab,var(--bad,#c0392b) 50%,transparent);color:var(--bad,#c0392b)}
 .tj-ok{font-size:13.5px;color:var(--ok,#2e8b57);display:inline-flex;gap:6px;align-items:center}
 @media (max-width:760px){.tj-row{grid-template-columns:1fr}}
+
+/* ---------- 12.18 · Inviter un salarié ---------- */
+.inv-lien{display:flex;gap:8px;margin-top:6px}.inv-lien .inp{flex:1;font-size:13px}
+.inv-envoi{display:flex;gap:8px;margin-top:10px}.inv-envoi .btn{flex:1;justify-content:center;text-decoration:none}
+.ag .ag-r.ag-moi{background:color-mix(in oklab,var(--brass,#b07a2a) 12%,transparent);border-radius:10px}
+.ag-avec{font-size:13px;padding:6px 10px;margin:4px 0 2px;border-radius:10px;background:color-mix(in oklab,var(--brass,#b07a2a) 9%,var(--surface));display:block;line-height:1.5}
