@@ -5,6 +5,10 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.25 — Tablette : plus fin, centré, et lisible en mode sombre
+- Bandeau vert plus petit (36 % de la largeur sur tablette, bandeau compact en haut sur téléphone), logo Léon en haut à gauche, **tout le reste centré** (nom du resto, heure, prénom, statut) : c'est symétrique.
+- **Mode sombre** refait : fond, cartes, touches du pavé, textes, en-tête et logo (crème en sombre) ont chacun leur couleur sombre ; plus de texte clair sur fond clair.
+
 ## 12.24 — Refonte de la tablette
 - **Vraie appli, sans navigateur** : la tablette de démo a sa propre page (/leon/tablette.html) installable ; ouverte depuis l'icône de l'écran d'accueil, plus de barre d'adresse ni de « retour » du navigateur.
 - **Écran du code / du salarié / « c'est pointé »** : deux panneaux aux couleurs de Léon. Panneau vert avec le logo Léon, le nom du resto, une grande heure, qui est au travail et la note du jour ; carte blanche sur fond crème avec le pavé (touches crème, points en laiton) ou « Pointer mon arrivée » en laiton et les accès rapides. Sur téléphone et tablette en portrait : bandeau vert en haut, carte en dessous.

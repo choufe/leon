@@ -97,7 +97,7 @@ if(TABLETTE){
   function tlKiosk(){
     const top=document.querySelector('.kiosk-top');if(!top||top.querySelector('.tl-klogo'))return;
     top.insertAdjacentHTML('afterbegin','');
-    const clock=top.querySelector('.clock');if(clock)clock.insertAdjacentHTML('beforebegin',`<img class="tl-klogo" src="/brand/leon-logo-vert.png" alt="Léon">`);
+    const clock=top.querySelector('.clock');if(clock)clock.insertAdjacentHTML('beforebegin',`<img class="tl-klogo lt" src="/brand/leon-logo-vert.png" alt="Léon"><img class="tl-klogo dk" src="/brand/leon-logo-creme.png" alt="">`);
     const K=UI.kiosk||{};const back=top.querySelector('[data-act="kiosk-home"]');
     if(K.view==='hygiene'&&K.hyg&&back){
       if(K.etqZone){back.setAttribute('data-act','kiosk-etq-zone');back.removeAttribute('data-k');}
