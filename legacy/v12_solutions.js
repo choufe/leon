@@ -8,6 +8,8 @@
    ========================================================= */
 const SOLS={};let SOL_N=0;
 const q15=m=>Math.ceil(m/15)*15;
+// on peut encore toucher à ce shift : demain ou plus tard, ou aujourd'hui s'il n'a pas commencé
+const solOk=x=>{const dt=dateAt(x.w,x.d);if(dt>TODAY)return true;if(dt<TODAY)return false;return sMin(x)>nowMin();}; // aujourd'hui : tant que le shift n'a pas commencé
 const solJour=(w,d)=>{const dt=dateAt(w,d);return `${JOURS[d].toLowerCase()} ${dt.getDate()}`;};
 const solCred=(e,w)=>S.absences.filter(a=>a.emp===e.id&&a.w===w&&ABS_PAID.includes(a.type)).length*e.contrat*12;
 
@@ -87,31 +89,41 @@ function solEtendre(e,w){
 
 /* trop d'heures de peu : finir un peu plus tôt là où quelqu'un d'autre du même poste reste jusqu'au bout */
 function solRaboter(e,w,trop){
-  if(trop<15)return null;const mods=[];let reste=trop;
+  // un peu partout, 15 min par 15 min : on raccourcit là où ça ne gêne pas le service
+  // (hors coup de feu, ou quand un collègue du même poste prend le relais). 1 h max par shift.
+  if(trop<15)return null;let reste=q15(trop);const cur={},cut={};
   const grp=p=>p==='manager'?['manager','salle']:p==='salle'?['salle','manager']:[p];
-  const sh=S.shifts.filter(x=>x.emp===e.id&&x.w===w&&dateAt(w,x.d)>TODAY).sort((a,b)=>sum(prevOf(a.d),v=>v||0)-sum(prevOf(b.d),v=>v||0));
-  for(const x of sh){if(reste<15)break;
-    for(let k=Math.min(4,Math.ceil(reste/15));k>=1;k--){const ne=eMin(x)-k*15;if(ne-sMin(x)<180)continue;
-      const relai=shiftsWD(w,x.d).some(y=>y.emp!==e.id&&grp(x.poste).includes(y.poste)&&sMin(y)<=ne&&eMin(y)>=eMin(x));
-      const relaiD=shiftsWD(w,x.d).some(y=>y.emp!==e.id&&grp(x.poste).includes(y.poste)&&sMin(y)<=sMin(x)+k*15&&eMin(y)>=sMin(x)+k*15&&sMin(y)<=sMin(x));
-      if(relai){const y={...x,e:hhmm(ne)};if(durMin({...y,p:0})<=360)y.p=0;mods.push({x,y,txt:`finit à <b>${y.e}</b> ${JOURS[x.d].toLowerCase()}`});reste-=durMin(x)-durMin(y);break;}
-      if(relaiD){const y={...x,s:hhmm(sMin(x)+k*15)};if(durMin({...y,p:0})<=360)y.p=0;mods.push({x,y,txt:`commence à <b>${y.s}</b> ${JOURS[x.d].toLowerCase()}`});reste-=durMin(x)-durMin(y);break;}
-    }}
-  if(!mods.length)return null;const gain=trop-reste;
-  return {txt:`${esc(e.prenom)} ${mods.map(m=>m.txt).join(', ')} : un collègue du même poste est là, le service reste couvert. ${dur(gain)} de moins.`,label:`${e.prenom} : ${dur(gain)} de moins (${[...new Set(mods.map(m=>JOURS[m.x.d].toLowerCase()))].join(', ')})`,
+  const sh=S.shifts.filter(x=>x.emp===e.id&&x.w===w&&solOk(x)).sort((a,b)=>sum(prevOf(a.d),v=>v||0)-sum(prevOf(b.d),v=>v||0));
+  let bouge=true;
+  while(reste>=15&&bouge){bouge=false;
+    for(const x0 of sh){if(reste<15)break;const x=cur[x0.id]||{...x0};if((cut[x0.id]||0)>=60||durMin(x)-15<180)continue;
+      const [A0,B0]=SVC_WIN[sMin(x0)<900?'midi':'soir'];const ne=eMin(x)-15,ns=sMin(x)+15;
+      const autres=shiftsWD(w,x.d).filter(y=>y.emp!==e.id&&grp(x.poste).includes(y.poste));
+      let y=null;
+      if(ne>=B0||autres.some(o=>sMin(o)<=ne&&eMin(o)>=eMin(x)))y={...x,e:hhmm(ne)};
+      else if(ns<=A0||autres.some(o=>sMin(o)<=sMin(x)&&eMin(o)>=ns))y={...x,s:hhmm(ns)};
+      if(!y)continue;if(durMin({...y,p:0})<=360)y.p=0;
+      const g=durMin(x)-durMin(y);if(g<=0)continue;
+      cur[x0.id]=y;cut[x0.id]=(cut[x0.id]||0)+g;reste-=g;bouge=true;}
+  }
+  const mods=sh.filter(x=>cur[x.id]).map(x=>({x,y:cur[x.id]}));if(!mods.length)return null;
+  const gain=sum(mods,m=>durMin(m.x)-durMin(m.y));
+  const bits=mods.map(m=>{const t=[];if(m.y.s!==m.x.s)t.push(`arrive à <b>${m.y.s}</b>`);if(m.y.e!==m.x.e)t.push(`part à <b>${m.y.e}</b>`);return `${JOURS[m.x.d].toLowerCase()} ${t.join(' et ')}`;});
+  return {txt:`${esc(e.prenom)} : ${bits.join(', ')}. Hors coup de feu ou avec un collègue qui prend le relais : le service ne bouge pas. ${dur(gain)} de moins.`,
+    label:`${e.prenom} : ${dur(gain)} de moins (${[...new Set(mods.map(m=>JOURS[m.x.d].toLowerCase()))].join(', ')})`,
     run:()=>mods.forEach(m=>{const x=S.shifts.find(z=>z.id===m.x.id);if(x){x.s=m.y.s;x.e=m.y.e;x.p=m.y.p||0;}})};
 }
 
 /* la solution pour une alerte */
 function leonSol(w,a){
   const e=a.emp?empById(a.emp):null;const d=a.d;
-  if(d!=null&&dateAt(w,d)<=TODAY)return null; // ni le passé ni aujourd’hui (trop tard pour prévenir)
+  if(d!=null&&dateAt(w,d)<TODAY)return null; // on ne refait pas le passé
   const supTot=(emp,m)=>Math.max(0,m+solCred(emp,w)-emp.contrat*60);
   try{switch(a.k){
   case 'repos':{
     if(!e||d==null)return null;const sh=empShifts(e.id,w,d);if(!sh.length)return null;
     const p=wdOf(addDays(dateAt(w,d),-1));const prev=empShifts(e.id,p.w,p.d);if(!prev.length)return null;
-    const lx=prev.reduce((u,v)=>eMin(v)>eMin(u)?v:u),nx=sh[0];
+    const lx=prev.reduce((u,v)=>eMin(v)>eMin(u)?v:u),nx=sh[0];if(!solOk(nx))return null;
     const rest=sMin(nx)+1440-eMin(lx),manque=660-rest;if(manque<=0)return null;
     let cA=q15(manque/2),cB=q15(Math.max(0,manque-cA));
     const rA=durMin(lx)-cA>=120,rB=durMin(nx)-cB>=120;
@@ -131,8 +143,8 @@ function leonSol(w,a){
     if(!e||d==null)return null;const sh=empShifts(e.id,w,d);if(!sh.length)return null;
     const trop=a.k==='maxJour'?sum(sh,durMin)-maxDayMin(e):amplitudeOf(sh)-780;if(trop<=0)return null;const c=q15(trop);
     const last=sh[sh.length-1],first=sh[0];
-    if(durMin(last)-c>=120){const f=hhmm(eMin(last)-c);return {txt:`${esc(e.prenom)} finit à <b>${f}</b> ${solJour(w,d)} au lieu de ${last.e}.`,label:`${e.prenom} finit à ${f} ${solJour(w,d)}`,run:()=>{last.e=f;}};}
-    if(durMin(first)-c>=120){const s=hhmm(sMin(first)+c);return {txt:`${esc(e.prenom)} commence à <b>${s}</b> ${solJour(w,d)} au lieu de ${first.s}.`,label:`${e.prenom} commence à ${s} ${solJour(w,d)}`,run:()=>{first.s=s;}};}
+    if(solOk(last)&&durMin(last)-c>=120){const f=hhmm(eMin(last)-c);return {txt:`${esc(e.prenom)} finit à <b>${f}</b> ${solJour(w,d)} au lieu de ${last.e}.`,label:`${e.prenom} finit à ${f} ${solJour(w,d)}`,run:()=>{last.e=f;}};}
+    if(solOk(first)&&durMin(first)-c>=120){const s=hhmm(sMin(first)+c);return {txt:`${esc(e.prenom)} commence à <b>${s}</b> ${solJour(w,d)} au lieu de ${first.s}.`,label:`${e.prenom} commence à ${s} ${solJour(w,d)}`,run:()=>{first.s=s;}};}
     return null;
   }
   case 'chevauche':{
@@ -142,35 +154,36 @@ function leonSol(w,a){
     return null;
   }
   case 'pause':{
-    const x=empShifts(e.id,w,d).find(x=>durMin(x)+(x.p||0)>360&&!x.p);if(!x)return null;
+    const x=empShifts(e.id,w,d).find(x=>durMin(x)+(x.p||0)>360&&!x.p);if(!x||!solOk(x))return null;
     return {txt:`Ajouter <b>20 min de pause</b> sur ${x.s}–${x.e} (le minimum légal).`,label:'Pause ajoutée',run:()=>{x.p=20;}};
   }
   case 'absShift':{
-    const sh=empShifts(e.id,w,d);if(!sh.length)return null;const x=sh[0];const b=solCand(x,{excl:[e.id]});
+    const sh=empShifts(e.id,w,d).filter(solOk);if(!sh.length)return null;const x=sh[0];const b=solCand(x,{excl:[e.id]});
     return b&&sh.length===1?{txt:`${esc(e.prenom)} est absent : Léon donne le shift ${x.s}–${x.e} à <b>${esc(b.e.prenom)}</b> (${solHrs(b)}).`,label:`Shift donné à ${b.e.prenom}`,run:()=>donner(x,b)}
       :{txt:`${esc(e.prenom)} est absent : ${sh.length>1?'les shifts passent':'le shift passe'} à pourvoir, l’équipe est prévenue.`,label:'Mis à pourvoir',run:()=>sh.forEach(toPourvoir)};
   }
   case 'dispo':{
-    const x=empShifts(e.id,w,d).find(y=>availClash(y));if(!x)return null;const b=solCand(x,{excl:[e.id]});
+    const x=empShifts(e.id,w,d).find(y=>availClash(y));if(!x||!solOk(x))return null;let b=solCand(x,{excl:[e.id],sansSup:true})||solCand(x,{excl:[e.id]});if(b&&b.apres>solCible(b.e,w)+120)b=null;
+    if(!b)return {txt:`Personne de dispo sans exploser ses heures : le shift ${x.s}–${x.e} passe à pourvoir, l’équipe est prévenue.`,label:`${solJour(w,d)} : shift de ${e.prenom} (pas dispo) mis à pourvoir`,run:()=>toPourvoir(x)};
     return b?{txt:`Léon donne ce shift (${x.s}–${x.e}) à <b>${esc(b.e.prenom)}</b>, qui est dispo (${solHrs(b)}).`,label:`${solJour(w,d)} : shift de ${e.prenom} (pas dispo) donné à ${b.e.prenom}`,run:()=>donner(x,b)}:null;
   }
   case 'heuresSup':case 'complementaires':case 'hebdo':{
     if(!e)return null;const c=e.contrat*60,cred=solCred(e,w),m=empWeekMin(e.id,w);let best=null;
-    S.shifts.filter(x=>x.emp===e.id&&x.w===w&&dateAt(w,x.d)>TODAY).forEach(x=>{
+    S.shifts.filter(x=>x.emp===e.id&&x.w===w&&solOk(x)).forEach(x=>{
       const b=solCand(x,{excl:[e.id]});if(!b)return;
       const av=supTot(e,m)+supTot(b.e,b.avant-solCred(b.e,w)),ap=supTot(e,m-durMin(x))+supTot(b.e,b.apres-solCred(b.e,w));if(ap>=av)return;
       const reste=m+cred-durMin(x);const ecart=Math.abs(reste-c)+(reste<c-60?120:0)+b.score/10;
       if(!best||ecart<best.ecart)best={x,b,ecart,reste};});
-    const trop=a.k==='complementaires'?m-(c+c/10):a.k==='hebdo'?m-2880:m+cred-solCible(e,w);
+    const trop=a.k==='hebdo'?m-2880:m+cred-solCible(e,w);
     const rab=solRaboter(e,w,trop);
-    if(rab&&(!best||trop<=90))return rab;
+    if(rab&&(!best||trop<=120))return rab;
     if(!best)return rab;const {x,b}=best;
     return {txt:`Léon donne le shift ${solJour(w,x.d)} ${x.s}–${x.e} à <b>${esc(b.e.prenom)}</b> (${solHrs(b)}). ${esc(e.prenom)} revient à ${dur(best.reste)}.`,label:`${solJour(w,x.d)} : shift de ${e.prenom} donné à ${b.e.prenom}`,run:()=>donner(x,b)};
   }
   case 'sous':{
     if(!e)return null;let best=null;
     EMP.forEach(o=>{if(o.id===e.id)return;const mo=empWeekMin(o.id,w)+solCred(o,w);if(mo<=o.contrat*60+30)return;
-      S.shifts.filter(x=>x.emp===o.id&&x.w===w&&dateAt(w,x.d)>TODAY).forEach(x=>{const b=solCand(x,{only:e.id});const mo0=empWeekMin(o.id,w);if(b&&supTot(o,mo0-durMin(x))+supTot(e,b.apres-solCred(e,w))<supTot(o,mo0)+supTot(e,b.avant-solCred(e,w))&&(!best||durMin(x)>durMin(best.x)))best={x,b,o};});});
+      S.shifts.filter(x=>x.emp===o.id&&x.w===w&&solOk(x)).forEach(x=>{const b=solCand(x,{only:e.id});const mo0=empWeekMin(o.id,w);if(b&&supTot(o,mo0-durMin(x))+supTot(e,b.apres-solCred(e,w))<supTot(o,mo0)+supTot(e,b.avant-solCred(e,w))&&(!best||durMin(x)>durMin(best.x)))best={x,b,o};});});
     if(best){const {x,b,o}=best;
       return {txt:`${esc(o.prenom)} fait des heures en plus : Léon lui reprend ${solJour(w,x.d)} ${x.s}–${x.e} pour ${esc(e.prenom)} (${solHrs(b)}).`,label:`${solJour(w,x.d)} : shift de ${o.prenom} donné à ${e.prenom}`,run:()=>donner(x,b)};}
     return solEtendre(e,w);
@@ -270,3 +283,6 @@ ACT['pl-undo-close']=function(){closeModal();ACT['pl-undo']&&ACT['pl-undo']();};
   mf.innerHTML=`<button class="btn" data-act="sol-voir">Voir le détail</button><button class="btn brass" data-act="sol-all">${ic('spark','s')} Léon règle ${n>1?`les ${n} points`:'ça'}</button>`;
 };}
 ACT['sol-voir']=function(){closeModal();UI.plan.alertsOpen=true;planRender();setTimeout(()=>{const p=document.querySelector('.pl-alerts');p&&p.scrollIntoView({behavior:'smooth',block:'start'});},50);};
+
+/* les alertes d'un jour déjà passé ne servent plus à rien sur le planning (on ne refait pas hier) */
+{const f=planAlerts;planAlerts=function(w){return (f.apply(this,arguments)||[]).filter(a=>a.d==null||dateAt(w,a.d)>=TODAY);};}

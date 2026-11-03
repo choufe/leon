@@ -242,3 +242,4 @@
 .ap-q{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 12px;margin:0 0 10px;border-radius:12px;background:color-mix(in oklab,var(--brass,#b07a2a) 8%,var(--surface));border:1px solid color-mix(in oklab,var(--brass,#b07a2a) 25%,transparent);font-size:13.5px}
 .ap-ic{color:var(--brass,#b07a2a)}.ap-t{flex:1;min-width:200px}.ap-b{display:flex;gap:6px;flex-wrap:wrap}
 .ap-appris{margin:6px 0 0;font-size:13px;color:var(--brass,#8a5a12)}
+.pj-filtres .pj-nb{font-weight:600;font-size:14px}

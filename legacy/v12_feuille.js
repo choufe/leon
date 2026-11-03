@@ -89,7 +89,7 @@ function pjPayeMin(empId,iso){const e=empById(empId);if(!e)return 0;return pjLig
 
 const pjT=m=>hhmm(m);
 function pjPeutModifier(){return pjCanValider();} // patron / admin ; les managers regardent
-UI.pjTab=UI.pjTab||'prevus';
+UI.pjTab='prevus'; // un seul onglet : les gens prévus (les absences, on s'en fiche ici)
 
 // Les lignes d'un salarié : une par service prévu (midi, soir…), alignées colonne par colonne.
 function pjSousLignes(x){
@@ -129,7 +129,7 @@ function feuilleHTML(){
   }).join('');
   const side=`<aside class="pj-side"><div class="pj-wk"><button class="icon-btn" data-act="pj-week" data-n="-7" aria-label="Semaine précédente">${ic('chevL','s')}</button><span>Semaine ${isoWeek(lundi)}</span><button class="icon-btn" data-act="pj-week" data-n="7" aria-label="Semaine suivante" ${UI.pj+7-dIdx>0?'disabled':''}>${ic('chevR','s')}</button></div>${jours}</aside>`;
 
-  const filtres=`<div class="pj-filtres"><button class="${UI.pjTab!=='abs'?'on':''}" data-act="pj-tab" data-t="prevus">Prévus (${prevus.length})</button><button class="${UI.pjTab==='abs'?'on':''}" data-act="pj-tab" data-t="abs">Absences planifiées (${absents.length})</button>
+  const filtres=`<div class="pj-filtres"><span class="pj-nb">${plur(prevus.length,'personne prévue','personnes prévues')}</span>
     <span class="pj-sp"></span>
     <span class="pj-sum">Prévu <b>${dur(prevu)}</b> · Payé <b>${dur(paye)}</b>${cout!=null?` · Coût <b>${eur(cout,0)}</b>`:''}</span></div>`;
   const banniere=verrou?`<div class="pj-ban ok">${ic('check','s')}<span>Journée validée par <b>${esc(jour.by)}</b> : c’est bon pour la paie.${edit?' Si tu changes une heure, il faudra la revalider.':''}</span></div>`

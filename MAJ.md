@@ -5,6 +5,14 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.16 — Une solution à chaque problème, même petit
+- **Un peu trop d'heures** (Yanis +1 h, Nathan +1 h…) : Léon raccourcit **15 min par 15 min, un peu partout**, là où ça ne gêne pas le service : hors coup de feu (11:30–14:00, 19:00–21:30) ou quand un collègue du même poste prend le relais. 1 h max par shift. Ça marche aussi pour un poste seul (le bar).
+- Heures complémentaires « dans la limite » : Léon ramène quand même au contrat.
+- **Aujourd'hui** : Léon propose une solution tant que le shift n'a pas commencé (avant : rien sur la journée en cours). Ex. Sofia pas dispo ce midi → le shift passe à pourvoir, l'équipe est prévenue.
+- Pas dispo : Léon cherche d'abord quelqu'un sans heures sup ; si ça ferait exploser les heures de quelqu'un, le shift passe à pourvoir.
+- Les alertes des jours déjà passés ne s'affichent plus sur le planning (on ne refait pas hier).
+- **Badgeuse** : plus d'onglets « Prévus / Absences planifiées ». Juste les gens prévus ce jour-là.
+
 ## 12.15 — Léon apprend ton resto
 - Fini la règle figée « 1 serveur pour 50 couverts » : Léon regarde les **semaines publiées** (jusqu'à 10) et apprend combien de couverts par personne tu mets, poste par poste, midi et soir, et le minimum que tu mets toujours (ex. jamais moins de 2 en cuisine). C'est une moyenne qui bouge doucement, pas une règle : ça suit les couverts prévus et les événements.
 - Une question facultative, en 1 clic, sur le planning de la semaine en cours : « La semaine dernière, c'était bien planifié ? » → Bien / Il manquait du monde / Trop de monde. Léon s'en sert pour ajuster.
