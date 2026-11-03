@@ -5,6 +5,12 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.26 — Tablette : une ambiance Léon + Réception avec photo de facture
+- **Direction artistique « comptoir de brasserie lilloise »** : bandeau vert bouteille avec carrelage métro en filigrane et filet laiton, fond papier crème avec un léger grain, carte d'action cadrée comme un menu (double filet laiton), touches du pavé façon jetons, bouton « Pointer » en laiton poli, en-têtes du kiosque carrelés verts avec le logo crème. Plus de lueur. Même ambiance en clair et en sombre.
+- **Tablette recentrée** (HACCP, badge, réceptions) : les accès rapides du salarié deviennent **Hygiène · Réception · Mon planning**. Les disponibilités des plats sortent de la tablette (la caisse s'en charge).
+- **Réception** : « Nouvelle livraison » → photo de la facture ou du bon de livraison, fournisseur en un clic, température des produits frais, « Tout est conforme » ou « Il y a un problème » (+ quoi). Au-dessus de 4 °C, c'est noté en problème tout seul. Liste « Reçu aujourd'hui » avec la photo.
+- Le patron retrouve les réceptions des 7 derniers jours (avec la photo) en haut de **Cuisine & stocks**.
+
 ## 12.25 — Tablette : plus fin, centré, et lisible en mode sombre
 - Bandeau vert plus petit (36 % de la largeur sur tablette, bandeau compact en haut sur téléphone), logo Léon en haut à gauche, **tout le reste centré** (nom du resto, heure, prénom, statut) : c'est symétrique.
 - **Mode sombre** refait : fond, cartes, touches du pavé, textes, en-tête et logo (crème en sombre) ont chacun leur couleur sombre ; plus de texte clair sur fond clair.

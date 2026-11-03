@@ -198,3 +198,72 @@ img,svg,video,canvas{max-width:100%}
 /* champs date sur iPhone : hauteur et largeur propres */
 input[type="date"],input[type="time"]{-webkit-appearance:none;appearance:none;min-height:48px;width:100%;min-width:0;display:block;text-align:left;line-height:1.2}
 input[type="date"]::-webkit-date-and-time-value{text-align:left}
+
+/* ---------- 6. Direction artistique « comptoir de brasserie lilloise » (12.26) ----------
+   Vert bouteille + carrelage métro blanc en filigrane, papier crème avec un léger grain,
+   laiton pour ce qui compte, une carte cadrée comme un menu de brasserie, et l'heure façon horloge de gare. */
+:root{
+  --tl-grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.35  0 0 0 0 0.28  0 0 0 0 0.16  0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  --tl-tiles:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='32'><path d='M0 .5H64M0 16.5H64M.5 0V16M32.5 16V32' fill='none' stroke='%23ffffff' stroke-opacity='.07'/></svg>");
+  --tl-frame:rgba(147,99,15,.32);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tl-frame:rgba(214,163,74,.30);--tl-grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .035 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}}
+:root[data-theme="dark"]{--tl-frame:rgba(214,163,74,.30)}
+.tl-left::after{display:none!important}
+/* bandeau : carrelage métro + dégradé bouteille, filet laiton */
+.tl-left{background:var(--tl-tiles),linear-gradient(165deg,#1d3f33 0%,var(--tl-band) 55%,#0f241b 100%)!important;box-shadow:inset -3px 0 0 #D6A34A}
+@media (max-width:899px),(orientation:portrait){.tl-left{box-shadow:inset 0 -3px 0 #D6A34A}}
+/* fond papier */
+.mode-tablette .stage.tl-stage,.kiosk-stage,.kiosk-shell{background-image:var(--tl-grain)!important;background-color:var(--tl-bg)!important}
+/* la carte : cadre de menu, double filet laiton */
+.tl-card{position:relative;outline:1px solid var(--tl-frame);outline-offset:-10px}
+.tl-card::before{content:"";position:absolute;inset:14px;border:1px solid var(--tl-frame);border-radius:18px;pointer-events:none;opacity:.5}
+.tl-card>*{position:relative}
+.tl-card-h b{font-weight:800}
+.tl-card-h::after{content:"";display:block;width:44px;height:2px;background:#D6A34A;margin:10px auto 0;border-radius:2px}
+/* enseigne : petites capitales espacées entre deux filets */
+.tl-left .eyebrow{display:flex!important;align-items:center;gap:10px}
+.tl-left .eyebrow::before,.tl-left .eyebrow::after{content:"";width:22px;height:1px;background:currentColor;opacity:.7}
+/* l'heure façon horloge de gare : chiffres tabulaires, les deux-points qui battent */
+.tl-left .lock-clock{font-variant-numeric:tabular-nums;text-shadow:0 2px 0 rgba(0,0,0,.18)}
+/* touches du pavé : comme des jetons */
+.tl-card .pin-pad .key{background:linear-gradient(180deg,var(--tl-card),var(--tl-key))!important;box-shadow:inset 0 0 0 1px var(--tl-line),0 2px 0 var(--tl-line)!important;font-weight:600}
+.tl-card .pin-pad .key:active{box-shadow:inset 0 0 0 1px #D6A34A!important;transform:translateY(2px)}
+.tl-card .pin-pad .key.small{box-shadow:none!important;background:transparent!important}
+/* bouton principal : laiton poli */
+.tl-card .badge-acts .btn.launch{background:linear-gradient(180deg,#E4B65E,#C99436)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 12px 26px -14px rgba(147,99,15,.9)!important;letter-spacing:.01em}
+/* tuiles d'accès : étiquettes de comptoir */
+.mode-tablette .tl-card .who+.badge-acts .btn{position:relative;background:var(--tl-card)!important;box-shadow:inset 0 0 0 1px var(--tl-line)!important}
+.mode-tablette .tl-card .who+.badge-acts .btn::before{content:"";position:absolute;top:8px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--tl-frame)}
+/* en-tête du kiosque : bande carrelée verte, titre en enseigne */
+.kiosk-top{background:var(--tl-tiles),linear-gradient(180deg,#1d3f33,var(--tl-band))!important;color:#fff!important;border-bottom:3px solid #D6A34A!important}
+.kiosk-top .kiosk-title{color:#fff!important;font-weight:800}
+.kiosk-top .tab-retour,.kiosk-top [data-act="kiosk-home"],.kiosk-top [data-act="kiosk-hyg-home"],.kiosk-top [data-act="kiosk-etq-zone"]{background:rgba(255,255,255,.08)!important;border:1px solid rgba(255,255,255,.22)!important;color:#fff!important}
+.kiosk-top .clock{background:rgba(0,0,0,.22)!important;color:#fff!important}
+.kiosk-top .tl-klogo.lt{display:none!important}.kiosk-top .tl-klogo.dk{display:block!important}
+/* cartes du kiosque : papier + coin laiton */
+.kiosk-choice,.kiosk-body .kiosk-tasklist,.rcp-it,.rcp-shot{box-shadow:inset 0 0 0 1px var(--tl-line),0 10px 28px -22px rgba(19,32,26,.45)!important}
+.kiosk-choice-ic{background:linear-gradient(160deg,#1d3f33,var(--tl-band))!important;color:#E9C47A!important}
+.kiosk-body .kiosk-h2{display:flex;align-items:center;gap:8px;text-transform:none}
+.kiosk-body .kiosk-h2::after{content:"";flex:1;height:1px;background:var(--tl-frame)}
+
+/* ---------- Réception (tablette) ---------- */
+.rcp-hero{display:grid;gap:10px;margin-bottom:22px}
+.rcp-shot{display:grid;justify-items:center;gap:6px;padding:34px 18px;border-radius:22px;border:0;background:var(--tl-card);color:var(--tl-ink);cursor:pointer;text-align:center}
+.rcp-shot svg{width:46px;height:46px;color:#C99436}
+.rcp-shot b{font-family:var(--f-display);font-size:24px}
+.rcp-shot span{color:var(--tl-mute);font-size:15px}
+.rcp-att{margin:0;font-size:14px;color:var(--tl-mute);display:flex;gap:6px;align-items:center;justify-content:center}
+.rcp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:12px}
+.rcp-it{display:flex;gap:12px;align-items:flex-start;background:var(--tl-card);border-radius:16px;padding:12px}
+.rcp-it.ko{box-shadow:inset 0 0 0 2px #C0453A!important}
+.rcp-it img,.rcp-noph{width:72px;height:72px;border-radius:10px;object-fit:cover;flex:none;background:var(--tl-key);display:flex;align-items:center;justify-content:center;color:var(--tl-mute)}
+.rcp-it b{display:block;font-size:16px}.rcp-it small{display:block;color:var(--tl-mute);margin:2px 0 6px}.rcp-it p{margin:6px 0 0;font-size:13.5px}
+.rcp-list.pc{padding:4px 16px 16px}
+.rcp-prev{width:100%;max-height:260px;object-fit:cover;border-radius:14px;margin-bottom:12px}
+.rcp-sups{display:flex;flex-wrap:wrap;gap:6px}.rcp-sups .btn.on{background:var(--side,#18352B);color:#fff}
+.rcp-ok{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.rcp-ok .btn{min-height:52px;justify-content:center}
+.rcp-ok .rcp-yes.on{background:#2E8B57;color:#fff;border-color:#2E8B57}
+.rcp-ok .rcp-no.on{background:#B7791F;color:#fff;border-color:#B7791F}
+@media (max-width:899px),(orientation:portrait){.tl-left .eyebrow{display:none!important}}
