@@ -83,3 +83,7 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - Principe (3 nov.) : pas trop d'options pour ne pas se perdre. Léon propose le planning le plus opti possible, mais le patron doit pouvoir le changer facilement.
 
 - 3 nov. : notifications sur le téléphone (vibrer) validées par Maurice, à faire en même temps que l’envoi des mails (domaine + service d’envoi).
+
+- 3 nov. : tablette du resto (brancher la vraie badgeuse) mise de côté, Maurice n’a pas encore la tablette.
+- 3 nov. : priorité = comment les salariés voient leur planning sur leur téléphone (à décider : lien perso sans mot de passe + ajout à l’agenda du téléphone ?).
+- 3 nov. : coût du planning : pas pour les managers ; éventuellement un  0’alerte pour le patron seulement (« trop de monde »).
