@@ -5,6 +5,9 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.09 — Alerte de publication
+- Dans le planning (patron, directeur, managers qui font le planning) : si **la semaine prochaine n'est pas publiée à moins de 7 jours**, un bandeau le dit (orange, rouge à 3 jours) avec le bon bouton : « Voir la semaine prochaine », puis « Publier » (ou « Léon remplit » si elle est vide). Rappel aussi sur l'entrée Planning du menu. Disparaît dès que c'est publié.
+
 ## 12.08 — Léon assume ses choix
 - Ce que Léon a rempli reste marqué d'un petit **✦** (coin de la case) ; en survolant : « proposé par Léon : match du LOSC… ».
 - Quand Léon vise volontairement moins que le contrat (heures sup du mois à lisser), c'est affiché à côté du nom : « 36h30 / **✦33h30** » (survol = la raison).
