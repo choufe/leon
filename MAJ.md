@@ -5,6 +5,14 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.05 — Badgeuse sur le modèle Skello, menu en marque-page, Pointage simplifié
+- **Pointage = la Badgeuse, et rien d'autre** : plus d'onglets « En direct », « Heures à valider », « Borne de pointage », « Relevé d'heures ». Le staff n'a plus d'entrée Badgeuse dans son menu (il pointe sur la tablette).
+- **Badgeuse redessinée** (alignée, comme Skello) : jours à gauche avec ✓, filtres « Prévus » / « Absences planifiées », bandeau « Journée validée » ou « En attente de validation », et pour chaque service une ligne : prévu (début vert, fin violet), pause, **badgé** (texte simple ; rouge = retard / départ manquant, bleu = parti après), **payé** (début, fin, pause), Abs., total, menu ⋯ (Il était là, heures sup, fin prévue, revenir au calcul de Léon).
+- **Payé au quart d'heure** : on clique une heure → liste au quart d'heure autour de la valeur, un clic suffit. On peut toujours taper l'heure à la main (1500, 15h, 15:00).
+- Seuls le patron et le directeur modifient le payé et valident ; les managers voient sans modifier.
+- **Menu en marque-page** : un onglet qui dépasse du menu pour le replier/déplier. Replié, le menu disparaît complètement et la page prend toute la largeur (planning et badgeuse s'agrandissent). Replié par défaut sur Planning et Badgeuse.
+- **Plus de bouton « Retour »** en haut.
+
 ## 12.04 — Façon Skello : badgeuse, planning compact, menu repliable, pointage seulement sur la tablette
 - **On ne pointe que sur la tablette du resto** : plus de bouton « pointer » dans le profil de l'employé (message « Pointage sur la tablette du resto »). Le manager ne pointe plus « à la place de » : il corrige le PAYÉ dans la badgeuse.
 - **Badgeuse** (1er onglet de Pointage) : les jours de la semaine à gauche (✓ validée, rouge = à régler), et pour chaque salarié : prévu, pause, **badgé** (vert à l'heure, rouge retard ou départ manquant, bleu parti après) et **payé modifiable directement** (début – fin · pause, on peut taper 1500, 15h ou 15:00). Le badgé ne bouge jamais. Case « Abs. ». Bouton « Calcul Léon » pour annuler une correction. Valider la journée = directeur, verrouillé pour la paie.

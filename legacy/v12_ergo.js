@@ -29,15 +29,13 @@ function v12Mini(){
   return v?v==='mini':large; // par défaut : replié sur Planning / Pointage, ouvert ailleurs
 }
 function v12Menu(){
-  const sh=document.querySelector('.shell');const side=document.getElementById('side');if(!sh||!side)return;
-  const mini=v12Mini();sh.classList.toggle('mini',mini);
-  if(!side.querySelector('.side-tg')){
-    const b=document.createElement('button');b.className='side-tg';b.setAttribute('data-act','side-tg');
-    side.insertBefore(b,side.firstChild.nextSibling);
-  }
-  const b=side.querySelector('.side-tg');b.innerHTML=ic(mini?'chevR':'chevL','s')+`<span class="nl">${mini?'':'Réduire le menu'}</span>`;
-  b.title=mini?'Ouvrir le menu':'Réduire le menu';b.setAttribute('aria-label',b.title);b.setAttribute('aria-expanded',String(!mini));
-  side.querySelectorAll('.nav button').forEach(x=>{const l=x.querySelector('.nl');if(l&&!x.title)x.title=l.textContent;});
+  const sh=document.querySelector('.shell');if(!sh)return;
+  const mini=v12Mini();sh.classList.toggle('mini',mini);document.body.classList.toggle('menu-mini',mini);
+  let t=document.querySelector('.menu-tab');
+  if(!t){t=document.createElement('button');t.className='menu-tab';t.setAttribute('data-act','side-tg');document.body.appendChild(t);}
+  t.innerHTML=ic(mini?'chevR':'chevL','s');
+  t.title=mini?'Ouvrir le menu':'Replier le menu';t.setAttribute('aria-label',t.title);t.setAttribute('aria-expanded',String(!mini));
+  t.style.display=U.screen==='app'?'':'none';
 }
 ACT['side-tg']=function(){
   const large=V12_LARGES.includes(UI.view);const mini=!v12Mini();
