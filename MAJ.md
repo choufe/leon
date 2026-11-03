@@ -5,6 +5,12 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.18 — Les salariés ont leur compte (en attente du « go » pour la base)
+- « Salariés & accès » : bouton **Inviter** à côté de chaque salarié → un lien perso à envoyer par **WhatsApp ou SMS** (ou copier). Le lien marche une fois, 14 jours. Quand le salarié a rejoint : « Sur son téléphone ».
+- Page **/rejoindre** : « Salut Inès ! » → il crée son compte (e-mail + mot de passe) et arrive direct dans le Léon de son resto, avec sa vue à lui. Même Léon sur téléphone et PC. Pas de code à 4 chiffres pour lui (le code, c'est la tablette).
+- Sur son compte, le salarié voit : son planning et l'équipe, ses congés et échanges, le cahier, plats dispo, allergènes, fiches. Pas l'hygiène ni la badgeuse (c'est la tablette).
+- Migration `0009_salaries.sql` (tables invitations + salariés, fonctions). À appliquer avec l'accord de Maurice.
+
 ## 12.17 — « Aujourd'hui » en haut de l'accueil + ménage
 - En ouvrant Léon (tablette ou PC), le patron / directeur / manager qui fait le planning voit d'abord **Aujourd'hui** : couverts du midi et du soir avec qui travaille (pastilles), qui est absent, et **ce qu'il y a à faire** en boutons qui mènent direct au bon endroit : badgeuse d'hier à valider, demandes à valider, planning de la semaine prochaine à publier, problèmes au planning (Léon a une solution). Rien à faire → « Rien à faire de ton côté. Bon service. »
 - Raccourcir les heures : celui qui **ferme son poste** reste jusqu'au bout (sauf si un collègue prend le relais) ; Léon raccourcit plutôt ailleurs.

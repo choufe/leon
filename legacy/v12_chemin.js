@@ -9,6 +9,16 @@ const V12_COMPTE=(()=>{try{return window.parent!==window&&window.parent.__leonCo
 function v12Code(){return String(1000+Math.floor(Math.random()*9000));}
 function v12Entrer(){
   if(!V12_COMPTE||!NET.configLoaded)return false;
+  // 12.18 · Salarié invité : il entre dans son resto avec sa vue à lui (pas de code, pas d'écran de compte).
+  if(V12_COMPTE.salarie){
+    const rid=NET.config&&(NET.config.restos||[])[0];
+    if(!rid){U.screen='app';document.body.innerHTML='<div style="font:16px system-ui;padding:40px;text-align:center">Ton resto n’est pas encore prêt sur Léon. Réessaie un peu plus tard.</div>';return true;}
+    setDevice(null);
+    loginAs({role:'staff',rid,empId:V12_COMPTE.empId});
+    try{const e=empById(V12_COMPTE.empId);if(!e){document.querySelector('.view')&&(document.querySelector('.view').innerHTML='<div class="panel"><div class="empty"><p>Ton compte n’est plus rattaché à un salarié du resto. Demande un nouveau lien à ton responsable.</p></div></div>');}
+      else if(e.acces==='manager'){U.role='manager';render();}}catch(_){}
+    return true;
+  }
   if(!NET.config){
     // Premier passage : le resto est créé avec le nom donné à l'invitation, sans rien demander.
     const prenom=V12_COMPTE.prenom||'Patron';
