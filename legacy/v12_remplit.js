@@ -89,7 +89,7 @@ function autoFillMalin(w){
     const {c,ev}=rmCouverts(w,d);if(ev)evs[d]=ev;
     ['midi','soir'].forEach((svc,i)=>{
       const cv=c[i];if(!cv)return;
-      const need={salle:Math.max(1,Math.ceil(cv/50)),cuisine:Math.max(1,Math.ceil(cv/55)),bar:cv>=80||(ev&&ev.l==='Match'&&svc==='soir')?1:0};
+      const need=leonBesoin(cv,svc,ev); // appris sur ce resto (v12_apprend.js)
       const grp={salle:['salle','manager'],cuisine:['cuisine'],bar:['bar']};
       Object.keys(need).forEach(k=>{
         let have=covHave(d,svc,grp[k]);
@@ -226,7 +226,7 @@ function leonAvisPlanning(w){
   let manque=0;const trop=[];
   days.forEach(d=>{const {c,ev}=rmCouverts(w,d);
     ['midi','soir'].forEach((svc,i)=>{const cv=c[i];if(!cv)return;
-      const need={salle:Math.max(1,Math.ceil(cv/50)),cuisine:Math.max(1,Math.ceil(cv/55)),bar:cv>=80||(ev&&ev.l==='Match'&&svc==='soir')?1:0};
+      const need=leonBesoin(cv,svc,ev); // appris sur ce resto (v12_apprend.js)
       Object.keys(need).forEach(k=>{if(!EMP.some(e=>grp[k].includes(e.poste)))return;const h=have(d,svc,grp[k]);
         if(h<need[k]){manque++;out.push({tone:'bad',ic:'users',t:`${JOURS[d]} ${svc} : il manque du monde ${L[k]}`,s:`${cv} couverts prévus${ev?' ('+ev.note+')':''} : ${h} ${L[k]}, il en faudrait ${need[k]}.`});}
         else if(h>need[k]+1&&cv<70)trop.push(`${JOURS[d]} ${svc} ${L[k]} (${h} pour ${cv} couverts)`);});});});
