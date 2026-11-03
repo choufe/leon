@@ -5,6 +5,16 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.04 — Façon Skello : badgeuse, planning compact, menu repliable, pointage seulement sur la tablette
+- **On ne pointe que sur la tablette du resto** : plus de bouton « pointer » dans le profil de l'employé (message « Pointage sur la tablette du resto »). Le manager ne pointe plus « à la place de » : il corrige le PAYÉ dans la badgeuse.
+- **Badgeuse** (1er onglet de Pointage) : les jours de la semaine à gauche (✓ validée, rouge = à régler), et pour chaque salarié : prévu, pause, **badgé** (vert à l'heure, rouge retard ou départ manquant, bleu parti après) et **payé modifiable directement** (début – fin · pause, on peut taper 1500, 15h ou 15:00). Le badgé ne bouge jamais. Case « Abs. ». Bouton « Calcul Léon » pour annuler une correction. Valider la journée = directeur, verrouillé pour la paie.
+- **Menu de gauche repliable** : replié tout seul sur Planning et Pointage (icônes seulement), bouton pour l'ouvrir/fermer, Léon retient le choix.
+- **Planning compact** : une ligne par salarié (nom + heures/contrat sur une ligne), 2 shifts = 2 petites cases empilées, couleurs plus douces avec un trait du poste.
+- **⚠ sur la case** quand une règle n'est pas respectée (rouge = interdit HCR, orange = à vérifier) : on clique, Léon explique. Les alertes de la semaine (heures sup, repos hebdo…) sont à côté du nom.
+- **Les employés voient le planning de toute l'équipe** par défaut (et les shifts à pourvoir), sans heures, contrats ni coûts. « Mon planning » reste à un clic.
+- Modules `legacy/v12_feuille.js` (réécrit), `legacy/v12_ergo.js`, `legacy/v12.css`. Aucune mise à jour de la base.
+- Reste : relier la vraie tablette du resto (aujourd'hui la « Borne de pointage » s'ouvre aussi depuis le téléphone d'un manager).
+
 ## 12.03 — Pointage : la « Feuille de jour » (prévu / badgé / payé)
 - Nouvel onglet en premier dans Pointage (directeur et managers) : la journée d'hier, salarié par salarié, avec **prévu**, **badgé** (chaque badge), **payé** (calculé par Léon), total et ce qui est à regarder.
 - Règles de paie : en avance ou jusqu'à 5 min de retard = payé à l'heure prévue ; plus tard = payé à l'arrivée ; parti jusqu'à 15 min après = fin prévue ; au-delà = le directeur choisit « Garder les heures sup » ou « Ramener à la fin prévue » ; pause badgée sinon pause prévue. Les journées en coupure (midi + soir) sont calculées service par service.
