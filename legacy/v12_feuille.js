@@ -171,6 +171,20 @@ function feuilleHTML(){
           <td class="pj-c" rowspan="${n}">${menu}</td>`:''}
         </tr>`;}).join('');
     }).join('');
+    // Téléphone : une carte par personne (pas de tableau à balader de gauche à droite)
+    if(window.innerWidth<760){
+      body=`<div class="pjm">${L.map(x=>{
+        const subs=pjSousLignes(x);const bad=!x.override&&x.flags.some(f=>f.k==='noout'||f.k==='nobadge');
+        const menu=edit?`<button class="pj-dots" data-act="pj-menu" data-e="${x.e.id}" data-iso="${iso}" aria-label="Actions pour ${esc(x.e.prenom)}">${ic('dots','s')}</button>`:'';
+        const lignes=subs.map((r,i)=>{const sh=r.sh,b=r.b,pc=r.pc;
+          const prev=sh?`${pjChip(sh.s,'in')}<span class="pj-dash">-</span>${pjChip(sh.e,'out')}`:'<span class="faint">Pas prévu</span>';
+          const bdg=b?`<span class="pj-bt">${pjT(b.a)}</span><span class="pj-dash">-</span><span class="pj-bt ${b.fin==='pause'&&i===subs.length-1&&x.flags.some(f=>f.k==='noout')?'miss':''}">${b.fin==='pause'&&i===subs.length-1&&x.flags.some(f=>f.k==='noout')?'?':pjT(b.b)}</span>`:'<span class="pj-nob">Pas de badge</span>';
+          const pay=x.abs?'<span class="faint">Absent</span>':`<div class="pj-pay-r" data-e="${x.e.id}" data-iso="${iso}" data-i="${i}"><input class="pj-in s" value="${pc?pjT(pc.s):''}" placeholder="--:--" inputmode="numeric" maxlength="5" aria-label="Payé début" ${dis}><span class="pj-dash">-</span><input class="pj-in e" value="${pc?pjT(pc.e):''}" placeholder="--:--" inputmode="numeric" maxlength="5" aria-label="Payé fin" ${dis}></div><label class="pjm-pz">pause <input class="pj-in p" value="${pc?pc.p:(sh?sh.p||0:0)}" inputmode="numeric" maxlength="3" aria-label="Pause payée (min)" data-row="${x.e.id}|${i}" ${dis}> mn</label>`;
+          return `<div class="pjm-shift"><div class="pjm-l"><span class="pjm-k">Prévu</span><span class="pjm-v">${prev}</span></div><div class="pjm-l"><span class="pjm-k">Badgé</span><span class="pjm-v">${bdg}</span></div><div class="pjm-l pjm-pay"><span class="pjm-k">Payé</span><span class="pjm-v">${pay}</span></div></div>`;}).join('');
+        return `<article class="pjm-c ${bad?'pj-bad':''}"><header class="pjm-h">${verrou?`<span class="pj-ck ok">${ic('check','s')}</span>`:'<span class="pj-ck"></span>'}<div class="pjm-n"><b>${esc(x.e.prenom)}</b> <span>${esc((x.e.nom||'').toUpperCase())}</span></div><b class="pjm-tot">${x.paye?dur(x.paye):'—'}</b>${menu}</header>
+          ${x.flags.length?`<div class="pj-flags">${x.flags.map(f=>`<i class="pj-f ${f.k==='noout'||f.k==='nobadge'?'bad':f.k==='abs'?'':'warn'}">${esc(f.t)}</i>`).join('')}</div>`:''}
+          ${lignes}<label class="pjm-abs"><input type="checkbox" class="pj-absc" data-e="${x.e.id}" data-iso="${iso}" ${x.abs?'checked':''} ${dis}> Absent ce jour-là</label></article>`;}).join('')}</div>`;
+    }else
     body=`<table class="pj-t"><thead><tr><th>Validé</th><th>Employé</th><th>Prévu</th><th>Pause</th><th class="pj-sep">Badgé</th><th>Pause</th><th class="pj-sep">Payé</th><th>Pause</th><th>Abs.</th><th>Total</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
   }
   const top=`<div class="pj-top"><h2 class="pj-titre">${UI.pj===0?'Aujourd’hui · ':UI.pj===-1?'Hier · ':''}${esc(longDate(date))}</h2></div>`;

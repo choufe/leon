@@ -64,7 +64,10 @@ a { color: var(--gold); }
 .leon-frame {
   position: fixed;
   inset: 0;
-  width: 100%;
+  /* iPhone / iPad : sans ça, le cadre s'élargit à son contenu et la page glisse vers la droite */
+  width: 1px;
+  min-width: 100%;
+  max-width: 100%;
   height: 100%;
   border: 0;
   background: #F1F4EF;
