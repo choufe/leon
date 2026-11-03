@@ -5,6 +5,23 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.30 — Le grand check : tout Léon repassé, écran par écran
+Tour complet (site, démo, appli PC, téléphone, tablette ; directeur, manager, salarié, créateur, nouveau patron) : 174 écrans vérifiés, 0 erreur restante.
+- **Téléphone et tablette** : chaque écran s'ouvre enfin **en haut**. Avant, on arrivait au milieu de la page (après le code, en changeant d'onglet…).
+- **Tablette, températures** : « Relever les températures » se cochait **sans rien taper**. Maintenant une case par frigo / congélateur, et Léon demande quoi faire si c'est hors norme (comme sur le PC). Pour un congélateur, « 18 » = −18 °C. La tuile s'appelle **« Tâches et températures »**.
+- **Tablette** : le bouton « Pointer mon départ » était presque invisible (corrigé) ; plus de « Bonjour » au-dessus de « Salut Inès » ; plus d'euros sur la tablette (historique des inventaires caché).
+- **Tablette en tamoul, arabe, anglais, portugais, espagnol** : toute l'hygiène, la réception, l'inventaire et les listes de tâches étaient restés en français. 100 phrases traduites (à faire relire, surtout le tamoul).
+- **Statistiques** : « tu perds de l'argent » s'affichait à tort en début de mois. Les charges fixes sont réparties sur les **jours d'ouverture**, et aujourd'hui ne compte qu'au prorata de ce qui est déjà vendu.
+- **Badgeuse** : « Départ pas badgé » → bouton direct **« Payer jusqu'à 00:00 (fin prévue) »** sur la ligne rouge (avant : payé coupé au début de la pause, solution cachée dans « … »). « mn » → « min ». Le compteur du menu parle de la journée d'hier (plus des anciennes « heures à valider »).
+- **Mêmes chiffres partout** : couverts du planning = ceux de l'accueil (groupe, match du LOSC compris) ; « 8 problèmes au planning » devient « 4 cette semaine, 4 la semaine prochaine ».
+- **Mots** : « Pointage » → « Badgeuse » partout ; « Staff » → « Salarié » ; « Équipe & accès » → « Salariés & accès » ; « Ouvert le hier » → « Ouvert hier » ; « Qui voit quoi » à jour (le salarié voit le planning de l'équipe, badge sur la tablette).
+- **Téléphone** : bandeaux d'alerte lisibles (plus écrasés en colonne), tableaux en cartes sans « COÛT PORTION I ».
+- **Vrai site** : plus de lien « Mes restaurants » qui ne menait nulle part ; « Voir comme » caché tant qu'il n'y a pas d'équipe (et sur téléphone, seulement sur l'accueil) ; un nouveau resto est de type « Restaurant » (plus « Vide ») ; Réglages → « La tablette du resto » explique la vraie installation (adresse /tablette, mot de passe direction).
+- **Démo** : la pastille « Mode démo » ne cache plus le logo ni le haut des pages (le ↻ en bas remet à zéro) ; l'écran des codes n'a plus les photos (comme la vraie tablette) ; texte d'accueil corrigé (les essais restent sur l'appareil) ; charges fixes du Petit Beffroi réalistes.
+- **Site vitrine** : « photo + code » → « chacun tape son code » ; lien du bas « Tablette (démo) » ; plus de « ? » seul à la ligne dans les questions.
+- **Outil** : `npm run check` refait ce grand check tout seul (captures de tous les écrans + liste des problèmes).
+- **Reste à décider** : l'entrée de la démo en ligne (voir `IDEES.md`), le film et les clips du site (ancienne tablette, tutoiement), SIRET et e-mail des mentions légales.
+
 ## 12.29 — Tablette : réception et inventaire pour les responsables
 - **Réception** et **Inventaire** : seulement pour les **managers, le directeur et le créateur** (il faut un peu de responsabilité). Un salarié voit Hygiène et Mon planning.
 - **Inventaire sur la tablette** : zone par zone (chambre froide, réserve sèche, bar…), gros boutons − / +, quantité modifiable, « Retour » qui remonte à la liste des zones ; à la fin, on valide et le stock est mis à jour (même inventaire que sur le PC). Disponible depuis l'écran du manager et depuis l'écran Direction.

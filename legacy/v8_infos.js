@@ -100,17 +100,17 @@ function insightsFor(){
         if(L.length>=3){
           const tot=sum(L,x=>x.m);const last=L.slice().sort((a,b)=>b.iso.localeCompare(a.iso))[0];
           const wd={};L.forEach(x=>{const k=(pdate(x.iso).getDay()+6)%7;wd[k]=(wd[k]||0)+1;});const wk=Object.keys(wd).sort((a,b)=>wd[b]-wd[a])[0];
-          add({id:'late:'+e.id,cat:'equipe',tone:L.length>=5||tot>=90?'bad':'warn',t:`${e.prenom} : ${L.length} retards en 30 jours`,s:`${durShort(tot)} cumulées. Le dernier : ${frDate(last.iso)} (+${last.m} min)${wd[wk]>=2?`, souvent le ${JOURS[wk].toLowerCase()}`:''}. Un point avec ${e.prenom} s’impose.`,acts:[{l:'Relevé d’heures',act:'go-mod',v:'pointage',t:'releve'}],sc:L.length*10+tot/10});
+          add({id:'late:'+e.id,cat:'equipe',tone:L.length>=5||tot>=90?'bad':'warn',t:`${e.prenom} : ${L.length} retards en 30 jours`,s:`${durShort(tot)} cumulées. Le dernier : ${frDate(last.iso)} (+${last.m} min)${wd[wk]>=2?`, souvent le ${JOURS[wk].toLowerCase()}`:''}. Un point avec ${e.prenom} s’impose.`,acts:[{l:'Badgeuse',act:'go-mod',v:'pointage'}],sc:L.length*10+tot/10});
         }
         const M=d30.filter(iso=>empMissed(e,iso));
-        if(M.length>=2)add({id:'miss:'+e.id,cat:'equipe',tone:M.length>=3?'bad':'warn',t:`${e.prenom} : ${M.length} services sans pointage`,s:`${M.slice(-3).map(frDate).join(', ')}. Absence non prévenue ou oubli de badge : à clarifier avant la paie.`,acts:[{l:'Relevé d’heures',act:'go-mod',v:'pointage',t:'releve'}],sc:M.length*8});
+        if(M.length>=2)add({id:'miss:'+e.id,cat:'equipe',tone:M.length>=3?'bad':'warn',t:`${e.prenom} : ${M.length} services sans pointage`,s:`${M.slice(-3).map(frDate).join(', ')}. Absence non prévenue ou oubli de badge : à clarifier avant la paie.`,acts:[{l:'Badgeuse',act:'go-mod',v:'pointage'}],sc:M.length*8});
         if(can.salaries){
           let over=0,wks=0;for(let w=-1;w>=-4;w--){let m=0;for(let d=0;d<7;d++)m+=workedMin(evsOn(e.id,isoD(dateAt(w,d))),false);if(m>e.contrat*60+120){wks++;over+=m-e.contrat*60;}}
           if(wks>=3)HS.push({e,avg:over/wks,cost:over/60*(e.taux||0),wks});
         }
       });
       if(HS.length){HS.sort((a,b)=>b.avg-a.avg);const cost=sum(HS,x=>x.cost);
-        add({id:'hs',cat:'equipe',tone:'warn',t:HS.length>1?`${HS.length} salariés font des heures sup chaque semaine`:`${HS[0].e.prenom} fait des heures sup chaque semaine`,s:`${HS.map(x=>`${esc(x.e.prenom)} +${dur(x.avg)} (contrat ${x.e.contrat} h)`).join(', ')} en moyenne sur les 4 dernières semaines. Environ ${eur(cost,0)} sur le mois. Ajuste les plannings ou les contrats.`,acts:[{l:'Planning',act:'nav',v:'planning'}],sc:cost/10});}
+        add({id:'hs',cat:'equipe',tone:'warn',t:HS.length>1?`${HS.length} salariés font des heures en plus chaque semaine`:`${HS[0].e.prenom} fait des heures en plus chaque semaine`,s:`${HS.map(x=>`${esc(x.e.prenom)} +${dur(x.avg)} (contrat ${x.e.contrat} h)`).join(', ')} en moyenne sur les 4 dernières semaines. Environ ${eur(cost,0)} sur le mois. Ajuste les plannings ou les contrats.`,acts:[{l:'Planning',act:'nav',v:'planning'}],sc:cost/10});}
       if(!anyLate&&ptDays>=10)add({id:'ontime',cat:'equipe',tone:'ok',t:'Équipe à l’heure',s:`Aucun retard sur les 30 derniers jours (${ptDays} jours pointés).`,acts:[],sc:1});
     }
 

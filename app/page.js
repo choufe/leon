@@ -29,7 +29,7 @@ const POINTS = [
     p: "Le bon nombre de personnes au bon moment, sans dépasser votre budget.",
     l: [
       "Un planning qui respecte les règles HCR et votre objectif de masse salariale",
-      "Une badgeuse sur tablette : photo + code, en deux gestes",
+      "Une badgeuse sur la tablette du resto : chacun tape son code, c'est pointé",
       "Les heures du mois prêtes pour votre comptable",
     ],
   },
@@ -64,23 +64,23 @@ const POINTS = [
 
 const FAQ = [
   {
-    q: "Est-ce qu'il faut acheter du matériel ?",
+    q: "Est-ce qu'il faut acheter du matériel ?",
     r: "Une tablette pour la borne du resto et une petite imprimante d'étiquettes. Si vous en avez déjà, on vérifie ensemble qu'elles marchent avec Léon. Sinon, je les achète pour vous au prix coûtant : le matériel est à vous, pas de location.",
   },
   {
-    q: "Mon équipe ne lit pas bien le français, ça marche quand même ?",
+    q: "Mon équipe ne lit pas bien le français, ça marche quand même ?",
     r: "Oui. Chaque salarié choisit sa langue (français, anglais, arabe, portugais, espagnol, tamoul) et l'écran de la borne parle surtout en icônes : badger, voir son planning, imprimer une étiquette.",
   },
   {
-    q: "Mes salariés peuvent pointer depuis leur téléphone ?",
+    q: "Mes salariés peuvent pointer depuis leur téléphone ?",
     r: "Non, et c'est voulu. On pointe uniquement sur la tablette du resto, avec son code perso à 4 chiffres. Personne ne peut badger depuis chez lui ou à la place d'un collègue.",
   },
   {
-    q: "Léon remplace ma caisse ?",
+    q: "Léon remplace ma caisse ?",
     r: "Non. Votre caisse continue de prendre les commandes. Léon s'occupe de tout le reste : l'équipe, la marchandise, l'hygiène et le suivi. On regarde ensemble si votre caisse peut lui envoyer vos ventes pour suivre le chiffre en direct.",
   },
   {
-    q: "Combien de temps pour démarrer ?",
+    q: "Combien de temps pour démarrer ?",
     r: "Léon vous guide écran par écran : le resto, l'équipe, la carte, les produits, la tablette et l'imprimante. Et je vous accompagne personnellement pendant les deux premières semaines.",
   },
   {
@@ -88,7 +88,7 @@ const FAQ = [
     r: "Chaque établissement a son Léon complet, et vous les voyez tous au même endroit depuis votre téléphone ou votre ordinateur.",
   },
   {
-    q: "Où sont mes données ?",
+    q: "Où sont mes données ?",
     r: "Hébergées en France, à Paris. Elles sont à vous et ne sont ni revendues ni partagées. Pas de biométrie pour la badgeuse.",
   },
 ];
@@ -322,7 +322,7 @@ export default function Vitrine() {
             <a href="#offre">L'offre</a>
             <Link href="/demande">Demander une démo</Link>
             <Link href="/login">Se connecter</Link>
-            <a href="/leon/demo.html?tablette=1">Mode borne (démo)</a>
+            <a href="/leon/tablette.html">Tablette (démo)</a>
             <Link href="/mentions-legales">Mentions légales</Link>
             <Link href="/confidentialite">Confidentialité</Link>
           </nav>

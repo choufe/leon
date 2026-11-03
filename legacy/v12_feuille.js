@@ -150,12 +150,12 @@ function feuilleHTML(){
       return subs.map((r,i)=>{
         const sh=r.sh,b=r.b,pc=r.pc;
         const prev=sh?`${pjChip(sh.s,'in')}<span class="pj-dash">-</span>${pjChip(sh.e,'out')}`:'<span class="faint">—</span>';
-        const pprev=sh?pjChip(durShort(sh.p||0).replace(' min',' mn'),'pz'):'';
+        const pprev=sh?pjChip(durShort(sh.p||0),'pz'):'';
         let bad1='';
         if(b){const lateIn=sh&&b.a>sMin(sh)+PJ_TOL_IN,supOut=sh&&b.b>eMin(sh)+PJ_TOL_OUT;
           bad1=`<span class="pj-bt ${lateIn?'late':sh&&b.a<=sMin(sh)+PJ_TOL_IN?'okin':''}">${pjT(b.a)}</span><span class="pj-dash">-</span><span class="pj-bt ${b.fin==='pause'||(i===n-1&&x.flags.some(f=>f.k==='noout'))?'miss':supOut?'sup':'okout'}">${b.fin==='pause'&&i===n-1&&x.flags.some(f=>f.k==='noout')?'?':pjT(b.b)}</span>`;}
         else bad1=`<span class="pj-nob">Pas de badge</span>`;
-        const pbad=b?`${b.pause} mn`:'-';
+        const pbad=b?(b.pause?`${b.pause} min`:'—'):'-';
         const pay=x.abs?(i===0?'<span class="faint">Absent</span>':''):`<div class="pj-pay-r" data-e="${x.e.id}" data-iso="${iso}" data-i="${i}">
             <input class="pj-in s" value="${pc?pjT(pc.s):''}" placeholder="--:--" inputmode="numeric" maxlength="5" aria-label="Payé début" ${dis}><span class="pj-dash">-</span><input class="pj-in e" value="${pc?pjT(pc.e):''}" placeholder="--:--" inputmode="numeric" maxlength="5" aria-label="Payé fin" ${dis}></div>`;
         const ppay=x.abs?'':`<input class="pj-in p" value="${pc?pc.p:(sh?sh.p||0:0)}" inputmode="numeric" maxlength="3" aria-label="Pause payée (min)" data-row="${x.e.id}|${i}" ${dis}>`;
@@ -179,7 +179,7 @@ function feuilleHTML(){
         const lignes=subs.map((r,i)=>{const sh=r.sh,b=r.b,pc=r.pc;
           const prev=sh?`${pjChip(sh.s,'in')}<span class="pj-dash">-</span>${pjChip(sh.e,'out')}`:'<span class="faint">Pas prévu</span>';
           const bdg=b?`<span class="pj-bt">${pjT(b.a)}</span><span class="pj-dash">-</span><span class="pj-bt ${b.fin==='pause'&&i===subs.length-1&&x.flags.some(f=>f.k==='noout')?'miss':''}">${b.fin==='pause'&&i===subs.length-1&&x.flags.some(f=>f.k==='noout')?'?':pjT(b.b)}</span>`:'<span class="pj-nob">Pas de badge</span>';
-          const pay=x.abs?'<span class="faint">Absent</span>':`<div class="pj-pay-r" data-e="${x.e.id}" data-iso="${iso}" data-i="${i}"><input class="pj-in s" value="${pc?pjT(pc.s):''}" placeholder="--:--" inputmode="numeric" maxlength="5" aria-label="Payé début" ${dis}><span class="pj-dash">-</span><input class="pj-in e" value="${pc?pjT(pc.e):''}" placeholder="--:--" inputmode="numeric" maxlength="5" aria-label="Payé fin" ${dis}></div><label class="pjm-pz">pause <input class="pj-in p" value="${pc?pc.p:(sh?sh.p||0:0)}" inputmode="numeric" maxlength="3" aria-label="Pause payée (min)" data-row="${x.e.id}|${i}" ${dis}> mn</label>`;
+          const pay=x.abs?'<span class="faint">Absent</span>':`<div class="pj-pay-r" data-e="${x.e.id}" data-iso="${iso}" data-i="${i}"><input class="pj-in s" value="${pc?pjT(pc.s):''}" placeholder="--:--" inputmode="numeric" maxlength="5" aria-label="Payé début" ${dis}><span class="pj-dash">-</span><input class="pj-in e" value="${pc?pjT(pc.e):''}" placeholder="--:--" inputmode="numeric" maxlength="5" aria-label="Payé fin" ${dis}></div><label class="pjm-pz">pause <input class="pj-in p" value="${pc?pc.p:(sh?sh.p||0:0)}" inputmode="numeric" maxlength="3" aria-label="Pause payée (min)" data-row="${x.e.id}|${i}" ${dis}> min</label>`;
           return `<div class="pjm-shift"><div class="pjm-l"><span class="pjm-k">Prévu</span><span class="pjm-v">${prev}</span></div><div class="pjm-l"><span class="pjm-k">Badgé</span><span class="pjm-v">${bdg}</span></div><div class="pjm-l pjm-pay"><span class="pjm-k">Payé</span><span class="pjm-v">${pay}</span></div></div>`;}).join('');
         return `<article class="pjm-c ${bad?'pj-bad':''}"><header class="pjm-h">${verrou?`<span class="pj-ck ok">${ic('check','s')}</span>`:'<span class="pj-ck"></span>'}<div class="pjm-n"><b>${esc(x.e.prenom)}</b> <span>${esc((x.e.nom||'').toUpperCase())}</span></div><b class="pjm-tot">${x.paye?dur(x.paye):'—'}</b>${menu}</header>
           ${x.flags.length?`<div class="pj-flags">${x.flags.map(f=>`<i class="pj-f ${f.k==='noout'||f.k==='nobadge'?'bad':f.k==='abs'?'':'warn'}">${esc(f.t)}</i>`).join('')}</div>`:''}
@@ -194,7 +194,7 @@ function feuilleHTML(){
 
 /* ---------- actions ---------- */
 function pjX(t){const e=empById(t.dataset.e);return pjLigne(e,t.dataset.iso);}
-function pjLocked(iso){if(!pjPeutModifier()){toast('Seul le patron ou le directeur modifie le payé','alert');return true;}return false;}
+function pjLocked(iso){if(!pjPeutModifier()){toast('Seuls le patron, le directeur ou un manager modifient le payé','alert');return true;}return false;}
 // Toute modif d'une journée validée la remet « à valider » : on revalide pour être sûr que c'est bon.
 function pjDevalider(iso){const j=(S.hoursOk||{})[iso];if(j&&j._jour){const k={...j};delete k._jour;S.hoursOk={...S.hoursOk,[iso]:k};return true;}return false;}
 function pjSetPaye(emp,iso,paye,extra){
