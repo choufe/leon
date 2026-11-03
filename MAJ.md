@@ -5,6 +5,18 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.10 — L'avis de Léon + Paie pour le comptable
+- Planning : le bouton « Léon remplit » devient **« L'avis de Léon »**. Léon regarde la semaine et dit ce qui lui saute aux yeux : règles pas respectées, service où il manque du monde (selon les couverts prévus), service peut-être trop chargé, qui dépasse son contrat (heures sup ou complémentaires), masse salariale vs CA prévu, événements notés. Ensuite, si besoin, « Léon propose de quoi compléter ». Semaine vide → « Léon remplit la semaine ».
+- Le **✦** s'explique tout de suite au survol, avec une phrase perso : « Lucas a déjà fait 1h37 d'heures sup ce mois-ci. Léon lui met 33h30 au lieu de 35h cette semaine, pour lisser sur le mois. »
+- **Paie** refaite pour le comptable (convention HCR, IDCC 1979) :
+  - les heures viennent du **payé de la badgeuse** (planning si pas de badge) ;
+  - survol de chaque colonne = ce que c'est et pourquoi ;
+  - heures sup +10/+20/+50 par semaine, **heures complémentaires +10 %/+25 %** pour les temps partiels, nuit 22 h–7 h (c'est bien la règle HCR), fériés, **1er mai à part** (payé double), absences en jours, repas = avantage en nature (4,35 € par repas depuis juin 2026) ;
+  - les colonnes vides du mois sont cachées ; « Retards » et « Dimanche » enlevés (rien à payer en HCR) ;
+  - alerte si des journées de badgeuse ne sont pas validées ;
+  - bloc **« En clair, pour le comptable »** : une phrase par salarié ;
+  - **« Fichier pour le comptable »** : CSV avec en-tête (resto, mois, règles, validé par), toutes les colonnes et les phrases.
+
 ## 12.09 — Alerte de publication
 - Dans le planning (patron, directeur, managers qui font le planning) : si **la semaine prochaine n'est pas publiée à moins de 7 jours**, un bandeau le dit (orange, rouge à 3 jours) avec le bon bouton : « Voir la semaine prochaine », puis « Publier » (ou « Léon remplit » si elle est vide). Rappel aussi sur l'entrée Planning du menu. Disparaît dès que c'est publié.
 
