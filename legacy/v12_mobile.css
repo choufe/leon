@@ -95,170 +95,113 @@ img,svg,video,canvas{max-width:100%}
   #demo-pill span{display:none}
 }
 
-/* ---------- 5. Refonte tablette (12.24 → 12.25) : l'identité Léon, clair ET sombre ---------- */
-:root{--tl-bg:#F4F1EA;--tl-card:#FFFFFF;--tl-ink:#13201A;--tl-mute:#6B7570;--tl-key:#F4F1EA;--tl-key-on:#F5EAD3;--tl-line:#DDE2DC;--tl-band:#18352B;--tl-band-ink:#FFFFFF;--tl-band-mute:rgba(238,242,236,.74);--tl-brass:#D6A34A;--tl-brass-ink:#1E1608;--tl-brass-txt:#93630F;--tl-shadow:0 2px 4px rgba(19,32,26,.04),0 24px 60px -28px rgba(19,32,26,.35)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tl-bg:#0D1411;--tl-card:#16201B;--tl-ink:#EDF2EE;--tl-mute:#A3B0A9;--tl-key:#22302A;--tl-key-on:#3A2F17;--tl-line:#2C3A33;--tl-band:#10261D;--tl-brass-txt:#E2B866;--tl-shadow:0 0 0 1px #24312B,0 24px 60px -30px rgba(0,0,0,.8)}}
-:root[data-theme="dark"]{--tl-bg:#0D1411;--tl-card:#16201B;--tl-ink:#EDF2EE;--tl-mute:#A3B0A9;--tl-key:#22302A;--tl-key-on:#3A2F17;--tl-line:#2C3A33;--tl-band:#10261D;--tl-brass-txt:#E2B866;--tl-shadow:0 0 0 1px #24312B,0 24px 60px -30px rgba(0,0,0,.8)}
+/* ---------- 5. Tablette au style du site Léon (12.27) ----------
+   Comme la page de connexion du site : fond vert Léon, barre du haut avec le logo, une carte blanche
+   au centre pour l'action, et à côté des « portes » vertes (icône dorée, titre, flèche) pour le reste.
+   Même rendu en clair et en sombre : c'est l'identité Léon. */
+:root{--tb-side:#18352B;--tb-side-2:#122A21;--tb-line:rgba(230,238,233,.16);--tb-ink:#13201A;--tb-sink:#E6EEE9;--tb-mute:#A7BCB1;--tb-brass:#93630F;--tb-pop:#E9C47A;--tb-bg:#F1F4EF;--tb-card:#FFFFFF;--tb-cline:#D7DED5;--tb-cmute:#5E6B64;--tb-key:#F1F4EF;
+  --tb-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;--tb-ui:"Instrument Sans",ui-sans-serif,system-ui,-apple-system,sans-serif;--tb-disp:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif}
 
-.mode-tablette .stage.tl-stage{display:block!important;padding:0!important;background:var(--tl-bg)!important;background-image:none!important;color:var(--tl-ink)}
-.mode-tablette .lock.tl-lock{width:100%!important;max-width:none!important;display:block!important;padding:0!important;background:none!important;border:0!important;box-shadow:none!important}
-.tl{display:grid;grid-template-columns:minmax(320px,36%) 1fr;min-height:100vh;min-height:100dvh}
-
-/* panneau Léon : logo en haut à gauche, le reste bien centré */
-.tl-left{position:relative;overflow:hidden;background:var(--tl-band);color:var(--tl-band-ink);padding:calc(28px + env(safe-area-inset-top,0px)) 36px 36px;display:flex;flex-direction:column;align-items:center;text-align:center}
-.tl-left::after{content:"";position:absolute;inset:auto -140px -140px auto;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(214,163,74,.20),transparent 65%);pointer-events:none}
-.tl-logo{position:absolute;top:calc(24px + env(safe-area-inset-top,0px));left:28px;width:104px;height:auto;z-index:1}
-.tl-left-in{flex:1;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;position:relative;z-index:1;padding-top:40px}
-.tl-left .eyebrow{color:var(--tl-brass)!important;letter-spacing:.16em;font-size:11.5px!important;opacity:1!important;text-align:center}
-.tl-left .wordmark{font-size:clamp(32px,3.8vw,48px)!important;color:var(--tl-band-ink);text-align:center;line-height:1.02}
-.tl-left .lock-clock{font-size:clamp(56px,7vw,88px)!important;color:var(--tl-band-ink);letter-spacing:-.02em;line-height:1;margin:4px 0 0;text-align:center}
-.tl-left h1{color:var(--tl-band-ink);font-size:clamp(28px,3.4vw,40px)!important;margin:4px 0 0;text-align:center}
-.tl-left .sub,.tl-left p{color:var(--tl-band-mute)!important;text-align:center;margin:0}
-.tl-left .av,.tl-left .bw-av .av{width:80px!important;height:80px!important;font-size:28px!important;border:3px solid rgba(255,255,255,.9);margin:0 auto}
-.tl-left .bc-check{color:#fff;background:#2E8B57;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto}
-.tl-conf.warn .tl-left .bc-check,.tl-conf.bad .tl-left .bc-check{background:#B7791F}
-.tl-left .bc-type{color:var(--tl-band-ink);font-size:18px;text-align:center}
-.tl-left .pill{align-self:center}
-.tl-left .lock-info{display:grid;gap:8px;margin-top:22px;width:100%;max-width:380px}
-.tl-left .lock-info .lk{background:rgba(255,255,255,.07)!important;border:1px solid rgba(255,255,255,.12)!important;color:var(--tl-band-ink)!important;border-radius:14px!important;padding:11px 14px!important;font-size:14px!important;text-align:left;justify-content:flex-start}
-
-/* carte d'action */
-.tl-right{display:flex;align-items:center;justify-content:center;padding:32px 28px calc(32px + env(safe-area-inset-bottom,0px))}
-.tl-card{width:min(460px,100%);background:var(--tl-card);border-radius:28px;box-shadow:var(--tl-shadow);padding:32px 28px;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--tl-ink)}
-.tl-card-h{text-align:center;margin-bottom:6px}.tl-card-h b{display:block;font-family:var(--f-display);font-size:26px;letter-spacing:-.02em;color:var(--tl-ink)}.tl-card-h span{font-size:14px;color:var(--tl-mute)}
-.tl-card .pin-dots{justify-content:center}
-.tl-card .pin-dots span{border-color:var(--tl-line)!important;background:transparent}
-.tl-card .pin-dots span.on,.tl-card .pin-dots span.fill,.tl-card .pin-dots span[class*="on"]{background:var(--tl-brass)!important;border-color:var(--tl-brass)!important}
-.tl-card .pin-pad{margin:10px auto 0;justify-content:center}
-.tl-card .pin-pad .key{background:var(--tl-key)!important;border:0!important;color:var(--tl-ink)!important;box-shadow:none!important}
-.tl-card .pin-pad .key:active{background:var(--tl-key-on)!important;transform:scale(.96)}
-.tl-card .pin-pad .key.small{color:var(--tl-mute)!important;background:transparent!important}
-.tl-card .pin-err{color:#D9544A;text-align:center}
-.tl-card .badge-acts{width:100%}
-.tl-card .badge-acts .btn.launch{width:100%;background:var(--tl-brass)!important;color:var(--tl-brass-ink)!important;border:0!important;box-shadow:0 10px 24px -14px rgba(147,99,15,.8)}
-.tl-card>.who{color:var(--tl-mute)!important;font-size:12px!important;letter-spacing:.12em;text-transform:uppercase;margin-top:18px!important;align-self:center;text-align:center}
-.mode-tablette .tl-card .who+.badge-acts .btn{background:var(--tl-key)!important;border:0!important;color:var(--tl-ink)!important}
-.mode-tablette .tl-card .who+.badge-acts .btn svg{color:var(--tl-brass-txt)}
-.tl-card>.row{width:100%;justify-content:center}
-.tl-card>.row .btn{background:transparent!important;border:1.5px solid var(--tl-line)!important;color:var(--tl-ink)!important}
-.tl-card details.demo-codes-d{margin-top:14px;color:var(--tl-mute)}
-.tl-card .demo-codes{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
-.tl-card .demo-codes button{background:var(--tl-key);color:var(--tl-ink);border:0}
-.tl-card .demo-codes .eyebrow,.tl-card .demo-pass{color:var(--tl-mute)}
-
-/* écran étroit (téléphone, tablette en portrait) : bandeau compact et centré, carte en dessous */
-@media (max-width:899px),(orientation:portrait){
-  .tl{grid-template-columns:1fr;grid-template-rows:auto 1fr}
-  .tl-left{padding:calc(14px + env(safe-area-inset-top,0px)) 20px 18px}
-  .tl-logo{position:static;width:78px;align-self:flex-start;margin-bottom:2px}
-  .tl-left-in{padding-top:0;gap:2px}
-  .tl-left .eyebrow{display:none}
-  .tl-left .wordmark{font-size:clamp(22px,5.4vw,34px)!important}
-  .tl-left .lock-clock{font-size:clamp(40px,10vw,60px)!important;margin-top:2px}
-  .tl-left h1{font-size:clamp(22px,5.6vw,32px)!important}
-  .tl-left .av,.tl-left .bw-av .av{width:52px!important;height:52px!important;font-size:19px!important}
-  .tl-left .bc-check{width:36px;height:36px}
-  .tl-left .lock-info{display:none}
-  .tl-left::after{width:240px;height:240px;inset:auto -90px -120px auto}
-  .tl-right{align-items:flex-start;padding:18px 16px calc(24px + env(safe-area-inset-bottom,0px))}
-  .tl-card{padding:24px 18px;border-radius:24px}
+.mode-tablette .stage.tb-stage{display:block!important;padding:0!important;background:var(--tb-side)!important;background-image:none!important;color:var(--tb-sink);min-height:100vh;min-height:100dvh}
+.mode-tablette .lock.tb-lock{width:100%!important;max-width:none!important;display:block!important;padding:0!important;background:none!important;border:0!important;box-shadow:none!important;text-align:left}
+.tb{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;font-family:var(--tb-ui)}
+/* barre du haut : logo, nom du resto, heure */
+.tb-top{display:flex;align-items:center;gap:16px;padding:calc(14px + env(safe-area-inset-top,0px)) clamp(16px,4vw,40px) 14px;border-bottom:1px solid var(--tb-line)}
+.tb-top img{height:26px;width:auto;flex:none}
+.tb-top .tb-resto{flex:1;min-width:0;font-weight:600;font-size:15px;color:var(--tb-mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-top .tb-resto .wordmark{all:unset;font:inherit;color:var(--tb-sink)}
+.tb-top .lock-clock{all:unset;font-family:var(--tb-mono);font-size:20px;font-weight:600;color:var(--tb-sink);letter-spacing:.02em;font-variant-numeric:tabular-nums}
+/* centre : la carte blanche + les portes */
+.tb-main{flex:1;display:grid;align-content:start;grid-template-columns:minmax(0,500px) minmax(0,380px);gap:24px;justify-content:center;align-items:start;padding:clamp(20px,5vh,56px) clamp(16px,4vw,40px) calc(28px + env(safe-area-inset-bottom,0px))}
+.tb-main.solo{grid-template-columns:minmax(0,500px)}
+.tb-card{background:var(--tb-card);color:var(--tb-ink);border-radius:20px;padding:28px;display:grid;gap:18px;box-shadow:0 40px 80px -40px rgba(0,0,0,.6)}
+.tb-head{display:flex;align-items:center;gap:16px}
+.tb-ic{width:52px;height:52px;border-radius:14px;background:var(--tb-side);display:grid;place-items:center;flex:none;color:var(--tb-pop)}
+.tb-ic svg{width:26px;height:26px}
+.tb-head .av{width:52px!important;height:52px!important;font-size:19px!important;border-radius:14px!important;flex:none}
+.tb-eb{font-family:var(--tb-mono);font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;color:var(--tb-brass)}
+.tb-head h1,.tb-h1{font-family:var(--tb-disp);font-size:clamp(26px,3vw,32px);line-height:1.1;margin:2px 0 0;color:var(--tb-ink);font-weight:700;letter-spacing:-.01em;text-align:left}
+.tb-card .sub,.tb-card p{color:var(--tb-cmute)!important;margin:0;text-align:left;font-size:15px}
+.tb-card .pill{justify-self:start}
+.tb-card .pin-dots{justify-content:center;margin:2px 0}
+.tb-card .pin-dots span{border-color:var(--tb-cline)!important;background:transparent}
+.tb-card .pin-dots span.on,.tb-card .pin-dots span.fill,.tb-card .pin-dots span[class*="on"]{background:var(--tb-brass)!important;border-color:var(--tb-brass)!important}
+.tb-card .pin-pad{margin:0 auto;justify-content:center}
+.tb-card .pin-pad .key{background:var(--tb-key)!important;border:1px solid var(--tb-cline)!important;color:var(--tb-ink)!important;box-shadow:none!important;font-family:var(--tb-mono)}
+.tb-card .pin-pad .key:active{background:#F5EAD3!important;border-color:var(--tb-brass)!important}
+.tb-card .pin-pad .key.small{background:transparent!important;border:0!important;color:var(--tb-cmute)!important;font-family:var(--tb-ui)}
+.tb-card .pin-err{color:#B4442F;text-align:center;min-height:0}
+.tb-card .badge-acts{width:100%}
+.tb-card .badge-acts .btn.launch{width:100%;min-height:58px;border-radius:12px;background:var(--tb-brass)!important;color:#FFF9EF!important;border:0!important;box-shadow:none!important;font-size:17px;font-weight:700}
+.tb-card .bc-check{width:52px;height:52px;border-radius:14px;background:#2E7D52;color:#fff;display:grid;place-items:center;flex:none}
+.tb-conf.warn .bc-check,.tb-conf.bad .bc-check{background:#B7791F}
+.tb-card .bc-type{color:var(--tb-ink);font-size:16px;text-align:left}
+.tb-card .tb-back{justify-self:center;background:transparent;border:1px solid var(--tb-cline);color:var(--tb-ink);border-radius:12px;min-height:46px;padding:0 22px;font-weight:600;font-size:15px}
+.tb-card details.demo-codes-d{margin:0;color:var(--tb-cmute)}
+.tb-card .demo-codes{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.tb-card .demo-codes button{background:var(--tb-key);color:var(--tb-ink);border:1px solid var(--tb-cline)}
+.tb-card .demo-codes .eyebrow,.tb-card .demo-pass{color:var(--tb-cmute)}
+/* les portes (à droite / en dessous) */
+.tb-side{display:grid;gap:12px;align-content:start}
+.tb-side-h{font-family:var(--tb-mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;color:var(--tb-mute);margin:4px 2px 0}
+.tb-door{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;padding:16px 18px;border-radius:16px;border:1px solid var(--tb-line);background:var(--tb-side-2);color:var(--tb-sink);text-align:left;width:100%;font:inherit;cursor:pointer;min-height:76px}
+.tb-door:active,.tb-door:hover{border-color:var(--tb-pop)}
+.tb-door .tb-dic{width:42px;height:42px;border-radius:12px;background:rgba(233,196,122,.12);display:grid;place-items:center;color:var(--tb-pop)}
+.tb-door .tb-dic svg{width:21px;height:21px}
+.tb-door b{display:block;font-size:16px;font-weight:700}
+.tb-door small{display:block;font-size:13.5px;color:var(--tb-mute);margin-top:2px}
+.tb-door .tb-go{color:var(--tb-pop);font-size:18px}
+.tb-door.info{cursor:default;min-height:0}.tb-door.info:hover{border-color:var(--tb-line)}
+/* écrans étroits : tout en colonne */
+@media (max-width:899px){
+  .tb-main{grid-template-columns:minmax(0,560px);padding-top:18px}
+  .tb-card{padding:22px 18px;border-radius:18px}
 }
-/* le logo prend la ligne du haut seul : on le met dans le coin sans décaler le centre */
-@media (max-width:899px),(orientation:portrait){.tl-left{display:grid;grid-template-rows:auto auto}.tl-logo{grid-row:1}}
 @media (max-width:600px){
-  .tl-card .pin-pad .key{width:70px!important;height:70px!important;font-size:24px!important}
-  .tl-card .pin-pad .key.small{font-size:13px!important}
-  .tl-card{padding:20px 14px}
-  .tl-card-h b{font-size:22px}
+  .tb-top img{height:22px}.tb-top .lock-clock{font-size:17px}
+  .tb-card .pin-pad .key{width:70px!important;height:70px!important;font-size:24px!important}
+  .tb-card .pin-pad .key.small{font-size:13px!important}
 }
+@media (min-width:900px){.tb-card .pin-pad .key{width:84px!important;height:84px!important;font-size:26px!important}.tb-card .pin-pad{grid-template-columns:repeat(3,84px)!important;gap:14px 20px!important}.tb-card .pin-pad .key.small{font-size:14px!important}}
+.tb-door.info b{font-weight:500;font-size:14.5px;line-height:1.4}
 
-/* en-tête des écrans du kiosque : logo Léon (vert en clair, crème en sombre), filet laiton */
-.tl-klogo{height:22px;width:auto;margin-left:auto;margin-right:10px}
-.tl-klogo.dk{display:none}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tl-klogo.lt{display:none}:root:not([data-theme="light"]) .tl-klogo.dk{display:block}}
-:root[data-theme="dark"] .tl-klogo.lt{display:none}:root[data-theme="dark"] .tl-klogo.dk{display:block}
-.kiosk-top{border-bottom:3px solid var(--tl-brass)!important;box-shadow:none!important;background:var(--tl-card)!important;color:var(--tl-ink)}
-.kiosk-top .kiosk-title{text-align:left!important;font-family:var(--f-display);color:var(--tl-ink)}
-.kiosk-top .clock{background:var(--tl-key);border:0!important;color:var(--tl-ink)}
-.kiosk-top .tab-retour{background:transparent!important;border:1.5px solid var(--tl-line)!important;color:var(--tl-ink)!important}
-.kiosk-stage,.kiosk-shell{background:var(--tl-bg)!important;color:var(--tl-ink)}
-.kiosk-body{color:var(--tl-ink)}
-.kiosk-body .faint,.kiosk-body small,.kiosk-body .muted{color:var(--tl-mute)!important}
-.kiosk-choice{background:var(--tl-card)!important;color:var(--tl-ink)!important}
-.kiosk-choice-b b{color:var(--tl-ink)}
+/* ---------- Écrans du kiosque (Hygiène, Réception, Mon planning) : en-tête du site, contenu clair ---------- */
+.kiosk-stage,.kiosk-shell{background:var(--tb-bg)!important;background-image:none!important;color:var(--tb-ink)}
+.kiosk-top{background:var(--tb-side)!important;color:var(--tb-sink)!important;border-bottom:1px solid var(--tb-line)!important;box-shadow:none!important;padding:calc(12px + env(safe-area-inset-top,0px)) clamp(14px,3vw,32px) 12px!important}
+.kiosk-top .kiosk-title{color:var(--tb-sink)!important;text-align:left!important;font-family:var(--tb-disp);font-weight:700}
+.kiosk-top .tab-retour,.kiosk-top [data-act^="kiosk-"]{background:transparent!important;border:1px solid var(--tb-line)!important;color:var(--tb-sink)!important;border-radius:12px!important}
+.kiosk-top .clock{background:transparent!important;border:0!important;color:var(--tb-sink)!important;font-family:var(--tb-mono)}
+.tl-klogo{height:22px;width:auto;margin-left:auto;margin-right:12px}
+.kiosk-top .tl-klogo.lt{display:none!important}.kiosk-top .tl-klogo.dk{display:block!important}
+@media (max-width:520px){.kiosk-top .clock{display:none}.tl-klogo{margin-right:0}}
+.kiosk-body{color:var(--tb-ink)}
+.kiosk-body .faint,.kiosk-body small,.kiosk-body .muted{color:var(--tb-cmute)!important}
+.kiosk-body .kiosk-h2{font-family:var(--tb-disp);font-size:20px!important;margin:4px 0 6px!important;color:var(--tb-ink)}
+.kiosk-choice{background:var(--tb-card)!important;color:var(--tb-ink)!important;box-shadow:0 1px 2px rgba(19,32,26,.05)!important;border-left:3px solid #0A8C7B!important;border-radius:16px!important}
+.kiosk-choice-ic{background:var(--tb-side)!important;color:var(--tb-pop)!important;border-radius:14px!important}
+.kiosk-choice-b b{color:var(--tb-ink)}
 .kiosk-body .kiosk-tasklist,.kiosk-body .kiosk-lots,.kiosk-body form,.kiosk-body .field{max-width:none!important;width:100%}
-.kiosk-body .kiosk-tasklist{background:var(--tl-card);border-radius:18px;padding:14px;border:0!important;box-shadow:0 1px 2px rgba(19,32,26,.05)}
-.kiosk-body .kiosk-tasklist.late{box-shadow:inset 0 0 0 2px #C0453A}
+.kiosk-body .kiosk-tasklist{background:var(--tb-card);border-radius:16px;padding:14px;border:0!important;border-left:3px solid #0A8C7B!important;box-shadow:0 1px 2px rgba(19,32,26,.05)}
+.kiosk-body .kiosk-tasklist.late{border-left-color:#B4442F!important;box-shadow:0 0 0 1px rgba(180,68,47,.35)}
 .kiosk-body:has(.kiosk-tasklist){display:grid;grid-template-columns:repeat(auto-fill,minmax(min(420px,100%),1fr));gap:14px;align-items:start}
 .kiosk-body:has(.kiosk-tasklist)>:not(.kiosk-tasklist){grid-column:1/-1}
-.kiosk-body .kiosk-tasklist{margin:0!important;max-width:none!important}
-.kiosk-body .kiosk-h2{font-family:var(--f-display);font-size:20px!important;margin:4px 0 6px!important;color:var(--tl-ink)}
+.kiosk-body .kiosk-tasklist{margin:0!important}
 @media (min-width:700px){.kiosk-body [data-act^="kiosk-etq"]{font-size:15px}}
-@media (max-width:520px){.kiosk-top .clock{display:none}.tl-klogo{height:20px;margin-right:0}}
-/* champs date sur iPhone : hauteur et largeur propres */
 input[type="date"],input[type="time"]{-webkit-appearance:none;appearance:none;min-height:48px;width:100%;min-width:0;display:block;text-align:left;line-height:1.2}
 input[type="date"]::-webkit-date-and-time-value{text-align:left}
 
-/* ---------- 6. Direction artistique « comptoir de brasserie lilloise » (12.26) ----------
-   Vert bouteille + carrelage métro blanc en filigrane, papier crème avec un léger grain,
-   laiton pour ce qui compte, une carte cadrée comme un menu de brasserie, et l'heure façon horloge de gare. */
-:root{
-  --tl-grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.35  0 0 0 0 0.28  0 0 0 0 0.16  0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  --tl-tiles:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='32'><path d='M0 .5H64M0 16.5H64M.5 0V16M32.5 16V32' fill='none' stroke='%23ffffff' stroke-opacity='.07'/></svg>");
-  --tl-frame:rgba(147,99,15,.32);
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tl-frame:rgba(214,163,74,.30);--tl-grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .035 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}}
-:root[data-theme="dark"]{--tl-frame:rgba(214,163,74,.30)}
-.tl-left::after{display:none!important}
-/* bandeau : carrelage métro + dégradé bouteille, filet laiton */
-.tl-left{background:var(--tl-tiles),linear-gradient(165deg,#1d3f33 0%,var(--tl-band) 55%,#0f241b 100%)!important;box-shadow:inset -3px 0 0 #D6A34A}
-@media (max-width:899px),(orientation:portrait){.tl-left{box-shadow:inset 0 -3px 0 #D6A34A}}
-/* fond papier */
-.mode-tablette .stage.tl-stage,.kiosk-stage,.kiosk-shell{background-image:var(--tl-grain)!important;background-color:var(--tl-bg)!important}
-/* la carte : cadre de menu, double filet laiton */
-.tl-card{position:relative;outline:1px solid var(--tl-frame);outline-offset:-10px}
-.tl-card::before{content:"";position:absolute;inset:14px;border:1px solid var(--tl-frame);border-radius:18px;pointer-events:none;opacity:.5}
-.tl-card>*{position:relative}
-.tl-card-h b{font-weight:800}
-.tl-card-h::after{content:"";display:block;width:44px;height:2px;background:#D6A34A;margin:10px auto 0;border-radius:2px}
-/* enseigne : petites capitales espacées entre deux filets */
-.tl-left .eyebrow{display:flex!important;align-items:center;gap:10px}
-.tl-left .eyebrow::before,.tl-left .eyebrow::after{content:"";width:22px;height:1px;background:currentColor;opacity:.7}
-/* l'heure façon horloge de gare : chiffres tabulaires, les deux-points qui battent */
-.tl-left .lock-clock{font-variant-numeric:tabular-nums;text-shadow:0 2px 0 rgba(0,0,0,.18)}
-/* touches du pavé : comme des jetons */
-.tl-card .pin-pad .key{background:linear-gradient(180deg,var(--tl-card),var(--tl-key))!important;box-shadow:inset 0 0 0 1px var(--tl-line),0 2px 0 var(--tl-line)!important;font-weight:600}
-.tl-card .pin-pad .key:active{box-shadow:inset 0 0 0 1px #D6A34A!important;transform:translateY(2px)}
-.tl-card .pin-pad .key.small{box-shadow:none!important;background:transparent!important}
-/* bouton principal : laiton poli */
-.tl-card .badge-acts .btn.launch{background:linear-gradient(180deg,#E4B65E,#C99436)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 12px 26px -14px rgba(147,99,15,.9)!important;letter-spacing:.01em}
-/* tuiles d'accès : étiquettes de comptoir */
-.mode-tablette .tl-card .who+.badge-acts .btn{position:relative;background:var(--tl-card)!important;box-shadow:inset 0 0 0 1px var(--tl-line)!important}
-.mode-tablette .tl-card .who+.badge-acts .btn::before{content:"";position:absolute;top:8px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--tl-frame)}
-/* en-tête du kiosque : bande carrelée verte, titre en enseigne */
-.kiosk-top{background:var(--tl-tiles),linear-gradient(180deg,#1d3f33,var(--tl-band))!important;color:#fff!important;border-bottom:3px solid #D6A34A!important}
-.kiosk-top .kiosk-title{color:#fff!important;font-weight:800}
-.kiosk-top .tab-retour,.kiosk-top [data-act="kiosk-home"],.kiosk-top [data-act="kiosk-hyg-home"],.kiosk-top [data-act="kiosk-etq-zone"]{background:rgba(255,255,255,.08)!important;border:1px solid rgba(255,255,255,.22)!important;color:#fff!important}
-.kiosk-top .clock{background:rgba(0,0,0,.22)!important;color:#fff!important}
-.kiosk-top .tl-klogo.lt{display:none!important}.kiosk-top .tl-klogo.dk{display:block!important}
-/* cartes du kiosque : papier + coin laiton */
-.kiosk-choice,.kiosk-body .kiosk-tasklist,.rcp-it,.rcp-shot{box-shadow:inset 0 0 0 1px var(--tl-line),0 10px 28px -22px rgba(19,32,26,.45)!important}
-.kiosk-choice-ic{background:linear-gradient(160deg,#1d3f33,var(--tl-band))!important;color:#E9C47A!important}
-.kiosk-body .kiosk-h2{display:flex;align-items:center;gap:8px;text-transform:none}
-.kiosk-body .kiosk-h2::after{content:"";flex:1;height:1px;background:var(--tl-frame)}
-
 /* ---------- Réception (tablette) ---------- */
 .rcp-hero{display:grid;gap:10px;margin-bottom:22px}
-.rcp-shot{display:grid;justify-items:center;gap:6px;padding:34px 18px;border-radius:22px;border:0;background:var(--tl-card);color:var(--tl-ink);cursor:pointer;text-align:center}
+.rcp-shot{display:grid;justify-items:center;gap:6px;padding:34px 18px;border-radius:22px;border:0;background:var(--tb-card);color:var(--tb-ink);cursor:pointer;text-align:center}
 .rcp-shot svg{width:46px;height:46px;color:#C99436}
 .rcp-shot b{font-family:var(--f-display);font-size:24px}
-.rcp-shot span{color:var(--tl-mute);font-size:15px}
-.rcp-att{margin:0;font-size:14px;color:var(--tl-mute);display:flex;gap:6px;align-items:center;justify-content:center}
+.rcp-shot span{color:var(--tb-cmute);font-size:15px}
+.rcp-att{margin:0;font-size:14px;color:var(--tb-cmute);display:flex;gap:6px;align-items:center;justify-content:center}
 .rcp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:12px}
-.rcp-it{display:flex;gap:12px;align-items:flex-start;background:var(--tl-card);border-radius:16px;padding:12px}
+.rcp-it{display:flex;gap:12px;align-items:flex-start;background:var(--tb-card);border-radius:16px;padding:12px}
 .rcp-it.ko{box-shadow:inset 0 0 0 2px #C0453A!important}
-.rcp-it img,.rcp-noph{width:72px;height:72px;border-radius:10px;object-fit:cover;flex:none;background:var(--tl-key);display:flex;align-items:center;justify-content:center;color:var(--tl-mute)}
-.rcp-it b{display:block;font-size:16px}.rcp-it small{display:block;color:var(--tl-mute);margin:2px 0 6px}.rcp-it p{margin:6px 0 0;font-size:13.5px}
+.rcp-it img,.rcp-noph{width:72px;height:72px;border-radius:10px;object-fit:cover;flex:none;background:var(--tb-key);display:flex;align-items:center;justify-content:center;color:var(--tb-cmute)}
+.rcp-it b{display:block;font-size:16px}.rcp-it small{display:block;color:var(--tb-cmute);margin:2px 0 6px}.rcp-it p{margin:6px 0 0;font-size:13.5px}
 .rcp-list.pc{padding:4px 16px 16px}
 .rcp-prev{width:100%;max-height:260px;object-fit:cover;border-radius:14px;margin-bottom:12px}
 .rcp-sups{display:flex;flex-wrap:wrap;gap:6px}.rcp-sups .btn.on{background:var(--side,#18352B);color:#fff}

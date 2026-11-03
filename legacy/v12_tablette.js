@@ -42,6 +42,10 @@ if(TABLETTE){
   {const f=pinCheck;pinCheck=function(){
     if(PIN.ctx==='lock'&&!(typeof BORNE!=='undefined'&&BORNE.who)){
       const r=routeCode(PIN.buf);
+      if(r&&r.role==='manager'&&r.empId){
+        PIN.buf='';PIN.ctx=null;U.role='manager';U.empId=r.empId;U.rid=r.rid;U.viewAs=null;U.badgeMsg=null;
+        mountFull(r.rid);S=NET.restos[r.rid];syncCtx();LAST_ACT=Date.now();U.screen='badge';render();return;
+      }
       if(r&&(r.role==='admin'||r.role==='patron')){
         TAB_ATTENTE=r;PIN.buf='';PIN.ctx='tab-pass';
         openModal(`<div style="text-align:center"><h3>${T('Mot de passe')}</h3><p class="muted" style="margin-top:4px">${T('Accès direction : confirme avec ton mot de passe.')}</p>
@@ -78,21 +82,47 @@ if(TABLETTE){
    Écrans du kiosque : logo Léon dans l'en-tête, « Retour » qui remonte d'un cran (sous-page → Hygiène → salarié). */
 if(TABLETTE){
   const LOGO='/brand/leon-logo-creme.png';
+  // Composition « page de connexion du site » : barre du haut (logo, resto, heure), carte blanche, portes vertes.
+  const SOUS={hygiene:'Températures, étiquettes, produits ouverts',reception:'Photo de la facture, contrôle',planning:'Ta semaine',dispo:'Plats disponibles'};
   function tlLayout(){
-    const st=document.querySelector('#app > .stage:not(.kiosk-stage)');if(!st||st.querySelector('.tl'))return;
+    const st=document.querySelector('#app > .stage:not(.kiosk-stage)');if(!st||st.querySelector('.tb'))return;
     const lock=st.querySelector(':scope > .lock');if(!lock)return;
-    const kids=[...lock.children];const left=[],right=[];let cote=left;
-    kids.forEach(el=>{
-      if(el.matches('.lock-info'))return left.push(el);
-      if(cote===left&&el.matches('.who,.pin-dots,.pin-err,.pin-pad,.badge-acts,.row,details'))cote=right;
-      cote.push(el);
-    });
-    const tl=document.createElement('div');tl.className='tl'+(lock.classList.contains('bconf')?' tl-conf '+[...lock.classList].filter(c=>c==='ok'||c==='warn'||c==='bad').join(' '):'');
-    const L=document.createElement('div');L.className='tl-left';L.innerHTML=`<img class="tl-logo" src="${LOGO}" alt="Léon">`;
-    const Li=document.createElement('div');Li.className='tl-left-in';left.forEach(e=>Li.appendChild(e));L.appendChild(Li);
-    const R=document.createElement('div');R.className='tl-right';const C=document.createElement('div');C.className='tl-card';right.forEach(e=>C.appendChild(e));R.appendChild(C);
-    if(U.screen==='lock'){const h=document.createElement('div');h.className='tl-card-h';h.innerHTML=`<b>${T('Tape ton code')}</b><span>${T('Pour pointer ou ouvrir ton espace')}</span>`;C.prepend(h);C.querySelectorAll(':scope > .who').forEach(w=>w.remove());}
-    tl.append(L,R);lock.replaceChildren(tl);st.classList.add('tl-stage');lock.classList.add('tl-lock');
+    const conf=lock.classList.contains('bconf');const q=sel=>lock.querySelector(sel);
+    const R=U.lockRid&&NET.restos[U.lockRid];
+    const tb=document.createElement('div');tb.className='tb'+(conf?' tb-conf '+[...lock.classList].filter(c=>c==='ok'||c==='warn'||c==='bad').join(' '):'');
+    const top=document.createElement('header');top.className='tb-top';
+    top.innerHTML=`<img src="${LOGO}" alt="Léon"><span class="tb-resto">${esc(R?R.nom:(S&&S.nom)||'')}</span>`;
+    const clk=q('.lock-clock');if(clk)top.appendChild(clk);else top.insertAdjacentHTML('beforeend',`<span class="lock-clock" data-clock>${hhmm(nowMin())}</span>`);
+    const main=document.createElement('main');main.className='tb-main';
+    const card=document.createElement('section');card.className='tb-card';
+    const side=document.createElement('aside');side.className='tb-side';
+    const head=document.createElement('div');head.className='tb-head';
+    if(U.screen==='lock'){
+      head.innerHTML=`<span class="tb-ic">${ic('lock')}</span><div><div class="tb-eb">${T('Tablette du restaurant')}</div><h1 class="tb-h1">${T('Tape ton code')}</h1></div>`;
+      card.appendChild(head);
+      ['.pin-dots','.pin-err','.pin-pad','details'].forEach(k=>{const e=q(k);if(e)card.appendChild(e);});
+      const info=[...lock.querySelectorAll('.lock-info .lk')];
+      if(info.length){side.insertAdjacentHTML('beforeend',`<div class="tb-side-h">${T('Aujourd’hui')}</div>`);
+        info.forEach(lk=>{const d=document.createElement('div');d.className='tb-door info';d.innerHTML=`<span class="tb-dic">${lk.querySelector('svg')?lk.querySelector('svg').outerHTML:ic('users','s')}</span><div><b>${esc(lk.textContent.trim())}</b></div><span></span>`;side.appendChild(d);});}
+    }else{
+      const av=q('.bw-av .av')||q('span.av');const chk=q('.bc-check');const h1=q('h1');
+      head.innerHTML=`<div></div>`;const hd=head.firstChild;
+      if(chk)head.prepend(chk);else if(av)head.prepend(av);
+      hd.innerHTML=`<div class="tb-eb">${conf?T('C’est noté'):T('Bonjour')}</div>`;if(h1){h1.classList.add('tb-h1');hd.appendChild(h1);}
+      card.appendChild(head);
+      [...lock.children].forEach(e=>{if(e.matches('p,.sub,.bc-type,.bc-s'))card.appendChild(e);});
+      const acts=[...lock.querySelectorAll(':scope > .badge-acts')];
+      const tiles=acts.find(a=>a.querySelector('[data-act="badge-goto"]'));
+      acts.filter(a=>a!==tiles).forEach(a=>card.appendChild(a));
+      const back=lock.querySelector('[data-act="lock"]');
+      if(back){back.className='tb-back';back.innerHTML=T('Retour');card.appendChild(back);}
+      if(tiles){side.insertAdjacentHTML('beforeend',`<div class="tb-side-h">${T('Accès rapide')}</div>`);
+        [...tiles.querySelectorAll('[data-act="badge-goto"]')].forEach(b=>{const v=b.dataset.v;const svg=b.querySelector('svg');const lab=b.textContent.trim();
+          const d=document.createElement('button');d.className='tb-door';d.setAttribute('data-act','badge-goto');d.dataset.v=v;
+          d.innerHTML=`<span class="tb-dic">${svg?svg.outerHTML:''}</span><div><b>${esc(lab)}</b><small>${esc(T(SOUS[v]||''))}</small></div><span class="tb-go">→</span>`;side.appendChild(d);});}
+    }
+    main.append(card);if(side.children.length)main.append(side);else main.classList.add('solo');
+    tb.append(top,main);lock.replaceChildren(tb);st.classList.add('tb-stage');lock.classList.add('tb-lock');
   }
   function tlKiosk(){
     const top=document.querySelector('.kiosk-top');if(!top||top.querySelector('.tl-klogo'))return;
