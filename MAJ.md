@@ -5,6 +5,14 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.07 — « Léon remplit », version maline
+- Repart de l'existant (couverts prévus, dispos, contrats, règles HCR, semaine type) et ajoute :
+  - **Les événements** notés dans la note du jour : match (LOSC, PSG, foot, rugby…) → +30 % le soir, un barman en plus et **fin repoussée de 30 min** ; concert / spectacle → +25 % le soir ; braderie, marché de Noël, fêtes… → +35 % toute la journée ; groupe / anniversaire / privatisation → on ajoute le nombre de personnes au bon service (midi ou soir, deviné dans la note).
+  - **Le lissage des heures sup sur le mois** : quelqu'un qui a déjà fait des heures en plus ce mois-ci (payé de la badgeuse, sinon planifié) est visé plus bas cette semaine (jusqu'à −20 % de son contrat) et passe après les autres pour les renforts.
+  - **2 jours de repos** minimum, 11 h entre deux journées, 11h30 max par jour.
+- Nouvel écran avant d'accepter : « Ce que Léon a pris en compte » (événements, lissage, règles), les shifts proposés par salarié (avant → après / contrat, « finit tard »), le coût (masse salariale / CA prévu), ce qui manque encore (+ shifts à pourvoir). Survoler un shift dit pourquoi Léon l'a proposé. Rien n'est ajouté sans « Ajouter au brouillon », et tout s'annule en un clic.
+- Module `legacy/v12_remplit.js`. Aucune mise à jour de la base.
+
 ## 12.06 — Retouches : pleine largeur, repos obligatoires, badgeuse plus simple
 - **Toute la largeur de l'écran** est utilisée, menu ouvert ou replié (plus de vide à droite).
 - **Onglet marque-page** du menu en doré : visible en mode sombre comme en clair.
