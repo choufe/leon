@@ -12,7 +12,7 @@ if(DEMO_TAB){
   const ridDemo=()=>{const l=(NET.config&&NET.config.restos)||[];return l.find(id=>/beffroi/i.test(id))||l[0];};
   {const f=render;render=function(){
     try{const rid=NET.config&&ridDemo();
-      if(rid&&U.screen!=='app'&&U.screen!=='badge'&&!(U.screen==='lock'&&U.lockRid===rid)){
+      if(rid&&!['app','badge','kiosk'].includes(U.screen)&&!(U.screen==='lock'&&U.lockRid===rid)){
         setDevice({rid},true);U.lockRid=rid;U.role=null;U.empId=null;mountFull(rid);S=NET.restos[rid];syncCtx();U.screen='lock';}
     }catch(e){}
     return f.apply(this,arguments);};}
@@ -62,5 +62,6 @@ if(TABLETTE){
       document.querySelectorAll('[data-act="lock"],[data-act="badge-cancel"]').forEach(b=>{b.innerHTML=T('Retour');b.setAttribute('data-act','lock');});
     }
     if(U.screen==='lock'){document.querySelectorAll('.bfaces').forEach(x=>x.remove());}
+    if(U.screen==='kiosk'){document.querySelectorAll('[data-act="kiosk-home"]').forEach(b=>{b.innerHTML=ic('chevL','s')+' '+T('Retour');b.classList.add('tab-retour');});}
   }catch(e){}return o;};}
 }
