@@ -8,7 +8,8 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 ## 12.18 — Les salariés ont leur compte (en attente du « go » pour la base)
 - « Salariés & accès » : bouton **Inviter** à côté de chaque salarié → un lien perso à envoyer par **WhatsApp ou SMS** (ou copier). Le lien marche une fois, 14 jours. Quand le salarié a rejoint : « Sur son téléphone ».
 - Page **/rejoindre** : « Salut Inès ! » → il crée son compte (e-mail + mot de passe) et arrive direct dans le Léon de son resto, avec sa vue à lui. Même Léon sur téléphone et PC. Pas de code à 4 chiffres pour lui (le code, c'est la tablette).
-- Sur son compte, le salarié voit : son planning et l'équipe, ses congés et échanges, le cahier, plats dispo, allergènes, fiches. Pas l'hygiène ni la badgeuse (c'est la tablette).
+- Planning d’équipe (téléphone) : sa ligne est surlignée et chaque jour Léon écrit « Toi : 18:30–23:30 avec Nathan, Chloé… ».
+- Sur son compte, le salarié voit : son planning et l’équipe, ses congés et échanges, le cahier, plats dispo, allergènes, fiches. Pas l'hygiène ni la badgeuse (c'est la tablette).
 - Migration `0009_salaries.sql` (tables invitations + salariés, fonctions). À appliquer avec l'accord de Maurice.
 
 ## 12.17 — « Aujourd'hui » en haut de l'accueil + ménage

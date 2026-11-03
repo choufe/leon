@@ -45,3 +45,18 @@ ACT['inv-copier']=function(){const i=document.getElementById('inv-url');if(!i)re
 /* Sur son téléphone, le salarié consulte : planning, congés, cahier, plats dispo, allergènes, fiches.
    L'hygiène (relevés, étiquettes), ça se fait sur la tablette du resto. */
 if(V12_COMPTE&&V12_COMPTE.salarie){const f=navItems;navItems=function(){return (f.apply(this,arguments)||[]).filter(n=>n.v!=='hygiene'&&n.v!=='pointage');};}
+
+/* ---------- planning d'équipe (vue salarié) : « avec qui tu bosses » ---------- */
+function avecQui(){
+  if(UI.view!=='planning'||!U.empId)return;const moi=empById(U.empId);if(!moi)return;
+  const w=UI.plan.w;
+  document.querySelectorAll('.ag .ag-d').forEach((sec,d)=>{
+    if(sec.querySelector('.ag-avec'))return;
+    sec.querySelectorAll('.ag-r').forEach(r=>{const b=r.querySelector('.ag-n b');if(b&&b.textContent.trim()===moi.prenom)r.classList.add('ag-moi');});
+    const mes=empShifts(moi.id,w,d);if(!mes.length)return;
+    const bits=mes.map(x=>{const col=[...new Set(shiftsWD(w,d).filter(y=>y.emp!==moi.id&&sMin(y)<eMin(x)&&eMin(y)>sMin(x)).map(y=>y.emp))].map(empById).filter(Boolean).map(e=>e.prenom);
+      return `<b>${x.s}–${x.e}</b> ${col.length?'avec '+esc(col.join(', ')):'seul(e)'}`;});
+    const h=sec.querySelector('header');if(h)h.insertAdjacentHTML('afterend',`<div class="ag-avec">${ic('users','s')} Toi : ${bits.join(' · ')}</div>`);
+  });
+}
+{const f=renderView;renderView=function(){const o=f.apply(this,arguments);try{if(['staff','manager'].includes(effRole()))avecQui();}catch(e){}return o;};}
