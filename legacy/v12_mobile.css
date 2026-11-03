@@ -94,3 +94,88 @@ img,svg,video,canvas{max-width:100%}
   .pj-filtres{flex-wrap:wrap;row-gap:4px}
   #demo-pill span{display:none}
 }
+
+/* ---------- 5. Refonte tablette (12.24) : deux panneaux, l'identité Léon ---------- */
+.mode-tablette .stage.tl-stage{display:block!important;padding:0!important;background:#F4F1EA!important;background-image:none!important;color:var(--ink,#13201A)}
+.mode-tablette .lock.tl-lock{width:100%!important;max-width:none!important;display:block!important;text-align:left;padding:0!important;background:none!important;border:0!important;box-shadow:none!important}
+.tl{display:grid;grid-template-columns:minmax(340px,42%) 1fr;min-height:100vh;min-height:100dvh}
+.tl-left{position:relative;overflow:hidden;background:#18352B;color:#EEF2EC;padding:calc(36px + env(safe-area-inset-top,0px)) 44px 36px;display:flex;flex-direction:column;gap:28px}
+.tl-left::after{content:"";position:absolute;right:-120px;bottom:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(214,163,74,.22),transparent 65%);pointer-events:none}
+.tl-logo{width:132px;height:auto;display:block}
+.tl-left-in{flex:1;display:flex;flex-direction:column;justify-content:center;gap:10px;position:relative;z-index:1}
+.tl-left .eyebrow{color:#D6A34A!important;letter-spacing:.14em;font-size:12px!important;opacity:1!important}
+.tl-left .wordmark{font-size:clamp(36px,4.6vw,56px)!important;color:#fff;text-align:left}
+.tl-left .lock-clock{font-size:clamp(56px,8vw,96px)!important;color:#fff;letter-spacing:-.02em;line-height:1;margin:6px 0 0;text-align:left}
+.tl-left h1{color:#fff;font-size:clamp(30px,4vw,44px)!important;margin:6px 0 0;text-align:left}
+.tl-left .sub,.tl-left p{color:rgba(238,242,236,.78)!important;text-align:left;margin:0}
+.tl-left .av,.tl-left .bw-av .av{width:84px!important;height:84px!important;font-size:30px!important;border:3px solid rgba(255,255,255,.9)}
+.tl-left .bc-check{color:#fff;background:#2E8B57;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.tl-conf.warn .tl-left .bc-check,.tl-conf.bad .tl-left .bc-check{background:#B7791F}
+.tl-left .bc-type{color:#fff;font-size:18px;text-align:left}
+.tl-left .lock-info{display:grid;gap:8px;margin-top:18px}
+.tl-left .lock-info .lk{background:rgba(255,255,255,.07)!important;border:1px solid rgba(255,255,255,.12)!important;color:#EEF2EC!important;border-radius:14px!important;padding:12px 14px!important;font-size:14px!important;text-align:left}
+.tl-left .pill{align-self:flex-start}
+.tl-right{display:flex;align-items:center;justify-content:center;padding:32px 28px calc(32px + env(safe-area-inset-bottom,0px))}
+.tl-card{width:min(480px,100%);background:#fff;border-radius:28px;box-shadow:0 2px 4px rgba(19,32,26,.04),0 24px 60px -28px rgba(19,32,26,.35);padding:32px 28px;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--ink,#13201A)}
+.tl-card-h{text-align:center;margin-bottom:6px}.tl-card-h b{display:block;font-family:var(--f-display);font-size:26px;letter-spacing:-.02em}.tl-card-h span{font-size:14px;color:#6B7570}
+.tl-card .pin-dots span{border-color:#C9CFC9!important}
+.tl-card .pin-dots span.on,.tl-card .pin-dots span.fill,.tl-card .pin-dots span[class*="on"]{background:#93630F!important;border-color:#93630F!important}
+.tl-card .pin-pad{margin-top:10px}
+.tl-card .pin-pad .key{background:#F4F1EA!important;border:0!important;color:#13201A!important;box-shadow:inset 0 -2px 0 rgba(19,32,26,.06)}
+.tl-card .pin-pad .key:active{background:#F5EAD3!important;transform:scale(.96)}
+.tl-card .pin-pad .key.small{color:#6B7570!important;background:transparent!important;box-shadow:none}
+.tl-card .pin-err{color:#AE3526}
+.tl-card .badge-acts{width:100%}
+.tl-card .badge-acts .btn.launch{width:100%;background:#D6A34A!important;color:#1E1608!important;border:0!important;box-shadow:0 10px 24px -14px rgba(147,99,15,.8)}
+.tl-card>.who{color:#6B7570!important;font-size:12px!important;letter-spacing:.12em;text-transform:uppercase;margin-top:18px!important;align-self:flex-start}
+.mode-tablette .tl-card .who+.badge-acts .btn{background:#F4F1EA!important;border:0!important;color:#13201A!important}
+.mode-tablette .tl-card .who+.badge-acts .btn svg{color:#93630F}
+.tl-card>.row{width:100%;justify-content:center}
+.tl-card>.row .btn{background:#fff!important;border:1px solid #DDE2DC!important;color:#13201A!important}
+.tl-card details.demo-codes-d{margin-top:14px;color:#6B7570}
+.tl-card .demo-codes button{background:#F4F1EA;color:#13201A;border:0}
+/* écran étroit (téléphone, tablette en portrait) : bandeau Léon en haut, carte en dessous */
+@media (max-width:899px),(orientation:portrait){
+  .tl{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .tl-left{padding:calc(18px + env(safe-area-inset-top,0px)) 22px 22px;gap:14px}
+  .tl-logo{width:96px}
+  .tl-left-in{gap:4px}
+  .tl-left .lock-clock{font-size:clamp(44px,12vw,72px)!important}
+  .tl-left .wordmark{font-size:clamp(28px,8vw,44px)!important}
+  .tl-left .lock-info{margin-top:10px}
+  .tl-left .av,.tl-left .bw-av .av{width:64px!important;height:64px!important;font-size:24px!important}
+  .tl-right{align-items:flex-start;padding:18px 16px calc(24px + env(safe-area-inset-bottom,0px))}
+  .tl-card{padding:24px 18px;border-radius:24px}
+}
+@media (max-width:420px){.tl-card .pin-pad .key{width:76px!important;height:76px!important}}
+/* en-tête des écrans du kiosque : logo Léon, accent laiton */
+.tl-klogo{height:22px;width:auto;margin-left:auto;margin-right:10px}
+.kiosk-top{border-bottom:3px solid #D6A34A!important;box-shadow:none!important}
+.kiosk-top .kiosk-title{text-align:left!important;font-family:var(--f-display)}
+.kiosk-top .clock{background:#F4F1EA;border:0!important}
+.kiosk-stage,.kiosk-shell{background:#F4F1EA!important}
+/* listes de tâches : pleine largeur et lisibles */
+.kiosk-body .kiosk-tasklist,.kiosk-body .kiosk-lots,.kiosk-body form,.kiosk-body .field{max-width:none!important;width:100%}
+.kiosk-body .kiosk-tasklist{background:#fff;border-radius:18px;padding:14px;border:0!important;box-shadow:0 1px 2px rgba(19,32,26,.05)}
+.kiosk-body .kiosk-tasklist.late{box-shadow:inset 0 0 0 2px #AE3526}
+/* champs date sur iPhone : hauteur et largeur propres */
+input[type="date"],input[type="time"]{-webkit-appearance:none;appearance:none;min-height:48px;width:100%;min-width:0;display:block;text-align:left;line-height:1.2;background:#fff}
+input[type="date"]::-webkit-date-and-time-value{text-align:left}
+/* entretien : les listes côte à côte sur tablette, pleine largeur sur téléphone */
+.kiosk-body:has(.kiosk-tasklist){display:grid;grid-template-columns:repeat(auto-fill,minmax(min(420px,100%),1fr));gap:14px;align-items:start}
+.kiosk-body:has(.kiosk-tasklist)>:not(.kiosk-tasklist){grid-column:1/-1}
+.kiosk-body .kiosk-tasklist{margin:0!important;max-width:none!important}
+.kiosk-body .kiosk-h2{font-family:var(--f-display);font-size:20px!important;margin:4px 0 6px!important}
+/* étiquettes produits : plus gros sur tablette */
+@media (min-width:700px){.kiosk-body [data-act^="kiosk-etq"] b,.kiosk-body [data-act^="kiosk-etq"]{font-size:15px}}
+/* en-tête étroit : l'heure laisse la place au logo */
+@media (max-width:520px){.kiosk-top .clock{display:none}.tl-klogo{height:20px;margin-right:0}}
+/* téléphone : le pavé tient dans l'écran */
+@media (max-width:600px){
+  .tl-left .lock-info{display:none}
+  .tl-left .eyebrow{display:none}
+  .tl-card .pin-pad .key{width:70px!important;height:70px!important;font-size:24px!important}
+  .tl-card .pin-pad .key.small{font-size:13px!important}
+  .tl-card{padding:20px 14px}
+  .tl-card-h b{font-size:22px}
+}

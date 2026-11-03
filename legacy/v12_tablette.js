@@ -6,7 +6,7 @@
    Pas de paie, pas de réglages, pas de modification du planning, pas de badgeuse à corriger : ça, c'est le PC / le téléphone.
    ========================================================= */
 // La démo aussi a sa tablette : /leon/demo.html?tablette=1 (Le Petit Beffroi, comme chez un vrai client).
-const DEMO_TAB=typeof DEMO!=='undefined'&&/[?&]tablette=1/.test(location.search);
+const DEMO_TAB=typeof DEMO!=='undefined'&&(window.__LEON_TAB===1||/[?&]tablette=1/.test(location.search));
 const TABLETTE=!!(V12_COMPTE&&V12_COMPTE.tablette)||DEMO_TAB;
 if(DEMO_TAB){
   // Installable comme une appli (« Sur l'écran d'accueil ») : icône « Léon Tablette » qui rouvre toujours la tablette.
@@ -69,4 +69,43 @@ if(TABLETTE){
     if(U.screen==='lock'){document.querySelectorAll('.bfaces').forEach(x=>x.remove());}
     if(U.screen==='kiosk'){document.querySelectorAll('[data-act="kiosk-home"]').forEach(b=>{b.innerHTML=ic('chevL','s')+' '+T('Retour');b.classList.add('tab-retour');});}
   }catch(e){}return o;};}
+}
+
+/* ---------- 12.24 · Refonte visuelle de la tablette ----------
+   Écrans d'entrée (code, salarié, « c'est pointé ») : deux panneaux. À gauche (ou en haut sur un écran étroit)
+   le panneau Léon : logo, nom du resto, grande heure, qui est au travail. À droite, sur fond crème, une carte
+   blanche avec l'action : le pavé de code, ou « Pointer » et les accès rapides.
+   Écrans du kiosque : logo Léon dans l'en-tête, « Retour » qui remonte d'un cran (sous-page → Hygiène → salarié). */
+if(TABLETTE){
+  const LOGO='/brand/leon-logo-creme.png';
+  function tlLayout(){
+    const st=document.querySelector('#app > .stage:not(.kiosk-stage)');if(!st||st.querySelector('.tl'))return;
+    const lock=st.querySelector(':scope > .lock');if(!lock)return;
+    const kids=[...lock.children];const left=[],right=[];let cote=left;
+    kids.forEach(el=>{
+      if(el.matches('.lock-info'))return left.push(el);
+      if(cote===left&&el.matches('.who,.pin-dots,.pin-err,.pin-pad,.badge-acts,.row,details'))cote=right;
+      cote.push(el);
+    });
+    const tl=document.createElement('div');tl.className='tl'+(lock.classList.contains('bconf')?' tl-conf '+[...lock.classList].filter(c=>c==='ok'||c==='warn'||c==='bad').join(' '):'');
+    const L=document.createElement('div');L.className='tl-left';L.innerHTML=`<img class="tl-logo" src="${LOGO}" alt="Léon">`;
+    const Li=document.createElement('div');Li.className='tl-left-in';left.forEach(e=>Li.appendChild(e));L.appendChild(Li);
+    const R=document.createElement('div');R.className='tl-right';const C=document.createElement('div');C.className='tl-card';right.forEach(e=>C.appendChild(e));R.appendChild(C);
+    if(U.screen==='lock'){const h=document.createElement('div');h.className='tl-card-h';h.innerHTML=`<b>${T('Tape ton code')}</b><span>${T('Pour pointer ou ouvrir ton espace')}</span>`;C.prepend(h);C.querySelectorAll(':scope > .who').forEach(w=>w.remove());}
+    tl.append(L,R);lock.replaceChildren(tl);st.classList.add('tl-stage');lock.classList.add('tl-lock');
+  }
+  function tlKiosk(){
+    const top=document.querySelector('.kiosk-top');if(!top||top.querySelector('.tl-klogo'))return;
+    top.insertAdjacentHTML('afterbegin','');
+    const clock=top.querySelector('.clock');if(clock)clock.insertAdjacentHTML('beforebegin',`<img class="tl-klogo" src="/brand/leon-logo-vert.png" alt="Léon">`);
+    const K=UI.kiosk||{};const back=top.querySelector('[data-act="kiosk-home"]');
+    if(K.view==='hygiene'&&K.hyg&&back){
+      if(K.etqZone){back.setAttribute('data-act','kiosk-etq-zone');back.removeAttribute('data-k');}
+      else back.setAttribute('data-act','kiosk-hyg-home');
+      const t=top.querySelector('.kiosk-title');const nom={taches:'Entretien',etiquetage:'Étiquetage',ouverts:'Produits ouverts'}[K.hyg];if(t&&nom)t.textContent=T(nom);
+      document.querySelectorAll('.kiosk-body [data-act="kiosk-hyg-home"]').forEach(b=>b.remove());
+      if(K.etqZone)document.querySelectorAll('.kiosk-body [data-act="kiosk-etq-zone"]:not([data-k]),.kiosk-body [data-act="kiosk-etq-zone"][data-k=""]').forEach(b=>{if(/retour|toutes|catégories/i.test(b.textContent))b.remove();});
+    }
+  }
+  {const f=render;render=function(){const o=f.apply(this,arguments);try{if(U.screen==='lock'||U.screen==='badge')tlLayout();if(U.screen==='kiosk')tlKiosk();}catch(e){}return o;};}
 }

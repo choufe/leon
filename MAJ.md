@@ -5,6 +5,13 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.24 — Refonte de la tablette
+- **Vraie appli, sans navigateur** : la tablette de démo a sa propre page (/leon/tablette.html) installable ; ouverte depuis l'icône de l'écran d'accueil, plus de barre d'adresse ni de « retour » du navigateur.
+- **Écran du code / du salarié / « c'est pointé »** : deux panneaux aux couleurs de Léon. Panneau vert avec le logo Léon, le nom du resto, une grande heure, qui est au travail et la note du jour ; carte blanche sur fond crème avec le pavé (touches crème, points en laiton) ou « Pointer mon arrivée » en laiton et les accès rapides. Sur téléphone et tablette en portrait : bandeau vert en haut, carte en dessous.
+- **Écrans du kiosque** : logo Léon dans l'en-tête, filet laiton, fond crème. « Retour » remonte d'un cran (Étiquetage → Hygiène → écran du salarié) et le titre suit la page.
+- **Entretien** : les listes côte à côte sur tablette, pleine largeur sur téléphone.
+- **Étiquetage** : la case date (« À consommer avant le ») s'affiche proprement sur iPhone.
+
 ## 12.23 — Téléphone et tablette : confort
 - **Plus de zoom involontaire** : double tap sur un bouton (ex. + / − des disponibilités) ne zoome plus ; les champs font 16 px (l'iPhone zoomait dessus).
 - **Plus de glissement vers la droite** : la page ne déborde plus ; sur iPhone/iPad le cadre de l'appli ne s'élargit plus à son contenu.

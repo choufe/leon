@@ -2,6 +2,6 @@
 // Ancienne adresse : on ouvre directement la tablette de démo (sans cadre, plus fluide sur iPhone / iPad).
 import { useEffect } from "react";
 export default function TabletteDemo() {
-  useEffect(() => { window.location.replace("/leon/demo.html?tablette=1"); }, []);
+  useEffect(() => { window.location.replace("/leon/tablette.html"); }, []);
   return null;
 }
