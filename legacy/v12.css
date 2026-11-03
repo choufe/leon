@@ -265,3 +265,5 @@
 
 /* ---------- 12.19 · Appli tablette : pas de réglages ni d'aperçu ---------- */
 .mode-tablette [data-act="nav"][data-v="reglages"],.mode-tablette [data-act="device-out"],.mode-tablette [data-act="demo-open"],.mode-tablette .viewas{display:none!important}
+.mode-tablette #demo-root,.mode-tablette #demo-pill{display:none!important}
+.demo-codes-d{margin-top:18px;width:100%;text-align:center}.demo-codes-d summary{cursor:pointer;font-size:12px;opacity:.55;list-style:none}.demo-codes-d[open] summary{margin-bottom:8px}
