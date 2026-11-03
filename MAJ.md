@@ -5,6 +5,12 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.11 — Voir ce que change une demande
+- Dans Congés & absences, chaque demande a un bouton **« Voir ce que ça change »** (ou « Voir » pour un échange) : ça ouvre le planning de la bonne semaine avec la demande dessinée dessus. Le shift qui part est barré en rouge, celui qui arrive est en pointillés verts.
+- Le bandeau d'aperçu en haut permet de **Refuser / Accepter** sans repasser par la liste, et signale les problèmes (ex. « Inès travaille déjà sur ce créneau »).
+- Congé sur un planning déjà fait : **« Léon trouve une solution »**. Pour chaque shift, Léon cherche un remplaçant sans toucher au reste du planning : bon poste, pas absent, 11 h de repos, 11 h max par jour, 48 h max, 2 jours de repos, et de préférence quelqu'un à qui il manque des heures. Si personne ne colle, le shift passe « à pourvoir ». Un clic pour accepter, et c'est annulable.
+- Planning pas encore fait sur ces dates : la carte affiche « Planning pas encore fait : rien ne bouge ».
+
 ## 12.10 — L'avis de Léon + Paie pour le comptable
 - Planning : le bouton « Léon remplit » devient **« L'avis de Léon »**. Léon regarde la semaine et dit ce qui lui saute aux yeux : règles pas respectées, service où il manque du monde (selon les couverts prévus), service peut-être trop chargé, qui dépasse son contrat (heures sup ou complémentaires), masse salariale vs CA prévu, événements notés. Ensuite, si besoin, « Léon propose de quoi compléter ». Semaine vide → « Léon remplit la semaine ».
 - Le **✦** s'explique tout de suite au survol, avec une phrase perso : « Lucas a déjà fait 1h37 d'heures sup ce mois-ci. Léon lui met 33h30 au lieu de 35h cette semaine, pour lisser sur le mois. »

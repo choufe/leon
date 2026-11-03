@@ -212,3 +212,19 @@
 .pa-recap ul{margin:0;padding:4px 18px 12px 34px;line-height:1.6;font-size:14px}
 .pa-recap li{margin:4px 0}
 .pa-t .name-cell small{display:block}
+
+/* ---------- 12.11 · Aperçu des demandes sur le planning ---------- */
+.pv-ban{display:flex;gap:12px;align-items:flex-start;background:color-mix(in oklab,var(--info,#2f6fb3) 9%,var(--surface));border:1px solid color-mix(in oklab,var(--info,#2f6fb3) 35%,transparent);border-radius:14px;padding:12px 14px;margin:0 0 12px}
+.pv-ic{color:var(--info,#2f6fb3);padding-top:2px}
+.pv-tx{flex:1;min-width:0}.pv-tx p{margin:3px 0 0;font-size:13.5px}
+.pv-sol{list-style:none;margin:6px 0 0;padding:0;font-size:13.5px;display:grid;gap:3px}
+.pv-sol li{display:flex;gap:6px;align-items:center}.pv-ko{color:var(--bad,#c0392b);font-weight:600}
+.pv-acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;align-self:center}
+.pg9 td.pv-cell{background:repeating-linear-gradient(135deg,transparent 0 6px,color-mix(in oklab,var(--bad,#c0392b) 10%,transparent) 6px 12px)!important}
+.pg9 .shift.pv-out{opacity:.55;text-decoration:line-through;outline:2px dashed var(--bad,#c0392b);outline-offset:-1px}
+.pg9 .shift.pv-ghost{outline:2px dashed var(--ok,#2e8b57);outline-offset:-1px;background:color-mix(in oklab,var(--ok,#2e8b57) 14%,var(--surface))!important;flex-direction:column;align-items:flex-start;font-weight:600}
+.pg9 .shift.pv-ghost small{font-weight:500;opacity:.8;font-size:11px}
+.pg9 .pv-lab{font-size:11px;font-weight:700;color:var(--bad,#c0392b);margin-top:2px}
+.rq-a .pv-voir{margin-right:auto}
+.rq-a .pv-rien{margin-right:auto;font-size:12.5px;color:var(--muted,#888);align-self:center}
+@media (max-width:760px){.pv-ban{flex-direction:column}.pv-acts{justify-content:flex-start}}
