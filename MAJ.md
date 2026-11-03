@@ -5,6 +5,11 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.28 — Tablette = tablette, pour tout le monde
+- Le **directeur** et le **créateur** (code + mot de passe) restent eux aussi sur la tablette : écran **« Direction »** avec Aujourd'hui (couverts midi / soir, qui travaille, absents), Hygiène et Réception (avec le nombre de livraisons reçues). « Retour » ramène à l'écran du code. Plus aucun chemin vers l'appli PC ou téléphone depuis la tablette, quel que soit le code.
+- **Mode sombre** : la tablette reste toujours en clair (comme le site) ; fini les blocs noirs dans Entretien et ailleurs.
+- Rappel : la tablette de démo est **faite pour une tablette**. Sur téléphone, c'est pour tester (la mise en page passe en colonne).
+
 ## 12.27 — Tablette : la composition du site Léon + correctif manager
 - **Correctif** : un manager (ex. Camille) qui tape son code sur la tablette restait sur l'appli téléphone. Maintenant il arrive sur son écran de tablette (pointer, pause, accès rapide), comme les autres.
 - **Composition reprise de la page de connexion du site** : fond vert Léon, barre du haut (logo, nom du resto, heure), **une carte blanche au centre** pour l'action (icône, petit titre doré en capitales, grand titre, pavé ou bouton doré), et à côté des **« portes » vertes** (icône dorée, titre, sous-titre, flèche) pour Hygiène, Réception, Mon planning, ou pour « Au travail » et la note du jour. Plus de carrelage, de grain ni de cadre. Identique en clair et en sombre.
