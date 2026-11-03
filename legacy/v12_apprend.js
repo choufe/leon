@@ -109,5 +109,5 @@ function apResume(){
   const cv=coverage(w,a.d).find(c=>a.t.includes(c.svc));if(!cv)return a;
   const k=Object.keys(AP_GRP).find(k=>a.t.includes({salle:'en salle',cuisine:'en cuisine',bar:'au bar'}[k]));if(!k)return a;
   const base=k==='bar'?(cv.cv>=80?1:0):Math.max(1,Math.ceil(cv.cv/AP_BASE[k]));
-  return cv.have[k]>=base?{...a,tone:'info',s:`D’habitude, tu mets ${cv.need[k]} personnes pour autant de couverts. Ce n’est pas obligatoire.`}:a;
+  return cv.have[k]>=base?{...a,tone:'info',s:`D’habitude, tu mets ${plur(cv.need[k],'personne')} pour autant de couverts. Ce n’est pas obligatoire.`}:a;
 }).sort((x,y)=>({bad:0,warn:1,info:2}[x.tone]-{bad:0,warn:1,info:2}[y.tone]));};}
