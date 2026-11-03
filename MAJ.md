@@ -5,6 +5,13 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.23 — Téléphone et tablette : confort
+- **Plus de zoom involontaire** : double tap sur un bouton (ex. + / − des disponibilités) ne zoome plus ; les champs font 16 px (l'iPhone zoomait dessus).
+- **Plus de glissement vers la droite** : la page ne déborde plus ; sur iPhone/iPad le cadre de l'appli ne s'élargit plus à son contenu.
+- **Tablette** : les écrans Disponibilités, Hygiène, Mon planning prennent tout l'écran (plus de bandes vertes), en-tête fixe avec « Retour » bien visible ; Hygiène = 3 grandes tuiles (3 côte à côte sur tablette) ; écran du salarié : gros bouton « Pointer », accès rapide en 3 tuiles ; pavé de code plus grand sur tablette.
+- **Badgeuse sur téléphone** (manager) : une carte par personne (Prévu / Badgé / Payé + pause, Absent), plus de tableau à balader.
+- La tablette de démo s'ouvre maintenant sans cadre (plus fluide) et s'installe directement (« Sur l'écran d'accueil »).
+
 ## 12.22 — Tablette : correctif
 - Démo tablette : « Mon planning », « Hygiène » et « Disponibilités » ramenaient à l'écran du code. Corrigé : ils s'ouvrent bien.
 - Sur ces écrans, le bouton du haut s'appelle « Retour » (il était presque invisible) et ramène à l'écran du salarié.

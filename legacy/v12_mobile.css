@@ -1,0 +1,96 @@
+/* =========================================================
+   V12 · TÉLÉPHONE & TABLETTE — confort de lecture et de toucher
+   1. Partout : pas de zoom involontaire (double tap, champs < 16 px), pas de glissement à droite.
+   2. La tablette du resto : écrans plein écran (plus de bandes vertes), gros boutons, grandes tuiles.
+   ========================================================= */
+
+/* ---------- 1. Partout sur téléphone / tablette ---------- */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+button,a,[data-act],.key,label,summary{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+img,svg,video,canvas{max-width:100%}
+@media (max-width:1024px){
+  html,body{overflow-x:hidden;max-width:100%}
+  /* iPhone zoome sur un champ dont le texte fait moins de 16 px : on passe à 16 px */
+  input,select,textarea,.inp{font-size:16px!important}
+  /* les tableaux larges défilent dans leur cadre, jamais toute la page */
+  .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+  .modal{max-width:calc(100vw - 20px)}
+}
+
+/* ---------- 2. Tablette : écrans du kiosque (Mon planning, Hygiène, Disponibilités) ---------- */
+.kiosk-stage{padding:0!important;align-items:stretch!important;background:var(--bg,#F1F4EF)!important}
+.kiosk-stage::before,.kiosk-stage::after{display:none!important}
+.kiosk-shell{width:100%!important;max-width:none!important;min-height:100vh;min-height:100dvh;border-radius:0!important;box-shadow:none!important;display:flex;flex-direction:column;background:var(--bg,#F1F4EF)!important}
+.kiosk-top{position:sticky;top:0;z-index:5;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px!important;background:var(--surface,#fff)!important;box-shadow:0 1px 0 var(--line,#e3e6e1)}
+.kiosk-top .kiosk-title{font-size:19px!important;letter-spacing:-.01em}
+.kiosk-top .tab-retour,.kiosk-top [data-act="kiosk-home"]{min-height:44px;padding:0 14px!important;border-radius:12px!important;font-size:15px!important}
+.kiosk-top .clock{font-size:15px}
+.kiosk-body{max-height:none!important;overflow:visible!important;width:100%;max-width:1040px;margin:0 auto;padding:20px 16px calc(28px + env(safe-area-inset-bottom,0px))!important;flex:1}
+
+/* Hygiène : trois grandes tuiles au lieu de trois lignes */
+.kiosk-choices{display:grid!important;grid-template-columns:1fr;gap:14px!important}
+.kiosk-choice{min-height:96px;padding:18px!important;border-radius:20px!important;border:0!important;background:var(--surface,#fff)!important;box-shadow:0 1px 2px rgba(19,32,26,.06),0 8px 24px -16px rgba(19,32,26,.25);gap:16px!important}
+.kiosk-choice-ic{width:56px!important;height:56px!important;border-radius:16px!important;background:color-mix(in oklab,var(--hy,#0f7a6b) 14%,var(--surface,#fff))!important;color:var(--hy,#0f7a6b)!important}
+.kiosk-choice-ic svg{width:26px;height:26px}
+.kiosk-choice-b b{font-size:18px!important}
+.kiosk-choice-b small{font-size:14px!important;line-height:1.35}
+@media (min-width:700px){
+  .kiosk-choices{grid-template-columns:repeat(3,1fr)}
+  .kiosk-choice{flex-direction:column;align-items:flex-start!important;min-height:200px;padding:22px!important}
+  .kiosk-choice-ic{width:64px!important;height:64px!important}
+  .kiosk-choice>svg,.kiosk-choice .kiosk-choice-go{display:none}
+  .kiosk-choice .nb,.kiosk-choice .pill{position:absolute;top:18px;right:18px}
+  .kiosk-choice{position:relative}
+}
+/* Disponibilités et listes : cartes nettes, gros boutons */
+.kiosk-body .btn,.kiosk-body button.btn{min-height:44px}
+.kiosk-day{padding:14px 6px!important;font-size:16px}
+.kiosk-day.today{padding:14px 12px!important}
+.kiosk-item{min-height:56px;font-size:16px!important}
+
+/* ---------- 3. Tablette : écran du salarié après son code ---------- */
+.mode-tablette .stage .lock h1{font-size:clamp(24px,4.5vw,34px)}
+.mode-tablette .badge-acts .btn.launch{min-height:64px;font-size:18px;border-radius:16px}
+.mode-tablette .badge-acts+.who{margin-top:26px!important}
+/* accès rapide : trois tuiles côte à côte */
+.mode-tablette .who+.badge-acts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mode-tablette .who+.badge-acts .btn{flex-direction:column;gap:8px;min-height:96px;padding:14px 8px;border-radius:16px;font-size:15px;white-space:normal;line-height:1.2;text-align:center;justify-content:center}
+.mode-tablette .who+.badge-acts .btn svg{width:26px;height:26px}
+.mode-tablette .stage .lock>.row{margin-top:22px!important}
+.mode-tablette .stage .lock>.row .btn{min-height:48px;min-width:140px;font-size:16px;border-radius:14px}
+@media (min-width:700px){
+  .mode-tablette .stage .lock{width:min(600px,100%)!important}
+  .mode-tablette .pin-pad{grid-template-columns:repeat(3,92px)!important;gap:16px 22px!important;justify-content:center}
+  .mode-tablette .pin-pad .key{width:92px!important;height:92px!important;font-size:30px!important}
+  .mode-tablette .pin-pad .key.small{font-size:15px!important}
+  .mode-tablette .lock-clock{font-size:64px}
+}
+@media (max-width:380px){.mode-tablette .who+.badge-acts .btn{min-height:84px;font-size:14px}}
+
+/* ---------- 4. Badgeuse sur téléphone : une carte par personne ---------- */
+.pjm{display:grid;gap:12px}
+.pjm-c{background:var(--surface,#fff);border:1px solid var(--line,#e3e6e1);border-radius:16px;padding:12px 14px}
+.pjm-c.pj-bad{border-color:color-mix(in oklab,var(--bad,#c0392b) 55%,transparent);background:color-mix(in oklab,var(--bad,#c0392b) 5%,var(--surface,#fff))}
+.pjm-h{display:flex;align-items:center;gap:10px}
+.pjm-n{flex:1;min-width:0}.pjm-n b{font-size:16px}.pjm-n span{font-size:12px;color:var(--ink-3,#777);letter-spacing:.04em}
+.pjm-tot{font-size:17px;font-variant-numeric:tabular-nums}
+.pjm-c .pj-flags{margin:6px 0 0 32px}
+.pjm-shift{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line,#e3e6e1);display:grid;gap:8px}
+.pjm-l{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pjm-k{width:56px;flex:none;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3,#777)}
+.pjm-v{display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex:1}
+.pjm-pay .pj-in{width:76px;height:44px;text-align:center}
+.pjm-pay .pj-in.p{width:52px}
+.pjm-pz{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-3,#777)}
+.pjm-abs{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:14px;color:var(--ink-2,#555)}
+.pjm-abs input{width:20px;height:20px}
+@media (max-width:760px){
+  .pj{display:block}
+  .pj-side{display:flex;overflow-x:auto;gap:6px;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .pj-side::-webkit-scrollbar{display:none}
+  .pj-side .pj-wk{display:none}
+  .pj-side .pj-day{flex:none;white-space:nowrap}
+  .pj-ban{flex-wrap:wrap}
+  .pj-filtres{flex-wrap:wrap;row-gap:4px}
+  #demo-pill span{display:none}
+}

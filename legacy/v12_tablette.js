@@ -9,6 +9,11 @@
 const DEMO_TAB=typeof DEMO!=='undefined'&&/[?&]tablette=1/.test(location.search);
 const TABLETTE=!!(V12_COMPTE&&V12_COMPTE.tablette)||DEMO_TAB;
 if(DEMO_TAB){
+  // Installable comme une appli (« Sur l'écran d'accueil ») : icône « Léon Tablette » qui rouvre toujours la tablette.
+  try{const h=document.head;const add=(t,at)=>{const e=document.createElement(t);Object.entries(at).forEach(([k,v])=>e.setAttribute(k,v));h.appendChild(e);};
+    add('link',{rel:'manifest',href:'/tablette-demo.webmanifest'});add('meta',{name:'apple-mobile-web-app-capable',content:'yes'});add('meta',{name:'mobile-web-app-capable',content:'yes'});
+    add('meta',{name:'apple-mobile-web-app-title',content:'Léon Tablette'});add('meta',{name:'apple-mobile-web-app-status-bar-style',content:'black-translucent'});
+    add('link',{rel:'apple-touch-icon',href:'/brand/icon-192.png'});document.title='Léon Tablette';}catch(e){}
   const ridDemo=()=>{const l=(NET.config&&NET.config.restos)||[];return l.find(id=>/beffroi/i.test(id))||l[0];};
   {const f=render;render=function(){
     try{const rid=NET.config&&ridDemo();
