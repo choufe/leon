@@ -26,6 +26,14 @@ function v12Entrer(){
     NET.configLoaded=true;
     createResto({nom:V12_COMPTE.resto||'Mon restaurant',type:TEMPLATES.vide.l,ville:V12_COMPTE.ville||'',tpl:'vide',code:v12Code(),closed:[0]});
   }
+  // 12.19 · Appli « Léon Tablette » : la tablette reste sur l'écran des codes (chacun tape le sien).
+  if(V12_COMPTE.tablette){
+    if(U.screen==='lock'&&U.lockRid&&DEVICE&&DEVICE.rid===U.lockRid)return false;
+    const r0=(NET.config.restos||[])[0];if(!r0)return false;
+    setDevice({rid:r0},true);U.lockRid=r0;U.role=null;U.empId=null;
+    mountFull(r0);S=NET.restos[r0];syncCtx();U.screen='lock';render();
+    return true;
+  }
   const rid=(NET.config.restos||[])[0];
   setDevice({admin:true},true);
   loginAs(rid?{role:'admin',rid}:{role:'admin'});

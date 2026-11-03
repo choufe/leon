@@ -83,3 +83,10 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - Principe (3 nov.) : pas trop d'options pour ne pas se perdre. Léon propose le planning le plus opti possible, mais le patron doit pouvoir le changer facilement.
 
 - 3 nov. : notifications sur le téléphone (vibrer) validées par Maurice, à faire en même temps que l’envoi des mails (domaine + service d’envoi).
+
+## Qui fait quoi, sur quel appareil (validé par Maurice le 3 nov.)
+- PC : tout (planning, badgeuse, paie, stocks, fiches, stats, réglages, y compris ceux de la tablette).
+- Téléphone patron / manager : Aujourd'hui, planning (voir, petites retouches), valider demandes, badgeuse (corriger et valider), réceptions, inventaire, cahier, alertes.
+- Téléphone salarié : son planning + l'équipe, congés / échanges / dispos, shifts à pourvoir, cahier (lire), plats dispo, allergènes, fiches. Son code tablette visible (comme Skello) : à faire.
+- Tablette du resto : badger, hygiène (températures, DLC, étiquettes), planning (voir), cahier, plats dispo, allergènes ; patron / manager avec son code : réceptions, inventaire, Aujourd'hui.
+- 3 applis pour tester : PC (site), « Léon » (téléphone, /app), « Léon Tablette » (/tablette, bloquée sur l'écran des codes).

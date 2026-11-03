@@ -262,3 +262,6 @@
 .inv-envoi{display:flex;gap:8px;margin-top:10px}.inv-envoi .btn{flex:1;justify-content:center;text-decoration:none}
 .ag .ag-r.ag-moi{background:color-mix(in oklab,var(--brass,#b07a2a) 12%,transparent);border-radius:10px}
 .ag-avec{font-size:13px;padding:6px 10px;margin:4px 0 2px;border-radius:10px;background:color-mix(in oklab,var(--brass,#b07a2a) 9%,var(--surface));display:block;line-height:1.5}
+
+/* ---------- 12.19 · Appli tablette : pas de réglages ni d'aperçu ---------- */
+.mode-tablette [data-act="nav"][data-v="reglages"],.mode-tablette [data-act="device-out"],.mode-tablette [data-act="demo-open"],.mode-tablette .viewas{display:none!important}

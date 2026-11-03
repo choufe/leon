@@ -190,7 +190,7 @@ function Espace({ email, onDeconnexion, onCodeExpire }) {
                   <div className="cr-tile"><span>Votre accès d'aide</span><b>{r.a_moi ? "Votre resto" : aideActive ? `Jusqu'au ${dateFr(r.aide_jusqu)}` : "Terminé"}</b><span>{r.a_moi ? "Toujours accessible" : aideActive ? "Pour aider au démarrage" : "Le patron gère seul"}</span></div>
                 </div>
                 <div className="cr-acts">
-                  {!r.supprime_le && (r.test || aideActive) && <a className="v-btn v-btn-brass" href={`/app?resto=${r.id}`}>Entrer dans ce resto</a>}
+                  {!r.supprime_le && (r.test || aideActive) && <><a className="v-btn v-btn-brass" href={`/app?resto=${r.id}`}>Entrer dans ce resto</a><a className="v-btn v-btn-line" href={`/tablette?resto=${r.id}`} title="Ouvre l'écran de la tablette du resto (badger, hygiène, planning)">Mode tablette</a></>}
                 </div>
                 {!r.a_moi && aideActive && !r.supprime_le && <p className="v-hint">En entrant, vous voyez le Léon du patron comme lui, pour l'aider à s'installer. L'accès s'arrête tout seul après 15 jours.</p>}
                 {r.supprime_le ? (

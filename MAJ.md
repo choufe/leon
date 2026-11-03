@@ -5,6 +5,13 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.19 — Trois appareils : PC, téléphone, tablette
+- **Appli « Léon Tablette »** : l'adresse /tablette s'installe avec sa propre icône (Safari → Partager → « Sur l'écran d'accueil »). Elle reste **toujours sur l'écran des codes** : chacun tape le sien pour badger ; le patron ou un manager entre avec son code et a seulement : Aujourd'hui, planning (lecture), hygiène, cahier, plats dispo, allergènes, fiches, stocks (réceptions, inventaire). Pas de paie, de réglages, de badgeuse à corriger ni de modif du planning. Aucun chemin vers la version PC / téléphone.
+- Espace créateur : bouton **« Mode tablette »** à côté de chaque resto (pour tes tests).
+- **Appli « Léon »** (téléphone) : /app, comme avant.
+- Badgeuse : le **manager** peut maintenant corriger et valider (avant : patron / directeur seulement).
+- Inscription des salariés : plus de mail de confirmation (réglage Supabase coupé le 3 nov., accord de Maurice). Le lien d'invitation suffit.
+
 ## 12.18 — Les salariés ont leur compte + Léon en appli sur le téléphone
 - « Salariés & accès » : bouton **Inviter** à côté de chaque salarié → un lien perso à envoyer par **WhatsApp ou SMS** (ou copier). Le lien marche une fois, 14 jours. Quand le salarié a rejoint : « Sur son téléphone ».
 - Page **/rejoindre** : « Salut Inès ! » → il crée son compte (e-mail + mot de passe) et arrive direct dans le Léon de son resto, avec sa vue à lui. Même Léon sur téléphone et PC. Pas de code à 4 chiffres pour lui (le code, c'est la tablette).
