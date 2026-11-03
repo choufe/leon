@@ -84,7 +84,7 @@ if(TABLETTE){
 if(TABLETTE){
   const LOGO='/brand/leon-logo-creme.png';
   // Composition « page de connexion du site » : barre du haut (logo, resto, heure), carte blanche, portes vertes.
-  const SOUS={hygiene:'Températures, étiquettes, produits ouverts',reception:'Photo de la facture, contrôle',planning:'Ta semaine',dispo:'Plats disponibles'};
+  const SOUS={hygiene:'Températures, étiquettes, produits ouverts',reception:'Photo de la facture, contrôle',inventaire:'Compter le stock, zone par zone',planning:'Ta semaine',dispo:'Plats disponibles'};
   function tlLayout(){
     const st=document.querySelector('#app > .stage:not(.kiosk-stage)');if(!st||st.querySelector('.tb'))return;
     const lock=st.querySelector(':scope > .lock');if(!lock)return;
@@ -173,7 +173,7 @@ if(TABLETTE){
     return `<h2 class="kiosk-h2">${T('Aujourd’hui')}</h2>
       <div class="dir-card">${lig(T('Midi'),c[0],qui(true))}${lig(T('Soir'),c[1],qui(false))}${abs.length?`<p class="dir-abs">${ic('alert','s')} ${T('Absent')} : ${abs.map(e=>esc(e.prenom)).join(', ')}</p>`:''}</div>
       <h2 class="kiosk-h2">${T('Sur la tablette')}</h2>
-      <div class="dir-doors">${door('hygiene','thermo','Hygiène','Températures, étiquettes, produits ouverts')}${door('reception','truck','Réception',recs.length?plur(recs.length,'livraison reçue aujourd’hui','livraisons reçues aujourd’hui'):'Photo de la facture, contrôle')}</div>
+      <div class="dir-doors">${door('hygiene','thermo','Hygiène','Températures, étiquettes, produits ouverts')}${door('reception','truck','Réception',recs.length?plur(recs.length,'livraison reçue aujourd’hui','livraisons reçues aujourd’hui'):'Photo de la facture, contrôle')}${door('inventaire','list','Inventaire','Compter le stock, zone par zone')}</div>
       <p class="faint" style="margin-top:16px;font-size:13px">${T('Planning, paie et réglages : sur ton téléphone ou ton ordinateur.')}</p>`;
   }
   ACT['dir-go']=function(t){UI.kiosk={view:t.dataset.v};render();};

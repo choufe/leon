@@ -5,6 +5,10 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.29 — Tablette : réception et inventaire pour les responsables
+- **Réception** et **Inventaire** : seulement pour les **managers, le directeur et le créateur** (il faut un peu de responsabilité). Un salarié voit Hygiène et Mon planning.
+- **Inventaire sur la tablette** : zone par zone (chambre froide, réserve sèche, bar…), gros boutons − / +, quantité modifiable, « Retour » qui remonte à la liste des zones ; à la fin, on valide et le stock est mis à jour (même inventaire que sur le PC). Disponible depuis l'écran du manager et depuis l'écran Direction.
+
 ## 12.28 — Tablette = tablette, pour tout le monde
 - Le **directeur** et le **créateur** (code + mot de passe) restent eux aussi sur la tablette : écran **« Direction »** avec Aujourd'hui (couverts midi / soir, qui travaille, absents), Hygiène et Réception (avec le nombre de livraisons reçues). « Retour » ramène à l'écran du code. Plus aucun chemin vers l'appli PC ou téléphone depuis la tablette, quel que soit le code.
 - **Mode sombre** : la tablette reste toujours en clair (comme le site) ; fini les blocs noirs dans Entretien et ailleurs.
