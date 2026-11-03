@@ -95,87 +95,106 @@ img,svg,video,canvas{max-width:100%}
   #demo-pill span{display:none}
 }
 
-/* ---------- 5. Refonte tablette (12.24) : deux panneaux, l'identité Léon ---------- */
-.mode-tablette .stage.tl-stage{display:block!important;padding:0!important;background:#F4F1EA!important;background-image:none!important;color:var(--ink,#13201A)}
-.mode-tablette .lock.tl-lock{width:100%!important;max-width:none!important;display:block!important;text-align:left;padding:0!important;background:none!important;border:0!important;box-shadow:none!important}
-.tl{display:grid;grid-template-columns:minmax(340px,42%) 1fr;min-height:100vh;min-height:100dvh}
-.tl-left{position:relative;overflow:hidden;background:#18352B;color:#EEF2EC;padding:calc(36px + env(safe-area-inset-top,0px)) 44px 36px;display:flex;flex-direction:column;gap:28px}
-.tl-left::after{content:"";position:absolute;right:-120px;bottom:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(214,163,74,.22),transparent 65%);pointer-events:none}
-.tl-logo{width:132px;height:auto;display:block}
-.tl-left-in{flex:1;display:flex;flex-direction:column;justify-content:center;gap:10px;position:relative;z-index:1}
-.tl-left .eyebrow{color:#D6A34A!important;letter-spacing:.14em;font-size:12px!important;opacity:1!important}
-.tl-left .wordmark{font-size:clamp(36px,4.6vw,56px)!important;color:#fff;text-align:left}
-.tl-left .lock-clock{font-size:clamp(56px,8vw,96px)!important;color:#fff;letter-spacing:-.02em;line-height:1;margin:6px 0 0;text-align:left}
-.tl-left h1{color:#fff;font-size:clamp(30px,4vw,44px)!important;margin:6px 0 0;text-align:left}
-.tl-left .sub,.tl-left p{color:rgba(238,242,236,.78)!important;text-align:left;margin:0}
-.tl-left .av,.tl-left .bw-av .av{width:84px!important;height:84px!important;font-size:30px!important;border:3px solid rgba(255,255,255,.9)}
-.tl-left .bc-check{color:#fff;background:#2E8B57;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+/* ---------- 5. Refonte tablette (12.24 → 12.25) : l'identité Léon, clair ET sombre ---------- */
+:root{--tl-bg:#F4F1EA;--tl-card:#FFFFFF;--tl-ink:#13201A;--tl-mute:#6B7570;--tl-key:#F4F1EA;--tl-key-on:#F5EAD3;--tl-line:#DDE2DC;--tl-band:#18352B;--tl-band-ink:#FFFFFF;--tl-band-mute:rgba(238,242,236,.74);--tl-brass:#D6A34A;--tl-brass-ink:#1E1608;--tl-brass-txt:#93630F;--tl-shadow:0 2px 4px rgba(19,32,26,.04),0 24px 60px -28px rgba(19,32,26,.35)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tl-bg:#0D1411;--tl-card:#16201B;--tl-ink:#EDF2EE;--tl-mute:#A3B0A9;--tl-key:#22302A;--tl-key-on:#3A2F17;--tl-line:#2C3A33;--tl-band:#10261D;--tl-brass-txt:#E2B866;--tl-shadow:0 0 0 1px #24312B,0 24px 60px -30px rgba(0,0,0,.8)}}
+:root[data-theme="dark"]{--tl-bg:#0D1411;--tl-card:#16201B;--tl-ink:#EDF2EE;--tl-mute:#A3B0A9;--tl-key:#22302A;--tl-key-on:#3A2F17;--tl-line:#2C3A33;--tl-band:#10261D;--tl-brass-txt:#E2B866;--tl-shadow:0 0 0 1px #24312B,0 24px 60px -30px rgba(0,0,0,.8)}
+
+.mode-tablette .stage.tl-stage{display:block!important;padding:0!important;background:var(--tl-bg)!important;background-image:none!important;color:var(--tl-ink)}
+.mode-tablette .lock.tl-lock{width:100%!important;max-width:none!important;display:block!important;padding:0!important;background:none!important;border:0!important;box-shadow:none!important}
+.tl{display:grid;grid-template-columns:minmax(320px,36%) 1fr;min-height:100vh;min-height:100dvh}
+
+/* panneau Léon : logo en haut à gauche, le reste bien centré */
+.tl-left{position:relative;overflow:hidden;background:var(--tl-band);color:var(--tl-band-ink);padding:calc(28px + env(safe-area-inset-top,0px)) 36px 36px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.tl-left::after{content:"";position:absolute;inset:auto -140px -140px auto;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(214,163,74,.20),transparent 65%);pointer-events:none}
+.tl-logo{position:absolute;top:calc(24px + env(safe-area-inset-top,0px));left:28px;width:104px;height:auto;z-index:1}
+.tl-left-in{flex:1;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;position:relative;z-index:1;padding-top:40px}
+.tl-left .eyebrow{color:var(--tl-brass)!important;letter-spacing:.16em;font-size:11.5px!important;opacity:1!important;text-align:center}
+.tl-left .wordmark{font-size:clamp(32px,3.8vw,48px)!important;color:var(--tl-band-ink);text-align:center;line-height:1.02}
+.tl-left .lock-clock{font-size:clamp(56px,7vw,88px)!important;color:var(--tl-band-ink);letter-spacing:-.02em;line-height:1;margin:4px 0 0;text-align:center}
+.tl-left h1{color:var(--tl-band-ink);font-size:clamp(28px,3.4vw,40px)!important;margin:4px 0 0;text-align:center}
+.tl-left .sub,.tl-left p{color:var(--tl-band-mute)!important;text-align:center;margin:0}
+.tl-left .av,.tl-left .bw-av .av{width:80px!important;height:80px!important;font-size:28px!important;border:3px solid rgba(255,255,255,.9);margin:0 auto}
+.tl-left .bc-check{color:#fff;background:#2E8B57;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto}
 .tl-conf.warn .tl-left .bc-check,.tl-conf.bad .tl-left .bc-check{background:#B7791F}
-.tl-left .bc-type{color:#fff;font-size:18px;text-align:left}
-.tl-left .lock-info{display:grid;gap:8px;margin-top:18px}
-.tl-left .lock-info .lk{background:rgba(255,255,255,.07)!important;border:1px solid rgba(255,255,255,.12)!important;color:#EEF2EC!important;border-radius:14px!important;padding:12px 14px!important;font-size:14px!important;text-align:left}
-.tl-left .pill{align-self:flex-start}
+.tl-left .bc-type{color:var(--tl-band-ink);font-size:18px;text-align:center}
+.tl-left .pill{align-self:center}
+.tl-left .lock-info{display:grid;gap:8px;margin-top:22px;width:100%;max-width:380px}
+.tl-left .lock-info .lk{background:rgba(255,255,255,.07)!important;border:1px solid rgba(255,255,255,.12)!important;color:var(--tl-band-ink)!important;border-radius:14px!important;padding:11px 14px!important;font-size:14px!important;text-align:left;justify-content:flex-start}
+
+/* carte d'action */
 .tl-right{display:flex;align-items:center;justify-content:center;padding:32px 28px calc(32px + env(safe-area-inset-bottom,0px))}
-.tl-card{width:min(480px,100%);background:#fff;border-radius:28px;box-shadow:0 2px 4px rgba(19,32,26,.04),0 24px 60px -28px rgba(19,32,26,.35);padding:32px 28px;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--ink,#13201A)}
-.tl-card-h{text-align:center;margin-bottom:6px}.tl-card-h b{display:block;font-family:var(--f-display);font-size:26px;letter-spacing:-.02em}.tl-card-h span{font-size:14px;color:#6B7570}
-.tl-card .pin-dots span{border-color:#C9CFC9!important}
-.tl-card .pin-dots span.on,.tl-card .pin-dots span.fill,.tl-card .pin-dots span[class*="on"]{background:#93630F!important;border-color:#93630F!important}
-.tl-card .pin-pad{margin-top:10px}
-.tl-card .pin-pad .key{background:#F4F1EA!important;border:0!important;color:#13201A!important;box-shadow:inset 0 -2px 0 rgba(19,32,26,.06)}
-.tl-card .pin-pad .key:active{background:#F5EAD3!important;transform:scale(.96)}
-.tl-card .pin-pad .key.small{color:#6B7570!important;background:transparent!important;box-shadow:none}
-.tl-card .pin-err{color:#AE3526}
+.tl-card{width:min(460px,100%);background:var(--tl-card);border-radius:28px;box-shadow:var(--tl-shadow);padding:32px 28px;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--tl-ink)}
+.tl-card-h{text-align:center;margin-bottom:6px}.tl-card-h b{display:block;font-family:var(--f-display);font-size:26px;letter-spacing:-.02em;color:var(--tl-ink)}.tl-card-h span{font-size:14px;color:var(--tl-mute)}
+.tl-card .pin-dots{justify-content:center}
+.tl-card .pin-dots span{border-color:var(--tl-line)!important;background:transparent}
+.tl-card .pin-dots span.on,.tl-card .pin-dots span.fill,.tl-card .pin-dots span[class*="on"]{background:var(--tl-brass)!important;border-color:var(--tl-brass)!important}
+.tl-card .pin-pad{margin:10px auto 0;justify-content:center}
+.tl-card .pin-pad .key{background:var(--tl-key)!important;border:0!important;color:var(--tl-ink)!important;box-shadow:none!important}
+.tl-card .pin-pad .key:active{background:var(--tl-key-on)!important;transform:scale(.96)}
+.tl-card .pin-pad .key.small{color:var(--tl-mute)!important;background:transparent!important}
+.tl-card .pin-err{color:#D9544A;text-align:center}
 .tl-card .badge-acts{width:100%}
-.tl-card .badge-acts .btn.launch{width:100%;background:#D6A34A!important;color:#1E1608!important;border:0!important;box-shadow:0 10px 24px -14px rgba(147,99,15,.8)}
-.tl-card>.who{color:#6B7570!important;font-size:12px!important;letter-spacing:.12em;text-transform:uppercase;margin-top:18px!important;align-self:flex-start}
-.mode-tablette .tl-card .who+.badge-acts .btn{background:#F4F1EA!important;border:0!important;color:#13201A!important}
-.mode-tablette .tl-card .who+.badge-acts .btn svg{color:#93630F}
+.tl-card .badge-acts .btn.launch{width:100%;background:var(--tl-brass)!important;color:var(--tl-brass-ink)!important;border:0!important;box-shadow:0 10px 24px -14px rgba(147,99,15,.8)}
+.tl-card>.who{color:var(--tl-mute)!important;font-size:12px!important;letter-spacing:.12em;text-transform:uppercase;margin-top:18px!important;align-self:center;text-align:center}
+.mode-tablette .tl-card .who+.badge-acts .btn{background:var(--tl-key)!important;border:0!important;color:var(--tl-ink)!important}
+.mode-tablette .tl-card .who+.badge-acts .btn svg{color:var(--tl-brass-txt)}
 .tl-card>.row{width:100%;justify-content:center}
-.tl-card>.row .btn{background:#fff!important;border:1px solid #DDE2DC!important;color:#13201A!important}
-.tl-card details.demo-codes-d{margin-top:14px;color:#6B7570}
-.tl-card .demo-codes button{background:#F4F1EA;color:#13201A;border:0}
-/* écran étroit (téléphone, tablette en portrait) : bandeau Léon en haut, carte en dessous */
+.tl-card>.row .btn{background:transparent!important;border:1.5px solid var(--tl-line)!important;color:var(--tl-ink)!important}
+.tl-card details.demo-codes-d{margin-top:14px;color:var(--tl-mute)}
+.tl-card .demo-codes{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.tl-card .demo-codes button{background:var(--tl-key);color:var(--tl-ink);border:0}
+.tl-card .demo-codes .eyebrow,.tl-card .demo-pass{color:var(--tl-mute)}
+
+/* écran étroit (téléphone, tablette en portrait) : bandeau compact et centré, carte en dessous */
 @media (max-width:899px),(orientation:portrait){
   .tl{grid-template-columns:1fr;grid-template-rows:auto 1fr}
-  .tl-left{padding:calc(18px + env(safe-area-inset-top,0px)) 22px 22px;gap:14px}
-  .tl-logo{width:96px}
-  .tl-left-in{gap:4px}
-  .tl-left .lock-clock{font-size:clamp(44px,12vw,72px)!important}
-  .tl-left .wordmark{font-size:clamp(28px,8vw,44px)!important}
-  .tl-left .lock-info{margin-top:10px}
-  .tl-left .av,.tl-left .bw-av .av{width:64px!important;height:64px!important;font-size:24px!important}
+  .tl-left{padding:calc(14px + env(safe-area-inset-top,0px)) 20px 18px}
+  .tl-logo{position:static;width:78px;align-self:flex-start;margin-bottom:2px}
+  .tl-left-in{padding-top:0;gap:2px}
+  .tl-left .eyebrow{display:none}
+  .tl-left .wordmark{font-size:clamp(22px,5.4vw,34px)!important}
+  .tl-left .lock-clock{font-size:clamp(40px,10vw,60px)!important;margin-top:2px}
+  .tl-left h1{font-size:clamp(22px,5.6vw,32px)!important}
+  .tl-left .av,.tl-left .bw-av .av{width:52px!important;height:52px!important;font-size:19px!important}
+  .tl-left .bc-check{width:36px;height:36px}
+  .tl-left .lock-info{display:none}
+  .tl-left::after{width:240px;height:240px;inset:auto -90px -120px auto}
   .tl-right{align-items:flex-start;padding:18px 16px calc(24px + env(safe-area-inset-bottom,0px))}
   .tl-card{padding:24px 18px;border-radius:24px}
 }
-@media (max-width:420px){.tl-card .pin-pad .key{width:76px!important;height:76px!important}}
-/* en-tête des écrans du kiosque : logo Léon, accent laiton */
-.tl-klogo{height:22px;width:auto;margin-left:auto;margin-right:10px}
-.kiosk-top{border-bottom:3px solid #D6A34A!important;box-shadow:none!important}
-.kiosk-top .kiosk-title{text-align:left!important;font-family:var(--f-display)}
-.kiosk-top .clock{background:#F4F1EA;border:0!important}
-.kiosk-stage,.kiosk-shell{background:#F4F1EA!important}
-/* listes de tâches : pleine largeur et lisibles */
-.kiosk-body .kiosk-tasklist,.kiosk-body .kiosk-lots,.kiosk-body form,.kiosk-body .field{max-width:none!important;width:100%}
-.kiosk-body .kiosk-tasklist{background:#fff;border-radius:18px;padding:14px;border:0!important;box-shadow:0 1px 2px rgba(19,32,26,.05)}
-.kiosk-body .kiosk-tasklist.late{box-shadow:inset 0 0 0 2px #AE3526}
-/* champs date sur iPhone : hauteur et largeur propres */
-input[type="date"],input[type="time"]{-webkit-appearance:none;appearance:none;min-height:48px;width:100%;min-width:0;display:block;text-align:left;line-height:1.2;background:#fff}
-input[type="date"]::-webkit-date-and-time-value{text-align:left}
-/* entretien : les listes côte à côte sur tablette, pleine largeur sur téléphone */
-.kiosk-body:has(.kiosk-tasklist){display:grid;grid-template-columns:repeat(auto-fill,minmax(min(420px,100%),1fr));gap:14px;align-items:start}
-.kiosk-body:has(.kiosk-tasklist)>:not(.kiosk-tasklist){grid-column:1/-1}
-.kiosk-body .kiosk-tasklist{margin:0!important;max-width:none!important}
-.kiosk-body .kiosk-h2{font-family:var(--f-display);font-size:20px!important;margin:4px 0 6px!important}
-/* étiquettes produits : plus gros sur tablette */
-@media (min-width:700px){.kiosk-body [data-act^="kiosk-etq"] b,.kiosk-body [data-act^="kiosk-etq"]{font-size:15px}}
-/* en-tête étroit : l'heure laisse la place au logo */
-@media (max-width:520px){.kiosk-top .clock{display:none}.tl-klogo{height:20px;margin-right:0}}
-/* téléphone : le pavé tient dans l'écran */
+/* le logo prend la ligne du haut seul : on le met dans le coin sans décaler le centre */
+@media (max-width:899px),(orientation:portrait){.tl-left{display:grid;grid-template-rows:auto auto}.tl-logo{grid-row:1}}
 @media (max-width:600px){
-  .tl-left .lock-info{display:none}
-  .tl-left .eyebrow{display:none}
   .tl-card .pin-pad .key{width:70px!important;height:70px!important;font-size:24px!important}
   .tl-card .pin-pad .key.small{font-size:13px!important}
   .tl-card{padding:20px 14px}
   .tl-card-h b{font-size:22px}
 }
+
+/* en-tête des écrans du kiosque : logo Léon (vert en clair, crème en sombre), filet laiton */
+.tl-klogo{height:22px;width:auto;margin-left:auto;margin-right:10px}
+.tl-klogo.dk{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tl-klogo.lt{display:none}:root:not([data-theme="light"]) .tl-klogo.dk{display:block}}
+:root[data-theme="dark"] .tl-klogo.lt{display:none}:root[data-theme="dark"] .tl-klogo.dk{display:block}
+.kiosk-top{border-bottom:3px solid var(--tl-brass)!important;box-shadow:none!important;background:var(--tl-card)!important;color:var(--tl-ink)}
+.kiosk-top .kiosk-title{text-align:left!important;font-family:var(--f-display);color:var(--tl-ink)}
+.kiosk-top .clock{background:var(--tl-key);border:0!important;color:var(--tl-ink)}
+.kiosk-top .tab-retour{background:transparent!important;border:1.5px solid var(--tl-line)!important;color:var(--tl-ink)!important}
+.kiosk-stage,.kiosk-shell{background:var(--tl-bg)!important;color:var(--tl-ink)}
+.kiosk-body{color:var(--tl-ink)}
+.kiosk-body .faint,.kiosk-body small,.kiosk-body .muted{color:var(--tl-mute)!important}
+.kiosk-choice{background:var(--tl-card)!important;color:var(--tl-ink)!important}
+.kiosk-choice-b b{color:var(--tl-ink)}
+.kiosk-body .kiosk-tasklist,.kiosk-body .kiosk-lots,.kiosk-body form,.kiosk-body .field{max-width:none!important;width:100%}
+.kiosk-body .kiosk-tasklist{background:var(--tl-card);border-radius:18px;padding:14px;border:0!important;box-shadow:0 1px 2px rgba(19,32,26,.05)}
+.kiosk-body .kiosk-tasklist.late{box-shadow:inset 0 0 0 2px #C0453A}
+.kiosk-body:has(.kiosk-tasklist){display:grid;grid-template-columns:repeat(auto-fill,minmax(min(420px,100%),1fr));gap:14px;align-items:start}
+.kiosk-body:has(.kiosk-tasklist)>:not(.kiosk-tasklist){grid-column:1/-1}
+.kiosk-body .kiosk-tasklist{margin:0!important;max-width:none!important}
+.kiosk-body .kiosk-h2{font-family:var(--f-display);font-size:20px!important;margin:4px 0 6px!important;color:var(--tl-ink)}
+@media (min-width:700px){.kiosk-body [data-act^="kiosk-etq"]{font-size:15px}}
+@media (max-width:520px){.kiosk-top .clock{display:none}.tl-klogo{height:20px;margin-right:0}}
+/* champs date sur iPhone : hauteur et largeur propres */
+input[type="date"],input[type="time"]{-webkit-appearance:none;appearance:none;min-height:48px;width:100%;min-width:0;display:block;text-align:left;line-height:1.2}
+input[type="date"]::-webkit-date-and-time-value{text-align:left}
