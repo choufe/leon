@@ -9,17 +9,29 @@
 const recsOf=()=>((S&&S.hyg&&S.hyg.recs)||[]);
 
 if(typeof TABLETTE!=='undefined'&&TABLETTE){
+  // 3 nov. : réception et inventaire = responsables seulement (managers, directeur, créateur)
   KIOSK_TILES.splice(0,KIOSK_TILES.length,
     {v:'hygiene',l:'Hygiène',i:'thermo'},
-    {v:'reception',l:'Réception',i:'truck'},
+    {v:'reception',l:'Réception',i:'truck',resp:true},
+    {v:'inventaire',l:'Inventaire',i:'list',resp:true},
     {v:'planning',l:'Mon planning',i:'calendar'});
-  KIOSK_NAV_MAP.reception='hygiene';
+  KIOSK_NAV_MAP.reception='hygiene';KIOSK_NAV_MAP.inventaire='hygiene';
+  {const f=kioskTilesHTML;kioskTilesHTML=function(){
+    if(effRole()!=='staff')return f.apply(this,arguments);
+    const all=KIOSK_TILES.splice(0,KIOSK_TILES.length);KIOSK_TILES.push(...all.filter(t=>!t.resp));
+    try{return f.apply(this,arguments);}finally{KIOSK_TILES.splice(0,KIOSK_TILES.length,...all);}
+  };}
 }
 {const f=ACT['badge-goto'];ACT['badge-goto']=function(t){
-  if(t.dataset.v==='reception'){U.badgeMsg=null;UI.kiosk={view:'reception'};U.screen='kiosk';render();return;}
+  if(t.dataset.v==='reception'||t.dataset.v==='inventaire'){if(effRole()==='staff')return;U.badgeMsg=null;UI.kiosk={view:t.dataset.v};U.screen='kiosk';render();return;}
   return f.apply(this,arguments);
 };}
 {const f=kioskShellHTML;kioskShellHTML=function(){
+  if(UI.kiosk&&UI.kiosk.view==='inventaire'){
+    return `<div class="stage kiosk-stage"><div class="kiosk-shell">
+    <header class="kiosk-top"><button class="btn demo-link sm" data-act="${UI.inv.zone?'inv-zone':'kiosk-home'}">${ic('chevL','s')} ${T('Retour')}</button><b class="kiosk-title">${UI.inv.zone&&INV_ZONES[UI.inv.zone]?esc(INV_ZONES[UI.inv.zone].l):T('Inventaire')}</b><span class="clock" data-clock>${hhmm(nowMin())}</span></header>
+    <div class="kiosk-body kiosk-inv">${invHTML()}</div></div></div>`;
+  }
   if(!UI.kiosk||UI.kiosk.view!=='reception')return f.apply(this,arguments);
   return `<div class="stage kiosk-stage"><div class="kiosk-shell">
     <header class="kiosk-top"><button class="btn demo-link sm" data-act="kiosk-home">${ic('chevL','s')} ${T('Accueil')}</button><b class="kiosk-title">${T('Réception')}</b><span class="clock" data-clock>${hhmm(nowMin())}</span></header>
@@ -82,3 +94,6 @@ Object.assign(ACT,{
     ph.insertAdjacentHTML('afterend',`<section class="panel rcp-panel"><div class="panel-h"><h3>${ic('truck','s')} Réceptions faites sur la tablette</h3><span class="faint" style="font-size:12.5px">7 derniers jours</span></div>
       <div class="rcp-list pc">${L.map(r=>`<div class="rcp-it ${r.ok?'':'ko'}">${r.photo?`<a href="${r.photo}" target="_blank" rel="noopener"><img src="${r.photo}" alt="Facture"></a>`:`<span class="rcp-noph">${ic('file')}</span>`}<div><b>${esc(r.f)}</b><small>${shortDate(pdate(r.iso))} · ${hhmm(r.m)} · ${esc(r.by||'')}${r.temp!==''&&r.temp!=null?` · ${nf(+r.temp,1)} °C`:''}</small>${r.ok?'<span class="pill ok">Conforme</span>':'<span class="pill bad">Problème</span>'}${r.note?`<p>${esc(r.note)}</p>`:''}</div></div>`).join('')}</div></section>`);
   }}catch(e){}return o;};}
+
+/* Sur la tablette, les actions qui rafraîchissent « la page » (inventaire…) redessinent l'écran du kiosque. */
+{const f=renderView;renderView=function(){if(typeof U!=='undefined'&&U.screen==='kiosk'){render();return;}return f.apply(this,arguments);};}
