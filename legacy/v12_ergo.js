@@ -70,6 +70,27 @@ ACT['pl-w']=function(t){
     <div class="mf"><button class="btn primary" data-act="modal-close">OK</button></div>`);
 };
 
+/* ---------- 4 bis. Jours de repos : 2 par semaine, obligatoires ---------- */
+{const f=planAlerts;planAlerts=function(w){
+  const A=(f.apply(this,arguments)||[]).filter(a=>a.k!=='reposHebdo');
+  try{EMP.forEach(e=>{
+    if(e.hidden&&!S.shifts.some(x=>x.emp===e.id&&x.w===w))return;
+    const travaille=new Set(S.shifts.filter(x=>x.emp===e.id&&x.w===w).map(x=>x.d));
+    if(!travaille.size)return;
+    const repos=7-travaille.size;
+    if(repos<2)A.push({tone:'bad',k:'reposHebdo',emp:e.id,t:`${e.prenom} n’a que ${repos?'1 jour':'aucun jour'} de repos`,s:'Il faut 2 jours de repos par semaine (le dimanche + un autre jour).'});
+  });}catch(err){}
+  return A;
+};}
+function v12Repos(){
+  const g=document.getElementById('pg9');if(!g)return;
+  g.querySelectorAll('td.c9[data-emp]').forEach(td=>{
+    if(td.dataset.emp.charAt(0)==='@')return;
+    if(td.querySelector('.shift,.absb,.repos-t'))return;
+    const s=document.createElement('span');s.className='repos-t';s.textContent=T('Repos');td.appendChild(s);
+  });
+}
+
 /* ---------- 5. Les employés voient toute l'équipe ---------- */
 {const f=viewPlanning;viewPlanning=function(){
   if(S&&effRole()==='staff'&&UI.plan._v12team==null){UI.plan._v12team=1;UI.plan.team=true;}
@@ -78,6 +99,6 @@ ACT['pl-w']=function(t){
 if(typeof VIEWS!=='undefined'&&VIEWS.planning)VIEWS.planning=viewPlanning;
 
 /* ---------- après chaque affichage ---------- */
-function v12Apres(){try{v12Menu();}catch(e){}try{if(UI.view==='planning')v12Alertes();}catch(e){}}
+function v12Apres(){try{v12Menu();}catch(e){}try{if(UI.view==='planning'){v12Repos();v12Alertes();}}catch(e){}}
 {const f=renderView;renderView=function(){const r=f.apply(this,arguments);v12Apres();return r;};}
 {const f=render;render=function(){const r=f.apply(this,arguments);v12Apres();return r;};}

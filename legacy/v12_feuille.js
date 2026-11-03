@@ -132,20 +132,20 @@ function feuilleHTML(){
   const filtres=`<div class="pj-filtres"><button class="${UI.pjTab!=='abs'?'on':''}" data-act="pj-tab" data-t="prevus">Prévus (${prevus.length})</button><button class="${UI.pjTab==='abs'?'on':''}" data-act="pj-tab" data-t="abs">Absences planifiées (${absents.length})</button>
     <span class="pj-sp"></span>
     <span class="pj-sum">Prévu <b>${dur(prevu)}</b> · Payé <b>${dur(paye)}</b>${cout!=null?` · Coût <b>${eur(cout,0)}</b>`:''}</span></div>`;
-  const banniere=verrou?`<div class="pj-ban ok">${ic('lock','s')}<span>Journée validée par <b>${esc(jour.by)}</b> : verrouillée pour la paie.</span>${pjCanValider()?`<button class="btn sm" data-act="pj-rouvrir" data-iso="${iso}">Rouvrir</button>`:''}</div>`
-    :`<div class="pj-ban">${ic('info','s')}<span>${!fini?'Journée en cours : on la valide demain matin.':bloquants.length?`<b>${plur(bloquants.length,'ligne')} à régler</b> avant de valider (en rouge).`:`En attente de validation : <b>${valides}/${prevus.length}</b> salariés validés.`}${edit&&!verrou?' Clique une heure payée pour la changer.':''}</span>
+  const banniere=verrou?`<div class="pj-ban ok">${ic('check','s')}<span>Journée validée par <b>${esc(jour.by)}</b> : c’est bon pour la paie.${edit?' Si tu changes une heure, il faudra la revalider.':''}</span></div>`
+    :`<div class="pj-ban">${ic('info','s')}<span>${!fini?'Journée en cours : on la valide demain matin.':bloquants.length?`<b>${plur(bloquants.length,'ligne')} à régler</b> avant de valider (en rouge).`:`<b>À valider</b> : vérifie le payé, puis valide la journée.`}${edit?' Clique une heure payée pour la changer.':''}</span>
       ${pjCanValider()?`<button class="btn primary sm" data-act="pj-valider" data-iso="${iso}" ${!fini||bloquants.length||!prevus.length?'disabled':''}>${ic('check','s')} Valider la journée</button>`:''}</div>`;
 
   let body='';
   if(!L.length)body=`<div class="empty" style="padding:28px"><p>${UI.pjTab==='abs'?'Personne en absence ce jour-là.':'Personne n’était prévu ni n’a badgé.'}</p></div>`;
   else if(UI.pjTab==='abs')body=`<table class="pj-t"><thead><tr><th>Employé</th><th>Absence</th></tr></thead><tbody>${L.map(x=>`<tr><td class="pj-nm"><b>${esc(x.e.prenom)}</b> ${esc(x.e.nom||'')}</td><td>${x.ab?esc(ABS[x.ab.type]||'Absent'):'—'}${x.ab&&x.ab.note?` · <span class="faint">${esc(x.ab.note)}</span>`:''}</td></tr>`).join('')}</tbody></table>`;
   else{
-    const dis=verrou||!edit?'disabled':'';
+    const dis=!edit?'disabled':'';
     const rows=L.map(x=>{
       const subs=pjSousLignes(x);const n=subs.length;
       const bad=!x.override&&x.flags.some(f=>f.k==='noout'||f.k==='nobadge');
-      const valide=verrou||x.ok;
-      const menu=edit&&!verrou?`<button class="pj-dots" data-act="pj-menu" data-e="${x.e.id}" data-iso="${iso}" aria-label="Actions pour ${esc(x.e.prenom)}">${ic('dots','s')}</button>`:'';
+      const valide=verrou;
+      const menu=edit?`<button class="pj-dots" data-act="pj-menu" data-e="${x.e.id}" data-iso="${iso}" aria-label="Actions pour ${esc(x.e.prenom)}">${ic('dots','s')}</button>`:'';
       return subs.map((r,i)=>{
         const sh=r.sh,b=r.b,pc=r.pc;
         const prev=sh?`${pjChip(sh.s,'in')}<span class="pj-dash">-</span>${pjChip(sh.e,'out')}`:'<span class="faint">—</span>';
@@ -159,14 +159,14 @@ function feuilleHTML(){
             <input class="pj-in s" value="${pc?pjT(pc.s):''}" placeholder="--:--" inputmode="numeric" maxlength="5" aria-label="Payé début" ${dis}><span class="pj-dash">-</span><input class="pj-in e" value="${pc?pjT(pc.e):''}" placeholder="--:--" inputmode="numeric" maxlength="5" aria-label="Payé fin" ${dis}></div>`;
         const ppay=x.abs?'':`<input class="pj-in p" value="${pc?pc.p:(sh?sh.p||0:0)}" inputmode="numeric" maxlength="3" aria-label="Pause payée (min)" data-row="${x.e.id}|${i}" ${dis}>`;
         const first=i===0;
-        return `<tr class="${bad?'pj-bad':''} ${x.override?'pj-ovr':''} ${first?'pj-first':'pj-sub'}">
+        return `<tr class="${bad?'pj-bad':''} ${first?'pj-first':'pj-sub'}">
           ${first?`<td class="pj-v" rowspan="${n}">${valide?`<span class="pj-ck ok">${ic('check','s')}</span>`:'<span class="pj-ck"></span>'}</td>
           <td class="pj-nm" rowspan="${n}"><b>${esc(x.e.prenom)}</b><span>${esc((x.e.nom||'').toUpperCase())}</span>${x.flags.length?`<div class="pj-flags">${x.flags.map(f=>`<i class="pj-f ${f.k==='noout'||f.k==='nobadge'?'bad':f.k==='abs'?'':'warn'}">${esc(f.t)}</i>`).join('')}</div>`:''}</td>`:''}
           <td class="pj-c">${prev}</td><td class="pj-c">${pprev}</td>
           <td class="pj-c pj-sep">${bad1}</td><td class="pj-c pj-mut">${pbad}</td>
           <td class="pj-c pj-sep">${pay}</td><td class="pj-c">${ppay}</td>
           ${first?`<td class="pj-c" rowspan="${n}"><input type="checkbox" class="pj-absc" data-e="${x.e.id}" data-iso="${iso}" ${x.abs?'checked':''} ${dis} aria-label="Absent"></td>
-          <td class="pj-tot" rowspan="${n}"><b>${x.paye?dur(x.paye):'—'}</b>${x.override?`<small class="pj-ovr-t">corrigé</small>`:''}</td>
+          <td class="pj-tot" rowspan="${n}"><b>${x.paye?dur(x.paye):'—'}</b></td>
           <td class="pj-c" rowspan="${n}">${menu}</td>`:''}
         </tr>`;}).join('');
     }).join('');
@@ -179,8 +179,11 @@ function feuilleHTML(){
 
 /* ---------- actions ---------- */
 function pjX(t){const e=empById(t.dataset.e);return pjLigne(e,t.dataset.iso);}
-function pjLocked(iso){if(pjJour(iso)){toast('Journée validée : rouvre-la d’abord','alert');return true;}if(!pjPeutModifier()){toast('Seul le patron ou le directeur modifie le payé','alert');return true;}return false;}
+function pjLocked(iso){if(!pjPeutModifier()){toast('Seul le patron ou le directeur modifie le payé','alert');return true;}return false;}
+// Toute modif d'une journée validée la remet « à valider » : on revalide pour être sûr que c'est bon.
+function pjDevalider(iso){const j=(S.hoursOk||{})[iso];if(j&&j._jour){const k={...j};delete k._jour;S.hoursOk={...S.hoursOk,[iso]:k};return true;}return false;}
 function pjSetPaye(emp,iso,paye,extra){
+  if(pjDevalider(iso))setTimeout(()=>toast('Modifié : pense à revalider la journée','alert'),50);
   S.hoursOk={...(S.hoursOk||{})};S.hoursOk[iso]={...(S.hoursOk[iso]||{}),[emp]:{st:'fix',motif:'autre',paye,by:whoName(),at:Date.now(),...(extra||{})}};save();
 }
 // « 1500 », « 15h », « 15:00 », « 9h30 » → « 15:00 »
@@ -200,14 +203,14 @@ Object.assign(ACT,{
     openModal(`<div class="mh"><div><h3>${esc(x.e.prenom)} ${esc(x.e.nom||'')}</h3><p>${esc(longDate(pdate(x.iso)))}</p></div><button class="icon-btn" data-act="modal-close" aria-label="Fermer">${ic('x')}</button></div>
       <div class="stack" style="gap:8px">${items.map(([a,l])=>`<button class="btn block" data-act="${a}" data-e="${x.e.id}" data-iso="${x.iso}">${l}</button>`).join('')||'<p class="faint">Rien à proposer : change directement les heures payées dans le tableau.</p>'}</div>`);},
   'pj-here'(t){closeModal();const x=pjX(t);if(pjLocked(x.iso))return;pjSetPaye(x.e.id,x.iso,x.sh.map(s=>({s:s.s,e:s.e,p:s.p||0})));renderView();toast('Payé = heures prévues','check');},
-  'pj-hs'(t){closeModal();const x=pjX(t);if(pjLocked(x.iso))return;hokSet(x.e.id,x.iso,'ok','hs');renderView();toast('Heures sup gardées','check');},
+  'pj-hs'(t){closeModal();const x=pjX(t);if(pjLocked(x.iso))return;pjDevalider(x.iso);hokSet(x.e.id,x.iso,'ok','hs');renderView();toast('Heures sup gardées','check');},
   'pj-cut'(t){closeModal();const x=pjX(t);if(pjLocked(x.iso))return;const last=x.sh[x.sh.length-1];const pcs=(x.pieces||[]).map(pjFmt);if(pcs.length)pcs[pcs.length-1].e=last.e;pjSetPaye(x.e.id,x.iso,pcs);renderView();toast(`Payé jusqu’à ${last.e}`,'check');},
-  'pj-reset'(t){closeModal();const x=pjX(t);if(pjLocked(x.iso))return;const j={...((S.hoursOk||{})[x.iso]||{})};delete j[x.e.id];S.hoursOk={...S.hoursOk,[x.iso]:j};save();renderView();toast('Retour au calcul de Léon','edit');},
+  'pj-reset'(t){closeModal();const x=pjX(t);if(pjLocked(x.iso))return;pjDevalider(x.iso);const j={...((S.hoursOk||{})[x.iso]||{})};delete j[x.e.id];S.hoursOk={...S.hoursOk,[x.iso]:j};save();renderView();toast('Retour au calcul de Léon','edit');},
   'pj-valider'(t){if(!pjCanValider())return;const iso=t.dataset.iso;const L=pjJournee(iso).filter(x=>x.sh.length||x.ev.length);
-    confirmBox({title:'Valider la journée ?',text:`${plur(L.length,'salarié')} · ${dur(L.reduce((s,x)=>s+x.paye,0))} payées. La journée est ensuite verrouillée pour la paie (tu pourras la rouvrir).`,ok:'Valider',onOk:()=>{
+    confirmBox({title:'Valider la journée ?',text:`${plur(L.length,'salarié')} · ${dur(L.reduce((s,x)=>s+x.paye,0))} payées. Tout passe au vert. Si tu changes une heure ensuite, il faudra revalider.`,ok:'Valider',onOk:()=>{
       S.hoursOk={...(S.hoursOk||{})};const j={...(S.hoursOk[iso]||{})};
       L.forEach(x=>{if(!j[x.e.id])j[x.e.id]={st:'ok',motif:null,by:whoName(),at:Date.now()};});
-      j._jour={by:whoName(),at:Date.now()};S.hoursOk[iso]=j;save();renderView();toast('Journée validée, prête pour la paie','check');}});},
+      j._jour={by:whoName(),at:Date.now()};S.hoursOk[iso]=j;save();renderView();toast('Journée validée : tout est vert','check');}});},
   'pj-rouvrir'(t){if(!pjCanValider())return;const iso=t.dataset.iso;const j={...((S.hoursOk||{})[iso]||{})};delete j._jour;S.hoursOk={...S.hoursOk,[iso]:j};save();renderView();toast('Journée rouverte','edit');},
 });
 
@@ -246,7 +249,7 @@ document.addEventListener('keydown',ev=>{const t=ev.target;if(ev.key==='Enter'&&
 document.addEventListener('change',ev=>{
   const t=ev.target;if(!S)return;
   if(t.classList&&t.classList.contains('pj-absc')){const iso=t.dataset.iso,emp=t.dataset.e;if(pjLocked(iso)){renderView();return;}
-    if(t.checked)pjSetPaye(emp,iso,[],{abs:true});else{const j={...((S.hoursOk||{})[iso]||{})};delete j[emp];S.hoursOk={...S.hoursOk,[iso]:j};save();}
+    if(t.checked)pjSetPaye(emp,iso,[],{abs:true});else{pjDevalider(iso);const j={...((S.hoursOk||{})[iso]||{})};delete j[emp];S.hoursOk={...S.hoursOk,[iso]:j};save();}
     renderView();return;}
   if(t.classList&&t.classList.contains('pj-in')){pjFermerPick();pjSauver(t.closest('td'));}
 });
