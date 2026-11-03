@@ -234,3 +234,6 @@
 .sol-ic{color:var(--brass,#b07a2a);flex:none}.sol-t{flex:1;min-width:0}.sol .btn{flex:none}
 .sol-h{font-size:12.5px;margin-left:10px;font-weight:400}
 .sol b,.al-x .sol b{display:inline;font-weight:700}.sol .sol-t{display:block}
+.sol-det{margin-top:6px;font-size:13.5px}.sol-det summary{cursor:pointer;font-weight:600;color:var(--brass,#8a5a12)}
+.sol-det ul{margin:8px 0 0;padding-left:20px;line-height:1.6;max-height:260px;overflow:auto}
+.pl-alerts .sol-all{margin-left:10px}

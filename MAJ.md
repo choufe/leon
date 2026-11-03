@@ -5,6 +5,13 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.14 — Léon fait un planning propre du premier coup
+- Quand Léon remplit une semaine, il **repasse derrière lui tout de suite** : il applique ses solutions une par une (le plus grave d'abord) jusqu'à ce qu'il n'y ait plus rien qu'il sache régler. Fenêtre « Ton planning est prêt » : « Léon a réglé 13 points tout seul. Il reste 1 point à trancher », détail repliable, bouton pour tout annuler.
+- Heures manquantes (ex. Camille 10:00–15:00) : Léon allonge d'abord les shifts **comme le reste de l'équipe sur ce service** (commencer à 9:30 comme la cuisine, finir à 15:30…), au quart d'heure ; s'il manque encore 3 h ou plus, il ajoute un jour là où il y a le plus de couverts.
+- Un peu trop d'heures : finir plus tôt (ou commencer plus tard) là où un collègue du même poste reste, le service reste couvert. Beaucoup trop : il donne un shift à quelqu'un.
+- Les heures volontairement baissées par Léon (lissage du mois) ne sont plus signalées comme « il manque des heures ».
+- « L'avis de Léon » : bouton **« Léon règle les N points »** + « Voir le détail ». Panneau des alertes : **« Tout régler »**.
+
 ## 12.13 — Léon propose une solution à chaque problème
 - Dans « Léon a vérifié ce planning » et dans le ⚠ des cases : sous chaque problème, **une** solution calculée par Léon, avec un bouton **Faire** (annulable).
 - Ce qu'il sait faire :
