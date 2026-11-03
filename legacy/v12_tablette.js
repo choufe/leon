@@ -8,6 +8,7 @@
 // La démo aussi a sa tablette : /leon/demo.html?tablette=1 (Le Petit Beffroi, comme chez un vrai client).
 const DEMO_TAB=typeof DEMO!=='undefined'&&(window.__LEON_TAB===1||/[?&]tablette=1/.test(location.search));
 const TABLETTE=!!(V12_COMPTE&&V12_COMPTE.tablette)||DEMO_TAB;
+let tabDirection=r=>loginAs(r); // remplacée plus bas : le directeur reste sur la tablette
 if(DEMO_TAB){
   // Installable comme une appli (« Sur l'écran d'accueil ») : icône « Léon Tablette » qui rouvre toujours la tablette.
   try{const h=document.head;const add=(t,at)=>{const e=document.createElement(t);Object.entries(at).forEach(([k,v])=>e.setAttribute(k,v));h.appendChild(e);};
@@ -61,7 +62,7 @@ if(TABLETTE){
   ACT['tab-pass-ok']=function(){
     const i=document.getElementById('tab-pass');const r=TAB_ATTENTE;if(!i||!r)return;
     if(!passOK(r,i.value)){const e=document.getElementById('tab-pass-err');if(e)e.textContent=T('Mot de passe incorrect.');i.value='';i.focus();return;}
-    TAB_ATTENTE=null;closeModal();PIN.ctx=null;loginAs(r);
+    TAB_ATTENTE=null;closeModal();PIN.ctx=null;tabDirection(r);
   };
   ACT['tab-pass-annuler']=function(){TAB_ATTENTE=null;closeModal();PIN.ctx='lock';PIN.buf='';render();};
   // Écran du salarié : pas d'« Ouvrir mon espace » ni d'« Annuler » : juste « Retour » vers le code.
@@ -138,4 +139,42 @@ if(TABLETTE){
     }
   }
   {const f=render;render=function(){const o=f.apply(this,arguments);try{if(U.screen==='lock'||U.screen==='badge')tlLayout();if(U.screen==='kiosk')tlKiosk();}catch(e){}return o;};}
+}
+
+/* ---------- 12.28 · Tablette = tablette, pour tout le monde ----------
+   - Toujours en clair (même rendu que le site, quel que soit le réglage clair/sombre de l'appareil).
+   - Le directeur et le créateur (code + mot de passe) restent sur la tablette : écran « Direction »
+     avec Aujourd'hui (couverts, qui est là, absents), Hygiène, Réception. Jamais l'appli PC / téléphone. */
+if(TABLETTE){
+  try{document.documentElement.setAttribute('data-theme','light');}catch(e){}
+  // à la place de loginAs : on reste sur la tablette
+  tabDirection=function(r){
+    const rid=r.rid||U.lockRid;U.role=r.role;U.empId=null;U.rid=rid;U.viewAs=null;U.badgeMsg=null;
+    mountFull(rid);S=NET.restos[rid];syncCtx();LAST_ACT=Date.now();
+    UI.kiosk={view:'direction'};UI.kioskDir=true;U.screen='kiosk';render();
+  };
+  {const f=ACT['kiosk-home'];ACT['kiosk-home']=function(){if(UI.kioskDir){UI.kiosk={view:'direction'};render();return;}return f.apply(this,arguments);};}
+  {const f=lock;lock=function(){UI.kioskDir=false;return f.apply(this,arguments);};}
+  {const f=kioskShellHTML;kioskShellHTML=function(){
+    if(!UI.kiosk||UI.kiosk.view!=='direction')return f.apply(this,arguments);
+    const nom=U.role==='admin'?(NET.config.adminName||'Maurice'):((S.patron&&S.patron.prenom)||'Direction');
+    return `<div class="stage kiosk-stage"><div class="kiosk-shell">
+      <header class="kiosk-top"><button class="btn demo-link sm" data-act="lock">${ic('chevL','s')} ${T('Retour')}</button><b class="kiosk-title">${T('Direction')} · ${esc(nom)}</b><span class="clock" data-clock>${hhmm(nowMin())}</span></header>
+      <div class="kiosk-body">${dirHTML()}</div></div></div>`;
+  };}
+  function dirHTML(){
+    const d=TIDX,w=0;let c;try{c=rmCouverts(w,d).c;}catch(_){c=prevOf(d);}
+    const sh=shiftsWD(w,d);
+    const qui=midi=>[...new Set(sh.filter(x=>midi?sMin(x)<900:eMin(x)>1080).map(x=>x.emp))].map(empById).filter(Boolean);
+    const abs=S.absences.filter(a=>a.w===w&&a.d===d&&a.type!=='repos').map(a=>empById(a.emp)).filter(Boolean);
+    const lig=(l,cv,L)=>`<div class="dir-svc"><b>${l}</b><span>${cv?plur(cv,'couvert'):'—'}</span><div class="dir-avs">${L.map(e=>avatar(e,'s')).join('')||'<span class="faint">personne</span>'}</div></div>`;
+    const recs=(S.hyg&&S.hyg.recs||[]).filter(r=>r.iso===TODAY_ISO);
+    const door=(v,i,t,s)=>`<button class="tb-door light" data-act="dir-go" data-v="${v}"><span class="tb-dic">${ic(i)}</span><div><b>${T(t)}</b><small>${esc(s)}</small></div><span class="tb-go">→</span></button>`;
+    return `<h2 class="kiosk-h2">${T('Aujourd’hui')}</h2>
+      <div class="dir-card">${lig(T('Midi'),c[0],qui(true))}${lig(T('Soir'),c[1],qui(false))}${abs.length?`<p class="dir-abs">${ic('alert','s')} ${T('Absent')} : ${abs.map(e=>esc(e.prenom)).join(', ')}</p>`:''}</div>
+      <h2 class="kiosk-h2">${T('Sur la tablette')}</h2>
+      <div class="dir-doors">${door('hygiene','thermo','Hygiène','Températures, étiquettes, produits ouverts')}${door('reception','truck','Réception',recs.length?plur(recs.length,'livraison reçue aujourd’hui','livraisons reçues aujourd’hui'):'Photo de la facture, contrôle')}</div>
+      <p class="faint" style="margin-top:16px;font-size:13px">${T('Planning, paie et réglages : sur ton téléphone ou ton ordinateur.')}</p>`;
+  }
+  ACT['dir-go']=function(t){UI.kiosk={view:t.dataset.v};render();};
 }

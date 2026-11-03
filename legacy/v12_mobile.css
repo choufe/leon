@@ -210,3 +210,11 @@ input[type="date"]::-webkit-date-and-time-value{text-align:left}
 .rcp-ok .rcp-yes.on{background:#2E8B57;color:#fff;border-color:#2E8B57}
 .rcp-ok .rcp-no.on{background:#B7791F;color:#fff;border-color:#B7791F}
 @media (max-width:899px),(orientation:portrait){.tl-left .eyebrow{display:none!important}}
+/* écran Direction de la tablette */
+.dir-card{background:#fff;border-radius:16px;padding:6px 16px;border-left:3px solid #93630F;box-shadow:0 1px 2px rgba(19,32,26,.05);margin-bottom:18px}
+.dir-svc{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #E5E9E3}.dir-svc:last-of-type{border-bottom:0}
+.dir-svc b{width:46px;font-size:16px}.dir-svc span{width:110px;color:#5E6B64;font-size:14px}.dir-avs{display:flex;gap:3px;flex-wrap:wrap}
+.dir-abs{margin:4px 0 12px;color:#8F5A05;font-size:14px;display:flex;gap:6px;align-items:center}
+.dir-doors{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:12px}
+.tb-door.light{background:#fff;border:1px solid #D7DED5;color:#13201A}.tb-door.light small{color:#5E6B64}.tb-door.light .tb-dic{background:#18352B;color:#E9C47A}.tb-door.light .tb-go{color:#93630F}
+.kiosk-top [data-act="lock"]{background:transparent!important;border:1px solid rgba(230,238,233,.16)!important;color:#E6EEE9!important;border-radius:12px!important;min-height:44px;padding:0 14px!important}

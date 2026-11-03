@@ -164,7 +164,7 @@ function Espace({ email, onDeconnexion, onCodeExpire }) {
             <div className="cr-demo">
               <span className="cr-demo-h">Démo · Le Petit Beffroi</span>
               <a className="cr-item" href="/leon/demo.html"><b>Ouvrir la démo</b><small>Version PC / téléphone</small></a>
-              <a className="cr-item" href="/leon/tablette.html"><b>Tablette de démo</b><small>Comme chez un vrai client : écran des codes</small></a>
+              <a className="cr-item" href="/leon/tablette.html"><b>Tablette de démo</b><small>Faite pour une tablette (sur téléphone : pour tester)</small></a>
             </div>
             <button type="button" className="cr-add" onClick={() => setTunnel(true)}>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>

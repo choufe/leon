@@ -90,3 +90,5 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - Téléphone salarié : son planning + l'équipe, congés / échanges / dispos, shifts à pourvoir, cahier (lire), plats dispo, allergènes, fiches. Son code tablette visible (comme Skello) : à faire.
 - Tablette du resto : badger, hygiène (températures, DLC, étiquettes), planning (voir), cahier, plats dispo, allergènes ; patron / manager avec son code : réceptions, inventaire, Aujourd'hui.
 - 3 applis pour tester : PC (site), « Léon » (téléphone, /app), « Léon Tablette » (/tablette, bloquée sur l'écran des codes).
+
+- 3 nov. : la tablette est une tablette pour tout le monde (salarié, manager, directeur, créateur) : jamais de passage vers l'appli PC / téléphone. Maurice teste la tablette sur son téléphone, mais la cible réelle est une tablette (penser d'abord au format tablette).
