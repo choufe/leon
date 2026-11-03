@@ -5,6 +5,12 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.21 — Tablette : juste le code
+- L'écran de la tablette n'affiche plus les photos de l'équipe : **juste le pavé de code** (+ qui est au travail et la note du jour).
+- Code d'un salarié → son écran (pointer, accès rapide) avec un seul bouton **« Retour »** vers le code (plus d'« Ouvrir mon espace » ni d'« Annuler »). Retour automatique au code après un moment sans rien faire (déjà là).
+- Code du **directeur** ou du **créateur** → **mot de passe demandé** en plus (celui de la tablette : Réglages → Connexion des appareils ; le créateur peut aussi mettre le sien).
+- Démo : les codes et mots de passe de test sont dans « Codes de test », replié en bas.
+
 ## 12.20 — Tablette de démo (Le Petit Beffroi)
 - Espace créateur, colonne de gauche : bloc **« Démo · Le Petit Beffroi »** avec « Ouvrir la démo » et **« Tablette de démo »**.
 - La tablette de démo (/tablette-demo) s'installe avec sa propre icône et se comporte comme chez un vrai client : écran « Tablette du restaurant », photos de l'équipe du jour, pavé de code, **sans bandeau démo**. Les codes de test sont repliés tout en bas (« Codes de test »).
