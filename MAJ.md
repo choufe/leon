@@ -5,6 +5,11 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.27 — Tablette : la composition du site Léon + correctif manager
+- **Correctif** : un manager (ex. Camille) qui tape son code sur la tablette restait sur l'appli téléphone. Maintenant il arrive sur son écran de tablette (pointer, pause, accès rapide), comme les autres.
+- **Composition reprise de la page de connexion du site** : fond vert Léon, barre du haut (logo, nom du resto, heure), **une carte blanche au centre** pour l'action (icône, petit titre doré en capitales, grand titre, pavé ou bouton doré), et à côté des **« portes » vertes** (icône dorée, titre, sous-titre, flèche) pour Hygiène, Réception, Mon planning, ou pour « Au travail » et la note du jour. Plus de carrelage, de grain ni de cadre. Identique en clair et en sombre.
+- Écrans Hygiène / Réception / Mon planning : en-tête vert du site, contenu sur fond clair, cartes blanches avec filet de couleur à gauche (comme les cartes du site).
+
 ## 12.26 — Tablette : une ambiance Léon + Réception avec photo de facture
 - **Direction artistique « comptoir de brasserie lilloise »** : bandeau vert bouteille avec carrelage métro en filigrane et filet laiton, fond papier crème avec un léger grain, carte d'action cadrée comme un menu (double filet laiton), touches du pavé façon jetons, bouton « Pointer » en laiton poli, en-têtes du kiosque carrelés verts avec le logo crème. Plus de lueur. Même ambiance en clair et en sombre.
 - **Tablette recentrée** (HACCP, badge, réceptions) : les accès rapides du salarié deviennent **Hygiène · Réception · Mon planning**. Les disponibilités des plats sortent de la tablette (la caisse s'en charge).
