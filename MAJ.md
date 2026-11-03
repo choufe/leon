@@ -5,6 +5,13 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.15 — Léon apprend ton resto
+- Fini la règle figée « 1 serveur pour 50 couverts » : Léon regarde les **semaines publiées** (jusqu'à 10) et apprend combien de couverts par personne tu mets, poste par poste, midi et soir, et le minimum que tu mets toujours (ex. jamais moins de 2 en cuisine). C'est une moyenne qui bouge doucement, pas une règle : ça suit les couverts prévus et les événements.
+- Une question facultative, en 1 clic, sur le planning de la semaine en cours : « La semaine dernière, c'était bien planifié ? » → Bien / Il manquait du monde / Trop de monde. Léon s'en sert pour ajuster.
+- Dans l'avis de Léon, une ligne : « Appris sur tes 9 dernières semaines : 1 serveur pour ~35 couverts, jamais moins de 2… ».
+- Quand tes habitudes demandent plus que le minimum légal/raisonnable, c'est une simple info (« D'habitude tu mets 3 personnes ») : pas d'alerte, pas de shift à pourvoir inventé.
+- Les shifts à pourvoir comptent dans la couverture (le besoin est posé, l'équipe est prévenue). Le récap dit quand l'équipe ne suffit pas (« pense à un extra »).
+
 ## 12.14 — Léon fait un planning propre du premier coup
 - Quand Léon remplit une semaine, il **repasse derrière lui tout de suite** : il applique ses solutions une par une (le plus grave d'abord) jusqu'à ce qu'il n'y ait plus rien qu'il sache régler. Fenêtre « Ton planning est prêt » : « Léon a réglé 13 points tout seul. Il reste 1 point à trancher », détail repliable, bouton pour tout annuler.
 - Heures manquantes (ex. Camille 10:00–15:00) : Léon allonge d'abord les shifts **comme le reste de l'équipe sur ce service** (commencer à 9:30 comme la cuisine, finir à 15:30…), au quart d'heure ; s'il manque encore 3 h ou plus, il ajoute un jour là où il y a le plus de couverts.

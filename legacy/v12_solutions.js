@@ -187,9 +187,10 @@ function leonSol(w,a){
     const k=cv.miss.find(k=>a.t.includes({salle:'en salle',cuisine:'en cuisine',bar:'au bar'}[k]));const [A0,B0]=SVC_WIN[cv.svc];
     const mod=shiftsWD(w,d).filter(x=>(x.poste===k||(k==='salle'&&x.poste==='manager'))&&sMin(x)<B0&&eMin(x)>A0);
     const t=mod.length?mod[0]:{s:cv.svc==='midi'?'11:00':'18:30',e:cv.svc==='midi'?'15:00':'23:00'};
-    const x={w,d,s:t.s,e:t.e,p:durMin({s:t.s,e:t.e})>360?20:0,poste:k};const b=solCand(x);
-    if(!b&&(S.openShifts||[]).some(o=>o.w===w&&o.d===d&&o.poste===k&&sMin(o)<B0&&eMin(o)>A0))return null; // déjà à pourvoir
+    const x={w,d,s:t.s,e:t.e,p:durMin({s:t.s,e:t.e})>360?20:0,poste:k};let b=solCand(x);
+    if(b&&b.apres>solCible(b.e,w)+60)b=null; // pas de renfort qui fait exploser les heures de quelqu'un : mieux vaut un shift à pourvoir
     if(b)return {txt:`Ajouter <b>${esc(b.e.prenom)}</b> ${solJour(w,d)} ${x.s}–${x.e} (${solHrs(b)}).`,label:`${b.e.prenom} en renfort ${solJour(w,d)} ${cv.svc}`,run:()=>{S.shifts.push({id:uid('s'),emp:b.e.id,...x,leon:1,lw:`renfort ${cv.svc} (${cv.cv} couverts)`});pushNews(b.e.id,w,`Nouveau shift : ${solJour(w,d)} ${x.s}–${x.e}`);}};
+    if(a.tone==='info')return null; // simple habitude du resto : on ne crée pas de shift à pourvoir pour ça
     return {txt:`Personne de libre : Léon crée un shift à pourvoir ${x.s}–${x.e}, l’équipe est prévenue.`,label:`Shift à pourvoir ${solJour(w,d)} ${cv.svc}`,run:()=>{(S.openShifts=S.openShifts||[]).push({id:uid('o'),...x});}};
   }
   }}catch(err){return null;}
@@ -238,7 +239,7 @@ function leonPolish(w){
 function restorePlan(js){const o=JSON.parse(js);S.shifts=o.sh;S.absences=o.ab;S.openShifts=o.op;S.dayNotes=o.no;}
 function polishRecap(w,faits,titre){
   const reste=(planAlerts(w)||[]).filter(a=>a.tone!=='info');
-  openModal(`<div class="mh"><div><h3>${ic('spark')} ${titre}</h3><p>${faits.length?`Léon a réglé ${plur(faits.length,'point','points')} tout seul.`:'Rien à régler de plus.'} ${reste.length?`Il reste ${plur(reste.length,'point')} que tu dois trancher.`:'Le planning est propre.'}</p></div><button class="icon-btn" data-act="modal-close" aria-label="Fermer">${ic('x')}</button></div>
+  openModal(`<div class="mh"><div><h3>${ic('spark')} ${titre}</h3><p>${faits.length?`Léon a réglé ${plur(faits.length,'point','points')} tout seul.`:'Rien à régler de plus.'} ${reste.length?`Il reste ${plur(reste.length,'point')} que tu dois trancher.`:'Le planning est propre.'}</p>${(()=>{const n=(S.openShifts||[]).filter(o=>o.w===w).length;return n?`<p class="faint" style="margin-top:4px">${plur(n,'shift à pourvoir','shifts à pourvoir')} : ton équipe ne suffit pas pour tous les couverts prévus. L’équipe est prévenue à la publication ; sinon, pense à un extra.</p>`:'';})()}</div><button class="icon-btn" data-act="modal-close" aria-label="Fermer">${ic('x')}</button></div>
     ${faits.length?`<details class="sol-det"><summary>Voir ${faits.length>1?`les ${faits.length} changements`:'le changement'}</summary><ul>${faits.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></details>`:''}
     ${reste.length?`<p style="margin:14px 0 6px;font-weight:600">À toi de voir</p><div class="rm-why">${reste.slice(0,5).map(a=>`<div class="rm-w ${a.tone}"><span class="rm-ic">${ic('alert','s')}</span><div><b>${esc(a.t)}</b><p>${esc(a.s)}</p></div></div>`).join('')}</div>`:''}
     <div class="mf">${faits.length?'<button class="btn" data-act="pl-undo-close">Annuler ce que Léon a fait</button>':''}<button class="btn primary" data-act="modal-close">${reste.length?'OK, je regarde':'Parfait'}</button></div>`,'wide');

@@ -237,3 +237,8 @@
 .sol-det{margin-top:6px;font-size:13.5px}.sol-det summary{cursor:pointer;font-weight:600;color:var(--brass,#8a5a12)}
 .sol-det ul{margin:8px 0 0;padding-left:20px;line-height:1.6;max-height:260px;overflow:auto}
 .pl-alerts .sol-all{margin-left:10px}
+
+/* ---------- 12.15 · Léon apprend le resto ---------- */
+.ap-q{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 12px;margin:0 0 10px;border-radius:12px;background:color-mix(in oklab,var(--brass,#b07a2a) 8%,var(--surface));border:1px solid color-mix(in oklab,var(--brass,#b07a2a) 25%,transparent);font-size:13.5px}
+.ap-ic{color:var(--brass,#b07a2a)}.ap-t{flex:1;min-width:200px}.ap-b{display:flex;gap:6px;flex-wrap:wrap}
+.ap-appris{margin:6px 0 0;font-size:13px;color:var(--brass,#8a5a12)}
