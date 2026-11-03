@@ -25,27 +25,40 @@ export default function LeonApp() {
     let db = null;
     let cancelled = false;
     (async () => {
+      // /tablette = la tablette du resto : elle reste sur l'écran des codes, sans retour vers le PC ou le téléphone.
+      const tablette = window.location.pathname.startsWith("/tablette");
       const { data } = await supabase.auth.getUser();
       if (!data.user) {
-        router.replace("/login");
+        router.replace(tablette ? "/login?tablette=1" : "/login");
         return;
       }
       // Le créateur qui entre chez un patron pour l'aider : /app?resto=<id>.
-      const resto = new URLSearchParams(window.location.search).get("resto");
+      let resto = new URLSearchParams(window.location.search).get("resto");
+      if (tablette) {
+        try {
+          if (resto) localStorage.setItem("leon:tablette:resto", resto);
+          else resto = localStorage.getItem("leon:tablette:resto");
+        } catch (_) {}
+      }
       let orgId = null;
       if (resto) {
         const { data: peut } = await supabase.rpc("createur_peut_aider", { o_id: resto });
         if (cancelled) return;
-        if (!peut) { router.replace("/createur"); return; }
+        if (!peut) {
+          if (tablette) { try { localStorage.removeItem("leon:tablette:resto"); } catch (_) {} }
+          else { router.replace("/createur"); return; }
+        } else {
         orgId = resto;
-        setAide(true);
+        setAide(!tablette);
         const { data: liste } = await supabase.rpc("createur_restos");
         const o = (liste || []).find((x) => x.id === resto);
         window.__leonCompte = { prenom: (o && !o.test && o.patron_prenom) || "Maurice", resto: o && o.nom, ville: o && o.ville };
-      } else {
+        }
+      }
+      if (!orgId) {
         // Le créateur n'a rien à faire ici sans resto choisi : direction son espace (2e code, liste des restos).
         // /app?moi=1 = il entre volontairement dans son propre resto depuis /createur.
-        if (!new URLSearchParams(window.location.search).get("moi")) {
+        if (!new URLSearchParams(window.location.search).get("moi") && !tablette) {
           const { data: createur } = await supabase.rpc("devenir_createur");
           if (cancelled) return;
           if (createur) { router.replace("/createur"); return; }
@@ -53,7 +66,7 @@ export default function LeonApp() {
         // Code à 4 chiffres pour rouvrir l'appli (comptes qui en ont un).
         const { data: aCode } = await supabase.rpc("mon_code_existe");
         if (cancelled) return;
-        if (aCode && !estDeverrouille()) {
+        if (aCode && !estDeverrouille() && !tablette) {
           const { data: a } = await supabase.rpc("mon_accueil");
           if (cancelled) return;
           await new Promise((resolve) => setVerrou({ prenom: a && a.prenom, email: data.user.email, resolve }));
@@ -80,10 +93,12 @@ export default function LeonApp() {
         // Salarié invité par son patron : il entre dans le Léon de son resto, avec sa vue à lui.
         const { data: sal } = await supabase.rpc("mon_salarie");
         if (cancelled) return;
+        if (sal && sal.emp_id && tablette) { setErr("TABLETTE_SALARIE"); return; }
         if (sal && sal.emp_id) {
           window.__leonCompte = { salarie: true, empId: sal.emp_id, resto: sal.resto || "", prenom: "" };
         }
       }
+      if (tablette) window.__leonCompte = { ...(window.__leonCompte || {}), tablette: true };
       db = createLeonDb(supabase, orgId);
       window.__leonClaude = {
         use: async (name) => (name === "db" ? db : null),
@@ -152,7 +167,7 @@ export default function LeonApp() {
     return shell(
       <section className="v-door-main">
         <h1>On n'arrive pas à ouvrir votre resto</h1>
-        <p className="v-hint">{err === NO_DB_MSG ? err : "Votre compte est bien connecté, mais il n'est relié à aucun restaurant pour l'instant. Si ça continue, appelez Maurice."}</p>
+        <p className="v-hint">{err === "TABLETTE_SALARIE" ? "La tablette du resto se connecte avec le compte du patron, pas celui d'un salarié." : err === NO_DB_MSG ? err : "Votre compte est bien connecté, mais il n'est relié à aucun restaurant pour l'instant. Si ça continue, appelez Maurice."}</p>
         <Link className="v-btn v-btn-line" href="/login">Retour à la connexion</Link>
       </section>
     );

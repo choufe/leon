@@ -4,6 +4,7 @@ export const metadata = {
   title: "Léon",
   description: "Léon garde un œil sur votre restaurant, même quand vous n'y êtes pas.",
   // Sur iPhone : « Partager → Sur l'écran d'accueil » ouvre Léon en plein écran, comme une appli.
+  manifest: "/manifest.webmanifest",
   appleWebApp: { capable: true, title: "Léon", statusBarStyle: "black-translucent" },
 };
 

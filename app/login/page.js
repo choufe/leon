@@ -29,6 +29,8 @@ export default function Login() {
 
   // Après connexion : le créateur va dans son espace (où il choisit son 2e code), les autres dans leur resto.
   async function allerChezMoi(sb) {
+    // Connexion lancée depuis l'appli « Léon Tablette » : on y retourne, toujours.
+    if (new URLSearchParams(window.location.search).get("tablette")) { router.push("/tablette"); return; }
     // Un salarié qui a ouvert son lien d'invitation puis confirmé son mail : on le rattache à son resto.
     let invit = null;
     try { invit = localStorage.getItem("leon:rejoindre"); } catch (_) {}

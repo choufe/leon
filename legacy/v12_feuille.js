@@ -15,7 +15,8 @@
 const PJ_TOL_IN=5, PJ_TOL_OUT=15;
 UI.pj=UI.pj==null?-1:UI.pj; // jour affiché : -1 = hier
 
-function pjCanValider(){const r=effRole();return r==='admin'||r==='patron';}
+// 3 nov. : le manager corrige et valide aussi (depuis son téléphone)
+function pjCanValider(){const r=effRole();return r==='admin'||r==='patron'||r==='manager';}
 function pjJour(iso){return ((S.hoursOk||{})[iso]||{})._jour||null;}
 
 // Les morceaux travaillés : [{a,b}] d'après les badges (arrivée/retour → pause/départ).
@@ -88,7 +89,7 @@ function pjEtatJour(iso){
 function pjPayeMin(empId,iso){const e=empById(empId);if(!e)return 0;return pjLigne(e,iso).paye;}
 
 const pjT=m=>hhmm(m);
-function pjPeutModifier(){return pjCanValider();} // patron / admin ; les managers regardent
+function pjPeutModifier(){return pjCanValider();} // patron, admin et manager
 UI.pjTab='prevus'; // un seul onglet : les gens prévus (les absences, on s'en fiche ici)
 
 // Les lignes d'un salarié : une par service prévu (midi, soir…), alignées colonne par colonne.
