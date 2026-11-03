@@ -5,6 +5,13 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.06 — Retouches : pleine largeur, repos obligatoires, badgeuse plus simple
+- **Toute la largeur de l'écran** est utilisée, menu ouvert ou replié (plus de vide à droite).
+- **Onglet marque-page** du menu en doré : visible en mode sombre comme en clair.
+- **Badgeuse** : plus de couleur ni de mention « corrigé ». On valide la journée → tout passe au vert. Si on change une heure ensuite, la journée repasse « À valider » : on revalide pour être sûr.
+- **Planning : jours de repos** affichés (« Repos ») sur les cases vides, et règle durcie : **2 jours de repos obligatoires** par semaine (le dimanche + un autre), sinon ⚠ rouge à côté du nom.
+- Cases des journées en coupure un peu plus grandes.
+
 ## 12.05 — Badgeuse sur le modèle Skello, menu en marque-page, Pointage simplifié
 - **Pointage = la Badgeuse, et rien d'autre** : plus d'onglets « En direct », « Heures à valider », « Borne de pointage », « Relevé d'heures ». Le staff n'a plus d'entrée Badgeuse dans son menu (il pointe sur la tablette).
 - **Badgeuse redessinée** (alignée, comme Skello) : jours à gauche avec ✓, filtres « Prévus » / « Absences planifiées », bandeau « Journée validée » ou « En attente de validation », et pour chaque service une ligne : prévu (début vert, fin violet), pause, **badgé** (texte simple ; rouge = retard / départ manquant, bleu = parti après), **payé** (début, fin, pause), Abs., total, menu ⋯ (Il était là, heures sup, fin prévue, revenir au calcul de Léon).

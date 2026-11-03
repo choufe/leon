@@ -62,7 +62,6 @@
 .pj-in:hover:not(:disabled){background:var(--sunk)}
 .pj-in:focus{outline:2px solid var(--info);outline-offset:1px;background:var(--surface)}
 .pj-in:disabled{background:transparent;color:var(--ink)}
-tr.pj-ovr .pj-in{background:color-mix(in oklab,var(--brass-soft) 70%,var(--surface))}
 .pj-absc{width:20px;height:20px;accent-color:var(--bad)}
 .pj-tot{white-space:nowrap;font-variant-numeric:tabular-nums}
 .pj-tot b{font-weight:500}
@@ -142,3 +141,19 @@ tr.pj-ovr .pj-in{background:color-mix(in oklab,var(--brass-soft) 70%,var(--surfa
 /* menu replié : la page prend toute la largeur, planning et badgeuse s'agrandissent */
 @media (min-width:901px){.shell.mini .view{max-width:none}}
 .shell .view{transition:max-width .2s ease}
+
+/* 12.06 · journée validée : tout passe au vert */
+.pj-ban.ok~.pj-card .pj-t tbody td{background:color-mix(in oklab,#3E8E6A 9%,var(--surface))}
+.pj-v .pj-ck.ok{background:#3E8E6A;border-color:#3E8E6A}
+/* pleine largeur, menu ouvert ou fermé */
+@media (min-width:901px){.view{max-width:none}}
+/* onglet marque-page visible en mode sombre comme en clair */
+.menu-tab{background:var(--brass);color:#fff;box-shadow:0 0 0 1px color-mix(in oklab,#fff 25%,transparent),3px 2px 10px -4px rgba(0,0,0,.45)}
+/* planning : cases un peu plus hautes pour les coupures */
+.pg9 td.cell{height:56px}
+.pg9 td.cell:has(.shift~.shift) .shift{padding:3px 6px}
+.pg9 td.cell:has(.shift~.shift) .shift .t{font-size:11.5px}
+.pg9 td.cell:has(.shift~.shift) .shift .m{font-size:11px}
+/* jours de repos */
+.pg9 .repos-t{display:flex;align-items:center;justify-content:center;height:100%;min-height:44px;border-radius:6px;background:repeating-linear-gradient(135deg,var(--sunk) 0 6px,transparent 6px 12px);color:var(--ink-3);font-size:11.5px;font-weight:600;letter-spacing:.02em}
+.pg9.editable td.c9:hover .repos-t{opacity:.35}
