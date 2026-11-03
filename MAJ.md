@@ -5,6 +5,11 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 12.17 — « Aujourd'hui » en haut de l'accueil + ménage
+- En ouvrant Léon (tablette ou PC), le patron / directeur / manager qui fait le planning voit d'abord **Aujourd'hui** : couverts du midi et du soir avec qui travaille (pastilles), qui est absent, et **ce qu'il y a à faire** en boutons qui mènent direct au bon endroit : badgeuse d'hier à valider, demandes à valider, planning de la semaine prochaine à publier, problèmes au planning (Léon a une solution). Rien à faire → « Rien à faire de ton côté. Bon service. »
+- Raccourcir les heures : celui qui **ferme son poste** reste jusqu'au bout (sauf si un collègue prend le relais) ; Léon raccourcit plutôt ailleurs.
+- Ménage : le bouton « Supprimer le restaurant » est retiré des Réglages (la suppression se fait depuis l'espace créateur, avec le code demandé deux fois).
+
 ## 12.16 — Une solution à chaque problème, même petit
 - **Un peu trop d'heures** (Yanis +1 h, Nathan +1 h…) : Léon raccourcit **15 min par 15 min, un peu partout**, là où ça ne gêne pas le service : hors coup de feu (11:30–14:00, 19:00–21:30) ou quand un collègue du même poste prend le relais. 1 h max par shift. Ça marche aussi pour un poste seul (le bar).
 - Heures complémentaires « dans la limite » : Léon ramène quand même au contrat.

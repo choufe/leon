@@ -100,7 +100,9 @@ function solRaboter(e,w,trop){
       const [A0,B0]=SVC_WIN[sMin(x0)<900?'midi':'soir'];const ne=eMin(x)-15,ns=sMin(x)+15;
       const autres=shiftsWD(w,x.d).filter(y=>y.emp!==e.id&&grp(x.poste).includes(y.poste));
       let y=null;
-      if(ne>=B0||autres.some(o=>sMin(o)<=ne&&eMin(o)>=eMin(x)))y={...x,e:hhmm(ne)};
+      // celui qui ferme son poste reste jusqu'à la fermeture : on ne raccourcit sa fin que si quelqu'un prend le relais
+      const ferme=!autres.some(o=>eMin(o)>=eMin(x0));
+      if((ne>=B0&&!ferme)||autres.some(o=>sMin(o)<=ne&&eMin(o)>=eMin(x)))y={...x,e:hhmm(ne)};
       else if(ns<=A0||autres.some(o=>sMin(o)<=sMin(x)&&eMin(o)>=ns))y={...x,s:hhmm(ns)};
       if(!y)continue;if(durMin({...y,p:0})<=360)y.p=0;
       const g=durMin(x)-durMin(y);if(g<=0)continue;
