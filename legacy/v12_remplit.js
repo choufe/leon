@@ -179,7 +179,7 @@ function leonCibOf(w,emp){const k=wkIso(w);return ((S.leonCib||{})[k]||{})[emp]|
     // on garde : « proposé par Léon » + la raison (courte) sur chaque shift
     R.add.forEach(x=>{x.lw=String(x.why||'').slice(0,120);delete x.why;});
     S.leonCib={...(S.leonCib||{})};const k=wkIso(w);const m={...(S.leonCib[k]||{})};
-    Object.entries(R.cible||{}).forEach(([emp,C])=>{if(C.baisse>0)m[emp]={c:C.cible,r:`déjà +${dur(C.surplus)} d’heures sup ce mois-ci`};});
+    Object.entries(R.cible||{}).forEach(([emp,C])=>{if(C.baisse>0)m[emp]={c:C.cible,sp:C.surplus,r:`déjà +${dur(C.surplus)} d’heures sup ce mois-ci`};});
     S.leonCib[k]=m;}
   return f.apply(this,arguments);
 };}
@@ -190,7 +190,7 @@ function leonCibOf(w,emp){const k=wkIso(w);return ((S.leonCib||{})[k]||{})[emp]|
   const r=f.apply(this,arguments);
   if(cib&&r){Object.entries(cib).forEach(([emp,C])=>{const apres=empWeekMin(emp,w);
     if(apres>C.c+30&&avant[emp]<=C.c+30){const e=empById(emp);
-      setTimeout(()=>leonAvis(`${e.prenom} : Léon avait mis ${dur(C.c)} au lieu de ${e.contrat}h exprès (${C.r}). Ça fait maintenant ${dur(apres)}.`),60);}});}
+      setTimeout(()=>leonAvis(`${e.prenom} a déjà fait ${C.sp!=null?dur(C.sp):'des'} heures sup ce mois-ci : Léon lui avait mis ${dur(C.c)} exprès. Ça fait maintenant ${dur(apres)}.`),60);}});}
   return r;
 };}
 function leonAvis(msg){
@@ -204,12 +204,50 @@ ACT['leon-ok']=function(t){const x=t.closest('.toast');if(x)x.remove();};
 function leonMarques(){
   const g=document.getElementById('pg9');if(!g||!S)return;const w=UI.plan.w;
   g.querySelectorAll('.shift[data-sid]').forEach(el=>{const x=S.shifts.find(y=>y.id===el.dataset.sid);if(!x||!x.leon||el.classList.contains('by-leon'))return;
-    el.classList.add('by-leon');el.title=(el.title||'')+' · proposé par Léon'+(x.lw?' : '+x.lw:'');
+    el.classList.add('by-leon');el.dataset.tip=(el.title?el.title+'\n':'')+'✦ Proposé par Léon'+(x.lw?' : '+x.lw.charAt(0).toLowerCase()+x.lw.slice(1):'')+'.';el.removeAttribute('title');
     const td=el.closest('td');if(td)td.classList.add('cell-leon');});
   if(effRole()==='staff')return;
   const k=wkIso(w);const cib=(S.leonCib||{})[k]||{};
   Object.entries(cib).forEach(([emp,C])=>{const td=g.querySelector(`td[data-emp="${CSS.escape(emp)}"]`);const t=td&&td.parentElement.querySelector('td.ec .hrs .tnum');if(!t||t.querySelector('.leon-cib'))return;
     const e=empById(emp);const fait=t.textContent.split('/')[0].trim();
-    t.innerHTML=`${esc(fait)} / <span class="leon-cib" title="${esc(`Léon vise ${dur(C.c)} au lieu de ${e.contrat}h cette semaine, exprès : ${C.r}.`)}">✦${dur(C.c)}</span>`;});
+    const sp=C.sp!=null?C.sp:null;const pq=sp!=null?`${e.prenom} a déjà fait ${dur(sp)} d’heures sup ce mois-ci`:`${e.prenom} : ${C.r}`;
+    t.innerHTML=`${esc(fait)} / <span class="leon-cib" tabindex="0" data-tip="${esc(`${pq}. Léon lui met ${dur(C.c)} au lieu de ${e.contrat}h cette semaine, pour lisser sur le mois.`)}">✦${dur(C.c)}</span>`;});
 }
 {const f=renderView;renderView=function(){const r=f.apply(this,arguments);try{if(UI.view==='planning')leonMarques();}catch(e){}return r;};}
+
+/* =========================================================
+   « L'AVIS DE LÉON » : on demande à Léon ce qu'il pense du planning. Il ne crée rien tout seul :
+   il dit ce qui lui saute aux yeux. Compléter les trous reste possible, en option.
+   ========================================================= */
+function leonAvisPlanning(w){
+  const out=[];const days=[0,1,2,3,4,5,6].filter(d=>!isClosed(d));
+  const grp={salle:['salle','manager'],cuisine:['cuisine'],bar:['bar']};const L={salle:'en salle',cuisine:'en cuisine',bar:'au bar'};
+  const have=(d,svc,ps)=>{const [a,b]=SVC_WIN[svc];return new Set(shiftsWD(w,d).filter(x=>sMin(x)<b&&eMin(x)>a&&ps.includes(x.poste)).map(x=>x.emp)).size;};
+  let manque=0;const trop=[];
+  days.forEach(d=>{const {c,ev}=rmCouverts(w,d);
+    ['midi','soir'].forEach((svc,i)=>{const cv=c[i];if(!cv)return;
+      const need={salle:Math.max(1,Math.ceil(cv/50)),cuisine:Math.max(1,Math.ceil(cv/55)),bar:cv>=80||(ev&&ev.l==='Match'&&svc==='soir')?1:0};
+      Object.keys(need).forEach(k=>{if(!EMP.some(e=>grp[k].includes(e.poste)))return;const h=have(d,svc,grp[k]);
+        if(h<need[k]){manque++;out.push({tone:'bad',ic:'users',t:`${JOURS[d]} ${svc} : il manque du monde ${L[k]}`,s:`${cv} couverts prévus${ev?' ('+ev.note+')':''} : ${h} ${L[k]}, il en faudrait ${need[k]}.`});}
+        else if(h>need[k]+1&&cv<70)trop.push(`${JOURS[d]} ${svc} ${L[k]} (${h} pour ${cv} couverts)`);});});});
+  if(trop.length)out.push({tone:'warn',ic:'euro',t:'Peut-être un peu trop de monde',s:trop.slice(0,3).join(' · ')+'. Un service calme : quelqu’un pourrait finir plus tôt.'});
+  EMP.filter(e=>!e.hidden).forEach(e=>{const m=empWeekMin(e.id,w);if(!m)return;const c=e.contrat*60;const M=rmMois(e,w);
+    if(m>c+60)out.push({tone:M.surplus>60?'bad':'warn',ic:'clock',t:`${e.prenom} : ${dur(m)} pour ${e.contrat}h de contrat`,s:M.surplus>60?`Et ${e.prenom} a déjà fait ${dur(M.surplus)} d’heures sup ce mois-ci : ça fait beaucoup sur le mois.`:(e.contrat<35?`${dur(m-c)} d’heures complémentaires cette semaine (temps partiel).`:`${dur(m-c)} d’heures sup cette semaine.`)});
+    else if(m<c-180&&!S.absences.some(a=>a.emp===e.id&&a.w===w))out.push({tone:'info',ic:'clock',t:`${e.prenom} : ${dur(m)} pour ${e.contrat}h de contrat`,s:`Il reste ${dur(c-m)} à placer cette semaine.`});});
+  let A=[];try{A=planAlerts(w)||[];}catch(e){}
+  const bad=A.filter(a=>a.tone==='bad'&&a.emp);if(bad.length)out.unshift({tone:'bad',ic:'alert',t:plur(bad.length,'règle pas respectée','règles pas respectées'),s:bad.slice(0,3).map(a=>a.t).join(' · ')+(bad.length>3?'…':'.')+' Clique les ⚠ sur les cases pour le détail.'});
+  try{const totCA=sum([0,1,2,3,4,5,6],d=>dayCA(d));const cost=sum(S.shifts.filter(x=>x.w===w),x=>durMin(x)/60*(empById(x.emp).taux||0));
+    if(CAN().salaries&&totCA){const r=cost/totCA;out.push({tone:r>0.35?'bad':r>0.32?'warn':'ok',ic:'euro',t:`Masse salariale : ${pc(r,0)} du CA prévu`,s:r>0.35?'C’est haut pour un resto (on vise autour de 30 %).':r>0.32?'Un peu au-dessus des 30 % qu’on vise.':'Bien tenu.'});}}catch(e){}
+  const evs=days.map(d=>rmEvent(w,d)).filter(Boolean);
+  if(evs.length)out.push({tone:'ok',ic:'spark',t:plur(evs.length,'événement noté','événements notés'),s:evs.map(e=>e.note).join(' · ')+' : Léon en tient compte.'});
+  return {out,manque,vide:!S.shifts.some(x=>x.w===w)};
+}
+function avisFlow(w){
+  const R=leonAvisPlanning(w);const can=CAN().editPlanning;
+  const ok=!R.out.some(x=>x.tone==='bad'||x.tone==='warn');
+  openModal(`<div class="mh"><div><h3>${ic('spark')} L’avis de Léon</h3><p>${R.vide?'Cette semaine est vide.':ok?'Rien ne me saute aux yeux. Ton planning tient la route.':'Voilà ce qui me saute aux yeux. Tu connais ton équipe : c’est toi qui décides.'}</p></div><button class="icon-btn" data-act="modal-close" aria-label="Fermer">${ic('x')}</button></div>
+    <div class="rm-why">${R.vide?`<p class="faint" style="margin:0">Il n’y a encore personne dessus. Je peux te proposer une semaine complète : contrats, dispos, couverts prévus et événements notés. Tu gardes la main ensuite.</p>`:R.out.map(x=>`<div class="rm-w ${x.tone}"><span class="rm-ic">${ic(x.ic,'s')}</span><div><b>${esc(x.t)}</b><p>${esc(x.s)}</p></div></div>`).join('')||''}</div>
+    <div class="mf"><button class="btn" data-act="modal-close">Merci</button>${can&&(R.manque||R.vide||R.out.some(x=>x.tone==='info'))?`<button class="btn brass" data-act="pl-fill-direct">${ic('wand','s')} ${R.vide?'Léon remplit la semaine':'Léon propose de quoi compléter'}</button>`:''}</div>`,'wide');
+}
+ACT['pl-fill-direct']=function(){closeModal();fillFlow(UI.plan.w);};
+ACT['pl-fill']=function(){closeMenu&&closeMenu();qeClose();avisFlow(UI.plan.w);};

@@ -78,7 +78,7 @@ ACT['pl-w']=function(t){
     const travaille=new Set(S.shifts.filter(x=>x.emp===e.id&&x.w===w).map(x=>x.d));
     if(!travaille.size)return;
     const repos=7-travaille.size;
-    if(repos<2)A.push({tone:'bad',k:'reposHebdo',emp:e.id,t:`${e.prenom} n’a que ${repos?'1 jour':'aucun jour'} de repos`,s:'Il faut 2 jours de repos par semaine (le dimanche + un autre jour).'});
+    if(repos<2)A.push({tone:'bad',k:'reposHebdo',emp:e.id,t:(repos?`${e.prenom} n’a qu’un jour de repos`:`${e.prenom} n’a aucun jour de repos`),s:'Il faut 2 jours de repos par semaine (le dimanche + un autre jour).'});
   });}catch(err){}
   return A;
 };}
@@ -94,7 +94,8 @@ function v12Repos(){
 /* ---------- 5. Les employés voient toute l'équipe ---------- */
 {const f=viewPlanning;viewPlanning=function(){
   if(S&&effRole()==='staff'&&UI.plan._v12team==null){UI.plan._v12team=1;UI.plan.team=true;}
-  const html=f.apply(this,arguments);
+  let html=f.apply(this,arguments);
+  html=html.replace(/data-act="pl-fill"([^>]*)>([\s\S]*?)Léon remplit<\/button>/,'data-act="pl-fill"$1>'+ic('spark','s')+' L’avis de Léon</button>').replace(/data-act="pl-fill"([^>]*)>([\s\S]*?)Léon remplit la semaine/,'data-act="pl-fill-direct"$1>$2Léon remplit la semaine');
   try{const b=v12AlertePub();if(b){const i=html.indexOf('<div class="pl-bar">');if(i>=0)return html.slice(0,i)+b+html.slice(i);}}catch(e){}
   return html;
 };}
@@ -108,7 +109,7 @@ function v12AlertePub(){
   const quand=j<=0?'aujourd’hui':j===1?'demain':`dans ${j} jours`;
   const ici=UI.plan.w===w;
   return `<div class="pub-al ${j<=3?'bad':'warn'}">${ic('bell','s')}<div><b>La semaine prochaine n’est pas encore publiée</b><p>Elle commence ${quand}. L’équipe doit connaître ses horaires au moins ${V12_PUB_JOURS} jours avant.${vide?' Elle est encore vide : Léon peut la remplir pour toi.':''}</p></div>
-    <div class="pub-acts">${ici?(vide?`<button class="btn sm brass" data-act="pl-fill">${ic('wand','s')} Léon remplit</button>`:`<button class="btn sm primary" data-act="pl-publish">${ic('send','s')} Publier</button>`):`<button class="btn sm" data-act="pl-goto-w" data-w="${w}">Voir la semaine prochaine</button>`}</div></div>`;
+    <div class="pub-acts">${ici?(vide?`<button class="btn sm brass" data-act="pl-fill-direct">${ic('wand','s')} Léon remplit</button>`:`<button class="btn sm primary" data-act="pl-publish">${ic('send','s')} Publier</button>`):`<button class="btn sm" data-act="pl-goto-w" data-w="${w}">Voir la semaine prochaine</button>`}</div></div>`;
 }
 ACT['pl-goto-w']=function(t){qeClose();UI.plan.w=+t.dataset.w;UI.plan.mode='semaine';UI.plan.sel=null;renderView();};
 // petit rappel sur l'entrée « Planning » du menu
@@ -119,3 +120,16 @@ if(typeof VIEWS!=='undefined'&&VIEWS.planning)VIEWS.planning=viewPlanning;
 function v12Apres(){try{v12Menu();}catch(e){}try{if(UI.view==='planning'){v12Repos();v12Alertes();}}catch(e){}}
 {const f=renderView;renderView=function(){const r=f.apply(this,arguments);v12Apres();return r;};}
 {const f=render;render=function(){const r=f.apply(this,arguments);v12Apres();return r;};}
+
+/* ---------- bulles d'aide instantanées : tout élément avec data-tip ---------- */
+(function(){
+  let tip=null,cur=null;
+  const show=el=>{if(!tip){tip=document.createElement('div');tip.className='tipb';tip.setAttribute('role','tooltip');document.body.appendChild(tip);}
+    tip.textContent=el.dataset.tip;tip.style.display='block';const r=el.getBoundingClientRect();const tw=tip.offsetWidth,th=tip.offsetHeight;
+    let x=r.left+r.width/2-tw/2;x=Math.max(8,Math.min(x,window.innerWidth-tw-8));let y=r.top-th-8;if(y<8)y=r.bottom+8;
+    tip.style.left=(x+window.scrollX)+'px';tip.style.top=(y+window.scrollY)+'px';cur=el;};
+  const hide=()=>{if(tip)tip.style.display='none';cur=null;};
+  document.addEventListener('mouseover',ev=>{const el=ev.target.closest&&ev.target.closest('[data-tip]');if(el&&el!==cur)show(el);else if(!el&&cur)hide();});
+  document.addEventListener('focusin',ev=>{const el=ev.target.closest&&ev.target.closest('[data-tip]');if(el)show(el);});
+  document.addEventListener('focusout',hide);document.addEventListener('scroll',hide,true);document.addEventListener('mousedown',hide);
+})();
