@@ -73,7 +73,7 @@ function autoFillMalin(w){
     let nd=d+1;if(nd<=6){const nx=shOf(e.id,nd);if(nx.length&&(1440-Math.max(...all.map(eMin)))+Math.min(...nx.map(sMin))<660)return false;}
     return true;
   };
-  const push=(e,d,seg,poste,pourquoi)=>{const x={id:uid('s'),emp:e.id,w,d,s:seg.s,e:seg.e,p:seg.p||(durMin(seg)>360?20:0),poste,why:pourquoi};add.push(x);return x;};
+  const push=(e,d,seg,poste,pourquoi)=>{const x={id:uid('s'),emp:e.id,w,d,s:seg.s,e:seg.e,p:seg.p||(durMin(seg)>360?20:0),poste,why:pourquoi,leon:1};add.push(x);return x;};
   // ordre de priorité pour les renforts : d'abord ceux qui ont le moins fait (par rapport à leur cible), jamais ceux en heures sup
   const rang=e=>weekMin(e.id)/Math.max(60,CIB[e.id].cible);
 
@@ -168,5 +168,48 @@ function fillFlowMalin(w){
 }
 autoFill=withW(autoFillMalin);
 fillFlow=withW(fillFlowMalin);
-// on ne garde pas l'explication dans le planning enregistré
-{const f=ACT['pl-fill-go'];ACT['pl-fill-go']=function(){if(FILL&&FILL.R)FILL.R.add.forEach(x=>{delete x.why;});return f.apply(this,arguments);};}
+/* =========================================================
+   Léon ASSUME ses choix : ce qu'il a optimisé reste marqué ✦, et si on le défait, il prévient (sans forcer).
+   ========================================================= */
+// Mémoire des cibles volontaires de Léon, par semaine : { '2026-11-23': { emp: {c: minutes, r: 'pourquoi'} } }
+{const D=DOCS.planning;DOCS.planning={p:D.p,out:R=>({...D.out(R),leonCib:R.leonCib||{}}),in:(R,d)=>{D.in(R,d);R.leonCib=d.leonCib||{};}};}
+function leonCibOf(w,emp){const k=wkIso(w);return ((S.leonCib||{})[k]||{})[emp]||null;}
+{const f=ACT['pl-fill-go'];ACT['pl-fill-go']=function(){
+  if(FILL&&FILL.R){const {w,R}=FILL;
+    // on garde : « proposé par Léon » + la raison (courte) sur chaque shift
+    R.add.forEach(x=>{x.lw=String(x.why||'').slice(0,120);delete x.why;});
+    S.leonCib={...(S.leonCib||{})};const k=wkIso(w);const m={...(S.leonCib[k]||{})};
+    Object.entries(R.cible||{}).forEach(([emp,C])=>{if(C.baisse>0)m[emp]={c:C.cible,r:`déjà +${dur(C.surplus)} d’heures sup ce mois-ci`};});
+    S.leonCib[k]=m;}
+  return f.apply(this,arguments);
+};}
+// Avertir (gentiment) quand une modif fait dépasser la cible volontaire de Léon.
+{const f=planDo;planDo=function(label,fn,o){
+  const w=UI.plan&&UI.plan.w;const k=w!=null?wkIso(w):null;const cib=k&&S&&S.leonCib&&S.leonCib[k]?S.leonCib[k]:null;
+  const avant={};if(cib)Object.keys(cib).forEach(emp=>avant[emp]=empWeekMin(emp,w));
+  const r=f.apply(this,arguments);
+  if(cib&&r){Object.entries(cib).forEach(([emp,C])=>{const apres=empWeekMin(emp,w);
+    if(apres>C.c+30&&avant[emp]<=C.c+30){const e=empById(emp);
+      setTimeout(()=>leonAvis(`${e.prenom} : Léon avait mis ${dur(C.c)} au lieu de ${e.contrat}h exprès (${C.r}). Ça fait maintenant ${dur(apres)}.`),60);}});}
+  return r;
+};}
+function leonAvis(msg){
+  const box=$('#toasts');if(!box){toast(msg,'alert');return;}
+  const t=document.createElement('div');t.className='toast has-act leon-avis';
+  t.innerHTML=`<span class="la-ic">✦</span><span>${esc(msg)}</span><button class="t-act" data-act="pl-undo">Annuler</button><button class="t-act" data-act="leon-ok">Garder</button>`;
+  box.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';},9000);setTimeout(()=>t.remove(),9400);
+}
+ACT['leon-ok']=function(t){const x=t.closest('.toast');if(x)x.remove();};
+// Affichage : ✦ sur les shifts proposés par Léon, et « ✦ visé 32h » à côté du nom.
+function leonMarques(){
+  const g=document.getElementById('pg9');if(!g||!S)return;const w=UI.plan.w;
+  g.querySelectorAll('.shift[data-sid]').forEach(el=>{const x=S.shifts.find(y=>y.id===el.dataset.sid);if(!x||!x.leon||el.classList.contains('by-leon'))return;
+    el.classList.add('by-leon');el.title=(el.title||'')+' · proposé par Léon'+(x.lw?' : '+x.lw:'');
+    const td=el.closest('td');if(td)td.classList.add('cell-leon');});
+  if(effRole()==='staff')return;
+  const k=wkIso(w);const cib=(S.leonCib||{})[k]||{};
+  Object.entries(cib).forEach(([emp,C])=>{const td=g.querySelector(`td[data-emp="${CSS.escape(emp)}"]`);const t=td&&td.parentElement.querySelector('td.ec .hrs .tnum');if(!t||t.querySelector('.leon-cib'))return;
+    const e=empById(emp);const fait=t.textContent.split('/')[0].trim();
+    t.innerHTML=`${esc(fait)} / <span class="leon-cib" title="${esc(`Léon vise ${dur(C.c)} au lieu de ${e.contrat}h cette semaine, exprès : ${C.r}.`)}">✦${dur(C.c)}</span>`;});
+}
+{const f=renderView;renderView=function(){const r=f.apply(this,arguments);try{if(UI.view==='planning')leonMarques();}catch(e){}return r;};}
