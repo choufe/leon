@@ -52,3 +52,6 @@ html.v30-compte .hub-back{display:none!important}
 /* « Voir comme » : caché tant qu'il n'y a pas d'équipe ; sur téléphone, seulement sur l'accueil (sauf pendant un aperçu) */
 html.v30-noemp:not(.v30-apercu) .viewas{display:none!important}
 @media (max-width:640px){html:not(.v30-apercu):not([data-v30v="accueil"]) .viewas{display:none!important}}
+
+/* 13.01 · Démo « patron d'un resto » : pas de « Mes restaurants » */
+html.v13-resto .hub-back{display:none!important}
