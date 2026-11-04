@@ -10,19 +10,46 @@ const CRENEAUX = [
   ["soir", "Après le service"],
 ];
 const TAILLES = [
-  ["1", "1 resto"],
   ["2-3", "2 à 3"],
   ["4+", "4 et plus"],
 ];
 
+// 13.01 · Avant le formulaire, une seule question : un resto ou plusieurs ?
+// Chacun voit ce que Léon fait pour lui, puis laisse son numéro.
+const PROFILS = {
+  un: {
+    titre: "Léon pour votre restaurant",
+    points: [
+      ["Un planning qui se fait presque tout seul", "Léon respecte les règles HCR et vous dit quand ça coince"],
+      ["La badgeuse sur la tablette du resto", "Chacun tape son code ; les heures sont prêtes pour le comptable"],
+      ["Stocks, commandes et hygiène", "Moins de pertes, et un dossier prêt le jour du contrôle"],
+      ["Vos chiffres du jour sur le téléphone", "Ventes, masse salariale, coût matière"],
+    ],
+    prix: "400 € HT par mois, mise en route offerte. Je suis avec vous les deux premières semaines.",
+  },
+  plusieurs: {
+    titre: "Léon pour vos établissements",
+    points: [
+      ["Tous vos restos sur un seul écran", "Ventes, équipe au travail, problèmes du jour, en direct"],
+      ["Comparer d'un coup d'œil", "Chiffre d'affaires, masse salariale, coût matière, pertes : qui dérape ?"],
+      ["Les problèmes qui reviennent, repérés partout", "Un frigo qui lâche, un CA en baisse, des retards"],
+      ["Chaque directeur a son Léon", "Vous gardez la main sur tout ; lui pilote son établissement"],
+    ],
+    prix: "400 € HT par mois et par établissement. On regarde ensemble la mise en route de tout le groupe.",
+  },
+};
+
 export default function Demande() {
   const [f, setF] = useState({ prenom: "", resto: "", ville: "", telephone: "", email: "", message: "", site: "" });
   const [creneau, setCreneau] = useState("aprem");
-  const [taille, setTaille] = useState("1");
+  const [profil, setProfil] = useState(null); // null | "un" | "plusieurs"
+  const [taille, setTaille] = useState("2-3");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
   const [done, setDone] = useState(false);
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
+  // on remonte en haut : la proposition, puis le formulaire juste dessous
+  const choisir = (p) => { setProfil(p); if (typeof window !== "undefined") window.scrollTo({ top: 0 }); };
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -40,7 +67,7 @@ export default function Demande() {
         ville: f.ville.trim() || null,
         telephone: f.telephone.trim(),
         email: f.email.trim() || null,
-        nb_restos: taille,
+        nb_restos: profil === "plusieurs" ? taille : "1",
         creneau,
         message: f.message.trim() || null,
         source: typeof window !== "undefined" ? window.location.pathname : null,
@@ -70,11 +97,23 @@ export default function Demande() {
       <main className="v-wrap v-form-grid">
         <div className="v-form-side">
           <span className="v-eyebrow" style={{ color: "var(--v-pop)" }}>Demander une démo</span>
-          <h1>On en parle 20 minutes, et vous voyez si Léon vous va.</h1>
-          <p>Pas de commercial ni de centre d'appel : c'est moi, Maurice, qui vous rappelle.</p>
+          {profil ? (
+            <>
+              <h1>{PROFILS[profil].titre}</h1>
+              <ul className="v-prop">
+                {PROFILS[profil].points.map(([b, s]) => <li key={b}><b>{b}</b><small>{s}</small></li>)}
+              </ul>
+              <p className="v-prop-prix">{PROFILS[profil].prix}</p>
+            </>
+          ) : (
+            <>
+              <h1>On en parle 20 minutes, et vous voyez si Léon vous va.</h1>
+              <p>Pas de commercial ni de centre d'appel : c'est moi, Maurice, qui vous rappelle.</p>
+            </>
+          )}
           <ol className="v-expect">
             <li><span>1</span><div>Je vous rappelle au créneau choisi<small>En général sous 24 h</small></div></li>
-            <li><span>2</span><div>On regarde votre resto ensemble<small>Votre équipe, vos galères du moment</small></div></li>
+            <li><span>2</span><div>{profil === "plusieurs" ? "On regarde vos établissements ensemble" : "On regarde votre resto ensemble"}<small>Votre équipe, vos galères du moment</small></div></li>
             <li><span>3</span><div>Je vous montre Léon avec vos chiffres<small>Sur place à Lille, ou en visio</small></div></li>
           </ol>
         </div>
@@ -85,15 +124,28 @@ export default function Demande() {
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
             </span>
             <h2>C'est noté{f.prenom ? `, ${f.prenom.trim()}` : ""} !</h2>
-            <p>Je vous rappelle {creneau === "matin" ? "un matin" : creneau === "soir" ? "après le service" : "dans l'après-midi"}, en général sous 24 h. Pressé ? Appelez-moi directement au <a href="tel:+33645869003" style={{ fontWeight: 700, textDecoration: "underline" }}>06 45 86 90 03</a>. En attendant, vous pouvez essayer Léon avec un restaurant fictif.</p>
+            <p>Je vous rappelle {creneau === "matin" ? "un matin" : creneau === "soir" ? "après le service" : "dans l'après-midi"}, en général sous 24 h. Pressé ? Appelez-moi directement au <a href="tel:+33645869003" style={{ fontWeight: 700, textDecoration: "underline" }}>06 45 86 90 03</a>. </p>
             <div className="v-ctas">
-              <a className="v-btn v-btn-brass" href="/leon/demo.html">Essayer Léon en ligne</a>
-              <Link className="v-btn" href="/" style={{ border: "1.5px solid var(--v-line-2)" }}>Retour à l'accueil</Link>
+              <Link className="v-btn v-btn-brass" href="/">Retour à l'accueil</Link>
             </div>
+          </div>
+        ) : !profil ? (
+          <div className="v-form v-choix">
+            <h2>Vous avez…</h2>
+            <button type="button" className="v-choix-b" onClick={() => choisir("un")}>
+              <span className="v-choix-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 10h16M5 10V20h14V10M3 10l2-5h14l2 5M10 20v-5h4v5" /></svg></span>
+              <span><b>Un restaurant</b><small>Je le gère au quotidien</small></span>
+              <span className="v-choix-go" aria-hidden="true">→</span>
+            </button>
+            <button type="button" className="v-choix-b" onClick={() => choisir("plusieurs")}>
+              <span className="v-choix-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 11h9M3 11v8h7v-8M2 11l1.5-4h6L11 11M13 8h9M14 8v11h7V8M13 8l1.5-4h6L22 8" /></svg></span>
+              <span><b>Plusieurs établissements</b><small>J'ai un groupe, des directeurs dans chaque resto</small></span>
+              <span className="v-choix-go" aria-hidden="true">→</span>
+            </button>
           </div>
         ) : (
           <form className="v-form" onSubmit={onSubmit} noValidate={false}>
-            <h2>Vos coordonnées</h2>
+            <div className="v-form-h"><h2>Vos coordonnées</h2><button type="button" className="v-change" onClick={() => setProfil(null)}>{profil === "un" ? "Un restaurant" : "Plusieurs établissements"} · changer</button></div>
             <div className="v-row">
               <div className="v-field">
                 <label htmlFor="d-prenom">Prénom</label>
@@ -106,7 +158,7 @@ export default function Demande() {
             </div>
             <div className="v-row">
               <div className="v-field">
-                <label htmlFor="d-resto">Nom du restaurant</label>
+                <label htmlFor="d-resto">{profil === "plusieurs" ? "Nom du groupe ou d'un établissement" : "Nom du restaurant"}</label>
                 <input id="d-resto" required autoComplete="organization" value={f.resto} onChange={set("resto")} />
               </div>
               <div className="v-field">
@@ -118,14 +170,14 @@ export default function Demande() {
               <label htmlFor="d-email">E-mail <small>(facultatif)</small></label>
               <input id="d-email" type="email" autoComplete="email" value={f.email} onChange={set("email")} />
             </div>
-            <div className="v-field">
+            {profil === "plusieurs" && <div className="v-field">
               <label id="d-taille-l">Combien d'établissements ?</label>
               <div className="v-seg" role="group" aria-labelledby="d-taille-l">
                 {TAILLES.map(([k, l]) => (
                   <button key={k} type="button" aria-pressed={taille === k} onClick={() => setTaille(k)}>{l}</button>
                 ))}
               </div>
-            </div>
+            </div>}
             <div className="v-field">
               <label id="d-cren-l">Quand je vous rappelle ?</label>
               <div className="v-seg" role="group" aria-labelledby="d-cren-l">

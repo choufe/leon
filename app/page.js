@@ -133,7 +133,7 @@ export default function Vitrine() {
               </p>
               <div className="v-ctas">
                 <Link className="v-btn v-btn-brass" href="/demande">Demander une démo</Link>
-                <a className="v-btn v-btn-ghost" href="/leon/demo.html">Essayer Léon en ligne</a>
+                <a className="v-btn v-btn-ghost" href="tel:+33645869003">Appeler Maurice</a>
               </div>
               <p className="v-note"><i aria-hidden="true" />En test dans un restaurant à Lille</p>
             </div>
@@ -322,7 +322,6 @@ export default function Vitrine() {
             <a href="#offre">L'offre</a>
             <Link href="/demande">Demander une démo</Link>
             <Link href="/login">Se connecter</Link>
-            <a href="/leon/tablette.html">Tablette (démo)</a>
             <Link href="/mentions-legales">Mentions légales</Link>
             <Link href="/confidentialite">Confidentialité</Link>
           </nav>
@@ -331,7 +330,7 @@ export default function Vitrine() {
       </footer>
 
       <div className="v-sticky" aria-hidden="false">
-        <a className="v-btn v-btn-ghost v-btn-sm" href="/leon/demo.html">Essayer</a>
+        <a className="v-btn v-btn-ghost v-btn-sm" href="tel:+33645869003">Appeler</a>
         <Link className="v-btn v-btn-brass v-btn-sm" href="/demande">Demander une démo</Link>
       </div>
     </div>

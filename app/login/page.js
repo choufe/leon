@@ -182,13 +182,6 @@ export default function Login() {
             <span className="v-door-t"><b>Pas encore client ?</b><small>Demander une démo, je vous rappelle</small></span>
             <span className="v-door-go" aria-hidden="true">→</span>
           </Link>
-          <a className="v-door" href="/leon/demo.html">
-            <span className="v-door-ic small" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M2.5 12C3.5 10 7 6 12 6s8.5 4 9.5 6c-1 2-4.5 6-9.5 6s-8.5-4-9.5-6z" /><circle cx="12" cy="12" r="3" /></svg>
-            </span>
-            <span className="v-door-t"><b>Juste voir à quoi ça ressemble</b><small>Essayer Léon avec un resto fictif</small></span>
-            <span className="v-door-go" aria-hidden="true">→</span>
-          </a>
         </aside>
       </main>
     </div>

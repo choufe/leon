@@ -5,7 +5,14 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
-## 13.00 — Le grand check : tout Léon repassé, écran par écran (ex-12.30)
+## 13.01 — La démo, réservée à Maurice, et un tunnel « un resto ou plusieurs »
+- **Plus de démo publique** : le site ne propose plus que « Demander une démo » (fini « Essayer Léon en ligne », « Essayer », le lien « Tablette (démo) » et la porte « Juste voir à quoi ça ressemble » de la page de connexion). Les adresses de la démo et de la tablette de démo renvoient vers « Demander une démo » si on n'est pas connecté en créateur.
+- **Demander une démo** : d'abord une question, « Un restaurant » ou « Plusieurs établissements ». Chacun voit la proposition qui va avec (ce que Léon fait pour lui, le prix), puis laisse son numéro. Le nombre d'établissements n'est demandé qu'aux groupes.
+- **Espace créateur → « Démos à montrer »** : « Patron de plusieurs restos » (Bruno et ses établissements), « Patron d'un resto » (Le Petit Beffroi), « Tablette du resto ». Un clic et on est dedans : plus d'écran « Lancer la démo » ni d'identifiant / mot de passe.
+- **Bruno** : la vue d'ensemble s'adresse à lui (« Salut Bruno », « Patron », plus « Admin Léon » ni « Maurice ») ; son groupe = Le Petit Beffroi + Le Trèfle (le salon de coiffure n'apparaît plus).
+- **Patron d'un resto** : arrive direct dans Le Petit Beffroi, avec « Voir comme » (directeur, manager, salarié) pour montrer chaque écran. Le cadenas ramène à l'espace créateur.
+
+ — Le grand check : tout Léon repassé, écran par écran (ex-12.30)
 Tour complet (site, démo, appli PC, téléphone, tablette ; directeur, manager, salarié, créateur, nouveau patron) : 174 écrans vérifiés, 0 erreur restante.
 - **Téléphone et tablette** : chaque écran s'ouvre enfin **en haut**. Avant, on arrivait au milieu de la page (après le code, en changeant d'onglet…).
 - **Tablette, températures** : « Relever les températures » se cochait **sans rien taper**. Maintenant une case par frigo / congélateur, et Léon demande quoi faire si c'est hors norme (comme sur le PC). Pour un congélateur, « 18 » = −18 °C. La tuile s'appelle **« Tâches et températures »**.

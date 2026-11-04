@@ -1,6 +1,6 @@
 // Le grand check (12.30) : ouvre Léon comme un utilisateur, passe sur chaque écran et prend une capture.
 // Signale : erreurs JavaScript, textes « undefined / NaN », éléments qui dépassent à droite.
-// node scripts/check/ecrans.cjs <pc|tel|tab> <code|maurice|patron> <dossier> [demo|tablette|app]
+// node scripts/check/ecrans.cjs <pc|tel|tab> <resto|reseau|manager|salarie|patron> <dossier> [demo|app]
 const { chromium, devices } = require('playwright'); const {setupFonts}=require('./polices.js');
 const fs=require('fs');
 const [dev, who, outdir, pageName='demo'] = process.argv.slice(2);
@@ -32,7 +32,7 @@ async function check(pg){
   const ctx=await b.newContext({...VP[dev], deviceScaleFactor:1}); await setupFonts(ctx);
   const MOCK=fs.readFileSync(__dirname+'/faux-stockage.js','utf8');
   await ctx.route(/\/leon\/app\.html/, async r=>{const res=await r.fetch();let t=await res.text();t=t.replace(/<script>\(function\(\)\{var p=null;[^<]*<\/script>/,'<script>'+MOCK+'</script>').split('window.parent!==window&&window.parent.').join('window.');t=t.replace('\nboot();\n})();','\n'+HOOK+'boot();\n})();');r.fulfill({response:res,body:t,headers:{...res.headers(),'content-type':'text/html'}});});
-  await ctx.route(/\/leon\/(demo|tablette)\.html/, async r=>{const res=await r.fetch();let t=await res.text();t=t.replace('\nboot();\n})();','\n'+HOOK+'boot();\n})();');r.fulfill({response:res,body:t,headers:{...res.headers(),'content-type':'text/html'}});});
+  await ctx.route(/\/leon\/(demo|tablette)\.html/, async r=>{const nom=r.request().url().match(/leon\/(demo|tablette)\.html/)[1];let t=require('fs').readFileSync(__dirname+'/../../public/leon/'+nom+'.html','utf8');t=t.replace('\nboot();\n})();','\n'+HOOK+'boot();\n})();');r.fulfill({status:200,body:t,headers:{'content-type':'text/html; charset=utf-8'}});});
   const pg=await ctx.newPage(); let errs=[];
   pg.on('console',m=>{if(m.type()==='error'&&!/net::ERR_FAILED/.test(m.text()))errs.push(m.text().slice(0,200));}); // ERR_FAILED = appels externes coupés exprès
   pg.on('pageerror',e=>errs.push('PAGEERR '+e.message.slice(0,200)));
@@ -49,18 +49,14 @@ async function check(pg){
   if(pageName==='app'){ await pg.goto('http://localhost:3000/leon/app.html?fresh=1&mode='+who,{waitUntil:'networkidle'}); }
   else if(pageName==='tablette'){ await pg.goto('http://localhost:3000/leon/tablette.html',{waitUntil:'networkidle'}); }
   else{
-    await pg.goto('http://localhost:3000/leon/demo.html',{waitUntil:'networkidle'});
-    await pg.waitForTimeout(500);
-    await pg.click('[data-act="demo-start"]'); await pg.waitForTimeout(500);
+    // démo : ?vue=reseau (Bruno, plusieurs restos) ou ?vue=resto (un resto) ; manager / salarie = « Voir comme »
+    await pg.goto('http://localhost:3000/leon/demo.html?vue='+(who==='reseau'?'reseau':'resto'),{waitUntil:'networkidle'});
+    await pg.waitForTimeout(1500);
+    const r={manager:'manager',salarie:'staff',directeur:'patron'}[who];
+    if(r){ await pg.evaluate(r=>{const e=document.querySelector(`[data-act="view-as"][data-r="${r}"]`);if(e)e.click();},r); }
   }
-  if(pageName==='app'){}
-  else if(who==='maurice'){ await pg.click('[data-act="demo-login"][data-id="maurice"]'); }
-  else {
-    if(pageName!=='tablette'){ await pg.click('[data-act="demo-login"][data-id="petit-beffroi"]'); await pg.waitForTimeout(600); }
-    await pg.evaluate(c=>{ const e=document.querySelector(`[data-act="demo-code"][data-code="${c}"]`); e.click(); }, who);
-  }
+  if(pageName==='tablette'){ await pg.evaluate(c=>{ const e=document.querySelector(`[data-act="demo-code"][data-code="${c}"]`); e&&e.click(); }, who); }
   await pg.waitForTimeout(1500);
-  await pg.evaluate(()=>{const e=document.querySelector('[data-act="badge-open"]');if(e)e.click();}); await pg.waitForTimeout(800);
   // fermer les toasts
   await pg.evaluate(()=>document.querySelectorAll('.toast').forEach(t=>t.remove()));
   await shot('home');
