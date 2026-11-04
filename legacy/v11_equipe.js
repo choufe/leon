@@ -214,9 +214,9 @@ ACT['em-preset']=t=>{const p=PERM_PRESETS[t.dataset.k].p;$$('#modal-root [data-p
    ['Ventes, chiffre d’affaires, statistiques',Y,R('Selon ses accès'),N],
    ['Coûts, marges, prix fournisseurs',Y,R('Selon ses accès'),N],
    ['Salaires, masse salariale, paie',Y,R('Selon ses accès'),N],
-   ['Planning : créer, modifier, publier',Y,R('Selon ses accès'),R('Voit le sien')],
+   ['Planning : créer, modifier, publier',Y,R('Selon ses accès'),R('Voit celui de l’équipe')],
    ['Congés et échanges : valider',Y,R('Selon ses accès'),R('Demande')],
-   ['Heures : corriger, valider',Y,R('Selon ses accès'),R('Voit les siennes')],
+   ['Heures : corriger, valider',Y,R('Selon ses accès'),R('Badge sur la tablette')],
    ['Commandes, réceptions, inventaire',Y,R('Selon ses accès'),N],
    ['Plats dispo, allergènes, cahier de liaison',Y,Y,Y],
    ['Fiches techniques',Y,R('Avec les prix s’il voit les coûts'),R('Sans les prix')],
@@ -284,7 +284,7 @@ function hoursValidHTML(){
 }
 function viewPointage(){
   const can=CAN();
-  if(!EMP.length)return `<div class="ph"><div><h1>Pointage</h1></div></div><div class="panel"><div class="empty"><h3>Pas encore d’équipe</h3><p>Chaque salarié pointe avec son code personnel, créé dans Équipe & accès.</p>${can.settings?`<div class="acts"><button class="btn primary" data-act="nav" data-v="equipe">Ajouter l’équipe</button></div>`:''}</div></div>`;
+  if(!EMP.length)return `<div class="ph"><div><h1>Badgeuse</h1></div></div><div class="panel"><div class="empty"><h3>Pas encore d’équipe</h3><p>Chaque salarié pointe avec son code personnel, créé dans Équipe & accès.</p>${can.settings?`<div class="acts"><button class="btn primary" data-act="nav" data-v="equipe">Ajouter l’équipe</button></div>`:''}</div></div>`;
   if(!can.board){
     const e=empById(U.empId);
     return `<div class="ph"><div><h1>${T('Pointage')}</h1><p class="sub">${T('Pointe en arrivant, en partant et pour tes pauses. Tu retapes ton code à chaque fois : personne ne peut pointer à ta place.')}</p></div></div>${myPointCard(e.id)}<section class="panel" style="margin-top:18px"><div class="panel-h"><h2>${T('Tes 7 derniers jours')}</h2></div>${myHistory(e.id)}</section>`;

@@ -88,8 +88,11 @@ def patch(src):
     src = rep(src, "  demoHygSeed(R);\n  return finishDemo(R);\n}\nfunction buildTrefle(){",
               "  demoHygSeed(R);\n"
               "  seedPertes(R,[[2,'i','moules',3,'dlc','Julien'],[9,'i','moules',2.5,'dlc','Lucas'],[16,'i','moules',4,'dlc','Julien','livraison trop grosse'],[4,'i','crevettes',0.3,'dlc','Julien'],[6,'r','carbonade',2,'erreur','Camille','table renvoyée, trop salée'],[11,'i','fut_blonde',6,'casse','Yanis','fût mal branché'],[20,'r','tarte',8,'casse','Camille'],[1,'i','maroilles',0.4,'dlc','Lucas']]);\n"
-              "  R.charges={loyer:6500,energie:2800,assur:1500,autres:13500};\n"
+              "  R.charges={loyer:6500,energie:2800,assur:1500,autres:7500};\n"
               "  return finishDemo(R);\n}\nfunction buildTrefle(){")
+    # 12.30 : la démo garde les essais dans le navigateur (remise à zéro avec ↻), elle ne repart pas de zéro au rechargement
+    src = rep(src, "Données fictives. Tout repart de zéro quand tu recharges la page.",
+              "Données fictives. Tes essais restent sur cet appareil : le bouton ↻ en bas remet la démo à zéro.")
     # Le Trèfle
     src = rep(src, "R.pointages=demoPast(R,null);", "R.pointages=demoPast(R,{late:{paul:[[2,11],[8,22],[15,14]]}});")
     src = rep(src, "R.hist=demoHist(R,(r,cov)=>cov*(TREF_WEIGHTS[r.id]||5)/100);salesFromHist(R);",

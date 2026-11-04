@@ -17,6 +17,7 @@ Premier usage réel prévu : en privé, dans le restaurant de son beau-père. Pa
 - `npm install`, puis `npm run dev` (http://localhost:3000). Variables dans `.env.local` (voir `.env.example`).
 - Après toute modification dans `legacy/` : `npm run legacy` (reconstruit puis copie dans `public/leon/`). Toujours relancer avant de committer.
 - `npm run build` pour vérifier que ça compile avant un push.
+- `npm run check [dossier]` : le grand check (captures de tous les écrans, voir `scripts/check/`). Il faut Playwright (déjà là sur les sessions Claude).
 - Déploiement : le repo est connecté à Vercel, chaque push sur `main` redéploie. Variables d'environnement à renseigner aussi dans Vercel.
 
 ## Mises à jour (MAJ) et push
@@ -29,6 +30,7 @@ Premier usage réel prévu : en privé, dans le restaurant de son beau-père. Pa
 
 ## Règles de travail
 - Petits changements, testables. Vérifier que ça marche (lancer l'app, `npm run build`) avant de dire que c'est fini.
+- **Gros check après chaque changement** (règle de Maurice, 4 nov.) : repasser sur chaque écran touché et ceux autour (PC, téléphone, tablette ; patron, manager, salarié), avec l'œil d'un utilisateur qui ne réfléchit pas trop : simple, efficace, rien qui cloche ? Anticiper ses problèmes. `npm run check` (serveur `npm run dev` lancé) prend une capture de chaque écran et liste les erreurs ; regarder les captures, pas seulement le résumé.
 - Toujours confirmer avec Maurice avant : de pousser sur `main`, de modifier la base Supabase (migrations), ou de supprimer des données.
 - Les migrations Supabase vont dans `supabase/migrations/` avec un numéro suivant (`0003_...`). Ne jamais modifier une migration déjà appliquée.
 - Ne jamais committer de secret (`.env.local`, clés de service). Seules les variables `NEXT_PUBLIC_*` sont publiques.

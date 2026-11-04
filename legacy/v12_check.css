@@ -1,0 +1,54 @@
+/* =========================================================
+   V12.30 · LE GRAND CHECK — corrections d'affichage
+   ========================================================= */
+
+/* Téléphone / tablette : la page défile normalement (avant, c'était le <body> qui défilait :
+   chaque écran s'ouvrait au milieu, et « retour en haut » ne marchait pas). On coupe toujours
+   le débordement à droite, mais avec « clip », qui ne crée pas de zone de défilement. */
+@media (max-width:1024px){
+  html,body{overflow-x:visible}
+  @supports (overflow:clip){html,body{overflow-x:clip}}
+  @supports not (overflow:clip){html{overflow-x:hidden}}
+}
+
+/* Démo : la pastille « Mode démo » ne cache plus le logo ni le fil d'Ariane.
+   Elle reste sur l'écran d'accueil de la démo ; ailleurs, la barre « Démo » du bas suffit (↻ = remettre à zéro). */
+html:not(.v30-intro) #demo-pill{display:none!important}
+
+/* Vrai site : un compte = un resto, pas de « Mes restaurants » (le lien ne menait nulle part) */
+html.v30-compte .hub-back{display:none!important}
+
+/* Badgeuse : bouton « Payer jusqu'à la fin prévue » sur la ligne rouge */
+.pj-flags .pj-fin{margin-top:6px;font-size:12.5px;padding:4px 10px;border-radius:999px;background:#fff;border:1px solid var(--bad,#B4442F);color:var(--bad,#B4442F);font-weight:600;white-space:nowrap}
+.pj-flags .pj-fin svg{width:13px;height:13px}
+
+/* Tablette : le 2e bouton de la carte blanche (« Pointer mon départ », « Reprendre ») était presque invisible */
+.tb-card .badge-acts .btn.demo-link{width:100%;min-height:52px;border-radius:12px;background:#fff!important;color:var(--tb-ink,#13201A)!important;border:1px solid var(--tb-cline,#D7DED5)!important;font-weight:600;font-size:16px;opacity:1!important}
+
+/* Tablette : relevé des températures, une grande case par appareil */
+.kiosk-temps{background:var(--tb-card,#fff);border:1px solid var(--tb-cline,#D7DED5);border-left:4px solid #2DB5A1;border-radius:14px;padding:16px;margin:0 0 10px;display:grid;gap:12px}
+.kiosk-temps .kt-h{display:flex;align-items:center;gap:8px;font-size:16px;color:var(--tb-ink,#13201A)}
+.kiosk-temps .kt-eqs{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.kiosk-temps .kt-eq{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid var(--tb-cline,#D7DED5);border-radius:12px;background:var(--tb-bg,#F1F4EF)}
+.kiosk-temps .kt-eq span{display:grid;gap:2px;min-width:0}
+.kiosk-temps .kt-eq b{font-size:15px;color:var(--tb-ink,#13201A)}
+.kiosk-temps .kt-eq small{font-size:12.5px;color:var(--tb-cmute,#5E6B64)}
+.kiosk-temps .kt-in{width:96px!important;min-height:48px;text-align:center;font-size:20px!important;font-weight:700;border-radius:10px}
+.kiosk-temps .kt-v{font-size:18px}
+.kiosk-temps .kt-v.bad-t{color:#B4442F}
+.kiosk-temps .btn.primary{min-height:52px;font-size:16px;border-radius:12px}
+
+/* Téléphone : les bandeaux d'alerte (semaine à publier, journées de badgeuse à valider…) ne
+   s'écrasent plus en colonne de trois mots : le texte prend toute la largeur, le bouton passe dessous. */
+@media (max-width:640px){
+  .pub-al{flex-wrap:wrap;align-items:flex-start}
+  .pub-al>div:not(.pub-acts){flex:1 1 calc(100% - 34px);min-width:0}
+  .pub-al .pub-acts{flex:1 1 100%;display:flex;gap:8px;flex-wrap:wrap}
+  .pub-al .pub-acts .btn{flex:1 1 auto;justify-content:center}
+  .pj-ban>span{flex:1 1 calc(100% - 30px);min-width:0}
+  .pj-ban>.btn{flex:1 1 100%;justify-content:center}
+}
+
+/* « Voir comme » : caché tant qu'il n'y a pas d'équipe ; sur téléphone, seulement sur l'accueil (sauf pendant un aperçu) */
+html.v30-noemp:not(.v30-apercu) .viewas{display:none!important}
+@media (max-width:640px){html:not(.v30-apercu):not([data-v30v="accueil"]) .viewas{display:none!important}}
