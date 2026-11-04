@@ -1,11 +1,11 @@
 # Journal des mises à jour de Léon
 
-Numérotation : **12.00** = gros chapitre terminé, **12.01, 12.02…** = petites tâches dans ce chapitre.
+Numérotation : **13.00** = gros chapitre terminé, **13.01, 13.02…** = petites tâches dans ce chapitre.
 Version actuelle = la dernière entrée en bas de la liste (la plus récente en haut).
 
 ---
 
-## 12.30 — Le grand check : tout Léon repassé, écran par écran
+## 13.00 — Le grand check : tout Léon repassé, écran par écran (ex-12.30)
 Tour complet (site, démo, appli PC, téléphone, tablette ; directeur, manager, salarié, créateur, nouveau patron) : 174 écrans vérifiés, 0 erreur restante.
 - **Téléphone et tablette** : chaque écran s'ouvre enfin **en haut**. Avant, on arrivait au milieu de la page (après le code, en changeant d'onglet…).
 - **Tablette, températures** : « Relever les températures » se cochait **sans rien taper**. Maintenant une case par frigo / congélateur, et Léon demande quoi faire si c'est hors norme (comme sur le PC). Pour un congélateur, « 18 » = −18 °C. La tuile s'appelle **« Tâches et températures »**.
@@ -20,7 +20,7 @@ Tour complet (site, démo, appli PC, téléphone, tablette ; directeur, manager,
 - **Démo** : la pastille « Mode démo » ne cache plus le logo ni le haut des pages (le ↻ en bas remet à zéro) ; l'écran des codes n'a plus les photos (comme la vraie tablette) ; texte d'accueil corrigé (les essais restent sur l'appareil) ; charges fixes du Petit Beffroi réalistes.
 - **Site vitrine** : « photo + code » → « chacun tape son code » ; lien du bas « Tablette (démo) » ; plus de « ? » seul à la ligne dans les questions.
 - **Outil** : `npm run check` refait ce grand check tout seul (captures de tous les écrans + liste des problèmes).
-- **Reste à décider** : l'entrée de la démo en ligne (voir `IDEES.md`), le film et les clips du site (ancienne tablette, tutoiement), SIRET et e-mail des mentions légales.
+- **Reste à décider** : l'entrée de la démo en ligne (voir `IDEES.md`). Plus tard (décidé le 4 nov.) : refaire le film et les clips du site, SIRET et e-mail des mentions légales.
 
 ## 12.29 — Tablette : réception et inventaire pour les responsables
 - **Réception** et **Inventaire** : seulement pour les **managers, le directeur et le créateur** (il faut un peu de responsabilité). Un salarié voit Hygiène et Mon planning.

@@ -95,8 +95,8 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 
 ## Le grand check (décidé le 4 nov.)
 - ✅ Règle de Maurice : **après chaque changement, gros check de chaque écran** (chaque image, chaque fonction), avec l'œil d'un utilisateur qui ne réfléchit pas trop : est-ce simple, efficace, optimal ? Anticiper ses problèmes. Travail propre avant tout, même si ça prend du temps. Outil : `npm run check`.
-- ✅ 12.30 : premier grand check (174 écrans, voir `MAJ.md`).
+- ✅ 13.00 (ex-12.30) : premier grand check (174 écrans, voir `MAJ.md`), mis en ligne le 4 nov.
 - 💬 À décider : **l'entrée de la démo en ligne** (bouton « Essayer Léon » du site). Aujourd'hui : écran « Lancer la démo » → identifiant / mot de passe → « Tablette du Petit Beffroi » (ancien écran salarié avec « Disponibilités », « Ouvrir mon espace ») ; on y voit aussi un salon de coiffure et « Ton espace créateur ». Proposition : 3 portes directes « Je suis le patron (ordi) » · « Je suis un salarié (téléphone) » · « La tablette du resto ».
-- 💬 À refaire : le film et les 3 clips du site montrent l'ancienne tablette (photos) et tutoient, alors que le site vouvoie.
-- 💬 Avant d'ouvrir : SIRET et e-mail pro dans les mentions légales.
+- 📋 Plus tard (Maurice, 4 nov.) : le film et les 3 clips du site montrent l'ancienne tablette (photos) et tutoient, alors que le site vouvoie.
+- 📋 Plus tard, avant d'ouvrir : SIRET et e-mail pro dans les mentions légales.
 
