@@ -5,6 +5,15 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 13.02 — Léon planning : le cahier des charges et les consignes
+- **Cahier des charges** (nouveau bouton dans le planning, à côté de « L’avis de Léon ») : jours et services ouverts (midi / soir), horaires de chaque service, créneaux de prépa (ex. cuisine 9 h 30 – 11 h, jours au choix), nombre de personnes min / max par service (salle, cuisine, bar), et des règles en mots simples (« le dimanche midi, 3 personnes suffisent »). Léon montre en direct ce qu’il a compris (✓) ou pas (✗). Rempli une fois, servi à chaque planning.
+- **Consignes de la semaine** : « Léon remplit » ouvre d’abord une zone de texte (« mercredi soir événement, un peu plus de monde », « samedi soir +1 au bar », « lundi midi fermé »…), avec des exemples en un clic et le résumé du cahier des charges.
+- **Léon applique** : effectifs min / max, consignes, services fermés, prépa (il fait commencer plus tôt un shift qu’il propose) ; il retire les shifts « pour compléter un contrat » qui dépasseraient un maximum. « Ce que Léon a pris en compte » liste chaque changement (« Dimanche midi : 1 en cuisine au lieu de 2 ») et les consignes pas comprises.
+- **Heures baissées exprès** : « 29h30✦ / 35h » (planifié / contrat, avant c’était « 29h30 / ✦29h30 »). Au survol de l’étoile : pourquoi (heures sup déjà faites ce mois-ci, combien en moins).
+- **L’avis de Léon** vérifie aussi la prépa et qu’il y a quelqu’un en salle à l’ouverture et à la fermeture de chaque service.
+- **Démo Petit Beffroi** : 20 % de couverts en moins (ticket moyen 24 € midi / 38 € soir, CA à peu près le même) pour coller à une équipe de 10 ; cahier des charges d’exemple rempli. Masse salariale ~30 %, beaucoup moins de trous.
+- **Reste** : l’avis de Léon dans les autres onglets (chiffres, hygiène…) noté dans `IDEES.md`.
+
 ## 13.01 — La démo, réservée à Maurice, et un tunnel « un resto ou plusieurs »
 - **Plus de démo publique** : le site ne propose plus que « Demander une démo » (fini « Essayer Léon en ligne », « Essayer », le lien « Tablette (démo) » et la porte « Juste voir à quoi ça ressemble » de la page de connexion). Les adresses de la démo et de la tablette de démo renvoient vers « Demander une démo » si on n'est pas connecté en créateur.
 - **Demander une démo** : d'abord une question, « Un restaurant » ou « Plusieurs établissements ». Chacun voit la proposition qui va avec (ce que Léon fait pour lui, le prix), puis laisse son numéro. Le nombre d'établissements n'est demandé qu'aux groupes.

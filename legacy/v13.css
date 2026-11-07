@@ -1,0 +1,49 @@
+/* ===== V13.02 · Léon planning : cahier des charges et consignes ===== */
+#cs-in,#cdc-note{width:100%;resize:vertical;font:inherit;line-height:1.45;min-height:84px}
+.cs-ex{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+.cs-ex .btn{font-weight:500;color:var(--ink-2)}
+.cs-cdc{display:flex;gap:10px;align-items:center;margin-top:14px;padding:10px 12px;border-radius:10px;background:var(--sunk)}
+.cs-cdc>div{flex:1;min-width:0}
+.cs-cdc b{font-size:13.5px}
+.cs-cdc p{margin:2px 0 0;font-size:12.5px;color:var(--ink-2);line-height:1.45}
+.cs-cdc .rm-ic{background:var(--ok-soft);color:var(--ok)}
+.cs-cdc.vide{background:var(--brass-soft)}
+.cs-cdc.vide .rm-ic{background:var(--surface);color:var(--brass)}
+.cdc{display:grid;gap:4px}
+.cdc section{border-top:1px solid var(--line);padding-top:2px}
+.cdc section:first-child{border-top:0}
+.cdc .faint{font-size:12.5px;margin:8px 0 4px}
+.cdc-ouv{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.cdc-j{display:grid;gap:4px;text-align:center}
+.cdc-j b{font-size:12.5px}
+.cdc-t{border:1px solid var(--line);background:var(--surface);color:var(--ink-3);border-radius:8px;padding:6px 4px;font:inherit;font-size:12.5px;cursor:pointer;text-decoration:line-through}
+.cdc-t[aria-pressed="true"]{background:var(--ok-soft);border-color:transparent;color:var(--ok);font-weight:650;text-decoration:none}
+.cdc-t.sm{padding:4px 6px;font-size:11.5px;min-width:30px}
+.cdc-h{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:10px;font-size:13px}
+.cdc-h label{display:flex;align-items:center;gap:6px}
+.cdc .inp.tm{width:auto;min-width:92px}
+.cdc-p{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:8px}
+.cdc-p select{width:auto}
+.cdc-pj{display:flex;gap:3px}
+.cdc-eff{border-collapse:collapse;font-size:13px}
+.cdc-eff th{font-weight:650;text-align:left;padding:4px 10px 4px 0;color:var(--ink-2)}
+.cdc-eff td{padding:4px 14px 4px 0;white-space:nowrap}
+.cdc-eff td span{font-size:11.5px;color:var(--ink-3);margin:0 4px}
+.cdc-k{display:none}
+.cdc-n{width:52px!important;text-align:center;padding:5px 4px}
+.cdc-lu{display:grid;gap:3px;margin-top:6px;font-size:12.5px}
+.cdc-lu .ok{color:var(--ok)}
+.cdc-lu .no{color:var(--warn)}
+.leon-cib{color:var(--brass);font-weight:700;cursor:help;border-bottom:1px dotted currentColor}
+@media (max-width:700px){
+  .cdc-ouv{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .cdc{min-width:0;overflow-x:hidden}
+  .cdc-h label{flex-wrap:wrap;width:100%}
+  .cdc .inp.tm{min-width:0;width:108px;flex:none}
+  .cdc-p select{flex:1 1 100%}
+  .cdc-eff,.cdc-eff tbody,.cdc-eff tr{display:block}
+  .cdc-eff thead{display:none}
+  .cdc-k{display:inline-block;width:62px;font-style:normal;font-size:12.5px}
+  .cdc-eff td{display:block;padding:2px 0}
+  .cs-cdc{flex-wrap:wrap}
+}

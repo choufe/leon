@@ -100,3 +100,8 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - 📋 Plus tard (Maurice, 4 nov.) : le film et les 3 clips du site montrent l'ancienne tablette (photos) et tutoient, alors que le site vouvoie.
 - 📋 Plus tard, avant d'ouvrir : SIRET et e-mail pro dans les mentions légales.
 
+
+## Léon planning et « l’avis de Léon » (7 nov.)
+- Léon ne peut pas deviner : chaque resto a un cahier des charges du planning (horaires, jours, prépa, effectifs min/max, règles en mots simples) + des consignes par semaine tapées avant que Léon remplisse. Fait en 13.02.
+- Heures baissées par Léon : afficher « 30h✦ / 35h », l’étoile explique pourquoi.
+- À faire plus tard : « l’avis de Léon » dans toutes les sections (chiffres, hygiène…), pas seulement le planning.
