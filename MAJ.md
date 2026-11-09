@@ -1,9 +1,22 @@
 # Journal des mises à jour de Léon
 
-Numérotation : **13.00** = gros chapitre terminé, **13.01, 13.02…** = petites tâches dans ce chapitre.
+Numérotation : **14.00** = gros chapitre terminé, **14.01, 14.02…** = petites tâches dans ce chapitre.
 Version actuelle = la dernière entrée en bas de la liste (la plus récente en haut).
 
 ---
+
+## 14.00 — La marchandise, façon Inpulse (en plus simple)
+Après l'analyse d'Inpulse sur le compte Burgouzz (9 nov., voir `claude/inpulse-analyse.md` dans le projet) : on reprend le meilleur (commandes, réception, inventaire, chiffres), sans ce qui perd l'utilisateur.
+- **Commander** : une carte par fournisseur (prochaine livraison, « pour cette livraison, commande aujourd'hui », ce que Léon conseille, montant estimé, minimum). Un clic → Léon prépare la commande.
+- **L'écran de la commande** : jour de livraison en un clic (seulement les jours où le fournisseur livre, « déjà 1 commande » signalé), « doit tenir jusqu'à la livraison suivante », **barre du minimum de commande** (« il manque 18 € »), tout le catalogue du fournisseur rangé par famille avec **le conseil de Léon** (un clic pour le prendre), gros boutons − / +, et **le stock prévu chaque soir** quand on touche un produit (barres vertes / orange / rouges, avec le camion le jour de la livraison).
+- **Les colis** : un produit peut se commander « au fût de 30 L », « au sac de 10 kg »… (lien « colis ? » / « changer » sous le produit). Le conseil est arrondi au colis, la commande compte en colis, le mail aussi (« 3 fûts de 30 L »).
+- **Vérifier avant d'envoyer** : récap (fournisseur, jour, total, produits en colis), alertes (pas d'e-mail, sous le minimum, **rupture prévue sur un produit oublié**), le mail repliable, « C'est envoyé ».
+- **L'avoir** : après une réception avec écarts, bouton **« Demander l'avoir (24,50 €) »** → mail prêt (manquants, abîmés, prix facturés trop cher), « C'est demandé », puis « Avoir reçu ». Rappel sur l'accueil si l'avoir n'est pas arrivé au bout de 10 jours.
+- **Tablette, réception produit par produit** : « Livraisons attendues » → on touche la commande → une carte par produit avec 4 gros boutons (Reçu · Pas tout · Manquant · Abîmé), « Combien reçu ? » en colis, photo du bon de livraison, température des produits frais, « Tout le reste est reçu », « Valider la réception ». Le stock monte, l'avoir est calculé, le responsable voit les écarts. Pas d'euros sur la tablette. Traduit dans les 6 langues (à faire relire).
+- **Inventaire en colis** : bouton « +1 fût » / « +1 carton », et sous le produit « = 2 fûts + 4 L ».
+- **Où part ta marchandise** (onglet Stock) : sur 30 jours, pertes déclarées + ce que personne ne s'explique (écarts d'inventaire), par famille ; la plus grosse en rouge avec un conseil (« Boissons : 29 € pas expliqués. Regarde les offerts et la pression… »).
+- **Démo** : conditionnements réalistes (fûts, sacs, plateaux, cartons…).
+- **Reste** : l'envoi automatique du mail (aujourd'hui on copie le mail), les colis dans « Ajouter un produit », le panneau « Où part ta marchandise » dans Chiffres.
 
 ## 13.02 — Léon planning : le cahier des charges et les consignes
 - **Cahier des charges** (nouveau bouton dans le planning, à côté de « L’avis de Léon ») : jours et services ouverts (midi / soir), horaires de chaque service, créneaux de prépa (ex. cuisine 9 h 30 – 11 h, jours au choix), nombre de personnes min / max par service (salle, cuisine, bar), et des règles en mots simples (« le dimanche midi, 3 personnes suffisent »). Léon montre en direct ce qu’il a compris (✓) ou pas (✗). Rempli une fois, servi à chaque planning.

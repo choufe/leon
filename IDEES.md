@@ -105,3 +105,12 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - Léon ne peut pas deviner : chaque resto a un cahier des charges du planning (horaires, jours, prépa, effectifs min/max, règles en mots simples) + des consignes par semaine tapées avant que Léon remplisse. Fait en 13.02.
 - Heures baissées par Léon : afficher « 30h✦ / 35h », l’étoile explique pourquoi.
 - À faire plus tard : « l’avis de Léon » dans toutes les sections (chiffres, hygiène…), pas seulement le planning.
+
+## Marchandise façon Inpulse (9 nov.)
+- Maurice : Inpulse « a déjà tout, fonctionne et se vend », mais on s'y perd. Commandes et inventaire très bien. Objectif : faire mieux et plus simple dans Léon. Analyse complète : `claude/inpulse-analyse.md` (projet).
+- ✅ 14.00 commande par fournisseur, colis, stock prévu soir par soir, récap avant envoi, demande d'avoir, réception tablette produit par produit, inventaire en colis, « Où part ta marchandise ».
+- 💡 Envoi automatique du mail au fournisseur (serveur + adresse Léon), avec la photo du bon dans le mail d'avoir.
+- 💡 Bouton « Rien à déclarer aujourd'hui » pour les pertes (chez Burgouzz l'équipe a créé un faux produit « 0 Pertes Midi » pour ça).
+- 💡 Motifs de perte prêts à l'emploi + photo.
+- 💡 Prévision de CA avec météo et événements (Inpulse affiche sa précision : 71 %).
+- 💡 Commandes par lot pour un groupe (plusieurs restos d'un coup).
