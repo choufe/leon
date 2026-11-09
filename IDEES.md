@@ -116,5 +116,11 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - 💡 Commandes par lot pour un groupe (plusieurs restos d'un coup).
 - ✅ 14.01-14.04 (9 nov.) tronc vers 60 % : Démarrer Léon en 10 étapes, accueil « Tes 4 points », aperçu de lien + robots, note RGPD des salariés, visite guidée de la démo.
 - ✅ 14.05 (9 nov.) corrigé par la migration 0010. Avant : `leon_docs` était ouvert à toute l'organisation, salariés compris (`is_org_member` inclut `leon_salaries`). Un salarié pourrait lire la paie et les contrats via l'API. À corriger : séparer les documents « équipe » des documents « direction ». Migration à valider avec Maurice.
-- 📋 14.06 tablette reliée par lien perso : code prêt (migration 0011, fonction `relier-tablette`, page /tablette/relier, bouton dans Réglages). À appliquer avec l'accord de Maurice.
+- ✅ 14.06 tablette reliée par lien perso (en ligne le 9 nov., à tester sur une vraie tablette) : code prêt (migration 0011, fonction `relier-tablette`, page /tablette/relier, bouton dans Réglages). À appliquer avec l'accord de Maurice.
 - 💡 Codes et mots de passe encore en clair dans `net/config` et `restos/<id>` (lisibles seulement par la direction depuis la 14.05) : à vérifier côté serveur un jour.
+
+## L'avis de Léon / assistant (9 nov.)
+- Maurice : « un peu partout le bouton L'avis de Léon », sur chaque page (commandes, marge, chiffres, personnel…). Léon doit savoir répondre à tout, avec bienveillance, logique, et pour faire gagner de l'argent.
+- ✅ 14.08 avis par page (règles chiffrées) + questions prêtes. 📋 IA libre : fonction `leon-ia` prête, à déployer + clé API Claude (Maurice).
+- 💡 Ensuite : l'avis qui propose des actions à valider en un clic (préparer la commande, décaler un shift, changer un prix), et un récap du lundi matin.
+- RGPD (9 nov.) : Maurice préfère une case à cocher. Fait : case à la création du compte salarié + « J'ai lu et compris » au premier badge sur la tablette (trace datée par salarié).

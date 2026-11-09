@@ -189,3 +189,24 @@
 .v14-det{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
 .v14-det>summary{cursor:pointer;font-weight:700;font-size:14px;padding:4px 0}
 .v14-bk{margin-top:18px}
+
+/* ===== V14 · l'avis de Léon partout ===== */
+.v14-avis .al p{margin:2px 0 0}
+.v14-enjeu{font-weight:800;color:var(--ok);font-size:13px;white-space:nowrap;margin-right:6px}
+.v14-enjeu.neg{color:var(--bad)}
+.v14-ask{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;display:grid;gap:8px}
+.v14-ask-q{display:flex;flex-wrap:wrap;gap:6px}
+.v14-ask-f{display:flex;gap:8px}
+.v14-ask-f .inp{flex:1}
+/* note RGPD sur la tablette */
+.v14-rgpd-l{list-style:none;padding:0;margin:14px 0 18px;display:grid;gap:10px;text-align:left}
+.v14-rgpd-l li{display:flex;gap:10px;align-items:flex-start;font-size:16px;line-height:1.35}
+.v14-rgpd-l li svg{flex:none;margin-top:3px;color:#93630F}
+.v14-rg{font-size:12.5px;color:var(--ink-3);margin-top:6px;display:flex;gap:5px;align-items:center}
+.v14-rg.ok{color:var(--ok)}
+.v14-rgpd-st{display:flex;align-items:flex-start;justify-content:center;min-height:100vh;background:#18352B;padding:40px 16px}
+.v14-rgpd-t{background:#fff;color:#13201A;border-radius:20px;padding:28px 26px;width:min(560px,100%);box-shadow:0 20px 50px -20px rgba(0,0,0,.5);text-align:center}
+.v14-rgpd-t h1{font-family:var(--f-display);font-size:28px;margin:0 0 6px}
+.v14-rgpd-t .sub{color:#48574F;margin:0}
+.v14-rgpd-t .btn.launch{width:100%;justify-content:center;min-height:54px;font-size:17px;background:#93630F;color:#fff;border-color:#93630F}
+.v14-rgpd-t .demo-link{color:#48574F!important;border:1px solid #D7DED5!important;background:#fff!important}

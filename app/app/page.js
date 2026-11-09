@@ -115,6 +115,12 @@ export default function LeonApp() {
         if (error || !data) throw new Error((error && error.message) || "invitation impossible");
         return `${window.location.origin}/rejoindre?c=${data}`;
       };
+      // 14.08 : Léon répond aux questions avec Claude (fonction serveur leon-ia).
+      window.__leonIA = async (messages) => {
+        const { data, error } = await supabase.functions.invoke("leon-ia", { body: { messages } });
+        if (error) throw error;
+        return data;
+      };
       // 14.06 : relier la tablette du resto par un lien perso (30 min, une seule fois).
       window.__leonLienTablette = async () => {
         const { data, error } = await supabase.rpc("creer_lien_tablette", { o_id: orgId });
@@ -149,6 +155,7 @@ export default function LeonApp() {
       delete window.__leonInviter;
       delete window.__leonConnectes;
       delete window.__leonLienTablette;
+      delete window.__leonIA;
       delete window.__leonTablettes;
       delete window.__leonDelierTablette;
     };

@@ -114,6 +114,12 @@ export default function Rejoindre() {
                 <label htmlFor="rj-pass">{mode === "creer" ? "Choisis un mot de passe (8 caractères minimum)" : "Mot de passe"}</label>
                 <input id="rj-pass" type="password" required minLength={mode === "creer" ? 8 : undefined} autoComplete={mode === "creer" ? "new-password" : "current-password"} value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
+              {mode === "creer" && (
+                <label className="v-hint" style={{ display: "flex", gap: 8, alignItems: "flex-start", cursor: "pointer" }}>
+                  <input type="checkbox" required style={{ marginTop: 3 }} />
+                  <span>J'ai lu la <a className="v-link" href="/info-salaries" target="_blank" rel="noopener">note d'information</a> : ce que Léon garde (planning, heures badgées) et pourquoi.</span>
+                </label>
+              )}
               {err && <div className="v-err" role="alert">{err}</div>}
               <button className="v-btn v-btn-brass" type="submit" disabled={busy}>
                 {busy ? "Un instant…" : mode === "creer" ? "Créer mon compte" : "Me connecter"}
