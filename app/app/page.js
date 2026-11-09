@@ -55,6 +55,12 @@ export default function LeonApp() {
         window.__leonCompte = { prenom: (o && !o.test && o.patron_prenom) || "Maurice", resto: o && o.nom, ville: o && o.ville };
         }
       }
+      if (!orgId && !tablette) {
+        // 14.06 : un compte « tablette » n'ouvre jamais l'appli du patron.
+        const { data: estTab, error: eTab } = await supabase.rpc("suis_tablette");
+        if (cancelled) return;
+        if (!eTab && estTab) { router.replace("/tablette"); return; }
+      }
       if (!orgId) {
         // Le créateur n'a rien à faire ici sans resto choisi : direction son espace (2e code, liste des restos).
         // /app?moi=1 = il entre volontairement dans son propre resto depuis /createur.
@@ -99,7 +105,7 @@ export default function LeonApp() {
         }
       }
       if (tablette) window.__leonCompte = { ...(window.__leonCompte || {}), tablette: true };
-      db = createLeonDb(supabase, orgId);
+      db = createLeonDb(supabase, orgId, { salarie: !!(window.__leonCompte && window.__leonCompte.salarie) });
       window.__leonClaude = {
         use: async (name) => (name === "db" ? db : null),
       };
@@ -108,6 +114,22 @@ export default function LeonApp() {
         const { data, error } = await supabase.rpc("inviter_salarie", { e_id: empId, e_prenom: prenom || "" });
         if (error || !data) throw new Error((error && error.message) || "invitation impossible");
         return `${window.location.origin}/rejoindre?c=${data}`;
+      };
+      // 14.06 : relier la tablette du resto par un lien perso (30 min, une seule fois).
+      window.__leonLienTablette = async () => {
+        const { data, error } = await supabase.rpc("creer_lien_tablette", { o_id: orgId });
+        if (error || !data) throw new Error((error && error.message) || "lien impossible");
+        return `${window.location.origin}/tablette/relier?c=${data}`;
+      };
+      window.__leonTablettes = async () => {
+        const { data, error } = await supabase.rpc("mes_tablettes", { o_id: orgId });
+        if (error) throw error;
+        return data || [];
+      };
+      window.__leonDelierTablette = async (u) => {
+        const { error } = await supabase.rpc("delier_tablette", { u });
+        if (error) throw error;
+        return true;
       };
       window.__leonConnectes = async () => {
         const { data, error } = await supabase.rpc("mes_salaries_connectes");
@@ -126,6 +148,9 @@ export default function LeonApp() {
       delete window.__leonClaude;
       delete window.__leonInviter;
       delete window.__leonConnectes;
+      delete window.__leonLienTablette;
+      delete window.__leonTablettes;
+      delete window.__leonDelierTablette;
     };
   }, [router]);
 

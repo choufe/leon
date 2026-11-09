@@ -43,6 +43,7 @@ setupCard=function(){
 function v14TabModal(){
   const site=location.origin;const L=S.login||{};
   openModal(`<div class="mh"><div><h3>Installer la tablette du resto</h3><p>La tablette reste au resto : l’équipe y badge, fait l’hygiène et les réceptions. 5 minutes.</p></div><button class="icon-btn" data-act="modal-close" aria-label="Fermer">${ic('x')}</button></div>
+   ${typeof V14_TAB!=='undefined'&&V14_TAB?`<p><b>Le plus simple :</b> fais un lien perso et ouvre-le sur la tablette. Elle se relie toute seule à ton resto.</p><div style="margin:4px 0 12px"><button class="btn primary sm" data-act="v14-tab-lien">${ic('plus','s')} Faire un lien pour la tablette</button></div><p class="faint" style="font-size:12.5px">Sinon, à l’ancienne :</p>`:''}
    <ol class="v14-steps">
      <li><b>Sur la tablette, ouvre Safari</b> (ou Chrome) et va sur <code>${esc(site)}/tablette</code>.</li>
      <li><b>Connecte le resto</b> avec l’identifiant et le mot de passe de la tablette${L.id?` (identifiant : <code>${esc(L.id)}</code>)`:''}. Tu les trouves dans Réglages → La tablette du resto.</li>
@@ -122,4 +123,64 @@ Object.assign(ACT,{
 {const f=renderView;renderView=function(){const o=f.apply(this,arguments);try{
   if(UI.view==='equipe'&&CAN().settings&&!document.querySelector('.v14-rgpd')){const ph=document.querySelector('.view .ph');
     if(ph)ph.insertAdjacentHTML('afterend',`<div class="v14-rgpd">${ic('alert','s')}<span>Avant le premier badge, chaque salarié doit recevoir la note d’information sur la badgeuse (RGPD). <a href="/info-salaries" target="_blank" rel="noopener">Voir le modèle à imprimer</a></span></div>`);}
+}catch(e){}return o;};}
+
+/* ---------- 5. 14.06 · relier la tablette du resto par un lien perso ---------- */
+const V14_TAB=(()=>{try{const p=window.parent!==window?window.parent:null;return p&&p.__leonLienTablette?{lien:p.__leonLienTablette,liste:p.__leonTablettes,delier:p.__leonDelierTablette}:null;}catch(e){return null;}})();
+UI.v14tabs=null;
+async function v14TabsLoad(){if(!V14_TAB)return;try{UI.v14tabs=await V14_TAB.liste();}catch(e){UI.v14tabs='off';}const y=window.scrollY;renderView();window.scrollTo({top:y});}
+function v14TabsHTML(){
+  if(!V14_TAB||UI.v14tabs==='off')return '';
+  const L=Array.isArray(UI.v14tabs)?UI.v14tabs:[];
+  return `<div class="v14-tabs"><b>${ic('tablet','s')} Relier une tablette (recommandé)</b><p class="muted">Un lien perso, valable 30 minutes : ouvert sur la tablette, il la relie à ce resto. Elle n’a accès qu’à l’écran des codes, jamais à ton compte.</p>
+   <button class="btn primary sm" data-act="v14-tab-lien">${ic('plus','s')} Faire un lien pour une tablette</button>
+   ${L.length?`<div class="v14-tabs-l">${L.map(t=>`<div><span>${ic('tablet','s')} <b>${esc(t.nom||'Tablette')}</b> <small class="faint">reliée ${frDate(String(t.cree_le).slice(0,10))}${t.vue_le?' · vue '+frDate(String(t.vue_le).slice(0,10)):''}</small></span><button class="btn xs danger" data-act="v14-tab-del" data-u="${esc(t.user_id)}">Délier</button></div>`).join('')}</div>`:''}</div>`;
+}
+{const f=renderView;renderView=function(){const o=f.apply(this,arguments);try{
+  if(UI.view==='reglages'&&V14_TAB&&CAN().settings&&!document.querySelector('.v14-tabs')){
+    const h=[...document.querySelectorAll('.view .panel h2, .view .panel h3')].find(x=>/La tablette du resto|Connexion des appareils/.test(x.textContent));
+    const p=h&&h.closest('.panel');const b=p&&(p.querySelector('.panel-b')||p);
+    if(b){b.insertAdjacentHTML('afterbegin',v14TabsHTML());if(UI.v14tabs==null){UI.v14tabs=[];v14TabsLoad();}}
+  }
+}catch(e){}return o;};}
+Object.assign(ACT,{
+  async 'v14-tab-lien'(){
+    let url;try{url=await V14_TAB.lien();}catch(e){toast('Le lien n’a pas pu être fait. Réessaie dans un instant.','alert');return;}
+    const sms=`sms:?&body=${encodeURIComponent('Lien pour relier la tablette Léon : '+url)}`;
+    openModal(`<div class="mh"><div><h3>Relier une tablette</h3><p>Ouvre ce lien <b>sur la tablette du resto</b>, dans les 30 minutes. Il ne marche qu’une fois.</p></div><button class="icon-btn" data-act="modal-close" aria-label="Fermer">${ic('x')}</button></div>
+     <input class="inp mono" id="v14-tl" readonly value="${esc(url)}" style="font-size:12.5px">
+     <ol class="v14-steps"><li>Envoie-le sur la tablette (SMS, WhatsApp, ou tape-le), puis ouvre-le.</li><li>La tablette se relie toute seule et affiche l’écran des codes.</li><li>Partager → « Sur l’écran d’accueil » pour l’ouvrir comme une appli.</li></ol>
+     <div class="mf"><button class="btn" data-act="v14-tl-copy">${ic('copy','s')} Copier le lien</button><a class="btn" href="${sms}">${ic('send','s')} Par SMS</a><span class="sp"></span><button class="btn primary" data-act="modal-close">C’est envoyé</button></div>`);
+  },
+  'v14-tl-copy'(){const i=$('#v14-tl');if(i){copyText(i.value);try{i.select();}catch(e){}}toast('Lien copié','copy');},
+  'v14-tab-del'(t){const u=t.dataset.u;confirmBox({title:'Délier cette tablette ?',text:'Elle revient sur l’écran de connexion et ne peut plus badger pour ce resto.',ok:'Délier',danger:true,onOk:async()=>{try{await V14_TAB.delier(u);toast('Tablette déliée','check');}catch(e){toast('Impossible de la délier','alert');}v14TabsLoad();}});},
+});
+
+/* ---------- 6. 14.07 · Réglages rangés + sauvegarde du resto ---------- */
+function v14Backup(){
+  try{
+    const out={};Object.keys(S).forEach(k=>{if(k.startsWith('_'))return;const v=S[k];if(typeof v==='function')return;out[k]=v;});
+    const blob=new Blob([JSON.stringify({leon:'sauvegarde',version:'14',le:new Date().toISOString(),resto:S.nom,equipe:EMP,data:out},null,1)],{type:'application/json'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`leon-sauvegarde-${String(S.nom||'resto').toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-')}-${TODAY_ISO}.json`;
+    document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},800);
+    S.setup={...(S.setup||{}),backup:TODAY_ISO};save();toast('Sauvegarde téléchargée','check');
+  }catch(e){toast('La sauvegarde n’a pas pu être faite','alert');}
+}
+ACT['v14-backup']=v14Backup;
+{const f=renderView;renderView=function(){const o=f.apply(this,arguments);try{
+  if(UI.view!=='reglages'||!CAN().settings)return o;const v=document.querySelector('.view');if(!v)return o;
+  const pans=[...v.querySelectorAll(':scope > section.panel')];const byT=t=>pans.find(p=>{const h=p.querySelector('.panel-h h2, .panel-h h3');return h&&h.textContent.includes(t);});
+  const grid=v.querySelector(':scope > .grid2e');const tab=byT('La tablette du resto');
+  if(grid&&tab&&grid.nextElementSibling!==tab)grid.after(tab);
+  const cais=byT('Connexion de la caisse');
+  if(cais&&!cais.querySelector('.v14-det')){
+    const hd=[...cais.querySelectorAll('h3,h4,b,strong')].find(x=>/Correspondance caisse/.test(x.textContent));
+    if(hd){const box=hd.parentElement===cais?hd:hd.closest('.panel-b > *')||hd;const det=document.createElement('details');det.className='v14-det';
+      const n=S.recipes.filter(r=>r.t!=='prep').length;det.innerHTML=`<summary>Correspondance caisse ↔ fiches Léon (${n} plats)</summary>`;
+      box.before(det);let x=box;while(x){const nx=x.nextElementSibling;det.appendChild(x);x=nx;}}
+  }
+  if(!v.querySelector('.v14-bk')){
+    const last=(S.setup||{}).backup;
+    v.insertAdjacentHTML('beforeend',`<section class="panel v14-bk"><div class="panel-h"><h2>${ic('out')} Sauvegarde</h2></div><div class="panel-b"><p class="muted" style="font-size:13.5px;max-width:78ch">Tout ton Léon dans un fichier (équipe, planning, carte, stocks, hygiène). À garder au chaud, par exemple une fois par mois. La base de données est aussi sauvegardée de son côté.</p><div class="row wrap" style="gap:10px;align-items:center;margin-top:8px"><button class="btn" data-act="v14-backup">${ic('out','s')} Télécharger une sauvegarde</button><span class="faint" style="font-size:12.5px">${last?'Dernière : '+frDate(last):'Jamais faite'}</span></div></div></section>`);
+  }
 }catch(e){}return o;};}

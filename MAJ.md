@@ -5,6 +5,11 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 14.05 à 14.07 — Sécurité des salariés, tablette reliée (prête), réglages rangés
+- **14.05 Sécurité (appliquée dans la base le 9 nov., accord de Maurice)** : un salarié connecté ne lit plus que planning, carte, équipe, cahier et plats dispo, plus une copie « publique » du resto (sans codes, mots de passe, taux horaires, téléphones, contrats). Il n'écrit que dans ses demandes, le cahier et les plats dispo. Testé dans la base : un salarié ne voit que ces 7 documents et ne peut pas modifier le resto ; le patron voit tout. Migration `0010`.
+- **14.06 Relier la tablette par un lien perso (prêt, pas encore branché)** : Réglages → « La tablette du resto » → « Faire un lien pour une tablette » (30 min, une fois) → ouvert sur la tablette, elle a son propre compte rattaché au resto, ne peut ouvrir que l'écran des codes, et le patron peut la délier. Reste à appliquer la migration `0011` et à déployer la fonction `relier-tablette` (bloqué par la sécurité automatique de la session : à valider par Maurice). En attendant, le bouton ne s'affiche pas.
+- **14.07 Réglages rangés** : la tablette du resto remonte sous « Le restaurant », la correspondance caisse ↔ fiches est repliée, nouveau bloc **Sauvegarde** (tout le resto dans un fichier).
+
 ## 14.01 à 14.04 — Le tronc vers 60 %
 - **14.01 Démarrer Léon** : la mise en route suit tout le démarrage d'un resto en 10 étapes (le resto, l'équipe, la carte, les produits, les fournisseurs, le premier inventaire, l'hygiène, la tablette, l'imprimante, le premier planning ; la caisse « plus tard », c'est Maurice). Une seule **« Prochaine étape »** bien visible, le reste replié. Guides pas à pas pour installer la tablette et imprimer une étiquette test, avec « C'est fait ». La tablette se coche toute seule quand elle tourne dans le resto.
 - **14.02 Accueil rangé selon les 4 points** : « Tes 4 points » (Masse salariale → Équipe, Marchandise → Cuisine & stocks, Paperasse → Hygiène, Le resto dans la poche → Chiffres et Service), dans cet ordre.

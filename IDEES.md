@@ -115,4 +115,6 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - 💡 Prévision de CA avec météo et événements (Inpulse affiche sa précision : 71 %).
 - 💡 Commandes par lot pour un groupe (plusieurs restos d'un coup).
 - ✅ 14.01-14.04 (9 nov.) tronc vers 60 % : Démarrer Léon en 10 étapes, accueil « Tes 4 points », aperçu de lien + robots, note RGPD des salariés, visite guidée de la démo.
-- 📋 Sécurité (trouvé le 9 nov.) : `leon_docs` est ouvert à toute l'organisation, salariés compris (`is_org_member` inclut `leon_salaries`). Un salarié pourrait lire la paie et les contrats via l'API. À corriger : séparer les documents « équipe » des documents « direction ». Migration à valider avec Maurice.
+- ✅ 14.05 (9 nov.) corrigé par la migration 0010. Avant : `leon_docs` était ouvert à toute l'organisation, salariés compris (`is_org_member` inclut `leon_salaries`). Un salarié pourrait lire la paie et les contrats via l'API. À corriger : séparer les documents « équipe » des documents « direction ». Migration à valider avec Maurice.
+- 📋 14.06 tablette reliée par lien perso : code prêt (migration 0011, fonction `relier-tablette`, page /tablette/relier, bouton dans Réglages). À appliquer avec l'accord de Maurice.
+- 💡 Codes et mots de passe encore en clair dans `net/config` et `restos/<id>` (lisibles seulement par la direction depuis la 14.05) : à vérifier côté serveur un jour.
