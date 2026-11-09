@@ -1,6 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
+  // Adresse du site pour les aperçus de lien (à mettre dans Vercel quand le nom de domaine sera pris).
+  ...(process.env.NEXT_PUBLIC_SITE_URL ? { metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL) } : {}),
   title: "Léon",
   description: "Léon garde un œil sur votre restaurant, même quand vous n'y êtes pas.",
   // Sur iPhone : « Partager → Sur l'écran d'accueil » ouvre Léon en plein écran, comme une appli.

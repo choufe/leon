@@ -5,6 +5,14 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 14.01 à 14.04 — Le tronc vers 60 %
+- **14.01 Démarrer Léon** : la mise en route suit tout le démarrage d'un resto en 10 étapes (le resto, l'équipe, la carte, les produits, les fournisseurs, le premier inventaire, l'hygiène, la tablette, l'imprimante, le premier planning ; la caisse « plus tard », c'est Maurice). Une seule **« Prochaine étape »** bien visible, le reste replié. Guides pas à pas pour installer la tablette et imprimer une étiquette test, avec « C'est fait ». La tablette se coche toute seule quand elle tourne dans le resto.
+- **14.02 Accueil rangé selon les 4 points** : « Tes 4 points » (Masse salariale → Équipe, Marchandise → Cuisine & stocks, Paperasse → Hygiène, Le resto dans la poche → Chiffres et Service), dans cet ordre.
+- **14.03 Vitrine et RGPD** : aperçu soigné quand on partage le lien (image Léon, titre, description), Google ne lit que la vitrine (pas l'app ni les espaces privés), la marchandise décrite comme dans la 14.00. Nouvelle page **/info-salaries** : la note d'information des salariés pour la badgeuse, à compléter et faire signer (modèle, à faire valider). Rappel dans Salariés & accès et lien depuis Confidentialité.
+- **14.04 Visite guidée de la démo** : « Commencer la visite » sur l'accueil de la démo, 9 étapes en 5 minutes (journée, planning, badgeuse, commandes, où part la marchandise, fiches, hygiène, chiffres, tablette), avec Avant / Suivant.
+- **Sécurité, vérifiée dans la base** (lecture seule) : chaque patron ne voit que les données de son resto, un visiteur non connecté ne voit rien. **Un trou trouvé** : un salarié connecté peut, en passant par la base, lire tous les documents de son resto (dont la paie). À corriger par une migration, avec l'accord de Maurice.
+- **Reste** : nom de domaine, e-mail pro, être prévenu des demandes, lien perso de la tablette, CGV.
+
 ## 14.00 — La marchandise, façon Inpulse (en plus simple)
 Après l'analyse d'Inpulse sur le compte Burgouzz (9 nov., voir `claude/inpulse-analyse.md` dans le projet) : on reprend le meilleur (commandes, réception, inventaire, chiffres), sans ce qui perd l'utilisateur.
 - **Commander** : une carte par fournisseur (prochaine livraison, « pour cette livraison, commande aujourd'hui », ce que Léon conseille, montant estimé, minimum). Un clic → Léon prépare la commande.

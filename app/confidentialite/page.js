@@ -1,3 +1,4 @@
+import Link from "next/link";
 import PageLegale, { ACompleter } from "../_ui/PageLegale";
 
 export const metadata = { title: "Confidentialité · Léon" };
@@ -27,6 +28,7 @@ export default function Confidentialite() {
           <li>les comptes : e-mail et mot de passe des responsables. Les codes à 4 chiffres sont chiffrés, personne ne peut les lire, même pas nous.</li>
         </ul>
         <p>Si le restaurant arrête Léon, ses données lui sont rendues sur demande puis supprimées.</p>
+        <p>Pour la badgeuse, le restaurant informe son équipe avant de commencer : <Link className="v-back" href="/info-salaries">modèle de note d'information des salariés</Link>.</p>
       </section>
       <section>
         <h2>Qui y a accès</h2>

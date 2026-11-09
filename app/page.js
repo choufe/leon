@@ -6,6 +6,14 @@ export const metadata = {
   title: "Léon · la gestion de restaurant qui vous prévient avant vous",
   description:
     "Planning, pointage, stocks, hygiène et chiffres au même endroit. Léon garde un œil sur votre restaurant, même quand vous n'y êtes pas.",
+  openGraph: {
+    title: "Léon · la gestion de restaurant qui vous prévient avant vous",
+    description: "Planning, badgeuse, commandes, inventaire, hygiène et chiffres au même endroit. Fait à Lille, par un restaurateur.",
+    locale: "fr_FR",
+    type: "website",
+    siteName: "Léon",
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 const ICONS = {
@@ -38,8 +46,9 @@ const POINTS = [
     p: "Vous savez ce que coûte chaque plat et où part votre marchandise.",
     l: [
       "Fiches techniques avec coût matière et marge au centime",
-      "Commandes conseillées et réception vérifiée produit par produit",
-      "Inventaire et pertes, avec l'écart en euros",
+      "Commandes préparées par Léon, au colis près, avec le stock prévu jour par jour",
+      "Réception vérifiée produit par produit, la demande d'avoir est prête",
+      "Inventaire et pertes : vous voyez où part votre marchandise, en euros",
     ],
   },
   {
