@@ -41,7 +41,7 @@ Statut : ✅ corrigé dans cette branche · 🟡 préparé, à appliquer à la f
 
 ### S5 — Un salarié pouvait toucher à la validation des heures par la base ✅🟡
 - **Où** : règles `leon_docs: salarié écrit` (migration 0010).
-- **Pourquoi** : un salarié écrit dans le document « équipe » pour ses demandes de congés. Mais ce même document contient aussi les heures validées et la validation de paie (`validated`, `paieVal`) ; pareil pour « ops » (`hoursOk`, prix). En passant par la base, il pouvait donc les modifier.
+- **Pourquoi** : un salarié écrit dans le document « équipe » pour ses demandes de congés. Mais ce même document contient aussi les heures validées et la validation de paie (`validated`, `paieVal`) ; pareil pour « ops » (historique des prix). En passant par la base, il pouvait donc les modifier.
 - **Correction** : un garde-fou dans la base remet d'office ces rubriques à leur valeur d'avant quand c'est un salarié qui écrit. Migration `0012`.
 - **Risque** : faible. L'appli salarié n'écrit jamais dans ces rubriques.
 
