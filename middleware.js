@@ -3,7 +3,7 @@
 import { NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
-export const config = { matcher: ["/leon/demo.html", "/leon/tablette.html", "/tablette-demo"] };
+export const config = { matcher: ["/leon/demo.html", "/leon/tablette.html"] };
 
 export async function middleware(request) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
