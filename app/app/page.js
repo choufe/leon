@@ -55,6 +55,14 @@ export default function LeonApp() {
         window.__leonCompte = { prenom: (o && !o.test && o.patron_prenom) || "Maurice", resto: o && o.nom, ville: o && o.ville };
         }
       }
+      // 15.00 : on ne pointe QUE sur la tablette du resto. /tablette ne s'ouvre donc que pour un compte
+      // « tablette » (relié par le lien perso) ou pour le créateur en « Mode tablette ». Jamais avec le
+      // compte du patron ou d'un salarié sur un téléphone perso.
+      if (!orgId && tablette) {
+        const { data: estTab } = await supabase.rpc("suis_tablette");
+        if (cancelled) return;
+        if (!estTab) { setErr("TABLETTE_NON_RELIEE"); return; }
+      }
       if (!orgId && !tablette) {
         // 14.06 : un compte « tablette » n'ouvre jamais l'appli du patron.
         const { data: estTab, error: eTab } = await supabase.rpc("suis_tablette");
@@ -99,7 +107,6 @@ export default function LeonApp() {
         // Salarié invité par son patron : il entre dans le Léon de son resto, avec sa vue à lui.
         const { data: sal } = await supabase.rpc("mon_salarie");
         if (cancelled) return;
-        if (sal && sal.emp_id && tablette) { setErr("TABLETTE_SALARIE"); return; }
         if (sal && sal.emp_id) {
           window.__leonCompte = { salarie: true, empId: sal.emp_id, resto: sal.resto || "", prenom: "" };
         }
@@ -117,7 +124,7 @@ export default function LeonApp() {
       };
       // 14.08 : Léon répond aux questions avec Claude (fonction serveur leon-ia).
       window.__leonIA = async (messages) => {
-        const { data, error } = await supabase.functions.invoke("leon-ia", { body: { messages } });
+        const { data, error } = await supabase.functions.invoke("leon-ia", { body: { messages, org: orgId } });
         if (error) throw error;
         return data;
       };
@@ -198,9 +205,19 @@ export default function LeonApp() {
   if (err) {
     return shell(
       <section className="v-door-main">
-        <h1>On n'arrive pas à ouvrir votre resto</h1>
-        <p className="v-hint">{err === "TABLETTE_SALARIE" ? "La tablette du resto se connecte avec le compte du patron, pas celui d'un salarié." : err === NO_DB_MSG ? err : "Votre compte est bien connecté, mais il n'est relié à aucun restaurant pour l'instant. Si ça continue, appelez Maurice."}</p>
-        <Link className="v-btn v-btn-line" href="/login">Retour à la connexion</Link>
+        <h1>{err === "TABLETTE_NON_RELIEE" ? "Cet appareil n'est pas la tablette du resto" : "On n'arrive pas à ouvrir votre resto"}</h1>
+        {err === "TABLETTE_NON_RELIEE" ? (
+          <>
+            <p className="v-hint">Cette adresse est réservée à la tablette du resto : c'est le seul endroit où l'on badge.</p>
+            <p className="v-hint"><b>Pour relier une tablette :</b> sur votre ordinateur ou votre téléphone, ouvrez Léon → Réglages → « La tablette du resto » → « Faire un lien pour une tablette », puis ouvrez ce lien sur la tablette.</p>
+            <Link className="v-btn v-btn-brass" href="/app">Ouvrir Léon</Link>
+          </>
+        ) : (
+          <>
+            <p className="v-hint">{err === NO_DB_MSG ? err : "Votre compte est bien connecté, mais il n'est relié à aucun restaurant pour l'instant. Si ça continue, appelez Maurice."}</p>
+            <Link className="v-btn v-btn-line" href="/login">Retour à la connexion</Link>
+          </>
+        )}
       </section>
     );
   }
