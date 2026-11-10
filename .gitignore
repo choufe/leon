@@ -6,3 +6,5 @@ __pycache__/
 *.pyc
 .vercel
 .env*
+legacy/reseau_v11.html
+legacy/demo_v11.html
