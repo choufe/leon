@@ -69,3 +69,6 @@ setInterval(()=>{try{if(PIN.ctx!=='lock'||U.screen!=='lock')return;const e=docum
 [
  ['Trop d’essais. Attends','Too many tries. Wait','அதிக முயற்சிகள். காத்திரு','محاولات كثيرة. انتظر','Demasiadas tentativas. Espera','Demasiados intentos. Espera'],
 ].forEach(r=>{LANGS.forEach(([k],n)=>{if(n&&r[n]){I18N[k][r[0]]=r[n];const alt=r[0].replace(/’/g,"'");if(alt!==r[0])I18N[k][alt]=r[n];}});});
+
+/* 15.01 — audit visuel. Accueil d'un resto neuf : « Midi 30 couverts personne » se lisait mal. */
+{const f=tjHTML;tjHTML=function(){return f.apply(this,arguments).replace(/<span class="faint">personne<\/span>/g,'<span class="faint">personne au planning</span>');};}
