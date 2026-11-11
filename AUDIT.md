@@ -179,7 +179,8 @@ Maurice garde **sa direction artistique d'origine** (vert, doré, Bricolage Grot
 
 Tranché le 11 nov. : `/tablette` seulement sur tablette reliée (OK) ; le payé = patron et responsable ; le directeur garde code + mot de passe sur la tablette et corrige ce qu'il veut ; les droits du responsable = ceux vus le 3 nov. ; le nom de domaine viendra plus tard.
 
+Fait le 11 nov. avec l'accord de Maurice : migration `0012` appliquée sur la vraie base (données intactes), fonction `leon-ia` redéployée, branche fusionnée. `relier-tablette` n'a pas été redéployée (seul changement : le réglage du nom de domaine, à faire quand il sera choisi).
+
 Reste :
-1. **Migration `0012` + fonctions `leon-ia` et `relier-tablette`** : prêtes et testées sur une copie (36 vérifications), **pas appliquées** sur la vraie base. À appliquer au moment de la fusion, avec ton accord.
-2. **Le directeur qui corrige les pointages** : on le fait sur la tablette (une porte « Badgeuse » sur son écran Direction) ?
-3. **Supabase** : cocher la protection « mots de passe piratés » (2 clics, toi seul y as accès).
+1. **Le directeur qui corrige les pointages** : on le fait sur la tablette (une porte « Badgeuse » sur son écran Direction) ?
+2. **Supabase** : cocher la protection « mots de passe piratés » (2 clics, toi seul y as accès).

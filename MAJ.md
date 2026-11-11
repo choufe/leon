@@ -6,9 +6,9 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 ---
 
 ## 15.00 — Le grand audit et les corrections (branche `refonte-fable`)
-Tout est dans une pull request, **rien n'est en ligne** tant que tu n'as pas validé. Le détail : `AUDIT.md`.
+Mis en ligne le 11 nov. (accord de Maurice). Le détail : `AUDIT.md`.
 - **Audit** : tout le code et la base relus. 11 points de sécurité, 8 bugs, 9 pages ou fichiers morts, le reste en nettoyage.
-- **Sécurité** (migration `0012`, **prête mais pas appliquée**, testée sur une copie avec 36 vérifications) : plus personne ne peut s'ouvrir un Léon tout seul ; un resto supprimé est vraiment fermé ; un salarié ne peut plus toucher à la validation des heures ; l'assistant est réservé aux restos et compté ; frein contre les robots sur les demandes de démo ; droits de la base réduits. Next.js mis à jour (failles connues).
+- **Sécurité** (migration `0012`, testée sur une copie avec 36 vérifications, **appliquée le 11 nov.** avec l'accord de Maurice ; fonction `leon-ia` redéployée) : plus personne ne peut s'ouvrir un Léon tout seul ; un resto supprimé est vraiment fermé ; un salarié ne peut plus toucher à la validation des heures ; l'assistant est réservé aux restos et compté ; frein contre les robots sur les demandes de démo ; droits de la base réduits. Next.js mis à jour (failles connues).
 - **Le responsable sur son téléphone** : la base lui ouvre enfin ce qu'on avait décidé (planning, badgeuse, stocks, réceptions, inventaire, hygiène). Avant, ses écrans arrivaient vides.
 - **On ne badge que sur la tablette** : `/tablette` ne s'ouvre plus que sur une tablette reliée par le lien (ou pour toi en « Mode tablette »).
 - **Badgeuse** : un départ badgé après minuit va maintenant sur la bonne journée (avant : perdu, « Départ pas badgé » tous les soirs dans un bar) ; 5 mauvais codes → 30 s d'attente qui double. Le payé reste modifiable par le patron et le responsable.
