@@ -189,3 +189,4 @@
 .v .cr-demo { margin-top: 14px; display: grid; gap: 4px; }
 .v .cr-demo-h { font: 700 11px var(--v-ui); letter-spacing: .08em; text-transform: uppercase; opacity: .6; padding: 0 4px; }
 .v .cr-demo a.cr-item { text-decoration: none; }
+@media (max-width: 640px) { .cr-me span { display: none; } }

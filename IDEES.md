@@ -124,3 +124,10 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - ✅ 14.08 avis par page (règles chiffrées) + questions prêtes. 📋 IA libre : fonction `leon-ia` prête, à déployer + clé API Claude (Maurice).
 - 💡 Ensuite : l'avis qui propose des actions à valider en un clic (préparer la commande, décaler un shift, changer un prix), et un récap du lundi matin.
 - RGPD (9 nov.) : Maurice préfère une case à cocher. Fait : case à la création du compte salarié + « J'ai lu et compris » au premier badge sur la tablette (trace datée par salarié).
+
+## Refonte du 11 nov. (15.00, branche `refonte-fable`)
+- ✅ Audit complet (`AUDIT.md`) et corrections par gravité. Rien en ligne avant validation.
+- ❌ Nouvelle identité visuelle (« Le bon », ardoise, étiquette) : **abandonnée**. Maurice aime sa DA d'origine (vert, doré, Bricolage) et la garde. Par « refonte visuelle » il parlait de **l'organisation des écrans** (la disposition, le rangement dans les cases, qui fait « trop Claude »), pas des couleurs ni des polices. **Ne plus toucher à la direction artistique.**
+- 💬 À cadrer avec Maurice avant de produire : quels écrans, et ce qui le gêne dans leur disposition.
+- ✅ Décisions du 11 nov. : `/tablette` seulement sur tablette reliée ; le payé = patron et responsable ; le directeur corrige ce qu'il veut et la tablette lui demande code + mot de passe ; droits du responsable sur téléphone = tableau du 3 nov. ; nom de domaine plus tard.
+- 📋 À faire : la badgeuse du directeur sur la tablette (à confirmer) ; codes de la tablette vérifiés côté serveur ; code oublié du patron ; appliquer la migration `0012` à la mise en ligne.

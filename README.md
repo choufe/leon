@@ -48,7 +48,7 @@ L'app v11 complète tourne maintenant dans Next.js avec une vraie base de
 données Supabase (Postgres, hébergée à Paris — RGPD) et une vraie
 authentification :
 
-- `/inscription`, `/login` : compte du créateur (Supabase Auth).
+- `/login` : la seule porte (créateur, patron, salarié). Personne ne s'inscrit seul : le créateur invite le patron depuis `/createur`, le patron invite ses salariés.
 - `/app` : vérifie la connexion, puis affiche l'app v11
   (`public/leon/app.html`) en plein écran. Elle lui prête un stockage
   Supabase qui a la même interface que celui des artifacts Claude
@@ -91,10 +91,13 @@ sur `main` redéploie automatiquement.
 
 #### Premier compte / premier restaurant
 
-1. `/inscription` : crée le compte du créateur.
-2. `/app` : l'écran « Crée ton Léon » de la v11 crée le réseau et le premier
-   restaurant. Il donne l'identifiant et le mot de passe qui connectent les
-   appareils du restaurant, puis les codes de chacun.
+1. Le compte créateur existe déjà (mot de passe + 2e code à 4 chiffres). `/inscription` a été retirée.
+2. `/createur` → « Ajouter un restaurant » : crée le resto et envoie l'invitation au patron
+   (ou « Resto de test », sans patron ni mail).
+3. Le patron ouvre le mail, choisit son mot de passe puis son code (`/bienvenue`) et arrive dans `/app`.
+4. La tablette du resto se relie par un lien perso (Réglages → La tablette du resto). On ne badge que là.
+
+Audit et sécurité : voir `AUDIT.md` et `supabase/tests/LISEZMOI.md`.
 
 ## Prochaines étapes
 

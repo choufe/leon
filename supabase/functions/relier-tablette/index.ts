@@ -33,7 +33,8 @@ Deno.serve(async (req) => {
   if (!org || org.supprime_le) return json({ erreur: "Ce resto n'est plus actif." }, 410);
 
   // 2. Le compte de la tablette (adresse technique, jamais utilisée pour des mails).
-  const email = `tablette-${hasard(6)}@tablettes.leon-app.fr`;
+  // LEON_DOMAINE_TABLETTES : à régler sur un nom de domaine qui appartient à Léon dès qu'il est choisi (AUDIT S11).
+  const email = `tablette-${hasard(6)}@${Deno.env.get("LEON_DOMAINE_TABLETTES") || "tablettes.leon-app.fr"}`;
   const password = hasard(24);
   const { data: u, error: errU } = await admin.auth.admin.createUser({ email, password, email_confirm: true, user_metadata: { tablette: true, resto: org.name } });
   if (errU || !u?.user) return json({ erreur: "La tablette n'a pas pu être reliée. Réessaie avec un nouveau lien." }, 500);

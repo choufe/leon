@@ -1,5 +1,5 @@
 // Léon 14.08 — « Demander à Léon » / « L'avis de Léon » : la question part ici, Léon répond avec Claude.
-// Il faut être connecté à un resto (patron, direction, tablette ou salarié).
+// Il faut être connecté à un resto actif (patron, direction, tablette ou salarié) : vérifié par leon_ia_ticket (migration 0012).
 // La clé de l'API Claude est un secret du projet Supabase : ANTHROPIC_API_KEY (à mettre par Maurice).
 import { createClient } from "npm:@supabase/supabase-js@2";
 
@@ -22,9 +22,19 @@ Deno.serve(async (req) => {
   const { data: u } = await moi.auth.getUser();
   if (!u?.user) return json({ erreur: "Connecte-toi pour parler à Léon.", code: "non_connecte" }, 401);
 
+  // 1 bis. Le compte doit appartenir à un resto actif, et rester sous la limite du jour
+  // (60 questions par compte, 400 par resto) : la clé de l'API est payante.
+  let corps: Record<string, unknown> = {};
+  try { corps = await req.json(); } catch (_) { return json({ erreur: "Demande illisible." }, 400); }
+  const org = typeof corps.org === "string" && /^[0-9a-f-]{36}$/.test(corps.org) ? corps.org : null;
+  const { data: ticket, error: errT } = await moi.rpc("leon_ia_ticket", { o_id: org });
+  if (errT || !ticket?.ok) {
+    if (ticket?.raison === "limite") return json({ erreur: "On a beaucoup discuté aujourd'hui. Je reprends les questions libres demain.", code: "limite" }, 200);
+    return json({ erreur: "Ce compte n'est relié à aucun restaurant.", code: "pas_de_resto" }, 403);
+  }
+
   // 2. La conversation (le 1er message contient les données du resto, préparées par l'appli).
-  let b: Record<string, unknown> = {};
-  try { b = await req.json(); } catch (_) { return json({ erreur: "Demande illisible." }, 400); }
+  const b = corps;
   const brut = Array.isArray(b.messages) ? b.messages : [];
   const messages = brut.slice(-10).map((m: any) => ({
     role: m && m.role === "assistant" ? "assistant" : "user",

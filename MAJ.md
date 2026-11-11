@@ -5,6 +5,19 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.00 — Le grand audit et les corrections (branche `refonte-fable`)
+Mis en ligne le 11 nov. (accord de Maurice). Le détail : `AUDIT.md`.
+- **Audit** : tout le code et la base relus. 11 points de sécurité, 8 bugs, 9 pages ou fichiers morts, le reste en nettoyage.
+- **Sécurité** (migration `0012`, testée sur une copie avec 36 vérifications, **appliquée le 11 nov.** avec l'accord de Maurice ; fonction `leon-ia` redéployée) : plus personne ne peut s'ouvrir un Léon tout seul ; un resto supprimé est vraiment fermé ; un salarié ne peut plus toucher à la validation des heures ; l'assistant est réservé aux restos et compté ; frein contre les robots sur les demandes de démo ; droits de la base réduits. Next.js mis à jour (failles connues).
+- **Le responsable sur son téléphone** : la base lui ouvre enfin ce qu'on avait décidé (planning, badgeuse, stocks, réceptions, inventaire, hygiène). Avant, ses écrans arrivaient vides.
+- **On ne badge que sur la tablette** : `/tablette` ne s'ouvre plus que sur une tablette reliée par le lien (ou pour toi en « Mode tablette »).
+- **Badgeuse** : un départ badgé après minuit va maintenant sur la bonne journée (avant : perdu, « Départ pas badgé » tous les soirs dans un bar) ; 5 mauvais codes → 30 s d'attente qui double. Le payé reste modifiable par le patron et le responsable.
+- **Un seul chemin** : `/inscription` et `/tablette-demo` supprimées, vieux fichiers retirés.
+- **Polices** : les mêmes qu'avant, mais rangées dans le site (plus d'appel à Google). Rien ne change à l'œil.
+- **Apparence** : ta direction artistique d'origine est gardée telle quelle. Une nouvelle identité avait été essayée par erreur (malentendu sur « refonte visuelle ») : retirée. Le vrai sujet, l'organisation des écrans, reste à cadrer ensemble.
+- **Check complet** après retour à ta DA : 183 écrans de l'appli + 48 écrans tablette + 30 pages du site (téléphone, tablette, PC) : 0 erreur, rien qui dépasse.
+- **Reste** : voir la fin de `AUDIT.md` (appliquer la migration `0012`, la badgeuse du directeur sur la tablette, l'organisation des écrans).
+
 ## 14.08 à 14.09 — L'avis de Léon partout, la note RGPD lue sur la tablette, la tablette reliée en ligne
 - **14.06 branchée** (9 nov., accord de Maurice) : migration `0011` appliquée et fonction `relier-tablette` en ligne. Réglages → La tablette du resto → « Faire un lien pour une tablette ». Testé dans la base (lien créé pour son resto, refusé pour un autre patron). **À tester sur une vraie tablette.**
 - **14.08 L'avis de Léon sur chaque page** : bouton doré « L'avis de Léon » sur l'accueil, Stocks & commandes, les fiches (marges), les chiffres, l'équipe, la badgeuse, les congés et l'hygiène (le planning garde le sien). Léon dit tout de suite ce qu'il voit, avec les euros en jeu et le bouton pour agir : commandes à passer aujourd'hui, produits qui vont manquer avant la livraison, stock qui dort, avoirs à demander, plus grosse fuite ; plats sous l'objectif de coût matière (prix conseillé, ou +1 € et grammage si le saut est trop brutal), la star à pousser, le plat à retirer, les hausses de prix ; coût matière, masse salariale, pertes, résultat et ticket moyen du mois ; retards, demandes, note RGPD ; relevés et DLC. En bas : questions toutes prêtes selon la page, ou sa propre question.

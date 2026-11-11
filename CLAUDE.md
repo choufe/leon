@@ -8,7 +8,11 @@ Premier usage réel prévu : en privé, dans le restaurant de son beau-père. Pa
 ## Structure du repo
 - `legacy/` : la version validée (V2 à V11), construite en gros fichiers HTML à partir de modules JS empilés (`v8_*`, `v9_*`, `v10_lisible.js`, `v11_*`). Chaque module enveloppe les fonctions de la version précédente (copie `__v7`, etc.) au lieu de les réécrire. **Ne pas réécrire le cœur : on ajoute un module par-dessus.**
 - `public/leon/app.html` et `demo.html` : générés depuis `legacy/`. Ne pas les modifier à la main.
-- `app/` : Next.js (App Router) — `/inscription`, `/login`, `/app` (affiche l'app v11 en plein écran), `/dashboard`.
+- `app/` : Next.js (App Router) — la vitrine `/`, `/demande`, `/login`, `/bienvenue`, `/rejoindre`, `/createur`, `/app` (affiche l'app en plein écran), `/tablette` (réservée aux tablettes reliées).
+- `legacy/v15_correctifs.js` : correctifs de l'audit. `AUDIT.md` : l'audit du 11 nov. 2026.
+- **Direction artistique : on n'y touche pas** (vert, doré, Bricolage Grotesque / Instrument Sans / IBM Plex Mono). Maurice l'a validée ; ses demandes « visuelles » portent sur l'organisation des écrans.
+- `public/polices/` : les polices du site (aucun appel à Google).
+- `supabase/tests/` : tests des règles d'accès sur une copie locale de la base (à relancer après chaque migration qui touche aux droits).
 - `lib/leonStore.js` : stockage Supabase qui imite l'interface de stockage des artifacts Claude (`window.claude`), pour que la v11 tourne sans modification.
 - `supabase/migrations/` : `0001_init_core_schema.sql` (tables relationnelles, pas encore utilisées), `0002_leon_docs.sql` (table `leon_docs`, une ligne par document, rangée par organisation, RLS par membre).
 - `scripts/publish-legacy.mjs` : copie les builds `legacy/` dans `public/leon/`.
@@ -45,7 +49,7 @@ Premier usage réel prévu : en privé, dans le restaurant de son beau-père. Pa
 - Léon ne prend pas de commandes clients : la caisse (L'Addition pour le resto test) s'en charge. Léon sert à badger, suivre, piloter.
 
 ## Reporté volontairement (ne pas traiter sans accord de Maurice)
-- **Sécurité** (à faire avant d'ouvrir à un autre restaurant) : mots de passe et codes des appareils aujourd'hui en clair dans `net/config` → à hacher côté serveur ; revoir l'exécution publique des fonctions `my_org`, `is_org_member`, `is_member_of` ; activer la protection contre les mots de passe déjà piratés dans Supabase Auth.
+- **Sécurité, suite** (à faire avant d'ouvrir à des inconnus, voir `AUDIT.md` S8, S9) : codes et mots de passe du resto encore en clair dans `net/config` et `restos/<id>`, vérifiés dans le navigateur de la tablette → à vérifier côté serveur ; le code à 4 chiffres du patron n'est qu'un verrou d'écran ; activer la protection contre les mots de passe déjà piratés dans Supabase Auth. (Le reste a été traité par la migration `0012`.)
 - **Caisse L'Addition** : un seul flux à brancher (ventes/encaissements par article), via une fonction serveur qui écrit dans la base. En attente de l'accès côté L'Addition. « Un de mes arcs finaux ».
 - Rôle « patron de groupe », CRM des clients Léon, facturation aux restaurateurs.
 
