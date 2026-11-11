@@ -5,6 +5,14 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.03 — Paie, Salariés et Badgeuse sur téléphone (branche `tel-lignes-15.03`)
+Pas encore en ligne (attend l'accord de Maurice).
+- **Paie** : une ligne par salarié (nom, contrat, heures payées), le détail (écart, heures sup, nuit, férié, absences, repas) au toucher. Environ 4 écrans de défilement au lieu de 10.
+- **Salariés & accès** : chaque carte montre le nom, le poste et les étiquettes ; le coût horaire, le téléphone, le code et les boutons s'ouvrent au toucher. Les codes ne sont plus affichés en clair d'office.
+- **Badgeuse** : pour chaque service, prévu et badgé côte à côte, le payé et la pause sur une seule ligne en dessous. Environ 4,5 écrans au lieu de 6, et le mot « PAYÉ » ne flotte plus.
+- PC et tablette : rien ne change (captures identiques).
+- Vérifié à l'écran (fermé et ouvert), `npm run check` sur 239 écrans sans erreur, `npm run build` OK.
+
 ## 15.02 — Stocks sur téléphone : une ligne par produit (branche `stocks-tel-15.02`)
 Pas encore en ligne (attend l'accord de Maurice). Contient aussi la 15.01.
 - **Avant** : chaque produit prenait 7 lignes (théorique, entrées, sorties, dernier compté, seuil, statut, valeur) : environ 24 écrans de défilement pour 45 produits.

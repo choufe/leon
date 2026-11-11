@@ -82,3 +82,11 @@ document.addEventListener('click',e=>{
   if(!tr||e.target.closest('button,a,input,select,label'))return;
   tr.classList.toggle('open');
 });
+
+/* 15.03 — Paie et Salariés sur téléphone : une ligne courte par personne, le détail au toucher (même recette que Stocks). */
+document.addEventListener('click',e=>{
+  if(window.innerWidth>760||!e.target.closest)return;
+  if(e.target.closest('button,a,input,select,label,textarea'))return;
+  const el=e.target.closest('table.pa-t.mcards tbody tr, table.pa-t.mcards tfoot tr, .ecards .ecard');
+  if(el)el.classList.toggle('open');
+});
