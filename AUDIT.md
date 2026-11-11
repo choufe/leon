@@ -175,7 +175,7 @@ Statut : ✅ corrigé dans cette branche · 🟡 préparé, à appliquer à la f
 | | Où | Constat | Correction |
 |---|---|---|---|
 | E1 ✅ | Partout | Look « site fait par une IA » : cartes arrondies + ombres, pastilles partout, 5 couleurs pastel. | Étape 3 : nouvelle identité (voir le résumé de la PR). |
-| E2 ✅ | Tablette, pavé de code | Touches de 64 px, un peu justes avec les mains mouillées. | Touches de 84 px, chiffres plus gros. |
+| E2 ✅ | Pavés de code | Sur le site (patron, créateur) : touches de 56 px, chiffres fins. Sur la tablette : déjà 92 px, mais plates et pâles. | Site : touches de 76 px. Partout : gros chiffres noirs, touche qui « s'enfonce » et passe au jaune quand on appuie. |
 | E3 ✅ | Boutons d'action sur téléphone | Plusieurs sous les 44 px de haut (« C'est géré », filtres). | Hauteur minimale 44 px sur téléphone et tablette. |
 | E4 ✅ | Alertes | 4 façons différentes d'afficher une alerte selon l'écran. | Une seule : le « bon » (ticket avec bord de couleur). |
 | E5 ✅ | Chiffres | Tailles et polices variables d'un écran à l'autre. | Tous les chiffres en police « ticket de caisse », alignés. |

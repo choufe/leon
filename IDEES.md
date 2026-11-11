@@ -124,3 +124,10 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - ✅ 14.08 avis par page (règles chiffrées) + questions prêtes. 📋 IA libre : fonction `leon-ia` prête, à déployer + clé API Claude (Maurice).
 - 💡 Ensuite : l'avis qui propose des actions à valider en un clic (préparer la commande, décaler un shift, changer un prix), et un récap du lundi matin.
 - RGPD (9 nov.) : Maurice préfère une case à cocher. Fait : case à la création du compte salarié + « J'ai lu et compris » au premier badge sur la tablette (trace datée par salarié).
+
+## Refonte du 11 nov. (15.00, branche `refonte-fable`)
+- ✅ Audit complet (`AUDIT.md`), corrections par gravité, identité « Le bon », check de tous les écrans. Rien en ligne avant validation.
+- ✅ Identité retenue par Claude : « Le bon » (piste A). Pistes B « L'ardoise » et C « L'étiquette » gardées dans `legacy/pistes/` si Maurice préfère.
+- 🙋 À valider par Maurice (liste dans `AUDIT.md`) : `/tablette` seulement sur tablette reliée ; responsable qui ne modifie plus le « payé » ; directeur sur la tablette (corriger un pointage ? code seul ou code + mot de passe ?) ; droits du responsable sur son téléphone ; nom de domaine ; appliquer la migration `0012` ; refaire le film.
+- 📋 Chantier sécurité suivant : codes de la tablette vérifiés côté serveur (aujourd'hui en clair dans le navigateur de la tablette) ; code oublié du patron.
+- Règle de style : toute nouvelle couleur, police ou arrondi passe par `legacy/pistes/a.css` (appli) ou la fin de `app/vitrine.css` (site). Les chiffres sont toujours en `--f-mono`.

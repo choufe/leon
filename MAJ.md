@@ -5,6 +5,18 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.00 — Le grand audit, les corrections et la nouvelle identité « Le bon » (branche `refonte-fable`)
+Tout est dans une pull request, **rien n'est en ligne** tant que tu n'as pas validé. Le détail : `AUDIT.md`.
+- **Audit** : tout le code et la base relus. 11 points de sécurité, 8 bugs, 9 pages ou fichiers morts, le reste en nettoyage et ergonomie.
+- **Sécurité** (migration `0012`, **prête mais pas appliquée**, testée sur une copie avec 32 vérifications) : plus personne ne peut s'ouvrir un Léon tout seul ; un resto supprimé est vraiment fermé ; un salarié ne peut plus toucher à la validation des heures ; l'assistant est réservé aux restos et compté ; frein contre les robots sur les demandes de démo ; droits de la base réduits. Next.js mis à jour (failles connues).
+- **On ne badge que sur la tablette** : `/tablette` ne s'ouvre plus que sur une tablette reliée par le lien (ou pour toi en « Mode tablette »).
+- **Badgeuse** : un départ badgé après minuit va maintenant sur la bonne journée (avant : perdu, « Départ pas badgé » tous les soirs dans un bar) ; 5 mauvais codes → 30 s d'attente qui double ; seul le patron / directeur modifie le « payé ».
+- **Un seul chemin** : `/inscription` et `/tablette-demo` supprimées, vieux fichiers retirés.
+- **Identité « Le bon »** : Léon ressemble à un passe de cuisine. Fond inox, chaque bloc est un bon blanc à bords nets, titres en lettres de plaque (Barlow Condensed), tous les chiffres en police de ticket (Chivo Mono), jaune « souche » pour agir, rose / rouge pour l'urgent, et le ticket du jour avec son bord déchiré. Appliqué partout : appli, tablette, site, connexion, espace créateur, mode sombre. Les polices sont dans le site (plus d'appel à Google).
+- **Deux autres pistes gardées** (`legacy/pistes/b.css` « L'ardoise », `c.css` « L'étiquette ») : captures dans `docs/refonte/`. Pour en essayer une : `LEON_PISTE=b npm run legacy`.
+- **Check complet** : 282 écrans de l'appli (183 du grand check + 99 en plus par rôle : directeur sur PC ; responsable, salarié et directeur au format tablette), 48 écrans de la tablette du resto et 51 pages du site (téléphone, tablette, PC ; créateur, patron, directeur, responsable, salarié) : 0 erreur, rien qui dépasse. Captures dans `docs/refonte/`.
+- **Reste** : voir « À valider par Maurice » dans `AUDIT.md` (8 points), dont l'application de la migration `0012` au moment de la mise en ligne.
+
 ## 14.08 à 14.09 — L'avis de Léon partout, la note RGPD lue sur la tablette, la tablette reliée en ligne
 - **14.06 branchée** (9 nov., accord de Maurice) : migration `0011` appliquée et fonction `relier-tablette` en ligne. Réglages → La tablette du resto → « Faire un lien pour une tablette ». Testé dans la base (lien créé pour son resto, refusé pour un autre patron). **À tester sur une vraie tablette.**
 - **14.08 L'avis de Léon sur chaque page** : bouton doré « L'avis de Léon » sur l'accueil, Stocks & commandes, les fiches (marges), les chiffres, l'équipe, la badgeuse, les congés et l'hygiène (le planning garde le sien). Léon dit tout de suite ce qu'il voit, avec les euros en jeu et le bouton pour agir : commandes à passer aujourd'hui, produits qui vont manquer avant la livraison, stock qui dort, avoirs à demander, plus grosse fuite ; plats sous l'objectif de coût matière (prix conseillé, ou +1 € et grammage si le saut est trop brutal), la star à pousser, le plat à retirer, les hausses de prix ; coût matière, masse salariale, pertes, résultat et ticket moyen du mois ; retards, demandes, note RGPD ; relevés et DLC. En bas : questions toutes prêtes selon la page, ou sa propre question.
