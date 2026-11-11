@@ -1,8 +1,6 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Léon Brasserie</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400..700&family=Noto+Sans+Tamil:wght@400..700&family=Noto+Sans+Arabic:wght@400..700&display=swap">
+<link rel="stylesheet" href="/polices/polices.css">
 <style>
 :root{
   --bg:#F1F4EF; --surface:#FFFFFF; --surface-2:#E8EDE6; --sunk:#F6F8F4; --hover:#EEF2EC;
@@ -2804,6 +2802,228 @@ html.v13-resto .hub-back{display:none!important}
 @media (max-width: 900px){.side .brand .wordmark.logo{--logo-w:84px}}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .t-logo .wordmark.logo{background-image:var(--logo-creme)}}
 :root[data-theme="dark"] .t-logo .wordmark.logo{background-image:var(--logo-creme)}
+
+/* =========================================================
+   V15 · IDENTITÉ « LE BON »  (piste A, retenue)
+   Léon ressemble à ce qu'il y a sur un passe : des bons de commande posés sur de l'inox.
+   - Fond : gris inox. Chaque bloc est un bon blanc, bords nets, sans ombre ni dégradé.
+   - Typo : Barlow Condensed (plaque de cuisine) pour les titres, Barlow pour le texte,
+            Chivo Mono pour tous les chiffres (heures, euros, horaires), comme sur un ticket de caisse.
+   - Couleurs : vert Léon (le logo), jaune « souche » (à regarder), rose « souche » + rouge tampon (urgent).
+     Ce sont les couleurs des carnets de bons autocopiants : blanc, jaune, rose.
+   - Une seule fantaisie : le bord déchiré du ticket du jour. Tout le reste est calme.
+   Cette feuille passe APRÈS toutes les autres : elle ne change que l'apparence, jamais le fonctionnement.
+   ========================================================= */
+:root{
+  --bg:#DDE1DF; --surface:#FFFFFF; --surface-2:#ECEFED; --sunk:#F4F6F4; --hover:#EFF2F0;
+  --ink:#111916; --ink-2:#38453F; --ink-3:#5A6660; --line:#B9C1BD; --line-2:#8C9691;
+  --side:#18352B; --side-2:#234A3B; --side-ink:#EEF3EF; --side-mute:#A9C0B4; --side-line:rgba(238,243,239,.16);
+  --primary:#18352B; --on-primary:#FFFFFF;
+  --brass:#8A5A00; --brass-ink:#FFFFFF; --brass-soft:#FBEFAE; --brass-line:#D9B300;
+  --ok:#1B6B41; --ok-soft:#D9EEE1; --warn:#6E4A00; --warn-soft:#FBEFAE; --bad:#A3271A; --bad-soft:#F9DAD4; --info:#1D4E89; --info-soft:#DBE7F5;
+  --souche:#F4D53B; --souche-rose:#F3B8AE;
+  --pop-bg:#111916; --pop-ink:#F2F5F3; --pop-mute:#B5C2BB; --pop-code:#26332D; --pop-accent:#F4D53B;
+  --ticket:#FFFFFF; --ticket-ink:#111916; --ticket-line:#B9C1BD;
+  --shadow:0 0 0 1px var(--line-2),5px 5px 0 rgba(17,25,22,.16);
+  --f-display:"Barlow Condensed","Noto Sans Tamil","Noto Sans Arabic","Arial Narrow",ui-sans-serif,system-ui,sans-serif;
+  --f-ui:"Barlow","Noto Sans Tamil","Noto Sans Arabic",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"Chivo Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:3px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1412; --surface:#171E1B; --surface-2:#202925; --sunk:#131A17; --hover:#1D2622;
+    --ink:#EAF0EC; --ink-2:#B1BEB7; --ink-3:#8B9992; --line:#33403A; --line-2:#4A5952;
+    --side:#0A120F; --side-2:#1A2E24; --side-ink:#EAF0EC; --side-mute:#93AB9F; --side-line:rgba(234,240,236,.12);
+    --primary:#D4E6DA; --on-primary:#0E1412;
+    --brass:#F4D53B; --brass-ink:#1A1400; --brass-soft:#3A3208; --brass-line:#8A7410;
+    --ok:#6CC895; --ok-soft:#14301F; --warn:#F4D53B; --warn-soft:#3A3208; --bad:#F58A78; --bad-soft:#3F1C16; --info:#83B0E8; --info-soft:#15263D;
+    --pop-bg:#EAF0EC; --pop-ink:#0E1412; --pop-mute:#4D5B54; --pop-code:#CFD9D3; --pop-accent:#6E4A00;
+    --ticket:#171E1B; --ticket-ink:#EAF0EC; --ticket-line:#33403A;
+    --shadow:0 0 0 1px var(--line-2),5px 5px 0 rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1412; --surface:#171E1B; --surface-2:#202925; --sunk:#131A17; --hover:#1D2622;
+  --ink:#EAF0EC; --ink-2:#B1BEB7; --ink-3:#8B9992; --line:#33403A; --line-2:#4A5952;
+  --side:#0A120F; --side-2:#1A2E24; --side-ink:#EAF0EC; --side-mute:#93AB9F; --side-line:rgba(234,240,236,.12);
+  --primary:#D4E6DA; --on-primary:#0E1412;
+  --brass:#F4D53B; --brass-ink:#1A1400; --brass-soft:#3A3208; --brass-line:#8A7410;
+  --ok:#6CC895; --ok-soft:#14301F; --warn:#F4D53B; --warn-soft:#3A3208; --bad:#F58A78; --bad-soft:#3F1C16; --info:#83B0E8; --info-soft:#15263D;
+  --pop-bg:#EAF0EC; --pop-ink:#0E1412; --pop-mute:#4D5B54; --pop-code:#CFD9D3; --pop-accent:#6E4A00;
+  --ticket:#171E1B; --ticket-ink:#EAF0EC; --ticket-line:#33403A;
+  --shadow:0 0 0 1px var(--line-2),5px 5px 0 rgba(0,0,0,.5);
+}
+
+/* ---------- bords nets partout, ronds seulement pour ce qui est rond dans la vraie vie ---------- */
+*,*::before,*::after{border-radius:var(--r)!important}
+.av,.dot,.pin-dots span,.tj-av,.chg-i,.legend i,.pl-legend i,.switch,.switch::before,.switch::after,.sw i,
+input[type="radio"],.bc-check,.tn-check,.spin,.live-dot,.rec-dot{border-radius:999px!important}
+
+body{font-family:var(--f-ui);font-size:15.5px;letter-spacing:.005em;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.ph h1,.panel-h h2,.tj-h b,.z-t>b,.mh h3,.kiosk-title,.kiosk-h2,.tb-h1{font-family:var(--f-display);font-weight:700;letter-spacing:.005em;line-height:1.05}
+.ph h1{font-size:clamp(34px,4.2vw,46px)}
+.panel-h h2,.mh h3{font-size:23px}
+.z-t>b{font-size:25px}
+
+/* Les petits titres de rubrique : plus de MAJUSCULES espacées, une vraie ligne de plaque. */
+.eyebrow,.nav-sep,.sec-t,.z-prom,.zone-eb,.grp,.tb-eb,.tb-side-h,.zones-h small,.lbl2,th{text-transform:none!important;letter-spacing:.01em!important;font-family:var(--f-display);font-weight:600;font-size:15px}
+.nav-sep{font-size:14px;color:var(--side-mute)}
+.grp{font-size:16px}
+
+/* ---------- les chiffres : toujours la police du ticket ---------- */
+.kpi .v,.ts>b,.tnum,.clock,[data-clock],.shift .t,.hrs,.ft-v,.tf-v,.nb,.lock-clock,.bc-type b,td.tnum,.key{font-family:var(--f-mono);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.kpi .v{font-weight:500;font-size:34px;letter-spacing:-.03em}
+.kpi .l{font-family:var(--f-display);font-weight:600;font-size:16px;color:var(--ink-2)}
+/* la bande de chiffres de l'accueil : 4 tickets de caisse */
+.ts{background:var(--surface)!important;border:1px solid var(--line)!important;box-shadow:none!important;border-top:4px solid var(--ink)!important}
+.ts.bad{border-top-color:var(--bad)!important}.ts.warn{border-top-color:var(--souche)!important}.ts.ok{border-top-color:var(--ok)!important}
+.ts>small{font-family:var(--f-display);font-weight:600;font-size:16px;color:var(--ink-2)}
+.ts>b{font-weight:500;font-size:36px;letter-spacing:-.04em;line-height:1.1;word-spacing:-.25em}
+.ts>b>i{font-family:var(--f-ui);font-size:14px;font-weight:500;letter-spacing:0;color:var(--ink-3);margin-left:6px}
+.z-st b{font-weight:700}
+
+/* ---------- le bon : blanc, filet net, pas d'ombre ---------- */
+.panel,.kpi,.zone,.tj,.al,.card,.resto-card,.lia-e,.emp-card,.v14-tourc,.viewas,.ap-q,.pub-al,.pg-wrap,.pg9-wrap,.tbl-wrap,.note{box-shadow:none!important;background-image:none!important}
+.panel,.kpi,.zone,.tj,.pg-wrap,.pg9-wrap{background:var(--surface);border:1px solid var(--line)}
+.panel-h{border-bottom:1px dashed var(--line-2)}
+.top{background:var(--surface);border-bottom:2px solid var(--ink)}
+
+/* Le ticket du jour : seul bloc à bord déchiré. */
+.tj{position:relative;border-bottom-color:transparent;margin-bottom:22px;border-top:4px solid var(--ink)}
+.tj::after{content:"";position:absolute;left:-1px;right:-1px;top:100%;height:9px;
+  background:linear-gradient(135deg,var(--surface) 4.5px,transparent 0) 0 0/9px 9px repeat-x,linear-gradient(-135deg,var(--surface) 4.5px,transparent 0) 0 0/9px 9px repeat-x;
+  filter:drop-shadow(0 1px 0 var(--line))}
+.tj-h b{font-size:27px}
+.tj-row{border-bottom:1px dashed var(--line)}
+.tj-svc{background:transparent!important;border:0!important;border-right:1px dashed var(--line)!important}
+.tj-svc:last-child{border-right:0!important}
+.tj-l{font-family:var(--f-display);font-weight:700;font-size:19px}
+
+/* Les 4 points : un bon par espace, repéré par une bande de couleur en haut (plus de fond pastel). */
+.zone,.stile{background:var(--surface)!important;background-image:none!important;box-shadow:none!important;border:1px solid var(--line)!important;border-top:5px solid var(--zc,var(--ink))!important}
+.stile.z-eq{--zc:var(--p-salle)}.stile.z-cu{--zc:var(--p-cuisine)}.stile.z-hy{--zc:var(--p-plonge)}.stile.z-ch{--zc:var(--brass)}.stile.z-sv{--zc:var(--p-bar)}
+.stile .st-t b{font-family:var(--f-display);font-size:22px;font-weight:700}
+.zone.z-eq{--zc:var(--p-salle)}.zone.z-cu{--zc:var(--p-cuisine)}.zone.z-hy{--zc:var(--p-plonge)}.zone.z-ch{--zc:var(--brass)}.zone.z-sv{--zc:var(--p-bar)}
+.z-ic,.app-ic{box-shadow:none!important}
+
+/* ---------- alertes : toutes au même format, le bon avec sa bande ---------- */
+.al{border:1px solid var(--line);border-left:6px solid var(--ink-3);background:var(--surface)}
+.al.t-bad{border-left-color:var(--bad);background:linear-gradient(90deg,var(--bad-soft),var(--surface) 38%)!important}
+.al.t-warn{border-left-color:var(--souche);background:linear-gradient(90deg,var(--warn-soft),var(--surface) 38%)!important}
+.al.t-info{border-left-color:var(--info)}
+.al.t-ok{border-left-color:var(--ok)}
+.pub-al,.ap-q,.v14-tourc,.viewas{border:1px solid var(--line-2);border-left:6px solid var(--souche);background:var(--surface)!important}
+
+/* Étiquettes (anciennes pastilles) : un tampon, pas une gélule. */
+.pill,.chip,.role-pill,.todo .btn,.tj-do{border:1.5px solid currentColor;background:transparent;font-weight:600}
+.pill.bad,.pill.warn,.pill.ok,.pill.info{background:var(--surface)}
+.pill.bad{color:var(--bad);background:var(--bad-soft)}
+.pill.warn{color:var(--warn);background:var(--warn-soft)}
+.pill.ok{color:var(--ok);background:var(--ok-soft)}
+.pill.info{color:var(--info);background:var(--info-soft)}
+.chip[aria-pressed="true"],.chip.on{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.nb{font-weight:500;min-width:22px;border-radius:2px!important}
+
+/* ---------- boutons : des touches de caisse ---------- */
+.btn{font-family:var(--f-ui);font-weight:600;border:1.5px solid var(--line-2);background:var(--surface);box-shadow:inset 0 -2px 0 rgba(17,25,22,.10);min-height:40px;transition:transform .06s,background-color .12s}
+.btn:active{transform:translateY(1px);box-shadow:none}
+.btn.primary,.btn.launch{background:var(--primary);color:var(--on-primary);border-color:var(--primary);box-shadow:inset 0 -3px 0 rgba(0,0,0,.28)}
+.btn.brass,.v14-avis-btn,.ask{background:var(--souche);color:#1A1400;border-color:#B99A00;box-shadow:inset 0 -3px 0 rgba(0,0,0,.16)}
+.btn.ghost{border-color:transparent;box-shadow:none;background:transparent}
+.btn.sm{min-height:34px}
+.btn.big{min-height:60px;font-size:19px}
+.icon-btn{border:1.5px solid var(--line-2);background:var(--surface)}
+:focus-visible{outline:3px solid var(--souche);outline-offset:2px}
+.inp,select,textarea{border:1.5px solid var(--line-2);background:var(--surface);min-height:42px}
+.inp:focus,select:focus,textarea:focus{border-color:var(--ink);outline:3px solid var(--souche);outline-offset:0}
+.seg{background:var(--surface-2);border:1.5px solid var(--line-2);padding:2px}
+.seg>*[aria-selected="true"],.seg>.on,.seg>.active{background:var(--ink);color:var(--surface)}
+.tabs [role="tab"][aria-selected="true"]{border-bottom:4px solid var(--ink);color:var(--ink)}
+
+/* ---------- le menu : la porte verte de la cuisine ---------- */
+.side{border-right:0}
+.side .nav .nl,.side .app-nav{font-weight:500;border-left:4px solid transparent}
+.side .app-nav.on,.side .nl.on,.side .app-nav[aria-current="page"],.side .nl[aria-current="page"]{background:var(--side-2);border-left-color:var(--souche);color:#fff}
+.app-ic{background:transparent!important;color:var(--side-ink)!important;border:1.5px solid var(--side-line)}
+.side .nb{background:var(--souche)!important;color:#1A1400!important}
+.side .nb.bad{background:#F3B8AE!important;color:#5A0E05!important}
+.tabbar{border-top:2px solid var(--ink);background:var(--surface)}
+
+/* ---------- planning : chaque service est un petit bon ---------- */
+.pg-wrap,.pg9-wrap{border:1px solid var(--line-2)}
+.shift{background:var(--surface)!important;border:1px solid var(--line)!important;border-left:5px solid var(--pc,var(--ink-3))!important;box-shadow:none!important}
+.shift .t{font-weight:500;font-size:13.5px;color:var(--ink)}
+.dh>b{font-family:var(--f-display);font-weight:700;font-size:21px;letter-spacing:.01em}
+.dh>small{font-family:var(--f-ui);font-size:12.5px}
+.pg9 .grp td,.pg .grp td{font-family:var(--f-display);font-weight:700;font-size:15px;letter-spacing:.04em}
+.dh.today,.today>.dh,th.today{background:var(--souche)!important;color:#1A1400!important}
+.dh.today *,th.today *{color:#1A1400!important}
+.cell.today,.c9.today{background:color-mix(in srgb,var(--souche) 14%,var(--surface))!important}
+.closed{background:repeating-linear-gradient(135deg,transparent 0 7px,color-mix(in srgb,var(--line) 55%,transparent) 7px 8px)!important}
+.erow .nm{font-weight:600}
+.pl-bar,.wk-nav{box-shadow:none!important}
+.wk-nav{border:1.5px solid var(--line-2);background:var(--surface)}
+
+/* ---------- tableaux, fenêtres, messages ---------- */
+.tbl th{border-bottom:2px solid var(--ink);color:var(--ink-2)}
+.tbl td{border-bottom:1px dashed var(--line)}
+.modal,.pop,.toast{box-shadow:var(--shadow)!important;border:0}
+.modal{border-top:6px solid var(--ink)}
+.toast{background:var(--ink);color:var(--surface)}
+.lia-e{border:1px solid var(--line);border-left:5px solid var(--info);background:var(--surface)!important}
+.lia-e.unread{border-left-color:var(--souche)}
+.meter{background:var(--surface-2);height:8px}
+.empty{border:1.5px dashed var(--line-2);background:transparent}
+
+/* ---------- écran des codes et tablette : grosses touches, lisible de loin ---------- */
+.key{font-size:30px;font-weight:500;min-height:76px;background:var(--surface);border:1.5px solid var(--line-2);box-shadow:inset 0 -4px 0 rgba(17,25,22,.12);color:var(--ink)}
+.key:active{transform:translateY(2px);box-shadow:none;background:var(--souche)}
+.key.small{font-family:var(--f-ui);font-size:16px;font-weight:600}
+.pin-dots span{width:18px;height:18px;border:2px solid var(--ink)!important;background:transparent}
+.pin-dots span.on{background:var(--ink)}
+.pin-err{color:var(--bad);font-weight:600}
+.mode-tablette .key{min-height:84px;font-size:34px}
+.mode-tablette .btn{min-height:56px;font-size:18px}
+.mode-tablette .btn.big,.mode-tablette .btn.block{min-height:72px;font-size:22px}
+.tb-top{background:var(--side);border-bottom:4px solid var(--souche)}
+.tb-card{border:1px solid var(--line-2);border-top:6px solid var(--ink);box-shadow:none!important;background:var(--surface)}
+.tb-door{border:1.5px solid var(--side-line);box-shadow:none!important}
+.tb-door.light{border-color:var(--line-2);background:var(--surface)}
+.lock-clock{font-weight:500}
+.kiosk-top{border-bottom:2px solid var(--ink);background:var(--surface)}
+
+/* la tablette a ses propres réglages (v12_mobile.css) : on les aligne sur l'identité */
+:root{--tb-mono:var(--f-mono);--tb-ui:var(--f-ui);--tb-disp:var(--f-display);--tb-brass:#7A5200;--tb-pop:#F4D53B;--tb-bg:#DDE1DF;--tb-ink:#111916;--tb-cline:#8C9691;--tb-key:#FFFFFF;--tb-cmute:#38453F}
+.tb-eb{font-family:var(--f-display)!important;font-size:18px!important;letter-spacing:.01em!important;text-transform:none!important}
+.tb-head h1,.tb-h1{font-size:clamp(36px,4.4vw,48px)!important;letter-spacing:0!important}
+.tb-card .pin-pad .key{border:1.5px solid var(--tb-cline)!important;box-shadow:inset 0 -4px 0 rgba(17,25,22,.12)!important;font-weight:500;font-size:34px!important}
+.tb-card .pin-pad .key.small{font-size:16px!important;font-family:var(--f-ui)}
+.tb-card .pin-pad .key:active{background:var(--souche)!important;box-shadow:none!important}
+.tb-card .pin-dots span.on,.tb-card .pin-dots span.fill,.tb-card .pin-dots span[class*="on"]{background:var(--tb-ink)!important;border-color:var(--tb-ink)!important}
+.tb-card .badge-acts .btn.launch{background:var(--souche)!important;color:#1A1400!important;border:1.5px solid #B99A00!important;box-shadow:inset 0 -5px 0 rgba(0,0,0,.18)!important;min-height:80px;font-size:23px}
+.tb-card .badge-acts .btn{min-height:60px;font-size:18px}
+.tb-back{min-height:56px;font-weight:600;border:1.5px solid var(--tb-cline)!important}
+.tb-door b{font-family:var(--f-display);font-size:22px;font-weight:700}
+.tb-side-h{font-size:18px!important;color:var(--tb-pop)!important}
+
+/* Étiquette DLC à l'écran : comme celle qui sort de l'imprimante. */
+.label-card{border:2px solid #000;border-radius:0!important;font-family:var(--f-ui)}
+.label-card .lb-dlc b{font-family:var(--f-mono);font-size:1.25em}
+
+/* ---------- au doigt : rien sous 44 px ---------- */
+@media (pointer:coarse){
+  .btn,.chip,.pill[data-act],.icon-btn,.tabs [role="tab"],.seg>*{min-height:44px}
+  .btn.sm{min-height:44px;padding-inline:14px}
+  .icon-btn{min-width:44px}
+  .done-btn,.al-x,.lia-x{min-height:44px;min-width:44px}
+}
+@media (max-width:900px){
+  body{font-size:16px}
+  .ph h1{font-size:34px}
+  .kpi .v{font-size:28px}
+}
+@media (prefers-reduced-motion:reduce){.btn,.key{transition:none}}
 </style>
 <div id="app"></div>
 <div id="chat-root"></div>

@@ -1,0 +1,51 @@
+
+/* =========================================================
+   PISTE C · « L'ÉTIQUETTE »  (non retenue, gardée pour comparer : LEON_PISTE=c npm run legacy)
+   Tout est une étiquette de traçabilité : blanc, gros cadre noir, coins d'étiquette, et le code couleur
+   des jours qu'on colle sur les bacs (lundi bleu, mardi jaune, mercredi rouge, jeudi marron,
+   vendredi vert, samedi orange, dimanche noir). Plus coloré, plus ludique.
+   Pourquoi pas retenue : 7 couleurs de jours + 5 couleurs de postes, ça fait beaucoup dans le planning.
+   ========================================================= */
+@font-face{font-family:"Archivo";font-weight:400 900;font-stretch:62% 125%;font-display:swap;src:url(/polices/pistes/archivo-latin-wdth-normal.woff2) format("woff2")}
+:root,:root[data-theme="light"]{
+  --bg:#ECECEA; --surface:#FFFFFF; --surface-2:#F0F0EE; --sunk:#F6F6F4; --hover:#F2F2F0;
+  --ink:#0B0B0B; --ink-2:#3A3A38; --ink-3:#666663; --line:#C9C9C5; --line-2:#0B0B0B;
+  --side:#0B0B0B; --side-2:#262624; --side-ink:#FFFFFF; --side-mute:#B0B0AC; --side-line:rgba(255,255,255,.18);
+  --primary:#0B0B0B; --on-primary:#FFFFFF;
+  --brass:#0B0B0B; --brass-ink:#FFFFFF; --brass-soft:#FFE45C; --brass-line:#0B0B0B;
+  --ok:#0F7A3D; --ok-soft:#D4F0DC; --warn:#7A5600; --warn-soft:#FFE45C; --bad:#C81E1E; --bad-soft:#FFD9D4; --info:#1650B8; --info-soft:#D9E6FF;
+  --j1:#1F6FE0; --j2:#FFD400; --j3:#E0261F; --j4:#8A5A2B; --j5:#1E9E4A; --j6:#FF8A00; --j7:#0B0B0B;
+  --shadow:0 0 0 2px #0B0B0B,6px 6px 0 #0B0B0B;
+  --f-display:"Archivo",ui-sans-serif,system-ui,sans-serif; --f-ui:"Archivo",ui-sans-serif,system-ui,sans-serif; --f-mono:"Chivo Mono",ui-monospace,Menlo,monospace;
+}
+*,*::before,*::after{border-radius:10px!important}
+.av,.dot,.pin-dots span,.tj-av,.chg-i,.legend i,.pl-legend i,input[type="radio"]{border-radius:999px!important}
+body{font-family:var(--f-ui);font-stretch:96%}
+h1,h2,h3,.ph h1,.panel-h h2,.tj-h b,.z-t>b{font-family:var(--f-display);font-weight:800;font-stretch:118%;letter-spacing:-.02em}
+.ph h1{font-size:40px}
+.panel,.kpi,.zone,.tj,.ts,.al,.pg-wrap,.pg9-wrap,.viewas,.pub-al,.ap-q,.v14-tourc,.lia-e,.shift{box-shadow:none!important;background-image:none!important}
+.panel,.zone,.tj,.ts,.pg-wrap,.pg9-wrap,.viewas,.pub-al,.ap-q,.v14-tourc{background:var(--surface)!important;border:2px solid #0B0B0B!important}
+.top{background:var(--surface);border-bottom:2px solid #0B0B0B}
+.tj{border-top:14px solid var(--j3)!important} /* mercredi = rouge : la couleur du jour */
+.tj-svc{background:var(--surface-2)!important}
+.ts>b,.kpi .v{font-family:var(--f-display);font-weight:800;font-stretch:118%;font-size:34px}
+.zone{border-top:14px solid var(--zc,#0B0B0B)!important}
+.zone.z-eq{--zc:var(--j1)}.zone.z-cu{--zc:var(--j6)}.zone.z-hy{--zc:var(--j5)}.zone.z-ch{--zc:var(--j2)}.zone.z-sv{--zc:var(--j4)}
+.al{border:2px solid #0B0B0B!important;margin:6px 0;background:var(--surface)!important}
+.al.t-bad{background:var(--bad-soft)!important}.al.t-warn{background:var(--warn-soft)!important}
+.btn{border:2px solid #0B0B0B;background:#fff;font-weight:700;min-height:40px}
+.btn.primary{background:#0B0B0B;color:#fff}
+.btn.brass,.v14-avis-btn,.ask{background:var(--j2);color:#0B0B0B;border-color:#0B0B0B}
+.pill,.chip{border:2px solid #0B0B0B;background:#fff;color:#0B0B0B;font-weight:700}
+.pill.bad{background:var(--bad-soft)}.pill.warn{background:var(--warn-soft)}
+.shift{background:#fff!important;border:2px solid #0B0B0B!important;border-left:8px solid var(--pc,#0B0B0B)!important}
+.shift .t{font-family:var(--f-mono);font-weight:500;color:#0B0B0B}
+.dh{border-top:12px solid #0B0B0B}
+th:nth-child(2) .dh,.pg9 thead th:nth-child(2){border-top:12px solid var(--j1)}
+.pg9 thead th:nth-child(3){border-top:12px solid var(--j2)}.pg9 thead th:nth-child(4){border-top:12px solid var(--j3)}
+.pg9 thead th:nth-child(5){border-top:12px solid var(--j4)}.pg9 thead th:nth-child(6){border-top:12px solid var(--j5)}
+.pg9 thead th:nth-child(7){border-top:12px solid var(--j6)}.pg9 thead th:nth-child(8){border-top:12px solid var(--j7)}
+.dh>b{font-weight:800;font-stretch:118%;font-size:17px}
+.cell.today,.c9.today{background:#FFF1EF!important}
+.lia-e{border:2px solid #0B0B0B!important;background:#fff!important}
+.side .app-nav.on,.side .nl.on{background:#fff;color:#0B0B0B}

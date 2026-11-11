@@ -42,11 +42,19 @@ def build(name, out, demo_patch=None):
     js = '/* copies des versions précédentes, enveloppées par la V8 */\n' + '\n'.join(copies) + '\n' + js + '\n'
     css = open(D + 'v8.css').read() + open(D + 'v9.css').read() + open(D + 'v10.css').read() + open(D + 'v11.css').read() + open(D + 'v12.css').read() + open(D + 'v12_mobile.css').read() + open(D + 'v12_check.css').read() + open(D + 'v13.css').read() + open(D + 'v14.css').read()
     for a, b in [('const CAN=()=>{', 'let CAN=()=>{'), ("const avatar=(p,cls='')=>", "let avatar=(p,cls='')=>"), ('const prevOf=d=>', 'let prevOf=d=>'),
-                 ('family=Instrument+Sans:wght@400..700&display=swap', 'family=Instrument+Sans:wght@400..700&family=Noto+Sans+Tamil:wght@400..700&family=Noto+Sans+Arabic:wght@400..700&display=swap')]:
+                 ]:
         if src.count(a) != 1:
             raise SystemExit('patch count %d: %s' % (src.count(a), a))
         src = src.replace(a, b)
     css += LOGO_CSS
+    # 15.00 · L'identité visuelle : une seule feuille par-dessus tout le reste (legacy/pistes/<piste>.css).
+    # Piste retenue : « a » (Le bon). Pour en essayer une autre : LEON_PISTE=b npm run legacy
+    css += open(D + 'pistes/' + os.environ.get('LEON_PISTE', 'a') + '.css').read()
+    # Les polices sont rangées dans le site (/polices) : plus aucun appel à Google.
+    src, nf = re.subn(r'<link rel="preconnect" href="https://fonts\.g[^>]*>\n?', '', src)
+    src, nl = re.subn(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com[^>]*>', '<link rel="stylesheet" href="/polices/polices.css">', src)
+    if nl != 1:
+        raise SystemExit('polices : lien Google introuvable')
     for f in ['leon-logo-creme.png', 'leon-logo-vert.png']:
         css = css.replace('url(assets/' + f + ')', 'url(data:image/png;base64,' + base64.b64encode(open(D + 'assets/' + f, 'rb').read()).decode() + ')')
     k = src.rindex('</style>')
