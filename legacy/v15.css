@@ -28,3 +28,22 @@
 }
 /* Analyse de la carte : une case sans plat affichait une barre grise vide */
 .me-q li.me-vide{background:none!important;padding-left:0!important}
+/* 15.02 — Stocks sur téléphone : une ligne courte par produit, le détail au toucher */
+@media (max-width:760px){
+  table.stk-t.mcards tr{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:2px 10px;padding:10px 12px;margin-bottom:6px;cursor:pointer}
+  table.stk-t.mcards td{display:none}
+  table.stk-t.mcards td[data-first]{display:block;grid-row:1;grid-column:1;border:0;margin:0;padding:0;font-size:14.5px}
+  table.stk-t.mcards td[data-first] small{display:block;font-weight:400}
+  table.stk-t.mcards td:nth-child(2){display:block;grid-row:1;grid-column:2;border:0;padding:0;font-size:15px}
+  table.stk-t.mcards td:has(.pill){display:flex;align-items:center;gap:6px;grid-row:1;grid-column:3;border:0;padding:0}
+  table.stk-t.mcards td:nth-child(2)::before,table.stk-t.mcards td:has(.pill)::before{content:none}
+  table.stk-t.mcards td:has(.pill)::after{content:'›';font-size:20px;line-height:1;color:var(--ink-3);transition:transform .15s}
+  table.stk-t.mcards tr.open td:has(.pill)::after{transform:rotate(90deg)}
+  table.stk-t.mcards .pill.ok{font-size:0;padding:0;background:none;gap:0;color:var(--ok)}
+  table.stk-t.mcards .pill.ok .dot{width:9px;height:9px}
+  table.stk-t.mcards tr.open{background:var(--surface)}
+  table.stk-t.mcards tr.open td{display:flex;grid-column:1/-1;padding:6px 0;font-size:13.5px}
+  table.stk-t.mcards tr.open td:nth-child(2),table.stk-t.mcards tr.open td[data-first],table.stk-t.mcards tr.open td:has(.pill){display:block;grid-column:auto;padding:0;font-size:inherit}
+  table.stk-t.mcards tr.open td:has(.pill){display:flex;grid-column:3}
+  table.stk-t.mcards tr.open td:nth-child(3){margin-top:8px;border-top:1px solid var(--line)}
+}

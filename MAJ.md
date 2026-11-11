@@ -5,6 +5,14 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.02 — Stocks sur téléphone : une ligne par produit (branche `stocks-tel-15.02`)
+Pas encore en ligne (attend l'accord de Maurice). Contient aussi la 15.01.
+- **Avant** : chaque produit prenait 7 lignes (théorique, entrées, sorties, dernier compté, seuil, statut, valeur) : environ 24 écrans de défilement pour 45 produits.
+- **Maintenant** : une ligne courte par produit (nom, fournisseur, quantité théorique, statut). Les produits OK n'ont qu'un point vert, ceux à surveiller gardent leur étiquette « Sous le seuil ». Un toucher ouvre le détail, un second le referme. Environ 7 écrans de défilement.
+- PC et tablette : rien ne change.
+- Vérifié à l'écran (téléphone fermé et ouvert, PC), `npm run check` sur 239 écrans sans erreur, `npm run build` OK.
+- **Ensuite, même recette** : Paie, Salariés, Badgeuse sur téléphone.
+
 ## 15.01 — Audit visuel : les défauts d'affichage (branche `audit-visuel-15.01`)
 Pas encore en ligne (attend l'accord de Maurice). Audit fait en regardant les captures une par une, pas seulement le résumé du check : 26 défauts trouvés là où le check automatique en annonçait 0. La liste complète est dans le projet Claude (« audit-visuel-11-nov »).
 - **Hygiène** : la pastille ne recouvre plus la première lettre du prénom (« JC ulien »).

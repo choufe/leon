@@ -63,6 +63,8 @@ async function check(pg){
   await pg.evaluate(()=>document.querySelectorAll('.toast').forEach(t=>t.remove()));
   if(view&&view!=='accueil'){ await pg.evaluate(v=>{__T.closeModal&&__T.closeModal();__T.go(v);},view); await pg.waitForTimeout(700); }
   if(tab){ await pg.evaluate(t=>{const e=[...document.querySelectorAll('[data-act]')].find(x=>x.getClientRects().length&&x.textContent.trim().startsWith(t));e&&e.click();},tab); await pg.waitForTimeout(600); }
+  if(process.env.CLIC){ await pg.evaluate(c=>{const e=[...document.querySelectorAll(c)].find(x=>x.getClientRects().length);e&&e.click();},process.env.CLIC); await pg.waitForTimeout(400); }
+  if(process.env.PLEIN){ await pg.screenshot({path:`${outdir}/sonde_${dev}_${view}_plein.png`,fullPage:true}); }
   await pg.evaluate(()=>document.querySelectorAll('.toast').forEach(t=>t.remove()));
   const els=await pg.$$(sel||'body'); console.log('trouvés :',els.length);
   for(let i=0;i<Math.min(els.length,3);i++){
