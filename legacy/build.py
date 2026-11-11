@@ -47,9 +47,6 @@ def build(name, out, demo_patch=None):
             raise SystemExit('patch count %d: %s' % (src.count(a), a))
         src = src.replace(a, b)
     css += LOGO_CSS
-    # 15.00 · L'identité visuelle : une seule feuille par-dessus tout le reste (legacy/pistes/<piste>.css).
-    # Piste retenue : « a » (Le bon). Pour en essayer une autre : LEON_PISTE=b npm run legacy
-    css += open(D + 'pistes/' + os.environ.get('LEON_PISTE', 'a') + '.css').read()
     # Les polices sont rangées dans le site (/polices) : plus aucun appel à Google.
     src, nf = re.subn(r'<link rel="preconnect" href="https://fonts\.g[^>]*>\n?', '', src)
     src, nl = re.subn(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com[^>]*>', '<link rel="stylesheet" href="/polices/polices.css">', src)

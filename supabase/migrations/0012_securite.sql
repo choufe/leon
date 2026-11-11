@@ -83,6 +83,37 @@ begin
   return true;
 end $$;
 
+-- ---------- B4 · le responsable sur son téléphone ----------
+-- Décidé avec Maurice (3 nov., confirmé le 11 nov.) : sur son téléphone, un responsable a Aujourd'hui, le planning
+-- (petites retouches), les demandes, la badgeuse (corriger et valider le payé), les réceptions, l'inventaire,
+-- le cahier. Avant : son compte n'avait que les droits d'un salarié, ces écrans arrivaient vides.
+-- Un responsable = un salarié rattaché dont la fiche dit « accès : manager ».
+-- Il ne lit toujours pas la fiche complète du resto (codes, taux horaires, mots de passe) ni net/config.
+create or replace function est_responsable_de(o_id uuid)
+returns boolean language sql security definer stable
+set search_path = public, pg_temp as $$
+  select exists (
+    select 1 from leon_salaries s
+      join orgs o on o.id = s.org_id and o.supprime_le is null
+      join leon_docs d on d.org_id = s.org_id and d.path ~ '^restos/[^/]+$' and jsonb_typeof(d.data -> 'emp') = 'array'
+      cross join lateral jsonb_array_elements(d.data -> 'emp') e
+    where s.org_id = o_id and s.user_id = auth.uid()
+      and e ->> 'id' = s.emp_id and e ->> 'acces' = 'manager');
+$$;
+revoke execute on function est_responsable_de(uuid) from public, anon;
+grant execute on function est_responsable_de(uuid) to authenticated;
+
+drop policy if exists "leon_docs: responsable lit" on leon_docs;
+create policy "leon_docs: responsable lit" on leon_docs for select to authenticated
+  using (est_responsable_de(org_id) and path ~ '^restos/[^/]+/(data/(stock|hygiene)|pointages/[^/]+|ventes/[^/]+|live/[^/]+)$');
+drop policy if exists "leon_docs: responsable écrit (insert)" on leon_docs;
+create policy "leon_docs: responsable écrit (insert)" on leon_docs for insert to authenticated
+  with check (est_responsable_de(org_id) and path ~ '^restos/[^/]+/(data/(planning|stock|hygiene)|pointages/[^/]+|live/[^/]+)$');
+drop policy if exists "leon_docs: responsable écrit (update)" on leon_docs;
+create policy "leon_docs: responsable écrit (update)" on leon_docs for update to authenticated
+  using (est_responsable_de(org_id) and path ~ '^restos/[^/]+/(data/(planning|stock|hygiene)|pointages/[^/]+|live/[^/]+)$')
+  with check (est_responsable_de(org_id) and path ~ '^restos/[^/]+/(data/(planning|stock|hygiene)|pointages/[^/]+|live/[^/]+)$');
+
 -- ---------- S5 · le salarié ne touche pas aux validations ----------
 -- Dans « équipe » : validated / paieVal (heures et paie validées). Dans « ops » : priceLog (historique des prix).
 -- Quand c'est un salarié qui écrit, ces rubriques gardent leur valeur d'avant, quoi qu'il envoie.
@@ -94,7 +125,7 @@ begin
   if new.path ~ '^restos/[^/]+/data/equipe$' then cles := array['validated', 'paieVal'];
   elsif new.path ~ '^restos/[^/]+/data/ops$' then cles := array['priceLog'];
   else return new; end if;
-  if auth.uid() is null or est_direction(new.org_id) or createur_peut_aider(new.org_id) then return new; end if;
+  if auth.uid() is null or est_direction(new.org_id) or createur_peut_aider(new.org_id) or est_responsable_de(new.org_id) then return new; end if;
   if jsonb_typeof(new.data) <> 'object' then
     if tg_op = 'UPDATE' then new.data := old.data; else new.data := '{}'::jsonb; end if;
     return new;

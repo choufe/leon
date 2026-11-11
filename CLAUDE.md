@@ -9,7 +9,8 @@ Premier usage réel prévu : en privé, dans le restaurant de son beau-père. Pa
 - `legacy/` : la version validée (V2 à V11), construite en gros fichiers HTML à partir de modules JS empilés (`v8_*`, `v9_*`, `v10_lisible.js`, `v11_*`). Chaque module enveloppe les fonctions de la version précédente (copie `__v7`, etc.) au lieu de les réécrire. **Ne pas réécrire le cœur : on ajoute un module par-dessus.**
 - `public/leon/app.html` et `demo.html` : générés depuis `legacy/`. Ne pas les modifier à la main.
 - `app/` : Next.js (App Router) — la vitrine `/`, `/demande`, `/login`, `/bienvenue`, `/rejoindre`, `/createur`, `/app` (affiche l'app en plein écran), `/tablette` (réservée aux tablettes reliées).
-- `legacy/pistes/a.css` : l'identité visuelle « Le bon » (15.00), ajoutée en dernier par `legacy/build.py`. `legacy/v15_correctifs.js` : correctifs de l'audit. `AUDIT.md` : l'audit du 11 nov. 2026.
+- `legacy/v15_correctifs.js` : correctifs de l'audit. `AUDIT.md` : l'audit du 11 nov. 2026.
+- **Direction artistique : on n'y touche pas** (vert, doré, Bricolage Grotesque / Instrument Sans / IBM Plex Mono). Maurice l'a validée ; ses demandes « visuelles » portent sur l'organisation des écrans.
 - `public/polices/` : les polices du site (aucun appel à Google).
 - `supabase/tests/` : tests des règles d'accès sur une copie locale de la base (à relancer après chaque migration qui touche aux droits).
 - `lib/leonStore.js` : stockage Supabase qui imite l'interface de stockage des artifacts Claude (`window.claude`), pour que la v11 tourne sans modification.

@@ -97,7 +97,7 @@ sur `main` redéploie automatiquement.
 3. Le patron ouvre le mail, choisit son mot de passe puis son code (`/bienvenue`) et arrive dans `/app`.
 4. La tablette du resto se relie par un lien perso (Réglages → La tablette du resto). On ne badge que là.
 
-Audit, sécurité et identité visuelle : voir `AUDIT.md`, `supabase/tests/LISEZMOI.md` et `legacy/pistes/a.css`.
+Audit et sécurité : voir `AUDIT.md` et `supabase/tests/LISEZMOI.md`.
 
 ## Prochaines étapes
 

@@ -33,11 +33,11 @@ Statut : ✅ corrigé dans cette branche · 🟡 préparé, à appliquer à la f
 - **Correction** : la condition « pas supprimé » est remise dans les trois fonctions. Rien n'est effacé, le créateur peut toujours récupérer le resto. Migration `0012`.
 - **Risque** : nul pour les restos actifs.
 
-### S4 — On pouvait badger ailleurs que sur la tablette ✅ 🙋
+### S4 — On pouvait badger ailleurs que sur la tablette ✅
 - **Où** : `app/app/page.js` (la page `/tablette` est la même que `/app`).
 - **Pourquoi** : n'importe quel appareil connecté avec le compte du patron pouvait ouvrir `/tablette` et afficher l'écran des codes. Un téléphone perso devenait donc une badgeuse. Ça contredit « on ne pointe QUE sur la tablette du resto ».
 - **Correction** : `/tablette` ne s'ouvre plus que sur une tablette reliée par le lien perso (Réglages → La tablette du resto), ou pour toi en « Mode tablette » depuis l'espace créateur. Le patron qui l'ouvre ailleurs voit comment relier sa tablette.
-- **Risque** : un patron qui avait connecté sa tablette avec son e-mail devra la relier par le lien (30 secondes). Aucun resto réel n'est dans ce cas aujourd'hui. **À valider** (voir la liste en bas).
+- **Risque** : un patron qui avait connecté sa tablette avec son e-mail devra la relier par le lien (30 secondes). Aucun resto réel n'est dans ce cas aujourd'hui. Validé par Maurice le 11 nov.
 
 ### S5 — Un salarié pouvait toucher à la validation des heures par la base ✅🟡
 - **Où** : règles `leon_docs: salarié écrit` (migration 0010).
@@ -103,26 +103,19 @@ Statut : ✅ corrigé dans cette branche · 🟡 préparé, à appliquer à la f
 - **Correction** : 5 erreurs → 30 s d'attente, qui double si ça continue, sans prévenir personne. Module `v15_correctifs.js`.
 - **Risque** : nul.
 
-### B3 — Un responsable pouvait corriger un pointage ✅ 🙋
-- **Où** : `pjPeutModifier()` (`legacy/v12_feuille.js`).
-- **Pourquoi** : la règle est « seul le directeur corrige un pointage ». Le code laissait aussi les responsables modifier le « payé ».
-- **Correction** : seuls le patron et le directeur modifient ; le responsable voit la badgeuse sans pouvoir la changer.
-- **Risque** : ta note du 3 nov. disait « manager : corriger et valider ». J'ai appliqué la règle la plus récente (ton brief). **À valider.**
+### B3 — Qui modifie le « payé » de la badgeuse ✅ (tranché le 11 nov.)
+- Décision de Maurice : **le patron et le responsable (manager)** modifient le payé. C'est ce que fait le code : rien à changer. (J'avais d'abord restreint au directeur ; annulé.)
 
-### B4 — Le compte d'un responsable sur son téléphone est à moitié vide 📋 🙋
+### B4 — Le compte d'un responsable sur son téléphone était à moitié vide ✅🟡
 - **Où** : règles de la base (migration 0010) + `v12_chemin.js`.
-- **Pourquoi** : un responsable invité a un compte « salarié ». L'appli lui affiche ses écrans de responsable (stocks, réceptions, badgeuse…), mais la base ne lui donne que les droits d'un salarié : ces écrans arrivent vides et ses saisies ne s'enregistrent pas.
-- **Correction proposée** : donner aux responsables les droits de lecture / écriture sur stocks, hygiène, commandes (pas la paie, pas les codes). Demande une décision sur ce qu'un responsable a le droit de faire depuis son téléphone.
+- **Pourquoi** : un responsable invité a un compte « salarié ». L'appli lui affiche ses écrans de responsable (stocks, réceptions, badgeuse…), mais la base ne lui donnait que les droits d'un salarié : écrans vides, saisies pas enregistrées.
+- **Correction** : la base reconnaît le responsable (fiche « accès : manager ») et lui ouvre ce qu'on avait décidé le 3 nov. : planning, badgeuse (corriger et valider), stocks / réceptions / inventaire, hygiène, ventes du jour. Toujours pas les codes, les taux horaires ni les mots de passe. Migration `0012`, testée.
+- **Risque** : faible ; un salarié simple garde exactement les mêmes droits qu'avant.
 
-### B5 — Le directeur (qui n'est pas le patron) ne peut corriger un pointage nulle part 🙋
+### B5 — Le directeur (qui n'est pas le patron) ne peut corriger un pointage nulle part 📋
 - **Où** : `legacy/v12_tablette.js` (écran « Direction » de la tablette).
-- **Pourquoi** : le directeur n'a qu'un code, donc que la tablette. Or sur la tablette, la correction des pointages a été retirée (12.28). Il lui faudrait le compte du patron.
-- **Correction proposée** : une porte « Badgeuse » sur l'écran Direction de la tablette. C'est un choix de fonctionnement : je ne l'ai pas fait.
-
-### B6 — Sur la tablette, le directeur doit taper un mot de passe en plus du code 🙋
-- **Où** : `legacy/v12_tablette.js` (12.21).
-- **Pourquoi** : ton brief dit « directeur : code à 4 chiffres ». La tablette demande code + mot de passe (stocké en clair, voir S8).
-- **Correction** : non touché, c'était une décision du 3 nov. À trancher.
+- **Pourquoi** : le directeur n'a qu'un code, donc que la tablette. Or la correction des pointages a été retirée de la tablette (12.28).
+- **Décision de Maurice (11 nov.)** : le directeur corrige tout ce qu'il veut, et la tablette continue de lui demander son mot de passe en plus du code. Reste à faire : lui donner la badgeuse sur l'écran Direction (à confirmer : sur la tablette ?).
 
 ### B7 — Code oublié : le patron ne peut jamais en choisir un nouveau 📋
 - **Où** : `definir_mon_code()` (migration 0004 : « une seule fois »).
@@ -154,7 +147,7 @@ Statut : ✅ corrigé dans cette branche · 🟡 préparé, à appliquer à la f
 | P6 ✅ | `scripts/check/sonde*.cjs` | Brouillons de test. | Supprimés. |
 | P7 📋 | Tables `restaurants`, `employees`, `shifts`, `time_clock_events`… | 7 tables créées au tout début, jamais utilisées (tout vit dans `leon_docs`). | Laissées (tu as dit : ne rien supprimer). À retirer ou à utiliser le jour où on sort de `leon_docs`. |
 | P8 📋 | Vieux écrans de l'appli (« Crée ton Léon », identifiant du resto) | Toujours dans le code, sautés par `v12_chemin.js`. Inaccessibles sur le vrai site, visibles seulement dans la démo. | Laissés : les retirer = réécrire le cœur. |
-| P9 🙋 | Film et 3 clips de la vitrine | Montrent l'ancienne tablette, et vont jurer avec le nouveau style. | À retourner après validation du style. |
+| P9 📋 | Film et 3 clips de la vitrine | Montrent l'ancienne tablette et tutoient alors que le site vouvoie. | À refaire plus tard (déjà noté). |
 
 ---
 
@@ -162,7 +155,7 @@ Statut : ✅ corrigé dans cette branche · 🟡 préparé, à appliquer à la f
 
 | | Où | Problème | Correction |
 |---|---|---|---|
-| N1 ✅ | Polices | Chargées chez Google à chaque ouverture : plus lent, ne marche pas si le wifi du resto rame, et envoie l'adresse des visiteurs à Google (mauvais point RGPD). | Polices rangées dans le site. Plus aucun appel à Google. |
+| N1 ✅ | Polices | Chargées chez Google à chaque ouverture : plus lent, ne marche pas si le wifi du resto rame, et envoie l'adresse des visiteurs à Google (mauvais point RGPD). | Les mêmes polices, rangées dans le site. Plus aucun appel à Google, aucun changement à l'œil. |
 | N2 ✅ | `public/leon/*.html` | 1,5 Mo par page, jamais mis en cache proprement. | Règle de cache : toujours la dernière version, sans tout retélécharger. |
 | N3 📋 | `legacy/` | 40 modules empilés (chaque version « enveloppe » la précédente) : 1 Mo de code, la même fonction définie jusqu'à 6 fois. Ça marche, mais chaque changement coûte de plus en plus cher. | Pas touché (règle du projet : on ajoute par-dessus). À réécrire outil par outil quand un outil est « fini ». |
 | N4 📋 | `public/media/film.mp4` | 5,4 Mo chargés sur la page d'accueil. | À recompresser quand le film sera refait (P9). |
@@ -170,27 +163,23 @@ Statut : ✅ corrigé dans cette branche · 🟡 préparé, à appliquer à la f
 
 ---
 
-## 5. Ergonomie (téléphone et tablette)
+## 5. Ergonomie et apparence
 
-| | Où | Constat | Correction |
+Maurice garde **sa direction artistique d'origine** (vert, doré, Bricolage Grotesque) : la piste « nouvelle identité » essayée le 11 nov. est abandonnée et retirée de la branche. Le prochain chantier visuel porte sur **l'organisation des écrans** (disposition, rangement des blocs), pas sur les couleurs ni les polices.
+
+| | Où | Constat | Suite |
 |---|---|---|---|
-| E1 ✅ | Partout | Look « site fait par une IA » : cartes arrondies + ombres, pastilles partout, 5 couleurs pastel. | Étape 3 : nouvelle identité (voir le résumé de la PR). |
-| E2 ✅ | Pavés de code | Sur le site (patron, créateur) : touches de 56 px, chiffres fins. Sur la tablette : déjà 92 px, mais plates et pâles. | Site : touches de 76 px. Partout : gros chiffres noirs, touche qui « s'enfonce » et passe au jaune quand on appuie. |
-| E3 ✅ | Boutons d'action sur téléphone | Plusieurs sous les 44 px de haut (« C'est géré », filtres). | Hauteur minimale 44 px sur téléphone et tablette. |
-| E4 ✅ | Alertes | 4 façons différentes d'afficher une alerte selon l'écran. | Une seule : le « bon » (ticket avec bord de couleur). |
-| E5 ✅ | Chiffres | Tailles et polices variables d'un écran à l'autre. | Tous les chiffres en police « ticket de caisse », alignés. |
-| E6 📋 | Démo | La barre « DÉMO » cache parfois un bouton en bas d'écran. | À déplacer (démo seulement). |
-| E7 📋 | Traductions | Tamoul, arabe : jamais relus par quelqu'un qui parle la langue. | Déjà noté dans `IDEES.md`. |
+| E1 📋 | Organisation des écrans | Disposition jugée « trop Claude » par Maurice (empilement de cases). | À cadrer avec lui avant de toucher. |
+| E2 📋 | Démo | La barre « DÉMO » cache parfois un bouton en bas d'écran. | À déplacer (démo seulement). |
+| E3 📋 | Traductions | Tamoul, arabe : jamais relus par quelqu'un qui parle la langue. | Déjà noté dans `IDEES.md`. |
 
 ---
 
 ## À valider par Maurice
 
-1. **S4** — `/tablette` ne marche plus que sur une tablette reliée par le lien. OK pour toi ?
-2. **B3** — Un responsable ne peut plus modifier le « payé » de la badgeuse (seulement le directeur / patron). OK, ou tu veux revenir à ta note du 3 nov. ?
-3. **B5 / B6** — Le directeur sur la tablette : (a) doit-il pouvoir y corriger un pointage ? (b) code seul, ou code + mot de passe comme aujourd'hui ?
-4. **B4** — Qu'est-ce qu'un responsable a le droit de faire depuis **son téléphone** (stocks, réceptions, hygiène) ?
-5. **S11** — Le nom de domaine définitif (pour les adresses techniques des tablettes et les e-mails).
-6. **Migration `0012` + fonction `leon-ia`** : prêtes et testées sur une copie, **pas appliquées** sur la vraie base (règle du projet : ton accord d'abord). À appliquer au moment de la fusion.
-7. **P9** — Refaire le film et les clips avec le nouveau style.
-8. **Supabase** : cocher la protection « mots de passe piratés » (2 clics, toi seul y as accès).
+Tranché le 11 nov. : `/tablette` seulement sur tablette reliée (OK) ; le payé = patron et responsable ; le directeur garde code + mot de passe sur la tablette et corrige ce qu'il veut ; les droits du responsable = ceux vus le 3 nov. ; le nom de domaine viendra plus tard.
+
+Reste :
+1. **Migration `0012` + fonctions `leon-ia` et `relier-tablette`** : prêtes et testées sur une copie (36 vérifications), **pas appliquées** sur la vraie base. À appliquer au moment de la fusion, avec ton accord.
+2. **Le directeur qui corrige les pointages** : on le fait sur la tablette (une porte « Badgeuse » sur son écran Direction) ?
+3. **Supabase** : cocher la protection « mots de passe piratés » (2 clics, toi seul y as accès).

@@ -18,7 +18,6 @@ export default function RootLayout({ children }) {
       <head>
         {/* Polices rangées dans le site : aucun appel à Google. */}
         <link rel="stylesheet" href="/polices/polices.css" />
-        <link rel="preload" href="/polices/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossOrigin="" />
       </head>
       <body>{children}</body>
     </html>

@@ -1,7 +1,6 @@
 /* =========================================================
    V15 · CORRECTIFS DE L'AUDIT (11 nov. 2026, voir AUDIT.md)
    B1 · le service qui finit après minuit · B2 · l'attente après 5 mauvais codes
-   B3 · seul le patron / le directeur corrige un pointage
    ========================================================= */
 
 /* ---------- B1 · Le service qui finit après minuit ----------
@@ -66,14 +65,6 @@ let V15_RATE=false;
 // pendant l'attente, le compte à rebours se met à jour tout seul
 setInterval(()=>{try{if(PIN.ctx!=='lock'||U.screen!=='lock')return;const e=document.getElementById('pin-err');if(!e)return;
   const w=v15Attente();if(w>0)e.textContent=v15AttenteMsg(w);else if(/^\S.*\d+ s\.$/.test(e.textContent)&&v15Essais().j)e.textContent='';}catch(_){}},1000);
-
-/* ---------- B3 · Seul le patron / le directeur corrige un pointage ----------
-   Le responsable (manager) voit la badgeuse, mais ne modifie pas le « payé ». */
-pjPeutModifier=function(){const r=effRole();return r==='admin'||r==='patron';};
-{const f=pjLocked;pjLocked=function(iso){
-  if(!pjPeutModifier()){toast('Seul le patron ou le directeur modifie le payé','alert');return true;}
-  return f.apply(this,arguments);
-};}
 
 [
  ['Trop d’essais. Attends','Too many tries. Wait','அதிக முயற்சிகள். காத்திரு','محاولات كثيرة. انتظر','Demasiadas tentativas. Espera','Demasiados intentos. Espera'],

@@ -5,17 +5,18 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
-## 15.00 — Le grand audit, les corrections et la nouvelle identité « Le bon » (branche `refonte-fable`)
+## 15.00 — Le grand audit et les corrections (branche `refonte-fable`)
 Tout est dans une pull request, **rien n'est en ligne** tant que tu n'as pas validé. Le détail : `AUDIT.md`.
-- **Audit** : tout le code et la base relus. 11 points de sécurité, 8 bugs, 9 pages ou fichiers morts, le reste en nettoyage et ergonomie.
-- **Sécurité** (migration `0012`, **prête mais pas appliquée**, testée sur une copie avec 32 vérifications) : plus personne ne peut s'ouvrir un Léon tout seul ; un resto supprimé est vraiment fermé ; un salarié ne peut plus toucher à la validation des heures ; l'assistant est réservé aux restos et compté ; frein contre les robots sur les demandes de démo ; droits de la base réduits. Next.js mis à jour (failles connues).
+- **Audit** : tout le code et la base relus. 11 points de sécurité, 8 bugs, 9 pages ou fichiers morts, le reste en nettoyage.
+- **Sécurité** (migration `0012`, **prête mais pas appliquée**, testée sur une copie avec 36 vérifications) : plus personne ne peut s'ouvrir un Léon tout seul ; un resto supprimé est vraiment fermé ; un salarié ne peut plus toucher à la validation des heures ; l'assistant est réservé aux restos et compté ; frein contre les robots sur les demandes de démo ; droits de la base réduits. Next.js mis à jour (failles connues).
+- **Le responsable sur son téléphone** : la base lui ouvre enfin ce qu'on avait décidé (planning, badgeuse, stocks, réceptions, inventaire, hygiène). Avant, ses écrans arrivaient vides.
 - **On ne badge que sur la tablette** : `/tablette` ne s'ouvre plus que sur une tablette reliée par le lien (ou pour toi en « Mode tablette »).
-- **Badgeuse** : un départ badgé après minuit va maintenant sur la bonne journée (avant : perdu, « Départ pas badgé » tous les soirs dans un bar) ; 5 mauvais codes → 30 s d'attente qui double ; seul le patron / directeur modifie le « payé ».
+- **Badgeuse** : un départ badgé après minuit va maintenant sur la bonne journée (avant : perdu, « Départ pas badgé » tous les soirs dans un bar) ; 5 mauvais codes → 30 s d'attente qui double. Le payé reste modifiable par le patron et le responsable.
 - **Un seul chemin** : `/inscription` et `/tablette-demo` supprimées, vieux fichiers retirés.
-- **Identité « Le bon »** : Léon ressemble à un passe de cuisine. Fond inox, chaque bloc est un bon blanc à bords nets, titres en lettres de plaque (Barlow Condensed), tous les chiffres en police de ticket (Chivo Mono), jaune « souche » pour agir, rose / rouge pour l'urgent, et le ticket du jour avec son bord déchiré. Appliqué partout : appli, tablette, site, connexion, espace créateur, mode sombre. Les polices sont dans le site (plus d'appel à Google).
-- **Deux autres pistes gardées** (`legacy/pistes/b.css` « L'ardoise », `c.css` « L'étiquette ») : captures dans `docs/refonte/`. Pour en essayer une : `LEON_PISTE=b npm run legacy`.
-- **Check complet** : 282 écrans de l'appli (183 du grand check + 99 en plus par rôle : directeur sur PC ; responsable, salarié et directeur au format tablette), 48 écrans de la tablette du resto et 51 pages du site (téléphone, tablette, PC ; créateur, patron, directeur, responsable, salarié) : 0 erreur, rien qui dépasse. Captures dans `docs/refonte/`.
-- **Reste** : voir « À valider par Maurice » dans `AUDIT.md` (8 points), dont l'application de la migration `0012` au moment de la mise en ligne.
+- **Polices** : les mêmes qu'avant, mais rangées dans le site (plus d'appel à Google). Rien ne change à l'œil.
+- **Apparence** : ta direction artistique d'origine est gardée telle quelle. Une nouvelle identité avait été essayée par erreur (malentendu sur « refonte visuelle ») : retirée. Le vrai sujet, l'organisation des écrans, reste à cadrer ensemble.
+- **Check complet** après retour à ta DA : 183 écrans de l'appli + 48 écrans tablette + 30 pages du site (téléphone, tablette, PC) : 0 erreur, rien qui dépasse.
+- **Reste** : voir la fin de `AUDIT.md` (appliquer la migration `0012`, la badgeuse du directeur sur la tablette, l'organisation des écrans).
 
 ## 14.08 à 14.09 — L'avis de Léon partout, la note RGPD lue sur la tablette, la tablette reliée en ligne
 - **14.06 branchée** (9 nov., accord de Maurice) : migration `0011` appliquée et fonction `relier-tablette` en ligne. Réglages → La tablette du resto → « Faire un lien pour une tablette ». Testé dans la base (lien créé pour son resto, refusé pour un autre patron). **À tester sur une vraie tablette.**

@@ -75,3 +75,14 @@ rollback;
 begin; select t_as('00000000-0000-0000-0000-00000000000a'); set local role authenticated;
 select 'T32 ia 61e question: ' || (select (array_agg(leon_ia_ticket()->>'ok' order by g))[61] from generate_series(1,61) g);
 rollback;
+-- 10. responsable A (compte salarié, fiche « accès : manager »)
+begin; select t_as('00000000-0000-0000-0000-0000000000a3'); set local role authenticated;
+select 'T33 responsable lit: ' || (select string_agg(path, ',' order by path) from leon_docs);
+update leon_docs set data = '{"e1":[{"t":"in","m":600},{"t":"out","m":905}]}' where path='restos/r1/pointages/2026-11-10';
+update leon_docs set data = data || '{"validated":{"2026-11-09":true}}' where path='restos/r1/data/equipe';
+update leon_docs set data = '{"hack":1}' where path in ('restos/r1','net/config');
+reset role;
+select 'T34 responsable a corrigé le pointage: ' || (data::text like '%905%') from leon_docs where org_id='aaaaaaaa-0000-0000-0000-000000000000' and path like '%pointages%';
+select 'T35 responsable a validé des heures: ' || (data->'validated' ? '2026-11-09') from leon_docs where org_id='aaaaaaaa-0000-0000-0000-000000000000' and path='restos/r1/data/equipe';
+select 'T36 fiche resto et config intactes: ' || (count(*) = 0) from leon_docs where data ? 'hack';
+rollback;
