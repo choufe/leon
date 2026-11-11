@@ -131,3 +131,11 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - 💬 À cadrer avec Maurice avant de produire : quels écrans, et ce qui le gêne dans leur disposition.
 - ✅ Décisions du 11 nov. : `/tablette` seulement sur tablette reliée ; le payé = patron et responsable ; le directeur corrige ce qu'il veut et la tablette lui demande code + mot de passe ; droits du responsable sur téléphone = tableau du 3 nov. ; nom de domaine plus tard.
 - 📋 À faire : la badgeuse du directeur sur la tablette (à confirmer) ; codes de la tablette vérifiés côté serveur ; code oublié du patron ; appliquer la migration `0012` à la mise en ligne.
+
+## 11 nov. 2026 — retours de Maurice (MAJ 15.04)
+- Menu de gauche : ordre fixe, l'espace ouvert se déplie sur place (« ça téléporte tout », pas pratique pour cliquer vite).
+- Trop d'infos partout : alléger sans rien supprimer de ce qu'on veut voir. Planning : « Clique une case » inutile, filtres/légende en bas, rond vert pas compris.
+- L'avis de Léon sur le planning doit refaire le planning si besoin, selon le cahier des charges (cas : lundi rouvert → tout le monde en repos et « Conforme »).
+- Le retour « la semaine était bien ? » doit se faire en quelques mots (trop de monde, ouverture pas assez tôt, pas assez en prépa…), pas en 3 boutons.
+- Règle de travail : Claude regarde lui-même chaque écran, comme un humain, pas seulement le code.
+

@@ -5,6 +5,18 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.04 — Menu fixe, planning allégé, avis de Léon corrigé, retour de fin de semaine (branche `tel-lignes-15.03`)
+Pas encore en ligne (attend l'accord de Maurice). Retours de Maurice du 11 nov. Module `legacy/v15_planning.js`.
+- **Menu de gauche** : les espaces restent dans le même ordre. Celui qu'on ouvre déplie ses pages juste en dessous de lui, au lieu de remonter tout en haut. Un espace d'une seule page (Hygiène, Chiffres) ne se déplie pas.
+- **Planning, en haut** : « Clique une case, tape 11-15… » retiré (les raccourcis restent dans « ⋯ »). Les filtres par poste descendent sous la grille, à la place de la légende. Le rond vert devient un ✓ « Arrivé (badgé) », orange si en retard.
+- **Bug du lundi** : un jour qu'on rouvre n'avait pas d'historique, donc 0 couvert prévu, donc personne au planning et « Conforme ». Maintenant :
+  - Léon estime les couverts avec la moyenne des autres jours (et le dit dans son avis) ;
+  - un service ouvert sans personne n'est plus « Conforme » ;
+  - Léon remplit d'abord une personne en salle et une en cuisine sur chaque service ouvert, ensuite les renforts et la semaine type (avant, la semaine type mangeait toutes les heures et le lundi restait vide) ;
+  - l'avis propose « Léon refait la semaine » : il vide les jours à venir et refait tout avec le cahier des charges. On voit sa proposition avant ; si on ferme sans valider, le planning d'avant revient.
+- **Retour de fin de semaine** : au lieu de 3 boutons, on écrit à Léon en quelques mots (« trop de monde mardi midi, ouverture trop tard samedi, pas assez en prépa »), avec des raccourcis. Léon montre ce qu'il a compris, puis l'écrit dans le cahier des charges : ± 1 personne sur un service, quelqu'un 30 min avant l'ouverture, une personne de plus en prépa. Ce qu'il ne comprend pas, il le dit.
+- Vérifié à l'écran (PC, téléphone, tablette), scénario « lundi rouvert » rejoué de bout en bout, `npm run check` sur 239 écrans sans erreur, `npm run build` OK.
+
 ## 15.03 — Paie, Salariés et Badgeuse sur téléphone (branche `tel-lignes-15.03`)
 Pas encore en ligne (attend l'accord de Maurice).
 - **Paie** : une ligne par salarié (nom, contrat, heures payées), le détail (écart, heures sup, nuit, férié, absences, repas) au toucher. Environ 4 écrans de défilement au lieu de 10.

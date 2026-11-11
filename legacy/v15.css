@@ -81,3 +81,36 @@
   .pjm-pz{gap:4px;font-size:12px}
   .pjm-abs{margin-top:8px;font-size:13px}
 }
+/* 15.04 — menu de gauche à ordre fixe : l'espace ouvert déplie ses pages sur place */
+.nav button.app-nav.on{color:var(--side-ink);background:rgba(255,255,255,.04)}
+.nav .app-sub{display:flex;flex-direction:column;gap:1px;margin:2px 0 6px 14px;padding-left:10px;border-left:1px solid var(--side-line)}
+.nav .app-sub button{padding:7px 10px;font-size:13.5px}
+@media (max-width:900px){.nav .app-sub{display:contents}.nav button.app-nav.on{display:none}}
+/* planning : filtres par poste sous la grille, avec la légende */
+.pl-legend.v15-lg{align-items:center;gap:10px 16px}
+.pl-legend.v15-lg .v15-chips{margin:0}
+.pl-legend.v15-lg .legend span[data-poste]{display:none}
+/* le rond vert devient un ✓ « arrivé » */
+.shift .pt{width:14px!important;height:14px!important;top:3px!important;right:3px!important;display:grid;place-items:center;background:#2E9E6A!important;box-shadow:0 0 0 2px var(--surface)!important}
+.shift .pt::after{content:'✓';color:#fff;font-size:9.5px;font-weight:800;line-height:1}
+.shift .pt.late{background:#C77A1C!important}
+.pg9 .shift:has(.pt) .m{margin-right:16px}
+.legend .v15-pt{display:inline-grid;place-items:center;width:14px;height:14px;border-radius:50%;background:#2E9E6A;color:#fff;font-size:9.5px;font-weight:800;font-style:normal}
+/* avis : refaire la semaine */
+.v15-redo-t{margin-top:6px;font-size:13px;color:var(--ink-2)}
+/* retour de fin de semaine */
+.ap-q.v15-ret{align-items:flex-start;gap:12px}
+.v15-ret .ret-b{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.v15-ret .ret-h{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.v15-ret .ret-h .faint{font-size:13px}
+.v15-ret .ret-row{display:flex;gap:8px}
+.v15-ret .ret-row .inp{flex:1;min-width:0;max-width:560px}
+.v15-ret .ret-ex{display:flex;flex-wrap:wrap;gap:6px}
+.v15-ret .ret-ex .chip{font-size:12.5px}
+.v15-lu>div{padding:6px 0}
+@media (max-width:760px){
+  .v15-ret .ret-h .faint{display:none}
+  .v15-ret .ret-ex{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-right:-14px;padding-right:14px}
+  .v15-ret .ret-ex::-webkit-scrollbar{display:none}
+  .v15-ret .ret-ex .chip{flex:none}
+}
