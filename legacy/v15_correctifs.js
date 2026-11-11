@@ -69,3 +69,16 @@ setInterval(()=>{try{if(PIN.ctx!=='lock'||U.screen!=='lock')return;const e=docum
 [
  ['Trop d’essais. Attends','Too many tries. Wait','அதிக முயற்சிகள். காத்திரு','محاولات كثيرة. انتظر','Demasiadas tentativas. Espera','Demasiados intentos. Espera'],
 ].forEach(r=>{LANGS.forEach(([k],n)=>{if(n&&r[n]){I18N[k][r[0]]=r[n];const alt=r[0].replace(/’/g,"'");if(alt!==r[0])I18N[k][alt]=r[n];}});});
+
+/* 15.01 — audit visuel. Accueil d'un resto neuf : « Midi 30 couverts personne » se lisait mal. */
+{const f=tjHTML;tjHTML=function(){return f.apply(this,arguments).replace(/<span class="faint">personne<\/span>/g,'<span class="faint">personne au planning</span>');};}
+
+/* 15.02 — Stocks sur téléphone : une ligne courte par produit (nom, théorique, statut), le détail au toucher.
+   Avant : 7 lignes par produit, environ 24 écrans de défilement pour 45 produits. */
+{const f=stockHTML;stockHTML=function(){return f.apply(this,arguments).replace(/<table class="tbl">(?=<thead><tr><th>Produit<\/th><th class="r"><span class="th-i">Théorique)/g,'<table class="tbl stk-t">');};}
+document.addEventListener('click',e=>{
+  if(window.innerWidth>760)return;
+  const tr=e.target.closest&&e.target.closest('table.stk-t.mcards tbody tr');
+  if(!tr||e.target.closest('button,a,input,select,label'))return;
+  tr.classList.toggle('open');
+});

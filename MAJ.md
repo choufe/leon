@@ -5,6 +5,24 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.02 — Stocks sur téléphone : une ligne par produit (branche `stocks-tel-15.02`)
+Pas encore en ligne (attend l'accord de Maurice). Contient aussi la 15.01.
+- **Avant** : chaque produit prenait 7 lignes (théorique, entrées, sorties, dernier compté, seuil, statut, valeur) : environ 24 écrans de défilement pour 45 produits.
+- **Maintenant** : une ligne courte par produit (nom, fournisseur, quantité théorique, statut). Les produits OK n'ont qu'un point vert, ceux à surveiller gardent leur étiquette « Sous le seuil ». Un toucher ouvre le détail, un second le referme. Environ 7 écrans de défilement.
+- PC et tablette : rien ne change.
+- Vérifié à l'écran (téléphone fermé et ouvert, PC), `npm run check` sur 239 écrans sans erreur, `npm run build` OK.
+- **Ensuite, même recette** : Paie, Salariés, Badgeuse sur téléphone.
+
+## 15.01 — Audit visuel : les défauts d'affichage (branche `audit-visuel-15.01`)
+Pas encore en ligne (attend l'accord de Maurice). Audit fait en regardant les captures une par une, pas seulement le résumé du check : 26 défauts trouvés là où le check automatique en annonçait 0. La liste complète est dans le projet Claude (« audit-visuel-11-nov »).
+- **Hygiène** : la pastille ne recouvre plus la première lettre du prénom (« JC ulien »).
+- **Tablette** : l'heure d'arrivée après le badge est lisible ; les initiales de l'écran Direction aussi ; le bouton « +1 carton » de l'inventaire tient dans sa case et « botte » ne passe plus sous le « + » ; le petit « i » d'aide a retrouvé sa taille.
+- **Téléphone** : les onglets qui dépassent ont un fondu à droite (on voit qu'on peut glisser) ; le titre « Tes 4 points » ne se casse plus ; la phrase « passe la souris » de la paie n'apparaît plus au doigt.
+- **Divers** : « personne au planning » au lieu de « personne » sur l'accueil d'un resto neuf ; « Aucun plat ici » dans les cases vides de l'analyse de la carte ; un espace entre le tableau de paie et son résumé.
+- **Outils** : `scripts/check/sonde.cjs` et `sonde-tablette.cjs` prennent une capture de près d'un élément, pour vérifier une correction à l'œil.
+- **Reste à faire** (organisation des écrans, à valider avec Maurice avant) : les tableaux en piles de cases sur téléphone (Stocks, Paie, Salariés, Badgeuse), l'écran de badge de la tablette collé en haut à gauche, les 5 cases de « Tes 4 points », la page de connexion sur PC.
+- Vérifié : chaque correction regardée à l'écran (PC, téléphone, tablette), `npm run check` sur 239 écrans sans erreur, `npm run build` OK.
+
 ## 15.00 — Le grand audit et les corrections (branche `refonte-fable`)
 Mis en ligne le 11 nov. (accord de Maurice). Le détail : `AUDIT.md`.
 - **Audit** : tout le code et la base relus. 11 points de sécurité, 8 bugs, 9 pages ou fichiers morts, le reste en nettoyage.

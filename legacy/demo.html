@@ -1985,7 +1985,7 @@ function analyseHTML(){
   const mc=menuClasses();
   const blocks=['plat','entree'].map(t=>{
     const items=S.recipes.filter(r=>r.t===t&&mc[r.id]);if(!items.length)return '';
-    const q=k=>items.filter(r=>mc[r.id]===k).map(r=>{const m=metrics(r);return `<li><span>${esc(r.n)}</span><span>${nf(r.sales)} ventes · ${eur(m.marge)}</span></li>`;}).join('')||'<li><span class="faint">—</span><span></span></li>';
+    const q=k=>items.filter(r=>mc[r.id]===k).map(r=>{const m=metrics(r);return `<li><span>${esc(r.n)}</span><span>${nf(r.sales)} ventes · ${eur(m.marge)}</span></li>`;}).join('')||'<li class="me-vide"><span class="faint">Aucun plat ici</span><span></span></li>';
     return `<section class="panel" style="margin-bottom:18px"><div class="panel-h"><h3>${RTYPE[t].pl} ${infoBtn('menu')}</h3><span class="faint" style="font-size:12.5px">${items.length} produits · 30 derniers jours</span></div><div class="panel-b">
      <div class="me-axis"><span>↑ Marge en € élevée</span><span>Popularité →</span></div>
      <div class="me-grid">
