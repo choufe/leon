@@ -1,4 +1,5 @@
 import "./globals.css";
+import ModeAppli from "./_ui/ModeAppli";
 
 export const metadata = {
   // Adresse du site pour les aperçus de lien (à mettre dans Vercel quand le nom de domaine sera pris).
@@ -19,7 +20,10 @@ export default function RootLayout({ children }) {
         {/* Polices rangées dans le site : aucun appel à Google. */}
         <link rel="stylesheet" href="/polices/polices.css" />
       </head>
-      <body>{children}</body>
+      <body>
+        <ModeAppli />
+        {children}
+      </body>
     </html>
   );
 }
