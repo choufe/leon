@@ -47,3 +47,26 @@
   table.stk-t.mcards tr.open td:has(.pill){display:flex;grid-column:3}
   table.stk-t.mcards tr.open td:nth-child(3){margin-top:8px;border-top:1px solid var(--line)}
 }
+
+/* 15.04 · taille de l'écran */
+.tl-aa span,.tl-aa-t{font:700 13px/1 "Instrument Sans",system-ui,sans-serif;letter-spacing:-.02em}
+.side-foot{gap:4px}
+.side-foot .av{margin-right:4px}
+.side-foot .icon-btn{width:28px;min-width:28px;padding:0}
+.side-foot .tl-aa{opacity:.75}
+.side-foot .tl-aa:hover{opacity:1}
+.tl-modal{padding:6px 0 4px}
+.tl-ctrl{display:flex;gap:8px;align-items:stretch}
+.tl-ctrl .btn{min-height:52px;flex:1;justify-content:center;font-size:17px;font-weight:700}
+.tl-ctrl .tl-v{flex:1.2;font-family:"IBM Plex Mono",monospace;font-size:15px}
+.tl-ctrl .btn[disabled]{opacity:.35}
+.tl-a.s{font-size:13px}.tl-a.l{font-size:21px}
+.tl-dir{margin-top:18px;display:flex;flex-direction:column;gap:8px}
+.tl-dir>span{display:flex;align-items:center;gap:6px;font-size:13px;opacity:.7}
+.modal.tl-sheet{max-width:380px}
+/* avec un zoom, les écrans pleine hauteur restent pile à la hauteur de l'écran */
+html[data-taille] .stage,html[data-taille] .kiosk-shell,html[data-taille] .tb,html[data-taille] .v14-rgpd-st{min-height:calc(100dvh / var(--leon-z,1))!important}
+html[data-taille] .side{height:calc(100dvh / var(--leon-z,1))!important}
+html[data-taille] .modal{max-width:calc(100vw / var(--leon-z,1) - 20px)}
+html[data-taille] .modal.sheet{max-height:calc(88dvh / var(--leon-z,1))}
+html[data-taille] #qe-root .qe.sheet{max-height:calc(86dvh / var(--leon-z,1))}

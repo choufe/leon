@@ -5,6 +5,12 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.04 — Taille de l'écran + Camille en démo (branche `taille-15.04`)
+Pas encore en ligne (attend l'accord de Maurice).
+- **Taille de l'écran** : un petit bouton « Aa », discret. PC : en bas du menu, à côté du prénom. Téléphone : « Plus » → « Aa Taille ». Tablette : sur l'écran Direction (donc directeur seulement, l'équipe ne peut pas dérégler). Quatre tailles : 85 %, 100 %, 115 %, 130 %. Gardée sur l'appareil.
+- **Démo, Camille (2222)** : elle n'est plus « déjà arrivée ». La démo s'ouvre à 10 h 52 et Camille prend son poste à 11 h : elle badge son arrivée pile à l'heure. Si c'est son jour de repos, la démo lui met quand même un service.
+- Vérifié à l'écran : PC, téléphone, tablette (Direction en 130 %, pas de défilement en trop), Camille sur la tablette (« Attendu · prévu 11:00 », « Pointer mon arrivée »). `npm run check` 239 écrans sans erreur, `npm run build` OK.
+
 ## 15.03 — L'appli ne retombe plus en « site web » (branche `appli-15.03`)
 Pas encore en ligne (attend l'accord de Maurice).
 - **Le problème** : après quelques jours sans ouvrir Léon sur iPhone, la connexion sautait (Safari efface au bout de 7 jours ce que la page a rangé dans ses cookies). On retombait sur la connexion avec les liens du site vitrine, et l'appli avait l'air redevenue un site.
