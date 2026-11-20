@@ -116,3 +116,12 @@ img.logo {
 
 /* 11.08 — le créateur dans le Léon d'un patron */
 .aide-pill { position: fixed; left: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 30; background: #93630F; color: #FFF9EF; font: 700 13px "Instrument Sans", system-ui, sans-serif; padding: 9px 14px; border-radius: 999px; text-decoration: none; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+
+/* 15.03 — dans l'appli de l'écran d'accueil : pas de retour vers le site vitrine */
+.en-appli .v-top-acts { display: none; }
+.en-appli .v-top a[href="/"] { pointer-events: none; }
+.en-appli a.v-door[href="/demande"] { display: none; }
+@media (display-mode: standalone) {
+  .v-top-acts, a.v-door[href="/demande"] { display: none; }
+  .v-top a[href="/"] { pointer-events: none; }
+}

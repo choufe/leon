@@ -5,6 +5,15 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.03 — L'appli ne retombe plus en « site web » (branche `appli-15.03`)
+Pas encore en ligne (attend l'accord de Maurice).
+- **Le problème** : après quelques jours sans ouvrir Léon sur iPhone, la connexion sautait (Safari efface au bout de 7 jours ce que la page a rangé dans ses cookies). On retombait sur la connexion avec les liens du site vitrine, et l'appli avait l'air redevenue un site.
+- **La connexion tient** : Léon garde aussi une copie de la session dans l'appareil et la remet si Safari l'a effacée. Plus besoin de se reconnecter au bout d'une semaine.
+- **Jamais de site vitrine dans l'appli** : depuis l'icône de l'écran d'accueil, l'accueil du site renvoie direct dans Léon ; la page de connexion n'a plus « ← Accueil » ni « Pas encore client ? ». Dans un navigateur normal, rien ne change.
+- **Icônes** : l'appli et « Léon Tablette » ont chacune leur identité fixe ; la connexion de la tablette reste dans l'appli tablette (avant, elle sortait de son périmètre).
+- Vérifié : iPhone simulé en mode appli (accueil → connexion propre, session remise après effacement des cookies), navigateur normal inchangé, `npm run check` 239 écrans, `npm run build` OK.
+- **Pour en profiter** : une fois en ligne, supprimer l'icône actuelle et la remettre une dernière fois (Partager → Sur l'écran d'accueil).
+
 ## 15.02 — Stocks sur téléphone : une ligne par produit (branche `stocks-tel-15.02`)
 Pas encore en ligne (attend l'accord de Maurice). Contient aussi la 15.01.
 - **Avant** : chaque produit prenait 7 lignes (théorique, entrées, sorties, dernier compté, seuil, statut, valeur) : environ 24 écrans de défilement pour 45 produits.
