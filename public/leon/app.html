@@ -3505,7 +3505,7 @@ function shellHTML(){
        <div class="t-l"><div class="t-date">${longDate(TODAY)}</div><div class="t-svc" data-svc>${S?svcLabel():'Vue réseau'}</div></div>
        <span class="clock" data-clock>${hhmm(nowMin())}</span>
        <span class="pill brass role-pill">${ROLES[U.role]}</span>
-       <button class="btn brass sm ask" data-act="chat-open">${ic('spark','s')}<span>Demander à Léon</span></button>
+       <button class="btn brass sm ask" data-act="chat-open">${ic('spark','s')}<span>Dis Léon…</span></button>
        <button class="icon-btn lock-m" data-act="lock" aria-label="Verrouiller">${ic('lock')}</button>
      </header>
      ${STORE.mode==='local'?'<div class="banner">Mode local : les données restent sur cet appareil et ne sont pas partagées avec les autres tablettes.</div>':''}
@@ -5553,7 +5553,7 @@ function shellHTML(){
        <div class="t-l"><div class="t-date">${longDate(TODAY)}</div><div class="t-svc" data-svc>${S?svcLabel():'Vue réseau'}</div></div>
        <span class="clock" data-clock>${hhmm(nowMin())}</span>
        <span class="pill brass role-pill">${ROLES[effRole()]}</span>
-       <button class="btn brass sm ask" data-act="chat-open">${ic('spark','s')}<span>Demander à Léon</span></button>
+       <button class="btn brass sm ask" data-act="chat-open">${ic('spark','s')}<span>Dis Léon…</span></button>
        <button class="icon-btn lock-m" data-act="lock" aria-label="Verrouiller">${ic('lock')}</button>
      </header>
      ${STORE.mode==='local'?'<div class="banner">Mode local : les données restent sur cet appareil et ne sont pas partagées avec les autres tablettes.</div>':''}
@@ -6516,7 +6516,7 @@ function shellHTML(){
        <div class="t-nav" id="t-nav">${topNavHTML()}</div>
        <span class="clock" data-clock>${hhmm(nowMin())}</span>
        <span class="pill brass role-pill">${ROLES[effRole()]}</span>
-       <button class="btn brass sm ask" data-act="chat-open" aria-label="Demander à Léon">${ic('spark','s')}<span>Demander à Léon</span></button>
+       <button class="btn brass sm ask" data-act="chat-open" aria-label="Dis Léon…">${ic('spark','s')}<span>Dis Léon…</span></button>
        <button class="icon-btn lock-m" data-act="lock" aria-label="Verrouiller">${ic('lock')}</button>
      </header>
      ${STORE.mode==='local'?'<div class="banner">Mode local : les données restent sur cet appareil et ne sont pas partagées avec les autres tablettes.</div>':''}
@@ -6549,7 +6549,7 @@ function menuSheet(){
   openModal(`<div class="mh"><div><h3>${S?esc(S.nom):'Léon'}</h3><p>Tous les modules, avec ce qui demande ton attention.</p></div><button class="icon-btn" data-act="modal-close" aria-label="Fermer">${ic('x')}</button></div>
    <div class="sheet-grid">${items.map(n=>{const x=modInfo(n.v);return `<button class="tile" data-act="sheet-go" data-v="${n.v}" ${cur===n.v?'aria-current="page"':''}><span class="ti">${ic(n.i)}</span><span class="tt"><b>${esc(navLabel(n.v))}</b><small>${esc(x.s||'')}</small></span>${nbHTML(x)}</button>`;}).join('')}</div>
    ${U.role==='admin'?`<div class="eyebrow" style="margin:18px 0 8px">Mes restaurants</div><div class="sheet-list"><button class="btn" data-act="sheet-go" data-v="hub">${ic('store','s')} Tous mes restaurants</button>${restos.map(R=>`<button class="btn" data-act="sheet-resto" data-id="${R.id}">${ic('chevR','s')} ${esc(R.nom)}</button>`).join('')}</div>`:''}
-   <div class="mf"><button class="btn" data-act="sheet-lock">${ic('lock','s')} Verrouiller</button><button class="btn brass" data-act="sheet-chat">${ic('spark','s')} Demander à Léon</button></div>`,'sheet');
+   <div class="mf"><button class="btn" data-act="sheet-lock">${ic('lock','s')} Verrouiller</button><button class="btn brass" data-act="sheet-chat">${ic('spark','s')} Dis Léon…</button></div>`,'sheet');
 }
 
 /* ---------- accueil : point de départ ---------- */
@@ -7457,7 +7457,7 @@ function modInfoV8(v){
   return {s:A.ht?`Ce mois : ${eur(A.ht,0)} HT${CAN().costs?' · coût matière '+pc(A.fc,0):''}`:'CA, marge, pertes, produits stars'};
 }
 
-/* « Demander à Léon » connaît aussi les chiffres du mois et les infos importantes */
+/* « Dis Léon… » connaît aussi les chiffres du mois et les infos importantes */
 function extraContext(L){
   extraContext__v7(L);
   const r=effRole();if(!(r==='admin'||r==='patron'))return;
@@ -7719,7 +7719,7 @@ Object.assign(NAV_SHORT,{conges:'Congés',paie:'Paie',equipe:'Salariés'});
    ${visibleApps().map(a=>`<div class="sheet-app"><div class="eyebrow app-eb"><span class="app-ic ${a.c}">${ic(a.i,'s')}</span>${esc(appLabel(a))}</div><div class="sheet-grid">${appViews(a).map(tile).join('')}</div></div>`).join('')}
    ${loose.length?`<div class="sheet-app"><div class="eyebrow app-eb">Réglages</div><div class="sheet-grid">${loose.map(tile).join('')}</div></div>`:''}
    ${U.role==='admin'?`<div class="eyebrow" style="margin:18px 0 8px">Mes restaurants</div><div class="sheet-list"><button class="btn" data-act="sheet-go" data-v="hub">${ic('store','s')} Tous mes restaurants</button>${restos.map(R=>`<button class="btn" data-act="sheet-resto" data-id="${R.id}">${ic('chevR','s')} ${esc(R.nom)}</button>`).join('')}</div>`:''}
-   <div class="mf"><button class="btn" data-act="sheet-lock">${ic('lock','s')} Verrouiller</button><button class="btn brass" data-act="sheet-chat">${ic('spark','s')} Demander à Léon</button></div>`,'sheet');
+   <div class="mf"><button class="btn" data-act="sheet-lock">${ic('lock','s')} Verrouiller</button><button class="btn brass" data-act="sheet-chat">${ic('spark','s')} Dis Léon…</button></div>`,'sheet');
 };}
 
 /* ---------- fil d'Ariane : Accueil › Équipe › Planning ---------- */
@@ -9809,7 +9809,7 @@ const I18N_ROWS=[
  ['Équipe','Team','குழு','الفريق','Equipa','Equipo'],
  ['Cuisine & stocks','Kitchen & stock','சமையலறை & இருப்பு','المطبخ والمخزون','Cozinha e stock','Cocina y stock'],
  ['Verrouiller','Lock','பூட்டு','قفل','Bloquear','Bloquear'],
- ['Demander à Léon','Ask Léon','லியோனிடம் கேள்','اسأل ليون','Perguntar ao Léon','Preguntar a Léon'],
+ ['Dis Léon…','Ask Léon','லியோனிடம் கேள்','اسأل ليون','Perguntar ao Léon','Preguntar a Léon'],
  ['Réduire','Collapse','சுருக்கு','طي','Fechar','Plegar'],
  ['Déplier','Expand','விரி','توسيع','Abrir','Desplegar'],
  ['Fermer','Close','மூடு','إغلاق','Fechar','Cerrar'],

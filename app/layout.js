@@ -4,11 +4,11 @@ import ModeAppli from "./_ui/ModeAppli";
 export const metadata = {
   // Adresse du site pour les aperçus de lien (à mettre dans Vercel quand le nom de domaine sera pris).
   ...(process.env.NEXT_PUBLIC_SITE_URL ? { metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL) } : {}),
-  title: "Léon",
+  title: "Dis Léon",
   description: "Léon garde un œil sur votre restaurant, même quand vous n'y êtes pas.",
   // Sur iPhone : « Partager → Sur l'écran d'accueil » ouvre Léon en plein écran, comme une appli.
   manifest: "/manifest.webmanifest",
-  appleWebApp: { capable: true, title: "Léon", statusBarStyle: "black-translucent" },
+  appleWebApp: { capable: true, title: "Dis Léon", statusBarStyle: "black-translucent" },
 };
 
 export const viewport = { themeColor: "#18352B" };

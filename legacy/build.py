@@ -47,6 +47,12 @@ def build(name, out, demo_patch=None):
             raise SystemExit('patch count %d: %s' % (src.count(a), a))
         src = src.replace(a, b)
     css += LOGO_CSS
+    # 15.08 · le bouton « Demander à Léon » devient « Dis Léon… » (nom officiel du 25 nov. 2026)
+    nd = src.count('Demander à Léon') + js.count('Demander à Léon')
+    if nd < 5:
+        raise SystemExit('Dis Léon : seulement %d « Demander à Léon »' % nd)
+    src = src.replace('Demander à Léon', 'Dis Léon…')
+    js = js.replace('Demander à Léon', 'Dis Léon…')
     # Les polices sont rangées dans le site (/polices) : plus aucun appel à Google.
     src, nf = re.subn(r'<link rel="preconnect" href="https://fonts\.g[^>]*>\n?', '', src)
     src, nl = re.subn(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com[^>]*>', '<link rel="stylesheet" href="/polices/polices.css">', src)

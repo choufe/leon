@@ -1,11 +1,11 @@
 import Link from "next/link";
 import PageLegale, { ACompleter } from "../_ui/PageLegale";
 
-export const metadata = { title: "Confidentialité · Léon" };
+export const metadata = { title: "Confidentialité · Dis Léon" };
 
 export default function Confidentialite() {
   return (
-    <PageLegale titre="Vos données et Léon" maj="2 novembre 2026">
+    <PageLegale titre="Vos données et Dis Léon" maj="2 novembre 2026">
       <section>
         <h2>En bref</h2>
         <ul>
@@ -20,19 +20,19 @@ export default function Confidentialite() {
         <p>Nous gardons votre prénom, votre téléphone, le nom et la ville de votre restaurant, et votre e-mail si vous le donnez. Ils servent uniquement à vous rappeler au sujet de Léon. Sans suite de votre part, ils sont supprimés au bout de 3 ans.</p>
       </section>
       <section>
-        <h2>Quand votre restaurant utilise Léon</h2>
+        <h2>Quand votre restaurant utilise Dis Léon</h2>
         <p>Le restaurant reste responsable des données de son équipe. Léon les traite pour son compte, uniquement pour faire fonctionner l'outil :</p>
         <ul>
           <li>l'équipe : prénom, poste, langue, planning, heures de pointage ;</li>
           <li>le restaurant : produits, fournisseurs, stocks, relevés d'hygiène, chiffres ;</li>
           <li>les comptes : e-mail et mot de passe des responsables. Les codes à 4 chiffres sont chiffrés, personne ne peut les lire, même pas nous.</li>
         </ul>
-        <p>Si le restaurant arrête Léon, ses données lui sont rendues sur demande puis supprimées.</p>
+        <p>Si le restaurant arrête Dis Léon, ses données lui sont rendues sur demande puis supprimées.</p>
         <p>Pour la badgeuse, le restaurant informe son équipe avant de commencer : <Link className="v-back" href="/info-salaries">modèle de note d'information des salariés</Link>.</p>
       </section>
       <section>
         <h2>Qui y a accès</h2>
-        <p>Chaque restaurant ne voit que ses propres données. Le créateur de Léon peut y entrer pendant les deux semaines d'accompagnement au démarrage, pour aider à l'installation, puis plus du tout sans l'accord du restaurant.</p>
+        <p>Chaque restaurant ne voit que ses propres données. Le créateur de Dis Léon peut y entrer pendant les deux semaines d'accompagnement au démarrage, pour aider à l'installation, puis plus du tout sans l'accord du restaurant.</p>
         <p>Nos prestataires techniques : Supabase (base de données, Paris) et Vercel (hébergement du site).</p>
       </section>
       <section>
