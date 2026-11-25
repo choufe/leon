@@ -2,7 +2,7 @@ import PageLegale, { ACompleter } from "../_ui/PageLegale";
 
 // 14.03 · Note d'information des salariés (badgeuse et planning), à remettre ou afficher avant la mise en route.
 // Modèle à faire valider (Maurice n'est pas juriste) : le restaurant reste responsable des données de son équipe.
-export const metadata = { title: "Information des salariés · Léon" };
+export const metadata = { title: "Information des salariés · Dis Léon" };
 
 export default function InfoSalaries() {
   return (
@@ -12,7 +12,7 @@ export default function InfoSalaries() {
       </section>
       <section>
         <h2>Qui est responsable</h2>
-        <p>Votre employeur, <ACompleter>nom et adresse du restaurant</ACompleter>, utilise l'outil Léon pour organiser le planning et compter les heures de travail. Léon est un prestataire : il traite les données pour le compte du restaurant, uniquement pour faire fonctionner l'outil.</p>
+        <p>Votre employeur, <ACompleter>nom et adresse du restaurant</ACompleter>, utilise l'outil Dis Léon pour organiser le planning et compter les heures de travail. Léon est un prestataire : il traite les données pour le compte du restaurant, uniquement pour faire fonctionner l'outil.</p>
       </section>
       <section>
         <h2>Pourquoi</h2>

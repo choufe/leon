@@ -7,7 +7,7 @@ export default function PageLegale({ titre, maj, children }) {
     <div className="v">
       <header className="v-top">
         <div className="v-wrap">
-          <Link href="/" aria-label="Léon, accueil">
+          <Link href="/" aria-label="Dis Léon, accueil">
             <img className="v-logo" src="/brand/leon-logo-creme.png" alt="Dis Léon" width={720} height={241} />
           </Link>
           <div className="v-top-acts">

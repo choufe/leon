@@ -3,15 +3,15 @@ import "./vitrine.css";
 import RetourMail from "./_ui/RetourMail";
 
 export const metadata = {
-  title: "Léon · la gestion de restaurant qui vous prévient avant vous",
+  title: "Dis Léon · la gestion de restaurant qui vous prévient avant vous",
   description:
     "Planning, pointage, stocks, hygiène et chiffres au même endroit. Léon garde un œil sur votre restaurant, même quand vous n'y êtes pas.",
   openGraph: {
-    title: "Léon · la gestion de restaurant qui vous prévient avant vous",
+    title: "Dis Léon · la gestion de restaurant qui vous prévient avant vous",
     description: "Planning, badgeuse, commandes, inventaire, hygiène et chiffres au même endroit. Fait à Lille, par un restaurateur.",
     locale: "fr_FR",
     type: "website",
-    siteName: "Léon",
+    siteName: "Dis Léon",
   },
   twitter: { card: "summary_large_image" },
 };
@@ -114,7 +114,7 @@ export default function Vitrine() {
       <RetourMail />
       <header className="v-top">
         <div className="v-wrap">
-          <Link href="/" aria-label="Léon, accueil">
+          <Link href="/" aria-label="Dis Léon, accueil">
             <img className="v-logo" src="/brand/leon-logo-creme.png" alt="Dis Léon" width={720} height={241} />
           </Link>
           <nav className="v-nav" aria-label="Sections">
@@ -243,7 +243,7 @@ export default function Vitrine() {
               <span className="v-m">M.</span>
               <div>
                 <div style={{ fontWeight: 700, fontSize: 14.5 }}>Maurice</div>
-                <div style={{ fontSize: 13, color: "var(--v-ink-3)" }}>Créateur de Léon, directeur de restaurant</div>
+                <div style={{ fontSize: 13, color: "var(--v-ink-3)" }}>Créateur de Dis Léon, directeur de restaurant</div>
               </div>
             </div>
           </div>
@@ -259,7 +259,7 @@ export default function Vitrine() {
             <div className="v-offer">
               <div className="v-offer-card">
                 <div className="v-price">
-                  <h3>Léon, par établissement</h3>
+                  <h3>Dis Léon, par établissement</h3>
                   <div className="v-price-row">
                     <s>450 €</s>
                     <b>400 €</b>
@@ -284,7 +284,7 @@ export default function Vitrine() {
               <div className="v-offer-side">
                 <div className="v-perk"><b>Mise en route offerte</b><span>Léon vous guide, et je suis là les deux premières semaines.</span></div>
                 <div className="v-perk"><b>2 mois offerts</b><span>si vous réglez l'année en une fois.</span></div>
-                <div className="v-perk"><b>1 mois offert</b><span>pour chaque restaurateur que vous nous recommandez et qui rejoint Léon.</span></div>
+                <div className="v-perk"><b>1 mois offert</b><span>pour chaque restaurateur que vous nous recommandez et qui rejoint Dis Léon.</span></div>
                 <div className="v-perk"><b>Le matériel est à vous</b><span>Tablette et imprimante d'étiquettes achetées pour vous au prix coûtant, sans location.</span></div>
                 <p className="v-cmp">Pour comparer : un outil de planning, un de stocks et un d'hygiène séparés coûtent souvent entre 190 et 350 € par mois, sans se parler entre eux.</p>
               </div>
@@ -334,7 +334,7 @@ export default function Vitrine() {
             <Link href="/mentions-legales">Mentions légales</Link>
             <Link href="/confidentialite">Confidentialité</Link>
           </nav>
-          <span>© 2026 Léon · Lille</span>
+          <span>© 2026 Dis Léon · Lille</span>
         </div>
       </footer>
 

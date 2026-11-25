@@ -5,6 +5,14 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.08 — Le nom officiel « Dis Léon » sur le site et dans l'appli (branche `nom-15.08`)
+Mis en ligne le 25 nov. 2026 (accord de Maurice).
+- **La marque devient « Dis Léon »** : titre du site et des onglets, nom de l'appli sur l'écran d'accueil du téléphone, aperçu des liens partagés, bas de page (© 2026 Dis Léon), offre (« Dis Léon, par établissement »), mentions légales, confidentialité, note d'information des salariés.
+- **Le personnage reste Léon** : on lui parle, il donne son avis (« L'avis de Léon »), la vitrine raconte ce que fait Léon.
+- **Le bouton « Demander à Léon » devient « Dis Léon… »** partout dans l'appli (en-tête PC, menu téléphone). Fait à la construction (`legacy/build.py`), sans toucher au cœur ; dans les autres langues, le bouton garde sa traduction (« Ask Léon », etc.).
+- **Pas changé** : l'appli « Léon Tablette » garde son nom (sur l'écran d'accueil d'une tablette, « Dis Léon Tablette » serait coupé).
+- Vérifié à l'écran : en-tête de l'appli, discussion avec Léon sur téléphone, vitrine (haut et bas de page), titres. `npm run build` OK.
+
 ## 15.07 — Menu fixe, planning allégé, avis de Léon corrigé, retour de fin de semaine (branche `tel-lignes-15.03`)
 Mis en ligne le 25 nov. 2026 (go de Maurice), fusionné après la 15.05. Numérotée 15.04 sur sa branche. Retours de Maurice du 11 nov. Module `legacy/v15_planning.js`.
 - **Menu de gauche** : les espaces restent dans le même ordre. Celui qu'on ouvre déplie ses pages juste en dessous de lui, au lieu de remonter tout en haut. Un espace d'une seule page (Hygiène, Chiffres) ne se déplie pas.

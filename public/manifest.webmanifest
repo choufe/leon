@@ -1,7 +1,7 @@
 {
   "id": "/app",
-  "name": "Léon",
-  "short_name": "Léon",
+  "name": "Dis Léon",
+  "short_name": "Dis Léon",
   "description": "Planning, équipe et resto, dans la poche.",
   "start_url": "/app",
   "scope": "/",
