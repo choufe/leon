@@ -5,6 +5,25 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.07 — Menu fixe, planning allégé, avis de Léon corrigé, retour de fin de semaine (branche `tel-lignes-15.03`)
+Mis en ligne le 25 nov. 2026 (go de Maurice), fusionné après la 15.05. Numérotée 15.04 sur sa branche. Retours de Maurice du 11 nov. Module `legacy/v15_planning.js`.
+- **Menu de gauche** : les espaces restent dans le même ordre. Celui qu'on ouvre déplie ses pages juste en dessous de lui, au lieu de remonter tout en haut. Un espace d'une seule page (Hygiène, Chiffres) ne se déplie pas.
+- **Planning, en haut** : « Clique une case, tape 11-15… » retiré (les raccourcis restent dans « ⋯ »). Les filtres par poste descendent sous la grille, à la place de la légende. Le rond vert devient un ✓ « Arrivé (badgé) », orange si en retard.
+- **Bug du lundi** : un jour qu'on rouvre n'avait pas d'historique, donc 0 couvert prévu, donc personne au planning et « Conforme ». Maintenant :
+  - Léon estime les couverts avec la moyenne des autres jours (et le dit dans son avis) ;
+  - un service ouvert sans personne n'est plus « Conforme » ;
+  - Léon remplit d'abord une personne en salle et une en cuisine sur chaque service ouvert, ensuite les renforts et la semaine type (avant, la semaine type mangeait toutes les heures et le lundi restait vide) ;
+  - l'avis propose « Léon refait la semaine » : il vide les jours à venir et refait tout avec le cahier des charges. On voit sa proposition avant ; si on ferme sans valider, le planning d'avant revient.
+- **Retour de fin de semaine** : au lieu de 3 boutons, on écrit à Léon en quelques mots (« trop de monde mardi midi, ouverture trop tard samedi, pas assez en prépa »), avec des raccourcis. Léon montre ce qu'il a compris, puis l'écrit dans le cahier des charges : ± 1 personne sur un service, quelqu'un 30 min avant l'ouverture, une personne de plus en prépa. Ce qu'il ne comprend pas, il le dit.
+- Vérifié à l'écran (PC, téléphone, tablette), scénario « lundi rouvert » rejoué de bout en bout, `npm run check` sur 239 écrans sans erreur, `npm run build` OK.
+
+## 15.06 — Paie, Salariés et Badgeuse sur téléphone (branche `tel-lignes-15.03`)
+Mis en ligne le 25 nov. 2026 (go de Maurice). Numérotée 15.03 sur sa branche.
+- **Paie** : une ligne par salarié (nom, contrat, heures payées), le détail (écart, heures sup, nuit, férié, absences, repas) au toucher. Environ 4 écrans de défilement au lieu de 10.
+- **Salariés & accès** : chaque carte montre le nom, le poste et les étiquettes ; le coût horaire, le téléphone, le code et les boutons s'ouvrent au toucher. Les codes ne sont plus affichés en clair d'office.
+- **Badgeuse** : pour chaque service, prévu et badgé côte à côte, le payé et la pause sur une seule ligne en dessous. Environ 4,5 écrans au lieu de 6, et le mot « PAYÉ » ne flotte plus.
+- PC et tablette : rien ne change (captures identiques).
+- Vérifié à l'écran (fermé et ouvert), `npm run check` sur 239 écrans sans erreur, `npm run build` OK.
 ## 15.05 — Nouveau logo officiel « Dis Léon » (branche `logo-15.05`)
 Mis en ligne à la demande de Maurice (25 nov. 2026).
 - **Le logo** : le LÉON d'origine ne bouge pas. On ajoute « Dis » en petit, en haut à gauche : la barre du D est dans l'axe de la barre du L, le Dis fait la hauteur de l'accent du É, et le point du i est doré (rappel de la pupille de l'œil).
@@ -14,13 +33,13 @@ Mis en ligne à la demande de Maurice (25 nov. 2026).
 - Vérifié à l'écran : vitrine, connexion, demande, app démo (PC). `npm run build` OK.
 
 ## 15.04 — Taille de l'écran + Camille en démo (branche `taille-15.04`)
-Pas encore en ligne (attend l'accord de Maurice).
+En ligne.
 - **Taille de l'écran** : un petit bouton « Aa », discret. PC : en bas du menu, à côté du prénom. Téléphone : « Plus » → « Aa Taille ». Tablette : sur l'écran Direction (donc directeur seulement, l'équipe ne peut pas dérégler). Quatre tailles : 85 %, 100 %, 115 %, 130 %. Gardée sur l'appareil.
 - **Démo, Camille (2222)** : elle n'est plus « déjà arrivée ». La démo s'ouvre à 10 h 52 et Camille prend son poste à 11 h : elle badge son arrivée pile à l'heure. Si c'est son jour de repos, la démo lui met quand même un service.
 - Vérifié à l'écran : PC, téléphone, tablette (Direction en 130 %, pas de défilement en trop), Camille sur la tablette (« Attendu · prévu 11:00 », « Pointer mon arrivée »). `npm run check` 239 écrans sans erreur, `npm run build` OK.
 
 ## 15.03 — L'appli ne retombe plus en « site web » (branche `appli-15.03`)
-Pas encore en ligne (attend l'accord de Maurice).
+En ligne.
 - **Le problème** : après quelques jours sans ouvrir Léon sur iPhone, la connexion sautait (Safari efface au bout de 7 jours ce que la page a rangé dans ses cookies). On retombait sur la connexion avec les liens du site vitrine, et l'appli avait l'air redevenue un site.
 - **La connexion tient** : Léon garde aussi une copie de la session dans l'appareil et la remet si Safari l'a effacée. Plus besoin de se reconnecter au bout d'une semaine.
 - **Jamais de site vitrine dans l'appli** : depuis l'icône de l'écran d'accueil, l'accueil du site renvoie direct dans Léon ; la page de connexion n'a plus « ← Accueil » ni « Pas encore client ? ». Dans un navigateur normal, rien ne change.
@@ -29,7 +48,7 @@ Pas encore en ligne (attend l'accord de Maurice).
 - **Pour en profiter** : une fois en ligne, supprimer l'icône actuelle et la remettre une dernière fois (Partager → Sur l'écran d'accueil).
 
 ## 15.02 — Stocks sur téléphone : une ligne par produit (branche `stocks-tel-15.02`)
-Pas encore en ligne (attend l'accord de Maurice). Contient aussi la 15.01.
+En ligne. Contient aussi la 15.01.
 - **Avant** : chaque produit prenait 7 lignes (théorique, entrées, sorties, dernier compté, seuil, statut, valeur) : environ 24 écrans de défilement pour 45 produits.
 - **Maintenant** : une ligne courte par produit (nom, fournisseur, quantité théorique, statut). Les produits OK n'ont qu'un point vert, ceux à surveiller gardent leur étiquette « Sous le seuil ». Un toucher ouvre le détail, un second le referme. Environ 7 écrans de défilement.
 - PC et tablette : rien ne change.
@@ -37,7 +56,7 @@ Pas encore en ligne (attend l'accord de Maurice). Contient aussi la 15.01.
 - **Ensuite, même recette** : Paie, Salariés, Badgeuse sur téléphone.
 
 ## 15.01 — Audit visuel : les défauts d'affichage (branche `audit-visuel-15.01`)
-Pas encore en ligne (attend l'accord de Maurice). Audit fait en regardant les captures une par une, pas seulement le résumé du check : 26 défauts trouvés là où le check automatique en annonçait 0. La liste complète est dans le projet Claude (« audit-visuel-11-nov »).
+En ligne. Audit fait en regardant les captures une par une, pas seulement le résumé du check : 26 défauts trouvés là où le check automatique en annonçait 0. La liste complète est dans le projet Claude (« audit-visuel-11-nov »).
 - **Hygiène** : la pastille ne recouvre plus la première lettre du prénom (« JC ulien »).
 - **Tablette** : l'heure d'arrivée après le badge est lisible ; les initiales de l'écran Direction aussi ; le bouton « +1 carton » de l'inventaire tient dans sa case et « botte » ne passe plus sous le « + » ; le petit « i » d'aide a retrouvé sa taille.
 - **Téléphone** : les onglets qui dépassent ont un fondu à droite (on voit qu'on peut glisser) ; le titre « Tes 4 points » ne se casse plus ; la phrase « passe la souris » de la paie n'apparaît plus au doigt.

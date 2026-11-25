@@ -68,7 +68,7 @@ async function check(pg){
   await pg.evaluate(()=>document.querySelectorAll('.toast').forEach(t=>t.remove()));
   const els=await pg.$$(sel||'body'); console.log('trouvés :',els.length);
   for(let i=0;i<Math.min(els.length,3);i++){
-    console.log((await els[i].evaluate(e=>e.outerHTML)).slice(0,900));
+    {const h=await els[i].evaluate(e=>e.outerHTML);if(process.env.LONG)fs.writeFileSync(`${outdir}/sonde_${dev}_${view}_${i}.html`,h);console.log(h.slice(0,900));}
     try{ await els[i].scrollIntoViewIfNeeded(); await els[i].screenshot({path:`${outdir}/sonde_${dev}_${view}_${i}.png`}); }catch(e){ console.log('capture impossible',e.message.slice(0,80)); }
   }
   await pg.screenshot({path:`${outdir}/sonde_${dev}_${view}_ecran.png`});

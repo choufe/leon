@@ -70,3 +70,70 @@ html[data-taille] .side{height:calc(100dvh / var(--leon-z,1))!important}
 html[data-taille] .modal{max-width:calc(100vw / var(--leon-z,1) - 20px)}
 html[data-taille] .modal.sheet{max-height:calc(88dvh / var(--leon-z,1))}
 html[data-taille] #qe-root .qe.sheet{max-height:calc(86dvh / var(--leon-z,1))}
+/* 15.03 — Paie, Salariés et Badgeuse sur téléphone */
+@media (max-width:760px){
+  /* Paie : nom + heures payées, le détail au toucher */
+  table.pa-t.mcards tr{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:2px 10px;padding:10px 12px;margin-bottom:6px;cursor:pointer}
+  table.pa-t.mcards td{display:none}
+  table.pa-t.mcards td[data-first]{display:block;grid-row:1;grid-column:1;border:0;margin:0;padding:0;font-size:14.5px}
+  table.pa-t.mcards td:nth-child(3){display:flex;flex-direction:column;align-items:flex-end;grid-row:1;grid-column:2;border:0;padding:0;font-size:15px}
+  table.pa-t.mcards td:nth-child(3)::before{content:'payées';font-size:10.5px;font-weight:500;text-transform:none;letter-spacing:0;color:var(--ink-3)}
+  table.pa-t.mcards tr::after{content:'›';grid-row:1;grid-column:3;font-size:20px;line-height:1;color:var(--ink-3);transition:transform .15s}
+  table.pa-t.mcards tr.open::after{transform:rotate(90deg)}
+  table.pa-t.mcards tr.open td{display:flex;grid-column:1/-1;padding:6px 0;font-size:13.5px}
+  table.pa-t.mcards tr.open td[data-first]{display:block;grid-column:1;padding:0;font-size:14.5px}
+  table.pa-t.mcards tr.open td:nth-child(3){display:flex;grid-column:2;padding:0;font-size:15px}
+  table.pa-t.mcards tr.open td:nth-child(2){margin-top:8px;border-top:1px solid var(--line)}
+  /* Salariés : nom, poste et étiquettes ; coût, téléphone, code et boutons au toucher */
+  .ecards .ecard{cursor:pointer}
+  .ecards .ecard .eh{position:relative;padding-right:22px}
+  .ecards .ecard .eh::after{content:'›';position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:20px;line-height:1;color:var(--ink-3);transition:transform .15s}
+  .ecards .ecard.open .eh::after{transform:translateY(-50%) rotate(90deg)}
+  .ecards .ecard:not(.open) .es-row,.ecards .ecard:not(.open) .ef{display:none}
+  .ecards .ecard:not(.open) .erow2{margin-bottom:0}
+  /* Badgeuse : prévu et badgé côte à côte, le payé en dessous sur une seule ligne */
+  .pjm-shift{grid-template-columns:1fr 1fr;gap:8px 12px}
+  .pjm-l{flex-direction:column;align-items:flex-start;gap:4px;flex-wrap:nowrap}
+  .pjm-k{width:auto;font-size:10.5px}
+  .pjm-v{flex-wrap:nowrap;gap:4px}
+  .pjm-l.pjm-pay{grid-column:1/-1;flex-direction:row;align-items:center;gap:10px}
+  .pjm-pay .pjm-k{width:40px}
+  .pjm-pay .pjm-v{gap:8px}
+  .pjm-pay .pj-in{width:62px;height:40px}
+  .pjm-pay .pj-in.p{width:42px}
+  .pjm-pz{gap:4px;font-size:12px}
+  .pjm-abs{margin-top:8px;font-size:13px}
+}
+/* 15.04 — menu de gauche à ordre fixe : l'espace ouvert déplie ses pages sur place */
+.nav button.app-nav.on{color:var(--side-ink);background:rgba(255,255,255,.04)}
+.nav .app-sub{display:flex;flex-direction:column;gap:1px;margin:2px 0 6px 14px;padding-left:10px;border-left:1px solid var(--side-line)}
+.nav .app-sub button{padding:7px 10px;font-size:13.5px}
+@media (max-width:900px){.nav .app-sub{display:contents}.nav button.app-nav.on{display:none}}
+/* planning : filtres par poste sous la grille, avec la légende */
+.pl-legend.v15-lg{align-items:center;gap:10px 16px}
+.pl-legend.v15-lg .v15-chips{margin:0}
+.pl-legend.v15-lg .legend span[data-poste]{display:none}
+/* le rond vert devient un ✓ « arrivé » */
+.shift .pt{width:14px!important;height:14px!important;top:3px!important;right:3px!important;display:grid;place-items:center;background:#2E9E6A!important;box-shadow:0 0 0 2px var(--surface)!important}
+.shift .pt::after{content:'✓';color:#fff;font-size:9.5px;font-weight:800;line-height:1}
+.shift .pt.late{background:#C77A1C!important}
+.pg9 .shift:has(.pt) .m{margin-right:16px}
+.legend .v15-pt{display:inline-grid;place-items:center;width:14px;height:14px;border-radius:50%;background:#2E9E6A;color:#fff;font-size:9.5px;font-weight:800;font-style:normal}
+/* avis : refaire la semaine */
+.v15-redo-t{margin-top:6px;font-size:13px;color:var(--ink-2)}
+/* retour de fin de semaine */
+.ap-q.v15-ret{align-items:flex-start;gap:12px}
+.v15-ret .ret-b{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.v15-ret .ret-h{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.v15-ret .ret-h .faint{font-size:13px}
+.v15-ret .ret-row{display:flex;gap:8px}
+.v15-ret .ret-row .inp{flex:1;min-width:0;max-width:560px}
+.v15-ret .ret-ex{display:flex;flex-wrap:wrap;gap:6px}
+.v15-ret .ret-ex .chip{font-size:12.5px}
+.v15-lu>div{padding:6px 0}
+@media (max-width:760px){
+  .v15-ret .ret-h .faint{display:none}
+  .v15-ret .ret-ex{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-right:-14px;padding-right:14px}
+  .v15-ret .ret-ex::-webkit-scrollbar{display:none}
+  .v15-ret .ret-ex .chip{flex:none}
+}
