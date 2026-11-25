@@ -171,7 +171,7 @@ export default function LeonApp() {
   const shell = (body) => (
     <div className="v v-form-page">
       <main className="v-wrap v-login-grid one" style={{ paddingTop: 72 }}>
-        <img src="/brand/leon-logo-creme.png" alt="Léon" width={720} height={241} style={{ width: 170, height: "auto", justifySelf: "center" }} />
+        <img src="/brand/leon-logo-creme.png" alt="Dis Léon" width={720} height={241} style={{ width: 170, height: "auto", justifySelf: "center" }} />
         {body}
       </main>
     </div>
@@ -181,7 +181,7 @@ export default function LeonApp() {
       <div className="v v-form-page">
         <main className="cx-solo">
           <div className="cx-card">
-            <img className="cx-logo" src="/brand/leon-logo-vert.png" alt="Léon" width={720} height={241} />
+            <img className="cx-logo" src="/brand/leon-logo-vert.png" alt="Dis Léon" width={720} height={241} />
             <CodePad
               titre={verrou.prenom ? `Bonjour ${verrou.prenom}` : "Bonjour"}
               sousTitre="Tapez votre code pour ouvrir Léon."

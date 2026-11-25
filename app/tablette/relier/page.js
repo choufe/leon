@@ -32,7 +32,7 @@ export default function RelierTablette() {
   return (
     <div className="v v-form-page">
       <main className="v-wrap v-login-grid one" style={{ paddingTop: 72 }}>
-        <img src="/brand/leon-logo-creme.png" alt="Léon" width={720} height={241} style={{ width: 170, height: "auto", justifySelf: "center" }} />
+        <img src="/brand/leon-logo-creme.png" alt="Dis Léon" width={720} height={241} style={{ width: 170, height: "auto", justifySelf: "center" }} />
         <div className="v-login-form" style={{ textAlign: "center", display: "grid", gap: 12 }}>
           <h1 style={{ margin: 0, fontSize: 26 }}>Tablette du resto</h1>
           <p style={{ margin: 0 }}>{etat.t}</p>

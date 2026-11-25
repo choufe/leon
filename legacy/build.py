@@ -60,7 +60,7 @@ def build(name, out, demo_patch=None):
     c = src.rfind('\n/* ----------', 0, m)
     src = src[:c + 1] + js + src[c + 1:]
     # le mot « Léon » écrit en texte devient le logo image
-    src, n = re.subn(r'class="wordmark"((?: style="[^"]*")?)>L<em>é</em>on</(div|span)>', r'class="wordmark logo" role="img" aria-label="Léon"\1></\2>', src)
+    src, n = re.subn(r'class="wordmark"((?: style="[^"]*")?)>L<em>é</em>on</(div|span)>', r'class="wordmark logo" role="img" aria-label="Dis Léon"\1></\2>', src)
     if n < 5:
         raise SystemExit('logo : seulement %d remplacements' % n)
     open(D + out, 'w').write(src)

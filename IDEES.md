@@ -8,6 +8,12 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - Claude push tout, tout le temps, sur sa branche de travail. Mise en ligne (`main`) à la validation de Maurice, MAJ par MAJ.
 - Premier vrai restaurant : **Irish Corner** (pas encore créé dans la base). Ce sera la version officielle de Léon, avec les vraies données.
 
+## Nom et logo (25 nov. 2026)
+- ✅ Nom : **Dis Léon** (« Léon » seul est déjà une marque européenne en logiciel + le Groupe Bertrand). Domaine : www.dis-leon.fr (dis-leon.com redirige).
+- ✅ Logo officiel : LÉON d'origine + « Dis » en petit en haut à gauche, D aligné sur le L, point du i doré.
+- 💡 Animation : une bulle autour du « Dis » à l'ouverture de l'appli ou quand on demande quelque chose à Léon.
+- 📋 Déposer « Dis Léon » (avec logo) à l'INPI, classes 9 et 42.
+
 ## Architecture : un site, trois vues (décidé)
 - Un seul site / un seul code, avec une vue adaptée à chaque appareil. Pas d'applis séparées ni d'App Store pour l'instant.
 - **Tablette (borne)** : très simple, gros boutons, icônes. Badge, mon planning, hygiène. Verrouillée en plein écran sur l'écran de badge.

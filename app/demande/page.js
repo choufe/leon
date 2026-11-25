@@ -86,7 +86,7 @@ export default function Demande() {
       <header className="v-top">
         <div className="v-wrap">
           <Link href="/" aria-label="Retour à l'accueil de Léon">
-            <img className="v-logo" src="/brand/leon-logo-creme.png" alt="Léon" width={720} height={241} />
+            <img className="v-logo" src="/brand/leon-logo-creme.png" alt="Dis Léon" width={720} height={241} />
           </Link>
           <div className="v-top-acts">
             <Link className="v-login" href="/">← Retour</Link>

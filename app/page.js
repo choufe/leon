@@ -115,7 +115,7 @@ export default function Vitrine() {
       <header className="v-top">
         <div className="v-wrap">
           <Link href="/" aria-label="Léon, accueil">
-            <img className="v-logo" src="/brand/leon-logo-creme.png" alt="Léon" width={720} height={241} />
+            <img className="v-logo" src="/brand/leon-logo-creme.png" alt="Dis Léon" width={720} height={241} />
           </Link>
           <nav className="v-nav" aria-label="Sections">
             <a href="#promesses">Ce que fait Léon</a>
@@ -325,7 +325,7 @@ export default function Vitrine() {
 
       <footer className="v-foot">
         <div className="v-wrap">
-          <img src="/brand/leon-logo-creme.png" alt="Léon" width={720} height={241} style={{ height: 19, width: "auto", opacity: 0.82 }} />
+          <img src="/brand/leon-logo-creme.png" alt="Dis Léon" width={720} height={241} style={{ height: 19, width: "auto", opacity: 0.82 }} />
           <nav aria-label="Pied de page">
             <a href="#promesses">Ce que fait Léon</a>
             <a href="#offre">L'offre</a>
