@@ -5,6 +5,14 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.05 — Nouveau logo officiel « Dis Léon » (branche `logo-15.05`)
+Mis en ligne à la demande de Maurice (25 nov. 2026).
+- **Le logo** : le LÉON d'origine ne bouge pas. On ajoute « Dis » en petit, en haut à gauche : la barre du D est dans l'axe de la barre du L, le Dis fait la hauteur de l'accent du É, et le point du i est doré (rappel de la pupille de l'œil).
+- **Partout d'un coup** : mêmes fichiers, même format (`public/brand/leon-logo-vert.png` et `-creme.png`, maintenant en 2x pour être net), donc vitrine, connexion, créateur, appli, tablette et démo prennent le nouveau logo sans autre changement. Copies `legacy/assets/` mises à jour, `npm run legacy` relancé.
+- Textes alternatifs « Léon » → « Dis Léon » sur les logos.
+- La bulle « Dis » est gardée pour une future animation (ouverture de l'appli, « Demander à Léon »).
+- Vérifié à l'écran : vitrine, connexion, demande, app démo (PC). `npm run build` OK.
+
 ## 15.04 — Taille de l'écran + Camille en démo (branche `taille-15.04`)
 Pas encore en ligne (attend l'accord de Maurice).
 - **Taille de l'écran** : un petit bouton « Aa », discret. PC : en bas du menu, à côté du prénom. Téléphone : « Plus » → « Aa Taille ». Tablette : sur l'écran Direction (donc directeur seulement, l'équipe ne peut pas dérégler). Quatre tailles : 85 %, 100 %, 115 %, 130 %. Gardée sur l'appareil.

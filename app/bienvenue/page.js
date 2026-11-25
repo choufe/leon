@@ -75,7 +75,7 @@ export default function Bienvenue() {
     <div className="v v-form-page">
       <main className="cx-solo">
         <div className="cx-card">
-          <img className="cx-logo" src="/brand/leon-logo-vert.png" alt="Léon" width={720} height={241} />
+          <img className="cx-logo" src="/brand/leon-logo-vert.png" alt="Dis Léon" width={720} height={241} />
           {(etape === "pass" || etape === "code") && <div className="cx-steps" aria-hidden="true"><i className="on" /><i className={etape === "code" ? "on" : ""} /></div>}
 
           {etape === "verif" && <p className="v-hint" style={{ textAlign: "center" }}>Vérification du lien…</p>}

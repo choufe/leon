@@ -43,7 +43,7 @@ export default function Createur() {
     <div className="v v-form-page">
       <main className="cx-solo">
         <div className="cx-card">
-          <img className="cx-logo" src="/brand/leon-logo-vert.png" alt="Léon" width={720} height={241} />
+          <img className="cx-logo" src="/brand/leon-logo-vert.png" alt="Dis Léon" width={720} height={241} />
           {body}
         </div>
       </main>
@@ -130,7 +130,7 @@ function Espace({ email, onDeconnexion, onCodeExpire }) {
     <div className="v">
       <div className="cr">
         <header className="cr-top">
-          <img src="/brand/leon-logo-creme.png" alt="Léon" width={720} height={241} />
+          <img src="/brand/leon-logo-creme.png" alt="Dis Léon" width={720} height={241} />
           <span className="cr-role">Créateur</span>
           <span className="cr-me"><span>{email}</span><button type="button" onClick={onDeconnexion}>Se déconnecter</button></span>
         </header>
