@@ -5,6 +5,19 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.10 — Classeur HACCP (branche `etiquettes-15.09`)
+Module `legacy/v15_haccp.js`. « Tout sortir d'un coup face à un contrôle d'hygiène. »
+- **Tablette** : petit bouton « HACCP » en bas de l'écran Hygiène, visible seulement des responsables (managers, directeur, créateur). **PC / téléphone** : bouton « Classeur HACCP » en haut d'Hygiène (remplace « Dossier contrôle sanitaire »).
+- **Rubriques avec pastille** (vert à jour / orange à compléter / rouge manquant) :
+  - papiers à déposer une fois (photo ou PDF ≤ 3 Mo) : PMS, déclaration d'activité (Cerfa 13984), formation hygiène (+ fiches salariés), plan de la cuisine, nuisibles (orange si dernier document > 6 mois) ; en plus : analyses, autres ;
+  - remplis par Léon : températures (jours sans relevé), actions correctives, plan de nettoyage (% des listes faites), traçabilité (réceptions, produits ouverts, étiquettes), allergènes (impression du tableau), fournisseurs.
+- **Mode contrôle** : écran en lecture seule, jour par jour (flèches ou calendrier) : températures, produits ouverts avec photo, étiquettes, réceptions avec photo, nettoyage tâche par tâche (qui, quelle heure), retraits DLC, documents. La tablette ne se verrouille pas pendant 20 min.
+- **Tout sortir en PDF** : le dossier existant (1, 3 ou 6 mois) + étiquettes + produits ouverts archivés + liste des documents + les documents photo en annexe.
+- **Produits ouverts archivés** au lieu d'être effacés : photo gardée 1 mois, ligne écrite 6 mois. Listes de nettoyage gardées 6 mois (au lieu de 3). On note qui a ouvert et à quelle heure.
+- Documents rangés à part (`restos/<id>/haccp/<doc>`), chargés seulement à l'ouverture du classeur. Déposer / retirer : tablette, patron, directeur, créateur (pas le téléphone d'un manager, que la base refuserait). Pas de migration.
+- Étiquettes 15.09 : les préparations maison, l'historique et les durées sont maintenant bien enregistrés dans la base (doc hygiène).
+- Vérifié : tablette paysage et portrait (manager : visible ; salarié : caché), PC, téléphone, PDF (3 pages + annexes), aller-retour des données, grand check (239 écrans, 0 erreur), `npm run build` OK.
+
 ## 15.09 — Étiquettes DLC en un geste (branche `etiquettes-15.09`)
 Pas encore en ligne (attend le go de Maurice). Module `legacy/v15_etiquettes.js`. Imprimante visée : Brother QL-820NWBc en Wi-Fi, rouleau DK-44205 (continu amovible 62 mm), AirPrint depuis l'iPad.
 - **Tablette › Hygiène › Étiquetage** : tous les produits sur un seul écran, rangés par zone (préparations maison en premier), le bouton n'affiche que le nom. On touche = 1 étiquette ; le − / + apparaît sur la même carte. Barre fixe en bas : « 2 produits · 4 étiquettes » + **Imprimer 4**. Une seule fenêtre d'impression pour tout (une page = une étiquette), puis la sélection se vide.
