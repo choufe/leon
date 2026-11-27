@@ -16769,7 +16769,9 @@ function vocParse(raw){
   segs.forEach(seg=>{
     const m=seg.match(/(^| )(\d+)( |$)/);const q=m?Math.min(50,+m[2]):1;
     const words=vocWords(seg);if(!words.length)return;
-    const p=vocBest(items,words,x=>x.n);
+    // si on a dit des mots en plus qui ne sont pas dans le nom (« sauce tartare » ≠ « Rumsteck (tartare) »), il faut une vraie ressemblance
+    let p=vocBest(items,words,x=>x.n);
+    if(p&&words.some(w=>!vocWords(dlcNorm(p.n)).some(x=>vocSame(w,x)))&&vocScore(p.n,words)<0.6)p=null;
     if(p)E.push({id:p.id,n:p.n,q,z:p.z,dlcJ:p.dlcJ});
     else if(wantEtq)E.push({id:null,n:vocRawName(raw,words),q,isNew:true});
   });
