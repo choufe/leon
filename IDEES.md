@@ -151,3 +151,4 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - 💡 27 nov. 2026 · Produits ouverts : garder la photo 1 mois, la ligne écrite (produit, date, DLC, qui) 6 mois ; onglet PC « photos du jour ». Pas besoin de demander la provenance (la photo suffit).
 - 💡 27 nov. 2026 · Bouton « HACCP » discret sur la tablette (version directeur) : tous les papiers pour être aux normes en cas de contrôle, au même endroit.
 - ✅ 27 nov. 2026 · Classeur HACCP (15.10) : bouton HACCP sur la tablette (responsables) et sur PC, pastilles par rubrique, mode contrôle jour par jour, tout en PDF. Accès : directeur ET responsables (si le directeur est en repos le jour du contrôle). Produits ouverts : photo 1 mois, ligne 6 mois.
+- ✅ 27 nov. 2026 · Léon réfléchit tout seul à la DLC de chaque nouveau produit (15.11) ; le patron n'ajuste que ce qui le gêne. Plus tard : l'IA pour les noms inconnus.

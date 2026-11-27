@@ -36,19 +36,21 @@ const ETQ_ZONES_ON=['froid','congel']; // produits proposés d'office sur la tab
 function etqHome(){if(!S.etqMaison)S.etqMaison=[];return S.etqMaison;}
 function etqLog(){if(!S.hyg)S.hyg={equip:defaultHygEquip(),temps:[],lots:[]};if(!S.hyg.etqLog)S.hyg.etqLog=[];return S.hyg.etqLog;}
 function etqOn(i){return i.etq!=null?!!i.etq:ETQ_ZONES_ON.includes(zoneOf(i));}
-function etqDays(p){const j=+p.dlcJ;return j>0?j:ETQ_DEF_J;}
+// 15.11 : si le patron n'a rien réglé, Léon réfléchit tout seul (v15_dlc_cerveau.js)
+function etqGuessOf(p){return dlcGuess(p.n,p.z||'froid');}
+function etqDays(p){const j=+p.dlcJ;return j>0?j:etqGuessOf(p).j;}
 // tous les produits étiquetables : préparations maison d'abord, puis le stock rangé par zone
 function etqGroups(onlyOn){
   const G=[];
   const home=etqHome().slice().sort((a,b)=>a.n.localeCompare(b.n,'fr'));
-  if(home.length)G.push({k:'maison',l:'Préparations maison',i:'flame',items:home.map(x=>({...x,src:'m'}))});
+  if(home.length)G.push({k:'maison',l:'Préparations maison',i:'flame',items:home.map(x=>({...x,z:'froid',src:'m'}))});
   Object.keys(INV_ZONES).forEach(z=>{
-    const items=S.ingredients.filter(i=>zoneOf(i)===z&&(!onlyOn||etqOn(i))).sort((a,b)=>a.n.localeCompare(b.n,'fr')).map(i=>({id:i.id,n:i.n,dlcJ:i.dlcJ,src:'i',on:etqOn(i)}));
+    const items=S.ingredients.filter(i=>zoneOf(i)===z&&(!onlyOn||etqOn(i))).sort((a,b)=>a.n.localeCompare(b.n,'fr')).map(i=>({id:i.id,n:i.n,dlcJ:i.dlcJ,z,src:'i',on:etqOn(i)}));
     if(items.length)G.push({k:z,l:INV_ZONES[z].l,i:INV_ZONES[z].i,items});
   });
   return G;
 }
-function etqFind(id){const h=etqHome().find(x=>x.id===id);if(h)return {...h,src:'m'};const i=ING(id);return i?{id:i.id,n:i.n,dlcJ:i.dlcJ,src:'i'}:null;}
+function etqFind(id){const h=etqHome().find(x=>x.id===id);if(h)return {...h,z:'froid',src:'m'};const i=ING(id);return i?{id:i.id,n:i.n,dlcJ:i.dlcJ,z:zoneOf(i),src:'i'}:null;}
 
 /* ---------- l'étiquette ---------- */
 const etqD2=d=>pad(d.getDate())+'/'+pad(d.getMonth()+1);
@@ -125,7 +127,7 @@ kioskEtiquetageHTML=function(){
    ${G.length?G.map(g=>`<h3 class="etq-g">${ic(g.i,'s')} ${esc(T(g.l))}</h3><div class="etq-grid">${g.items.map(etqCardHTML).join('')}</div>`).join(''):`<p class="faint">${T('Pas encore de produits à étiqueter.')}</p>`}
    <details class="etq-other"><summary>${ic('edit','s')} ${T('Autre produit')}</summary>
     <div class="field"><label for="kq-n">${T('Produit')}</label><input class="inp" id="kq-n" placeholder="${T('Ex. sauce maison')}"></div>
-    <div class="field" style="margin-top:8px"><label for="kq-j">${T('Durée (jours)')}</label><input class="inp" id="kq-j" type="number" inputmode="numeric" min="1" max="365" value="${ETQ_DEF_J}"></div>
+    <div class="field" style="margin-top:8px"><label for="kq-j">${T('Durée (jours)')}</label><input class="inp" id="kq-j" type="number" inputmode="numeric" min="1" max="365" value="" placeholder="${ETQ_DEF_J}"><small class="faint etq-why" id="kq-why"></small></div>
     <button class="btn big block" data-act="etq-other-print" style="margin-top:12px">${ic('print','s')} ${T('Imprimer l’étiquette')}</button></details>
    <div class="etq-pad"></div>${etqBarHTML()}`;
 };
@@ -144,8 +146,11 @@ Object.assign(ACT,{
   },
   'etq-other-print'(){
     const n=(($('#kq-n')||{}).value||'').trim();if(!n){toast(T('Indique un nom de produit'),'alert');return;}
-    const j=Math.min(365,Math.max(1,parseInt(($('#kq-j')||{}).value,10)||ETQ_DEF_J));
+    const v=parseInt(($('#kq-j')||{}).value,10);const g=dlcGuess(n,'froid');const j=v>0?Math.min(365,v):g.j;
+    // on le garde pour la prochaine fois (durée gardée seulement si on l'a changée)
+    if(!etqHome().some(x=>normH(x.n)===normH(n)))S.etqMaison=[...etqHome(),{id:uid('em'),n,dlcJ:v>0&&v!==g.j?j:null}];
     const L=etqMake({n,dlcJ:j});etqRecord([L]);save();etqPrint([L]);
+    setTimeout(()=>{render();toast(`${esc(n)} : ${T('Étiquettes envoyées')}`,'tag');},120);
   },
   // ancien bouton produit (au cas où un écran l'affiche encore) : la durée du produit, plus 3 jours fixes
   'kiosk-tag-print'(t){const p=etqFind(t.dataset.id);if(!p)return;const L=etqMake(p);etqRecord([L]);save();etqPrint([L]);},
@@ -157,19 +162,21 @@ function etqSettingsHTML(){
   const can=CAN();const edit=!!(can.settings||can.board);
   const G=etqGroups(false);
   const nOn=G.reduce((s,g)=>s+g.items.filter(x=>x.src==='m'||x.on).length,0);
-  const rows=g=>g.items.map(p=>`<tr><td><b>${esc(p.n)}</b></td>
-    <td class="r"><input class="tinp" type="number" inputmode="numeric" min="1" max="365" value="${p.dlcJ>0?p.dlcJ:''}" placeholder="${ETQ_DEF_J}" data-ch="etq-j" data-id="${p.id}" style="width:70px" aria-label="Durée en jours pour ${esc(p.n)}" ${edit?'':'disabled'}> <small class="faint">j</small></td>
-    <td class="r">${p.src==='m'?`<button class="btn ghost sm" data-act="etq-home-del" data-id="${p.id}" ${edit?'':'disabled'}>${ic('trash','s')} Retirer</button>`:`<label class="etq-sw"><input type="checkbox" data-ch="etq-on" data-id="${p.id}" ${p.on?'checked':''} ${edit?'':'disabled'}> Sur la tablette</label>`}</td></tr>`).join('');
+  const rows=g=>g.items.map(p=>{const gs=etqGuessOf(p);const mine=+p.dlcJ>0;return `<tr><td><b>${esc(p.n)}</b><div class="etq-why ${mine?'':gs.sure?'':'unsure'}">${mine?`Réglé par toi${+p.dlcJ!==gs.j?` · Léon proposait ${gs.j} j`:''} <button class="linkbtn" data-act="etq-reset" data-id="${p.id}" ${edit?'':'disabled'}>revenir à Léon</button>`:gs.sure?`${ic('spark','s')} Léon : ${esc(gs.why)}`:`${ic('alert','s')} Léon n’est pas sûr (${esc(gs.why)}) : vérifie`}</div></td>
+    <td class="r"><input class="tinp" type="number" inputmode="numeric" min="1" max="365" value="${mine?p.dlcJ:gs.j}" placeholder="${gs.j}" data-ch="etq-j" data-id="${p.id}" style="width:70px" aria-label="Durée en jours pour ${esc(p.n)}" ${edit?'':'disabled'}> <small class="faint">j</small></td>
+    <td class="r">${p.src==='m'?`<button class="btn ghost sm" data-act="etq-home-del" data-id="${p.id}" ${edit?'':'disabled'}>${ic('trash','s')} Retirer</button>`:`<label class="etq-sw"><input type="checkbox" data-ch="etq-on" data-id="${p.id}" ${p.on?'checked':''} ${edit?'':'disabled'}> Sur la tablette</label>`}</td></tr>`;}).join('');
+  const nUnsure=G.reduce((s,g)=>s+g.items.filter(p=>(p.src==='m'||p.on)&&!(+p.dlcJ>0)&&!etqGuessOf(p).sure).length,0);
   const groups=G.map(g=>{const op=UI.etqSet.open===g.k||(g.k==='maison'&&UI.etqSet.open==null);
     const on=g.items.filter(x=>x.src==='m'||x.on).length;
     return `<details class="etq-set-g" ${op?'open':''} data-tg="${g.k}"><summary>${ic(g.i,'s')} <b>${esc(g.l)}</b> <span class="faint">${on} sur ${g.items.length} sur la tablette</span></summary>
      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Produit</th><th class="r">DLC après préparation</th><th class="r"></th></tr></thead><tbody>${rows(g)}</tbody></table></div></details>`;}).join('');
   const log=etqLog().slice(0,12);
   return `<section class="panel"><div class="panel-h"><h2>${ic('tag','s')} Étiquettes DLC de la tablette</h2><span class="faint" style="font-size:12.5px">${plur(nOn,'produit')} sur la tablette · étiquette ${ETQ_W} × ${ETQ_H} mm</span></div><div class="panel-b">
-   <p class="muted" style="font-size:13px;margin:-4px 0 12px">Sur la tablette, l’équipe touche le produit, choisit le nombre et imprime. Ici tu règles la durée de chaque produit (vide = ${ETQ_DEF_J} jours) et ce qui apparaît.</p>
+   <p class="muted" style="font-size:13px;margin:-4px 0 12px">Sur la tablette, l’équipe touche le produit, choisit le nombre et imprime. Léon choisit tout seul la durée de chaque produit, même un nouveau : change seulement celles qui ne te vont pas.</p>
+   ${nUnsure?`<div class="etq-unsure">${ic('alert','s')} <b>${plur(nUnsure,'produit')} où Léon n’est pas sûr</b> : jette un œil à leur durée (en orange).</div>`:''}
    ${edit?`<div class="etq-add"><div class="field"><label for="etq-hn">Préparation maison</label><input class="inp" id="etq-hn" placeholder="Ex. sauce burger, oignons confits"></div>
-    <div class="field"><label for="etq-hj">Durée (jours)</label><input class="inp" id="etq-hj" type="number" inputmode="numeric" min="1" max="365" value="${ETQ_DEF_J}"></div>
-    <div class="field"><button class="btn primary" data-act="etq-home-add">${ic('plus','s')} Ajouter</button></div></div>`:''}
+    <div class="field"><label for="etq-hj">Durée (jours)</label><input class="inp" id="etq-hj" type="number" inputmode="numeric" min="1" max="365" value="" placeholder="Léon décide"></div>
+    <div class="field"><button class="btn primary" data-act="etq-home-add">${ic('plus','s')} Ajouter</button></div></div><small class="faint etq-why" id="etq-hwhy" style="margin:-8px 0 12px"></small>`:''}
    ${groups||'<p class="faint">Aucun produit pour l’instant.</p>'}
    <div class="mf" style="justify-content:flex-start;margin-top:12px"><button class="btn ghost" data-act="etq-test">${ic('print','s')} Imprimer une étiquette test</button></div>
   </div></section>
@@ -182,16 +189,31 @@ function etqSettingsHTML(){
   if(!UI.hyg||UI.hyg.tab!=='trace')return h;
   try{return h+`<div style="margin-top:18px">${etqSettingsHTML()}</div>`;}catch(e){return h;}
 };}
-CH['etq-j']=t=>{const v=parseInt(t.value,10);const j=v>0?Math.min(365,v):null;const h=etqHome().find(x=>x.id===t.dataset.id);
-  if(h)h.dlcJ=j||ETQ_DEF_J;else{const i=ING(t.dataset.id);if(!i)return;S.ingredients=S.ingredients.map(x=>x.id===i.id?{...x,dlcJ:j}:x);}
-  save();toast(`${esc(t.getAttribute('aria-label').replace('Durée en jours pour ',''))} : DLC ${j||ETQ_DEF_J} j`,'tag');};
+function etqSetDays(id,j){const h=etqHome().find(x=>x.id===id);
+  if(h)S.etqMaison=etqHome().map(x=>x.id===id?{...x,dlcJ:j}:x);else{const i=ING(id);if(!i)return false;S.ingredients=S.ingredients.map(x=>x.id===i.id?{...x,dlcJ:j}:x);}return true;}
+CH['etq-j']=t=>{const p=etqFind(t.dataset.id);if(!p)return;const v=parseInt(t.value,10);const g=etqGuessOf(p);
+  // même valeur que Léon = on laisse Léon décider (il pourra s'améliorer)
+  const j=v>0&&v!==g.j?Math.min(365,v):null;etqSetDays(p.id,j);
+  const g2=t.closest('details');UI.etqSet.open=g2?g2.dataset.tg:null;save();render();toast(`${esc(p.n)} : DLC ${j||g.j} j${j?'':' (choix de Léon)'}`,'tag');};
 CH['etq-on']=t=>{const id=t.dataset.id;S.ingredients=S.ingredients.map(x=>x.id===id?{...x,etq:!!t.checked}:x);save();
   const g=t.closest('[data-tg]');UI.etqSet.open=g?g.dataset.tg:null;render();};
 Object.assign(ACT,{
   'etq-home-add'(){const n=(($('#etq-hn')||{}).value||'').trim();if(!n){toast('Indique le nom de la préparation','alert');return;}
-    const j=Math.min(365,Math.max(1,parseInt(($('#etq-hj')||{}).value,10)||ETQ_DEF_J));
+    const v=parseInt(($('#etq-hj')||{}).value,10);const g=dlcGuess(n,'froid');const j=v>0&&v!==g.j?Math.min(365,v):null;
     if(etqHome().some(x=>normH(x.n)===normH(n))){toast('Déjà dans la liste','alert');return;}
     S.etqMaison=[...etqHome(),{id:uid('em'),n,dlcJ:j}];UI.etqSet.open='maison';save();render();toast(`${esc(n)} ajouté`,'tag');},
   'etq-home-del'(t){S.etqMaison=etqHome().filter(x=>x.id!==t.dataset.id);UI.etqSet.open='maison';save();render();},
   'etq-test'(){etqPrint([etqMake({n:'Étiquette test',dlcJ:ETQ_DEF_J})]);},
+  'etq-reset'(t){const g=t.closest('details');UI.etqSet.open=g?g.dataset.tg:null;if(etqSetDays(t.dataset.id,null)){save();render();}},
 });
+
+// en tapant un nom (tablette « Autre produit » ou PC « Préparation maison »), Léon propose la durée tout de suite
+document.addEventListener('input',e=>{
+  const id=e.target&&e.target.id;if(id!=='kq-n'&&id!=='etq-hn')return;
+  const n=e.target.value.trim();const g=n?dlcGuess(n,'froid'):null;
+  const ji=document.getElementById(id==='kq-n'?'kq-j':'etq-hj');const w=document.getElementById(id==='kq-n'?'kq-why':'etq-hwhy');
+  if(ji)ji.placeholder=g?String(g.j):(id==='kq-n'?String(ETQ_DEF_J):'Léon décide');
+  if(id==='kq-n'&&ji&&!ji.dataset.touched)ji.value=g?g.j:'';
+  if(w)w.textContent=g?(g.sure?'Léon : '+g.j+' j · '+g.why:'Léon n’est pas sûr : '+g.j+' j par prudence'):'';
+},true);
+document.addEventListener('input',e=>{if(e.target&&e.target.id==='kq-j')e.target.dataset.touched='1';},true);

@@ -5,6 +5,14 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.11 — Léon choisit tout seul la durée des DLC (branche `etiquettes-15.09`)
+Module `legacy/v15_dlc_cerveau.js` (`dlcGuess(nom, zone)`), branché dans `v15_etiquettes.js`.
+- Pour chaque produit (stock, préparation maison, produit tapé sur la tablette), Léon lit le nom et la zone et propose une durée, avec sa raison : haché / poisson cru / fruits de mer / œuf cru / riz cuit / salade lavée → 1 j ; volaille crue, légumes taillés, herbes, féculents cuits, fromages frais, desserts → 2 j ; viande crue en morceaux, charcuterie, laitiers, sauces et plats maison → 3 j ; congélateur → 1 j (décongélation) ; sirops, alcools, condiments, glace → 30 j. Jamais plus de 3 j pour du frais. Inconnu → 3 j « à vérifier ».
+- PC : sous chaque produit « Léon : viande hachée… » ; en orange quand il n'est pas sûr, avec un compteur en haut. Si le patron change → « Réglé par toi · Léon proposait X j · revenir à Léon ». Mettre la même valeur que Léon = on laisse Léon décider.
+- Tablette « Autre produit » : on tape « Crevettes du marché », la durée se remplit toute seule (1 j, fruits de mer). Après impression, le produit est gardé dans les préparations maison pour la prochaine fois.
+- Vérifié : 45 noms de test (tous cohérents), PC, tablette, `npm run build` OK.
+- Suite prévue : l'IA de « Dis Léon » pour les noms que le barème ne connaît pas.
+
 ## 15.10 — Classeur HACCP (branche `etiquettes-15.09`)
 Module `legacy/v15_haccp.js`. « Tout sortir d'un coup face à un contrôle d'hygiène. »
 - **Tablette** : petit bouton « HACCP » en bas de l'écran Hygiène, visible seulement des responsables (managers, directeur, créateur). **PC / téléphone** : bouton « Classeur HACCP » en haut d'Hygiène (remplace « Dossier contrôle sanitaire »).

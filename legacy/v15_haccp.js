@@ -151,7 +151,7 @@ function hcBodyHTML(where){
   const card=r=>`<button class="hc-r ${r.st}" data-act="hc-rub" data-k="${r.k}"><span class="hc-dot ${HC_ST[r.st].c}" aria-hidden="true"></span>
     <span class="hc-r-b"><b>${esc(r.t)}</b><small>${esc(r.line)}</small></span><span class="pill ${HC_ST[r.st].c}">${esc(T(HC_ST[r.st].l))}</span>${ic('chevR','s')}</button>`;
   return `<div class="hc-head"><div><h2 class="hc-h">${ic('shield')} ${T('Classeur HACCP')}</h2><p class="sub">${T('Tous les papiers pour un contrôle d’hygiène, au même endroit.')}</p></div>
-    <div class="hc-acts"><button class="btn primary big" data-act="hc-ctrl">${ic('eye','s')} ${T('Mode contrôle')}</button><button class="btn big" data-act="hc-pdf">${ic('printer','s')} ${T('Tout sortir en PDF')}</button></div></div>
+    <div class="hc-acts"><button class="btn primary big" data-act="hc-ctrl">${ic('eye','s')} ${T('Mode contrôle')}</button><button class="btn big" data-act="hc-pdf">${ic('print','s')} ${T('Tout sortir en PDF')}</button></div></div>
    <div class="hc-sum ${nb?'warn':'ok'}">${nb?`${ic('alert','s')} <b>${plur(nb,'rubrique')} à compléter</b> avant le prochain contrôle.`:`${ic('check','s')} <b>Tout est à jour.</b> Tu es prêt pour un contrôle.`}</div>
    <h3 class="hc-g">Les papiers à avoir</h3><div class="hc-list">${R.filter(r=>r.kind==='doc'&&!HC_CATS[r.k].opt).map(card).join('')}</div>
    <h3 class="hc-g">Ce que Léon remplit tout seul</h3><div class="hc-list">${R.filter(r=>r.kind==='auto').map(card).join('')}</div>
@@ -170,7 +170,7 @@ function hcRubModal(k){
     if(k==='form'){const tr=EMP.filter(e=>!e.hidden&&e.docs&&e.docs.hyg);body=`${tr.length?`<p style="margin:0 0 12px"><b>Formés à l’hygiène :</b> ${tr.map(e=>`${esc(e.prenom)} (${frLongDate(e.docs.hyg)})`).join(', ')}</p>`:''}`+body;}
   }else{
     const go={temp:'temp',corr:'temp',net:'taches',trace:'trace'}[k];
-    const extra=k==='alg'?`<button class="btn primary big block" data-act="hc-alg">${ic('printer','s')} Imprimer le tableau des allergènes</button>`
+    const extra=k==='alg'?`<button class="btn primary big block" data-act="hc-alg">${ic('print','s')} Imprimer le tableau des allergènes</button>`
       :`<p class="faint" style="margin:0 0 12px">Léon le remplit tout seul au fil des jours. Pour voir un jour précis, ouvre le mode contrôle.</p><button class="btn primary big block" data-act="hc-ctrl">${ic('eye','s')} ${T('Mode contrôle')}</button>`;
     body=extra+(go&&U.screen!=='kiosk'?`<button class="btn ghost block" style="margin-top:8px" data-act="hc-goto" data-t="${go}">Voir le détail dans Hygiène</button>`:'');
   }
@@ -219,9 +219,9 @@ function hcCtrlHTML(where){
 
 /* ---------- le PDF : le dossier existant + étiquettes + produits ouverts archivés + documents ---------- */
 function hcPdfOpen(){
-  openModal(`<div class="mh"><div><h3>${ic('printer')} ${T('Tout sortir en PDF')}</h3><p>Le dossier complet, rangé comme le contrôleur le demande, avec les documents déposés à la fin. Sur l’iPad : Imprimer, puis « Enregistrer dans Fichiers » pour avoir le PDF.</p></div><button class="icon-btn" data-act="modal-close" aria-label="${T('Fermer')}">${ic('x')}</button></div>
+  openModal(`<div class="mh"><div><h3>${ic('print')} ${T('Tout sortir en PDF')}</h3><p>Le dossier complet, rangé comme le contrôleur le demande, avec les documents déposés à la fin. Sur l’iPad : Imprimer, puis « Enregistrer dans Fichiers » pour avoir le PDF.</p></div><button class="icon-btn" data-act="modal-close" aria-label="${T('Fermer')}">${ic('x')}</button></div>
    <div class="field"><span class="lbl">Période</span><span class="seg">${[[1,'1 mois'],[3,'3 mois'],[6,'6 mois']].map(([m,l])=>`<button data-act="pms-m" data-m="${m}" aria-pressed="${UI.pms.m===m}">${l}</button>`).join('')}</span></div>
-   <div class="mf"><button class="btn" data-act="modal-close">${T('Fermer')}</button><button class="btn primary" data-act="hc-pdf-go">${ic('printer','s')} Imprimer / PDF</button></div>`,'narrow');
+   <div class="mf"><button class="btn" data-act="modal-close">${T('Fermer')}</button><button class="btn primary" data-act="hc-pdf-go">${ic('print','s')} Imprimer / PDF</button></div>`,'narrow');
 }
 function hcPdfHTML(){
   const h=hcHyg();const from=isoD(addDays(TODAY,-Math.round(UI.pms.m*30.4)));
