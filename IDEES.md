@@ -147,3 +147,6 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 
 
 - ✅ 27 nov. 2026 · Étiquettes DLC (15.09) : sur la tablette on touche le produit (juste le nom), on règle le nombre sur la même carte, on valide en bas, tout part dans UNE fenêtre d'impression. Étiquette 62 × 29 mm : produit, préparé le (date + heure), DLC selon la durée réglée par produit, qui l'a imprimée. Imprimante : Brother QL-820NWBc Wi-Fi + DK-44205, AirPrint depuis l'iPad. Durées et produits réglés par le patron sur PC.
+- 💡 27 nov. 2026 · Étiquettes : Léon propose tout seul la durée de DLC de chaque produit (barème, puis IA), affichée « proposée par Léon » jusqu'à validation du patron. Via « Dis Léon » : « j'ai acheté des crevettes, fais-moi une DLC » → Léon retrouve ou crée le produit, propose la durée, imprime.
+- 💡 27 nov. 2026 · Produits ouverts : garder la photo 1 mois, la ligne écrite (produit, date, DLC, qui) 6 mois ; onglet PC « photos du jour ». Pas besoin de demander la provenance (la photo suffit).
+- 💡 27 nov. 2026 · Bouton « HACCP » discret sur la tablette (version directeur) : tous les papiers pour être aux normes en cas de contrôle, au même endroit.
