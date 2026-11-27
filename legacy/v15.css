@@ -252,3 +252,29 @@ html[data-taille] #qe-root .qe.sheet{max-height:calc(86dvh / var(--leon-z,1))}
 .etq-why .linkbtn{all:unset;cursor:pointer;color:var(--accent,var(--ok));text-decoration:underline;font-size:12.5px}
 small.etq-why{display:block;min-height:16px;margin-top:4px}
 .etq-unsure{display:flex;align-items:center;gap:6px;padding:10px 12px;border-radius:10px;margin:0 0 12px;font-size:13.5px;background:color-mix(in srgb,var(--warn) 14%,var(--surface))}
+
+/* ---------- 15.12 · Dis Léon à la voix ---------- */
+.voc-fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:40;display:flex;align-items:center;gap:8px;padding:14px 20px 14px 16px;border:0;border-radius:999px;background:var(--gold,#a8741a);color:#fff;font:700 16px/1 'Instrument Sans',sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.22);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.voc-fab svg{width:20px;height:20px}
+.voc-fab:active{transform:scale(.97)}
+body:has(.etq-bar) .voc-fab{bottom:calc(96px + env(safe-area-inset-bottom))}
+body:has(.modal) .voc-fab{display:none}
+.voc{display:flex;flex-direction:column;gap:12px}
+.voc-mic{all:unset;cursor:pointer;align-self:center;width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--gold,#a8741a);color:#fff;margin:6px 0}
+.voc-mic svg{width:40px;height:40px}
+.voc-mic.on{animation:vocPulse 1.4s ease-in-out infinite}
+@keyframes vocPulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--gold,#a8741a) 45%,transparent)}50%{box-shadow:0 0 0 18px color-mix(in srgb,var(--gold,#a8741a) 0%,transparent)}}
+.voc-live{text-align:center;font-size:18px;min-height:26px;margin:0}
+.voc-heard{margin:0;font-size:15px;color:var(--ink-2);font-style:italic}
+.voc-h{margin:0;font-weight:700}
+.voc-plan{display:flex;flex-direction:column;gap:8px}
+.voc-step{display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.voc-step b{font-size:16px;display:block}
+.voc-step small{color:var(--ink-2);font-size:13px}
+.voc-step.warn{border-color:color-mix(in srgb,var(--warn) 50%,var(--line));background:color-mix(in srgb,var(--warn) 10%,var(--surface))}
+.voc-si{width:32px;height:32px;border-radius:9px;flex:none;display:flex;align-items:center;justify-content:center;background:var(--hover)}
+.voc-chips{display:flex;flex-wrap:wrap;gap:8px;margin:-2px 0 4px 42px}
+.voc-acts{display:grid;grid-template-columns:1fr 1.4fr;gap:10px;margin-top:4px}
+.voc-type{display:flex;gap:8px}
+.voc-type .inp{flex:1}
+.voc-ex{font-size:13px;margin:0}

@@ -5,6 +5,14 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.12 — « Dis Léon » à la voix sur la tablette (version gratuite) (branche `etiquettes-15.09`)
+Module `legacy/v15_vocal.js`. Pas d'IA payante : la voix est reconnue par l'iPad, Léon comprend avec les listes du resto.
+- Une fois la personne connectée avec son code, un bouton doré « Dis Léon » en bas à droite de tous les écrans de la tablette. On appuie, on parle, Léon affiche une note écrite de ce qu'il a compris, on valide d'un ✓ (rien n'est fait sans ✓).
+- Comprend : étiquettes (« 3 étiquettes steak haché et une crevettes du marché » : produit connu retrouvé, produit nouveau créé avec sa durée choisie par Léon, puis une seule impression) ; températures (« frigo 2 à 4,5 », « congélateur moins 18 » ; si l'appareil n'est pas clair, Léon demande lequel ; hors norme → fenêtre « qu'est-ce que tu as fait ? ») ; tâches (« j'ai nettoyé la friteuse ») ; produit ouvert (« j'ouvre une crème » → appareil photo, nom déjà rempli) ; pointage (arrivée, pause, retour, départ, avec contrôle : « pointe d'abord ton arrivée ») ; ouvrir un écran (« ouvre le planning »).
+- Si le micro n'est pas dispo (refusé, navigateur sans reconnaissance) : on écrit la demande, même fonctionnement. « Je n'ai pas compris » + exemples sinon.
+- Tout est signé au nom de la personne connectée. Réponse écrite seulement (pas de voix).
+- Vérifié : 25 phrases de test, tablette paysage et téléphone, `npm run build` OK. À tester en vrai sur l'iPad (autorisation du micro).
+
 ## 15.11 — Léon choisit tout seul la durée des DLC (branche `etiquettes-15.09`)
 Module `legacy/v15_dlc_cerveau.js` (`dlcGuess(nom, zone)`), branché dans `v15_etiquettes.js`.
 - Pour chaque produit (stock, préparation maison, produit tapé sur la tablette), Léon lit le nom et la zone et propose une durée, avec sa raison : haché / poisson cru / fruits de mer / œuf cru / riz cuit / salade lavée → 1 j ; volaille crue, légumes taillés, herbes, féculents cuits, fromages frais, desserts → 2 j ; viande crue en morceaux, charcuterie, laitiers, sauces et plats maison → 3 j ; congélateur → 1 j (décongélation) ; sirops, alcools, condiments, glace → 30 j. Jamais plus de 3 j pour du frais. Inconnu → 3 j « à vérifier ».
