@@ -502,5 +502,189 @@
 [
 "Léon",
 "∅"
+],
+[
+"Léon, Léon, trois étiquettes steak haché",
+"etq:3×Bœuf haché 15 % MG"
+],
+[
+"mets-moi 3 étiquettes de steak haché stp merci",
+"etq:3×Bœuf haché 15 % MG"
+],
+[
+"euh attends trois steak haché",
+"etq:3×Bœuf haché 15 % MG"
+],
+[
+"imprime une étiquette steak haché et deux beurre",
+"etq:1×Bœuf haché 15 % MG+2×Beurre doux"
+],
+[
+"étiquette x3 steak haché",
+"etq:3×Bœuf haché 15 % MG"
+],
+[
+"3 fois steak haché",
+"etq:3×Bœuf haché 15 % MG"
+],
+[
+"steak haché trois étiquettes",
+"etq:3×Bœuf haché 15 % MG"
+],
+[
+"une étiquette pour de la crème",
+"etq:1×Crème liquide 35 %"
+],
+[
+"une étiquette crème fraîche maison",
+"etq:1×Crème fraîche maison*"
+],
+[
+"deux étiquettes crevettes grises",
+"etq:2×Crevettes grises décortiquées"
+],
+[
+"une étiquette pour mon tiramisu",
+"etq:1×Tiramisu*"
+],
+[
+"étiquette chantilly maison",
+"etq:1×Chantilly maison*"
+],
+[
+"étiquettes pour 4 maroilles",
+"etq:4×Maroilles AOP"
+],
+[
+"une étiquette 3 jambon",
+"etq:3×Jambon blanc supérieur"
+],
+[
+"le frigo deux il est à quatre degrés",
+"temp:Frigo 2=4"
+],
+[
+"frigo 2 c'est 4 degrés",
+"temp:Frigo 2=4"
+],
+[
+"frigo 2 température 4",
+"temp:Frigo 2=4"
+],
+[
+"4 degrés dans le frigo 2",
+"temp:Frigo 2=4"
+],
+[
+"frigo un trois degrés",
+"temp:Frigo 1=3"
+],
+[
+"congélateur 2 moins dix huit",
+"temp:Congélateur 2=-18"
+],
+[
+"congel 1 -18",
+"temp:Congélateur 1=-18"
+],
+[
+"frigo 2 à 4 non frigo 3 à 4",
+"temp:Frigo 3=4"
+],
+[
+"j'ai fini de nettoyer la friteuse",
+"task:Nettoyer la friteuse"
+],
+[
+"nettoyage friteuse ok",
+"task:Nettoyer la friteuse"
+],
+[
+"j'ai passé la serpillière dans la cuisine",
+"task:Laver le sol de la cuisine"
+],
+[
+"températures relevées",
+"task:Relever les températures"
+],
+[
+"DLC vérifiées",
+"task:Vérifier les DLC du jour"
+],
+[
+"je me suis changé et lavé les mains",
+"task:Se laver les mains, tenue propre"
+],
+[
+"j'ouvre un nouveau paquet de beurre",
+"lot:Beurre"
+],
+[
+"ouvert une brique de lait",
+"lot:Lait"
+],
+[
+"je pointe",
+"badge:in"
+],
+[
+"je badge",
+"badge:in"
+],
+[
+"c'est l'heure de ma pause",
+"badge:pause"
+],
+[
+"je vais manger",
+"badge:pause"
+],
+[
+"je reviens",
+"badge:back"
+],
+[
+"je m'en vais bonne soirée à tous",
+"badge:out"
+],
+[
+"je débauche",
+"badge:out"
+],
+[
+"ouvre mon planning",
+"go:planning"
+],
+[
+"je veux voir mon planning",
+"go:planning"
+],
+[
+"affiche l'inventaire",
+"go:inventaire"
+],
+[
+"on fait l'inventaire",
+"go:inventaire"
+],
+[
+"c'est quoi la DLC du steak haché",
+"info:Bœuf haché 15 % MG"
+],
+[
+"merci Léon",
+"∅"
+],
+[
+"combien de temps on garde la sauce tartare",
+"info:Sauce tartare"
+],
+[
+"quelle heure il est",
+"∅"
+],
+[
+"combien de jours pour les crevettes",
+"info:Crevettes grises décortiquées"
 ]
 ]

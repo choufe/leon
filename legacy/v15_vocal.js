@@ -32,12 +32,13 @@ function vocNorm(s){
   let t=String(s||'').replace(/(\d)[.,](\d)/g,'$1p$2').replace(/(^|\s)[-−–](\d)/g,'$1moins $2');
   t=dlcNorm(t).replace(/(\d)p(\d)/g,'$1.$2');
   t=t.split(' ').map(w=>VOC_NB[w]!=null?String(VOC_NB[w]):w).join(' ');
+  t=t.replace(/(^| )10 ([789])(?= |$)/g,'$11$2').replace(/(^| )20 (et )?1(?= |$)/g,'$121').replace(/(^| )20 ([2-9])(?= |$)/g,'$12$2').replace(/(^| )x ?(\d+)(?= |$)/g,'$1$2').replace(/(^| )(\d+) ?(x|fois)(?= |$)/g,'$1$2');
   t=t.replace(/(\d+) (virgule|point) (\d+)/g,'$1.$3').replace(/(^| )moins (\d)/g,'$1-$2').replace(/ (degre|degres|°c|°)( |$)/g,' degres$2');
   return t.replace(/\s+/g,' ').trim();
 }
 const vocWords=t=>t.split(' ').filter(w=>w&&!VOC_VIDE.has(w)&&!/^-?\d/.test(w));
 // quelques mots que l'équipe emploie pour le même produit
-const VOC_SYN=[['steak','boeuf','viande'],['creme','chantilly'],['jambon','jambonneau'],['fromage','cheddar','emmental'],['patate','pomme'],['oignon','oignons'],['frigo','refrigerateur','frigidaire'],['congel','congelateur','surgele'],['nettoyer','nettoye','nettoyage','laver','lave','propre','clean']];
+const VOC_SYN=[['steak','boeuf','viande'],['creme','chantilly'],['jambon','jambonneau'],['fromage','cheddar','emmental'],['patate','pomme'],['oignon','oignons'],['frigo','refrigerateur','frigidaire'],['congel','congelateur','surgele'],['nettoyer','nettoye','nettoyage','laver','lave','propre','clean'],['sol','sols','serpilliere','serpillere','balai']];
 const vocSame=(a,b)=>vocSame0(a,b)||VOC_SYN.some(g=>g.some(x=>vocSame0(x,a))&&g.some(x=>vocSame0(x,b)));
 const vocSame0=(a,b)=>{if(a===b)return true;if(a.length>=4&&b.length>=4&&(a.startsWith(b)||b.startsWith(a)))return true;let k=0;while(k<a.length&&k<b.length&&a[k]===b[k])k++;return k>=5&&k>=Math.min(a.length,b.length)-2;};
 // le nom tel qu'il a été dit (accents compris) pour un produit nouveau
@@ -56,6 +57,8 @@ function vocScore(name,words){
   return extra===0?Math.max(base,0.55+0.1*base):base;
 }
 const vocBest=(list,words,nameOf,min=0.38)=>{let b=null,s=min;list.forEach(x=>{const v=vocScore(nameOf(x),words);if(v>s){s=v;b=x;}});return b;};
+// le produit qui colle, sauf si on a dit des mots en plus qui n'y sont pas (« sauce tartare » ≠ « Rumsteck (tartare) »)
+function vocPick(items,words){const p=vocBest(items,words,x=>x.n);if(p&&words.some(w=>!vocWords(dlcNorm(p.n)).some(x=>vocSame(w,x)))&&vocScore(p.n,words)<0.6)return null;return p;}
 const vocCap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 
 function vocEtqItems(){const L=[];etqGroups(true).forEach(g=>g.items.forEach(p=>L.push(p)));return L;}
@@ -104,7 +107,7 @@ function vocParse1(t,raw){
   if(!has(/(etiquette|degres)/)){
     const B=[
       ['back',/(fin de (la )?pause|retour de (la )?pause|je reprends|je reviens|je suis revenue?|je suis de retour|c est reparti|reprise du service|je recommence)/],
-      ['pause',/(^| )(pause|je vais fumer|pause (cigarette|clope|cafe|dej|dejeuner|repas)|je fais une pause|je m arrete)( |$)/],
+      ['pause',/(^| )(pause|je vais fumer|pause (cigarette|clope|cafe|dej|dejeuner|repas)|je fais une pause|je m arrete|je vais manger|on va manger|je mange|je vais dejeuner|l heure de (ma|la) pause)( |$)/],
       ['out',/(je pars|je m en vais|fin de (service|journee|poste)|je (termine|finis) (ma journee|mon service|ma soiree|ma journee de travail)|j ai (fini|termine) (ma journee|mon service)|c est fini pour moi|je rentre( chez moi)?|je debauche|je quitte|au revoir|bonne soiree|a demain|mon depart|(pointe|pointer|badge|badger) (mon |le )?depart|(^| )depart( |$))/],
       ['in',/(je suis la|j arrive|je viens d arriver|je suis arrivee?|debut de (service|journee|poste)|je commence|je prends (mon|le) (service|poste)|prise de (service|poste)|(pointe|pointer|badge|badger) (moi|mon arrivee|l arrivee)|mon arrivee|(^| )(arrivee|pointe|pointer|badge|badger)( |$))/],
     ];
@@ -112,7 +115,7 @@ function vocParse1(t,raw){
     if(b){P.push({k:'badge',t:b[0]});return P;}
   }
   // ouvrir un écran
-  const go=t.match(/(ouvre|ouvrir|va|vas|aller|montre|affiche|voir|retour|retourne)( (sur|dans|le|la|les|mon|ma|moi|l|des|d|au|a|vers|a l))* (planning|inventaire|reception|hygiene|accueil|taches|produits ouverts|etiquettes?|haccp)( |$)/);
+  const go=t.match(/(ouvre|ouvrir|va|vas|aller|montre|affiche|voir|retour|retourne|on fait|faire|commence|commencer|lance|lancer)( (sur|dans|le|la|les|mon|ma|moi|l|des|d|au|a|vers|a l))* (planning|inventaire|reception|hygiene|accueil|taches|produits ouverts|etiquettes?|haccp)( |$)/);
   if(go){P.push({k:'go',v:go[4]==='etiquette'?'etiquettes':go[4]});return P;}
   // produit ouvert
   const op=t.match(/(j ouvre|j ai ouvert|on ouvre|on a ouvert|je viens d ouvrir|on vient d ouvrir|vient d ouvrir|j entame|j ai entame|on entame|on a entame|je viens d entamer|on vient d entamer|vient d entamer|ouverture d(e|u|es)?|nouveau produit ouvert|produit ouvert|ouvert)( (?:\d+|un|une|le|la|les|du|de|des|d|nouveau|nouvelle|nouvel|paquet|pot|bouteille|boite|sachet|bac|seau|bidon|brique|barquette|carton|tube|bocal|pack|poche)(?= |$))* ?(.*)$/);
@@ -136,6 +139,14 @@ function vocParse1(t,raw){
     });
     if(P.length)return P;
   }
+  // une question n'est jamais une action ; pour la DLC d'un produit, Léon répond
+  if(has(/^(c est quoi|c est combien|quelle?s?|combien|quand|est ce|pourquoi|comment|on garde|ca se garde|elle est de combien)( |$)/)||has(/ (combien de (temps|jours)|ca se garde|on le garde|on la garde)( |$)/)){
+    if(has(/(dlc|garde|se conserve|jours|perime|peremption)/)){const words=vocWords(t).filter(w=>!/^(quoi|quel|quelle|quels|quelles|combien|quand|temps|jours|jour|garde|garder|conserve|dlc|perime|peremption|pourquoi|comment|est)$/.test(w));
+      const p=words.length?vocPick(vocEtqItems(),words):null;
+      if(p){P.push({k:'info',n:p.n,j:etqDays(p)});return P;}
+      if(words.length){const g=dlcGuess(vocRawName(raw,words),'froid');P.push({k:'info',n:vocRawName(raw,words),j:g.j,why:g.why});return P;}}
+    return P;
+  }
   // étiquettes (mot « étiquette » / « imprime », ou « 3 steak haché » quand le produit est connu)
   const items=vocEtqItems();
   const wantEtq=has(/(etiquette|imprim)/)||has(/(^| )(une|\d+) dlc( |$)/);
@@ -143,12 +154,11 @@ function vocParse1(t,raw){
   const E=[];
   segs.flatMap(x=>x.split(/ (?=\d+( |$))/)).filter(x=>x&&!/^\s*$/.test(x)).forEach(seg=>{
     const m=seg.match(/(^| )(\d+)( |$)/);const q=m?Math.min(50,+m[2]):1;
-    const words=vocWords(seg);if(!words.length)return;
+    const words=vocWords(seg);if(!words.length){if(m&&E.length&&E[E.length-1].qDef){E[E.length-1].q=q;E[E.length-1].qDef=false;}return;}
     // si on a dit des mots en plus qui ne sont pas dans le nom (« sauce tartare » ≠ « Rumsteck (tartare) »), il faut une vraie ressemblance
-    let p=vocBest(items,words,x=>x.n);
-    if(p&&words.some(w=>!vocWords(dlcNorm(p.n)).some(x=>vocSame(w,x)))&&vocScore(p.n,words)<0.6)p=null;
-    if(p)E.push({id:p.id,n:p.n,q,z:p.z,dlcJ:p.dlcJ});
-    else if(wantEtq)E.push({id:null,n:vocRawName(raw,words),q,isNew:true});
+    const p=vocPick(items,words);
+    if(p)E.push({id:p.id,n:p.n,q,z:p.z,dlcJ:p.dlcJ,qDef:!m});
+    else if(wantEtq)E.push({id:null,n:vocRawName(raw,words),q,isNew:true,qDef:!m});
   });
   if(E.length&&(wantEtq||E.every(x=>!x.isNew))){P.push({k:'etq',items:E});return P;}
   // tâches (« j'ai nettoyé la friteuse », « c'est fait, sortir les poubelles »)
@@ -177,6 +187,7 @@ function vocStepHTML(s,idx){
   if(s.k==='badge'){const L={in:'Pointer ton arrivée',pause:'Commencer ta pause',back:'Reprendre après la pause',out:'Pointer ton départ'}[s.t];const ok=vocBadgeOk(s.t);
     return row('clock',`${L} · ${hhmm(nowMin())}`,ok===true?'':ok,ok!==true);}
   if(s.k==='go')return row('move',`Ouvrir : ${esc(s.v)}`,'');
+  if(s.k==='info')return row('tag',`${esc(s.n)} : DLC ${s.j} jour${s.j>1?'s':''} après préparation`,s.why?`Pas encore dans tes produits · Léon : ${esc(s.why)}`:'Durée réglée pour ce produit (Hygiène › Étiquettes)');
   return '';
 }
 function vocBadgeOk(t){
@@ -203,7 +214,7 @@ function vocModal(state){
     <button class="btn primary big block" data-act="voc-again">${ic('spark','s')} ${T('Recommencer')}</button>${type}`;
   else if(state==='result'){const ok=vocPlanOk();
     body=`<p class="voc-heard">« ${esc(VOC.txt)} »</p><p class="voc-h">${T('Léon a compris :')}</p><div class="voc-plan">${VOC.plan.map(vocStepHTML).join('')}</div>
-    <div class="voc-acts"><button class="btn big" data-act="voc-again">${T('Recommencer')}</button><button class="btn primary big" data-act="voc-go" ${ok?'':'disabled'}>${ic('check','s')} ${T('Valider')}</button></div>`;}
+    <div class="voc-acts"><button class="btn big" data-act="voc-again">${T('Recommencer')}</button>${VOC.plan.every(x=>x.k==='info')?`<button class="btn primary big" data-act="voc-close">OK</button>`:`<button class="btn primary big" data-act="voc-go" ${ok?'':'disabled'}>${ic('check','s')} ${T('Valider')}</button>`}</div>`;}
   openModal(head+`<div class="voc">${body}</div>`,'narrow voc-modal');
 }
 function vocPlanOk(){return VOC.plan&&VOC.plan.length&&VOC.plan.every(s=>(s.k!=='temp'||s.eq)&&(s.k!=='badge'||vocBadgeOk(s.t)===true)&&(s.k!=='task'||!(tkDoneOf(TODAY_ISO,s.l).items||{})[s.i]));}

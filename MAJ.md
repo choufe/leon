@@ -6,7 +6,9 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 ---
 
 ## 15.13 — Dis Léon comprend toutes les façons de parler (branche `etiquettes-15.09`)
-Dans `legacy/v15_vocal.js`. Test : `node scripts/check/vocal.cjs` → 126 phrases, 126 OK.
+Dans `legacy/v15_vocal.js`. Test : `node scripts/check/vocal.cjs` → 172 phrases, toutes OK.
+- En plus : « x3 », « 3 fois », nombre dit après le produit (« steak haché trois étiquettes »), « dix-huit », « vingt et un », « serpillière » = sol, « je vais manger » = pause, « on fait l'inventaire ».
+- Questions : « c'est quoi la DLC du steak haché ? », « combien de temps on garde la sauce tartare ? » → Léon répond (durée réglée ou proposée), sans rien enregistrer. Une autre question ne déclenche jamais d'action.
 - Hésitations et politesse ignorées : « euh », « bon alors », « Léon tu peux me », « il me faudrait », « s'il te plaît »…
 - Corrections : « 3 étiquettes steak haché… non 4 », « crevettes, non pardon, moules », « frigo 1 à 3 degrés, non 4 ».
 - Mots mal entendus par l'iPad : « et tiquette », « steak acheté », « de gré », « frigaud », « congélo », « troie »…
