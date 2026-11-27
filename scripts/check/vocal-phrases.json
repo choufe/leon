@@ -1,0 +1,506 @@
+[
+[
+"3 étiquettes steak haché",
+"etq:3×Bœuf haché 15 % MG"
+],
+[
+"euh trois étiquettes steak haché s'il te plaît",
+"etq:3×Bœuf haché 15 % MG"
+],
+[
+"Léon tu peux me faire 3 étiquettes steak haché",
+"etq:3×Bœuf haché 15 % MG"
+],
+[
+"il me faudrait trois et tiquettes steak acheté",
+"etq:3×Bœuf haché 15 % MG"
+],
+[
+"fais moi deux étiquettes steak haché",
+"etq:2×Bœuf haché 15 % MG"
+],
+[
+"de étiquettes steak haché",
+"etq:2×Bœuf haché 15 % MG"
+],
+[
+"imprime 3 steak haché",
+"etq:3×Bœuf haché 15 % MG"
+],
+[
+"3 étiquettes steak haché non 4",
+"etq:4×Bœuf haché 15 % MG"
+],
+[
+"3 étiquettes steak haché euh non pardon 5",
+"etq:5×Bœuf haché 15 % MG"
+],
+[
+"étiquette crème",
+"etq:1×Crème liquide 35 %"
+],
+[
+"une étiquette pour la crème liquide",
+"etq:1×Crème liquide 35 %"
+],
+[
+"deux beurre et une crème",
+"etq:2×Beurre doux+1×Crème liquide 35 %"
+],
+[
+"2 étiquettes beurre, 3 crème et un jambon",
+"etq:2×Beurre doux+3×Crème liquide 35 %+1×Jambon blanc supérieur"
+],
+[
+"je voudrais une étiquette jambon",
+"etq:1×Jambon blanc supérieur"
+],
+[
+"étiquette crevettes",
+"etq:1×Crevettes grises décortiquées"
+],
+[
+"une étiquette crevettes du marché",
+"etq:1×Crevettes du marché*"
+],
+[
+"bon alors une étiquette sauce tartare maison",
+"etq:1×Sauce tartare maison*"
+],
+[
+"fais moi 2 étiquettes oignons confits",
+"etq:2×Oignons confits*"
+],
+[
+"une étiquette tiramisu",
+"etq:1×Tiramisu*"
+],
+[
+"quatre étiquettes maroilles",
+"etq:4×Maroilles AOP"
+],
+[
+"une étiquette de mesclun",
+"etq:1×Mesclun"
+],
+[
+"2 moules",
+"etq:2×Moules de bouchot"
+],
+[
+"frigo 2 à 4 degrés",
+"temp:Frigo 2=4"
+],
+[
+"frigo 2 à 4,5",
+"temp:Frigo 2=4.5"
+],
+[
+"le frigo 1 est à 3 degrés",
+"temp:Frigo 1=3"
+],
+[
+"il fait 3 degrés dans le frigo 3",
+"temp:Frigo 3=3"
+],
+[
+"3 degrés frigo 2",
+"temp:Frigo 2=3"
+],
+[
+"frigo 2 2 degrés",
+"temp:Frigo 2=2"
+],
+[
+"frigo deux à trois de gré",
+"temp:Frigo 2=3"
+],
+[
+"euh le frigaud 1 à 5",
+"temp:Frigo 1=5"
+],
+[
+"congélateur 1 moins 18",
+"temp:Congélateur 1=-18"
+],
+[
+"congélo 2 à -20",
+"temp:Congélateur 2=-20"
+],
+[
+"le congélateur 1 est à moins 19 degrés",
+"temp:Congélateur 1=-19"
+],
+[
+"température frigo 3 : 2 degrés",
+"temp:Frigo 3=2"
+],
+[
+"le frigo est à 3",
+"temp:?=3"
+],
+[
+"frigo 1 à 3 et frigo 2 à 4",
+"temp:Frigo 1=3 | temp:Frigo 2=4"
+],
+[
+"frigo 1 à 3 degrés non 4",
+"temp:Frigo 1=4"
+],
+[
+"j'ai nettoyé la friteuse",
+"task:Nettoyer la friteuse"
+],
+[
+"c'est fait la friteuse",
+"task:Nettoyer la friteuse"
+],
+[
+"friteuse nettoyée",
+"task:Nettoyer la friteuse"
+],
+[
+"j'ai sorti les poubelles",
+"task:Sortir les poubelles"
+],
+[
+"poubelles c'est fait",
+"task:Sortir les poubelles"
+],
+[
+"c'est bon pour le plan de travail",
+"task:Nettoyer le plan de travail"
+],
+[
+"j'ai lavé le sol",
+"task:Laver le sol de la cuisine"
+],
+[
+"trancheuse nettoyée",
+"task:Vider et nettoyer la trancheuse"
+],
+[
+"j'ai vérifié les DLC",
+"task:Vérifier les DLC du jour"
+],
+[
+"je me suis lavé les mains",
+"task:Se laver les mains, tenue propre"
+],
+[
+"j'ai allumé la friteuse et le four",
+"task:Allumer friteuse et four"
+],
+[
+"mise en place faite",
+"task:Mise en place du midi"
+],
+[
+"j'ouvre une crème",
+"lot:Crème"
+],
+[
+"j'ai ouvert le jambon",
+"lot:Jambon"
+],
+[
+"je viens d'ouvrir un paquet de lardons",
+"lot:Lardons"
+],
+[
+"j'entame une bouteille de lait",
+"lot:Lait"
+],
+[
+"on vient d'ouvrir le cheddar",
+"lot:Cheddar"
+],
+[
+"je pointe mon arrivée",
+"badge:in"
+],
+[
+"j'arrive",
+"badge:in"
+],
+[
+"bonjour Léon je suis là",
+"badge:in"
+],
+[
+"je commence mon service",
+"badge:in"
+],
+[
+"pointe moi",
+"badge:in"
+],
+[
+"je prends ma pause",
+"badge:pause"
+],
+[
+"pause",
+"badge:pause"
+],
+[
+"je vais en pause",
+"badge:pause"
+],
+[
+"pause clope",
+"badge:pause"
+],
+[
+"fin de pause",
+"badge:back"
+],
+[
+"je reprends",
+"badge:back"
+],
+[
+"je suis de retour",
+"badge:back"
+],
+[
+"je pars",
+"badge:out"
+],
+[
+"bonne soirée je m'en vais",
+"badge:out"
+],
+[
+"c'est fini pour moi",
+"badge:out"
+],
+[
+"je termine ma journée",
+"badge:out"
+],
+[
+"à demain Léon",
+"badge:out"
+],
+[
+"je pointe mon départ",
+"badge:out"
+],
+[
+"ouvre le planning",
+"go:planning"
+],
+[
+"montre moi l'inventaire",
+"go:inventaire"
+],
+[
+"va dans réception",
+"go:reception"
+],
+[
+"ouvre les étiquettes",
+"go:etiquettes"
+],
+[
+"bonjour Léon comment ça va",
+"∅"
+],
+[
+"euh",
+"∅"
+],
+[
+"merci",
+"∅"
+],
+[
+"hey Léon imprime moi une étiquette pour le bouquet garni",
+"etq:1×Bouquet garni"
+],
+[
+"est-ce que tu peux me sortir 6 étiquettes de steak haché",
+"etq:6×Bœuf haché 15 % MG"
+],
+[
+"mets moi trois tomates",
+"etq:3×Tomates grappe"
+],
+[
+"étiquettes : 2 échalotes et 2 persil",
+"etq:2×Échalotes+2×Persil plat"
+],
+[
+"1 étiquette joue de bœuf",
+"etq:1×Joue de bœuf"
+],
+[
+"une étiquette pour les œufs",
+"etq:1×Œufs plein air"
+],
+[
+"une étiquette du rumsteck",
+"etq:1×Rumsteck (tartare)"
+],
+[
+"une étiquette lait",
+"etq:1×Lait entier"
+],
+[
+"j'ai besoin de 10 étiquettes cheddar",
+"etq:10×Cheddar affiné"
+],
+[
+"une dizaine d'étiquettes beurre",
+"etq:10×Beurre doux"
+],
+[
+"étiquette purée maison",
+"etq:1×Purée maison*"
+],
+[
+"2 étiquettes sauce béarnaise",
+"etq:2×Sauce béarnaise*"
+],
+[
+"fais une étiquette crevettes non pardon moules",
+"etq:1×Moules de bouchot"
+],
+[
+"le frigo numéro 2 est à 3 degrés",
+"temp:Frigo 2=3"
+],
+[
+"relevé frigo 1 : 4 degrés",
+"temp:Frigo 1=4"
+],
+[
+"frigo 3 3,5",
+"temp:Frigo 3=3.5"
+],
+[
+"frigo 3 à 3 virgule 5",
+"temp:Frigo 3=3.5"
+],
+[
+"congélateur 2 c'est moins 18",
+"temp:Congélateur 2=-18"
+],
+[
+"le congel un est à moins vingt",
+"temp:Congélateur 1=-20"
+],
+[
+"frigo 2 il fait 6 degrés",
+"temp:Frigo 2=6"
+],
+[
+"températures frigo 1 3 degrés frigo 2 4 degrés",
+"temp:Frigo 1=3 | temp:Frigo 2=4"
+],
+[
+"c'est fait pour les poubelles",
+"task:Sortir les poubelles"
+],
+[
+"les poubelles sont sorties",
+"task:Sortir les poubelles"
+],
+[
+"sol lavé",
+"task:Laver le sol de la cuisine"
+],
+[
+"la trancheuse est propre",
+"task:Vider et nettoyer la trancheuse"
+],
+[
+"mains lavées",
+"task:Se laver les mains, tenue propre"
+],
+[
+"j'ai fait les températures",
+"task:Relever les températures"
+],
+[
+"la mise en place est prête",
+"task:Mise en place du midi"
+],
+[
+"four et friteuse allumés",
+"task:Allumer friteuse et four"
+],
+[
+"on vient d'entamer le beurre",
+"lot:Beurre"
+],
+[
+"ouverture d'un pot de crème",
+"lot:Crème"
+],
+[
+"j'ouvre le maroilles",
+"lot:Maroilles"
+],
+[
+"coucou c'est moi j'arrive",
+"badge:in"
+],
+[
+"je suis arrivée",
+"badge:in"
+],
+[
+"début de service",
+"badge:in"
+],
+[
+"je vais faire ma pause",
+"badge:pause"
+],
+[
+"pause déjeuner",
+"badge:pause"
+],
+[
+"c'est reparti",
+"badge:back"
+],
+[
+"je reviens de pause",
+"badge:back"
+],
+[
+"je rentre chez moi",
+"badge:out"
+],
+[
+"fin de service pour moi",
+"badge:out"
+],
+[
+"j'ai fini ma journée",
+"badge:out"
+],
+[
+"va sur le planning",
+"go:planning"
+],
+[
+"retour à l'accueil",
+"go:accueil"
+],
+[
+"ouvre l'hygiène",
+"go:hygiene"
+],
+[
+"quelle heure il est",
+"∅"
+],
+[
+"Léon",
+"∅"
+]
+]

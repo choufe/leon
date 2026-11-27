@@ -16252,7 +16252,7 @@ CH['hc-day']=t=>{const v=t.value;if(!v||v>TODAY_ISO)return;UI.hc.day=v;UI.hc.sin
 
 /* ---------- comprendre une phrase ---------- */
 const VOC_NB={zero:0,un:1,une:1,deux:2,trois:3,quatre:4,cinq:5,six:6,sept:7,huit:8,neuf:9,dix:10,onze:11,douze:12,treize:13,quatorze:14,quinze:15,seize:16,vingt:20,trente:30};
-const VOC_VIDE=new Set('je j ai a on le la les l de du des d un une mon ma mes ton ta pour s il te plait stp svp moi me m fais fait faire leon dis ok alors euh bon et avec sur au aux en y peux tu veux voudrais met mets mettre sort sors sortir donne donner nous vous c est ca cela the please'.split(' '));
+const VOC_VIDE=new Set('je j ai a on le la les l de du des d un une mon ma mes ton ta pour s il te plait stp svp moi me m fais fait faire leon dis ok alors euh bon et avec sur au aux en y peux tu veux voudrais met mets mettre sort sors sortir donne donner nous vous c est ca cela the please se suis sont ete bien tout deja c'.split(' '));
 function vocNorm(s){
   // on protège virgules et signes moins avant de tout simplifier
   let t=String(s||'').replace(/(\d)[.,](\d)/g,'$1p$2').replace(/(^|\s)[-−–](\d)/g,'$1moins $2');
@@ -16263,9 +16263,9 @@ function vocNorm(s){
 }
 const vocWords=t=>t.split(' ').filter(w=>w&&!VOC_VIDE.has(w)&&!/^-?\d/.test(w));
 // quelques mots que l'équipe emploie pour le même produit
-const VOC_SYN=[['steak','boeuf','viande'],['creme','chantilly'],['jambon','jambonneau'],['fromage','cheddar','emmental'],['patate','pomme'],['oignon','oignons'],['frigo','refrigerateur','frigidaire'],['congel','congelateur','surgele']];
-const vocSame=(a,b)=>a===b||(a.length>=4&&b.length>=4&&(a.startsWith(b)||b.startsWith(a)))||VOC_SYN.some(g=>g.some(x=>vocSame0(x,a))&&g.some(x=>vocSame0(x,b)));
-const vocSame0=(a,b)=>a===b||(a.length>=4&&b.length>=4&&(a.startsWith(b)||b.startsWith(a)));
+const VOC_SYN=[['steak','boeuf','viande'],['creme','chantilly'],['jambon','jambonneau'],['fromage','cheddar','emmental'],['patate','pomme'],['oignon','oignons'],['frigo','refrigerateur','frigidaire'],['congel','congelateur','surgele'],['nettoyer','nettoye','nettoyage','laver','lave','propre','clean']];
+const vocSame=(a,b)=>vocSame0(a,b)||VOC_SYN.some(g=>g.some(x=>vocSame0(x,a))&&g.some(x=>vocSame0(x,b)));
+const vocSame0=(a,b)=>{if(a===b)return true;if(a.length>=4&&b.length>=4&&(a.startsWith(b)||b.startsWith(a)))return true;let k=0;while(k<a.length&&k<b.length&&a[k]===b[k])k++;return k>=5&&k>=Math.min(a.length,b.length)-2;};
 // le nom tel qu'il a été dit (accents compris) pour un produit nouveau
 function vocRawName(raw,words){const toks=String(raw).split(/[\s,]+/).filter(Boolean);const nt=toks.map(x=>dlcNorm(x));
   const idx=words.map(w=>nt.findIndex(x=>x===w||x.split(' ').includes(w))).filter(i=>i>=0);if(!idx.length)return vocCap(words.join(' '));
@@ -16279,38 +16279,84 @@ function vocScore(name,words){
   const extra=words.filter(x=>!nw.some(w=>vocSame(x,w))).length;
   // tout ce qui a été dit fait partie du nom (« jambon » → « Jambon blanc supérieur ») : bon signe
   const base=hit/nw.length-Math.min(0.3,extra*0.05);
-  return extra===0?Math.max(base,0.6):base;
+  return extra===0?Math.max(base,0.55+0.1*base):base;
 }
 const vocBest=(list,words,nameOf,min=0.38)=>{let b=null,s=min;list.forEach(x=>{const v=vocScore(nameOf(x),words);if(v>s){s=v;b=x;}});return b;};
 const vocCap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 
 function vocEtqItems(){const L=[];etqGroups(true).forEach(g=>g.items.forEach(p=>L.push(p)));return L;}
+
+/* ---------- 15.13 : on anticipe toutes les façons de parler ---------- */
+// mots que l'iPad entend souvent de travers → ce qu'on voulait dire
+const VOC_FIX=[
+  [/(^| )(et|e|l|les|des) tiquettes?( |$)/g,'$1etiquette$3'],
+  [/(^| )(ethiquettes?|etiquetes?|ettiquettes?|equiquettes?|etiquet|tiquettes?|etiquettes)( |$)/g,'$1etiquette$3'],
+  [/(^| )de etiquette/g,'$12 etiquette'],[/(^| )des etiquette/g,'$11 etiquette'],
+  [/(^| )(steack|stek|steake|stake|stack|steaks)( |$)/g,'$1steak$3'],
+  [/(steak|boeuf|viande) (achetes?|acheter|achat|hachees?|haches|hacher|a chez|ache)( |$)/g,'$1 hache$3'],
+  [/(^| )de gres?( |$)/g,'$1degres$2'],[/(^| )degre( |$)/g,'$1degres$2'],
+  [/(^| )(frigot|frigaud|frigos|refrigerateur|frigidaire|frigidaires|frigeau|frigaux)( |$)/g,'$1frigo$3'],
+  [/(^| )(congelo|congelos|congelateurs|congel|congele)( |$)/g,'$1congelateur$3'],
+  [/(^| )(troie|troies)( |$)/g,'$13$3'],[/(^| )quatres( |$)/g,'$14$2'],[/(^| )(sinq|cinque)( |$)/g,'$15$3'],[/(^| )dizaine( |$)/g,'$110$2'],
+  [/(^| )(fritteuse|friteuze|frite use|frit euse)( |$)/g,'$1friteuse$3'],
+  [/(^| )(poubel|poubelles)( |$)/g,'$1poubelle$3'],
+];
+// hésitations et débuts de phrase qui ne veulent rien dire pour Léon
+const VOC_BLA=/(^| )(euh+|heu+|hum+|hmm+|bah|ben|bon|alors|donc|du coup|voila|ok|okay|ouais|oui|bonjour|salut|coucou|merci|hey|eh|he|dis|leon|s il te plait|s il vous plait|s te plait|stp|svp|steuplait|tu peux|tu pourrais|pourrais tu|peux tu|vous pouvez|est ce que|je voudrais|j aimerais|je veux|il me faut|il me faudrait|il faudrait|il faut|faudrait|j ai besoin d|j ai besoin de|c est pour|vite fait|rapidement|stp leon)(?= |$)/g;
+function vocClean(t){
+  let x=' '+t+' ';
+  VOC_FIX.forEach(([a,b])=>{x=x.replace(a,b);});
+  for(let k=0;k<3;k++)x=x.replace(VOC_BLA,' ');
+  return x.replace(/\s+/g,' ').trim();
+}
+// « 3 étiquettes steak haché… non 4 » : on garde la correction
+const VOC_OOPS=/ (?:non|non non|pardon|enfin|plutot|je veux dire|je voulais dire|ah non|oups|je me suis trompe|correction|attends) /;
 function vocParse(raw){
-  const t=vocNorm(raw);const P=[];if(!t)return P;
+  const t0=vocNorm(raw);if(!t0)return [];
+  const parts=(' '+t0+' ').split(VOC_OOPS).map(x=>x.trim()).filter(Boolean);
+  if(parts.length>1){
+    let tail=vocClean(parts[parts.length-1]);for(let k=0;k<3;k++)tail=tail.replace(/^(non|pardon|enfin|plutot|attends|oups)( |$)/,'').trim();const head=parts.slice(0,-1).join(' ');
+    const n=tail.match(/^(-?\d+(\.\d+)?)( degres)?$/);
+    if(n){const h=head.replace(/-?\d+(\.\d+)?(?!.*-?\d)/,n[1]);return vocParse1(vocClean(h),raw);}
+    const pt=vocParse1(tail,raw);if(pt.length)return pt;
+    return vocParse1(vocClean(head),raw);
+  }
+  return vocParse1(vocClean(t0),raw);
+}
+function vocParse1(t,raw){
+  const P=[];if(!t)return P;
   const has=rx=>rx.test(t);
-  // pointage
-  if(has(/(^| )(pointe|pointer|badge|badger|j arrive|je commence|prise de poste|prends mon service|je pars|je m en vais|fin de service|je termine ma|debauche|pause|je reprends|retour de pause|fin de pause)( |$)/)){
-    const k=has(/(fin de pause|retour de pause|je reprends|reprendre)/)?'back':has(/pause/)?'pause':has(/(je pars|m en vais|fin de service|je termine|debauche|depart|sortie)/)?'out':'in';
-    P.push({k:'badge',t:k});return P;
+  // pointage (le retour de pause avant la pause : « fin de pause » contient « pause »)
+  if(!has(/(etiquette|degres)/)){
+    const B=[
+      ['back',/(fin de (la )?pause|retour de (la )?pause|je reprends|je reviens|je suis revenue?|je suis de retour|c est reparti|reprise du service|je recommence)/],
+      ['pause',/(^| )(pause|je vais fumer|pause (cigarette|clope|cafe|dej|dejeuner|repas)|je fais une pause|je m arrete)( |$)/],
+      ['out',/(je pars|je m en vais|fin de (service|journee|poste)|je (termine|finis) (ma journee|mon service|ma soiree|ma journee de travail)|j ai (fini|termine) (ma journee|mon service)|c est fini pour moi|je rentre( chez moi)?|je debauche|je quitte|au revoir|bonne soiree|a demain|mon depart|(pointe|pointer|badge|badger) (mon |le )?depart|(^| )depart( |$))/],
+      ['in',/(je suis la|j arrive|je viens d arriver|je suis arrivee?|debut de (service|journee|poste)|je commence|je prends (mon|le) (service|poste)|prise de (service|poste)|(pointe|pointer|badge|badger) (moi|mon arrivee|l arrivee)|mon arrivee|(^| )(arrivee|pointe|pointer|badge|badger)( |$))/],
+    ];
+    const b=B.find(([,rx])=>has(rx));
+    if(b){P.push({k:'badge',t:b[0]});return P;}
   }
   // ouvrir un écran
-  const go=t.match(/(ouvre|ouvrir|va|aller|montre|affiche|voir)( (sur|dans|le|la|les|mon|ma))* (planning|inventaire|reception|hygiene|accueil|taches|produits ouverts|etiquettes|haccp)( |$)/);
-  if(go){P.push({k:'go',v:go[4]});return P;}
+  const go=t.match(/(ouvre|ouvrir|va|vas|aller|montre|affiche|voir|retour|retourne)( (sur|dans|le|la|les|mon|ma|moi|l|des|d|au|a|vers|a l))* (planning|inventaire|reception|hygiene|accueil|taches|produits ouverts|etiquettes?|haccp)( |$)/);
+  if(go){P.push({k:'go',v:go[4]==='etiquette'?'etiquettes':go[4]});return P;}
   // produit ouvert
-  const op=t.match(/(j ouvre|j ai ouvert|on ouvre|on a ouvert|ouverture d(e|u|es)?|produit ouvert|nouveau produit ouvert)( (un|une|le|la|les|du|de|des|d))* (.+)$/);
-  if(op&&!has(/etiquette/)){const n=vocWords(op[5]).join(' ');P.push({k:'lot',n:n?vocCap(n):''});return P;}
+  const op=t.match(/(j ouvre|j ai ouvert|on ouvre|on a ouvert|je viens d ouvrir|on vient d ouvrir|vient d ouvrir|j entame|j ai entame|on entame|on a entame|je viens d entamer|on vient d entamer|vient d entamer|ouverture d(e|u|es)?|nouveau produit ouvert|produit ouvert|ouvert)( (?:\d+|un|une|le|la|les|du|de|des|d|nouveau|nouvelle|nouvel|paquet|pot|bouteille|boite|sachet|bac|seau|bidon|brique|barquette|carton|tube|bocal|pack|poche)(?= |$))* ?(.*)$/);
+  if(op&&!has(/etiquette/)&&!has(/(ouvre|ouvrir) (le|la|les|mon|ma)? ?(planning|inventaire|reception|hygiene|accueil|taches|haccp)/)){const rest=op[op.length-1]||'';const n=vocWords(rest).join(' ');P.push({k:'lot',n:n?vocRawName(raw,vocWords(rest)):''});return P;}
   // températures
   const eqs=(S.hyg&&S.hyg.equip)||[];
   if(has(/(temperature|degres|frigo|chambre froide|congel|vitrine|cellule|saladette|frais|froid)/)&&has(/-?\d/)){
-    t.split(/ (?:et|puis|aussi) |, /).forEach(seg=>{
+    t.split(/ (?:et|puis|aussi) |, /).flatMap(x=>(x.match(/(frigo|congelateur|chambre froide|vitrine|cellule|saladette)/g)||[]).length>1?x.split(/ (?=(?:frigo|congelateur|chambre froide|vitrine|cellule|saladette) )/):[x]).forEach(seg=>{
       const nums=(seg.match(/-?\d+(\.\d+)?/g)||[]).map(Number);if(!nums.length)return;
-      const words=vocWords(seg).filter(w=>!/^(temperature|degres|est|il|fait|releve|relever|note|noter)$/.test(w));
+      const words=vocWords(seg).filter(w=>!/^(temperature|degres|est|il|fait|releve|relever|note|noter|dans|a)$/.test(w));
+      const em=seg.match(/(frigo|congelateur|chambre froide|vitrine|cellule|saladette|armoire|bar)( numero| n| no)? (-?\d+)/);const said=em?+em[3]:null;
       // un appareil n'est choisi tout seul que si son nom est entièrement reconnu (et son numéro, s'il en a un)
-      let cands=eqs.map(e=>{const dg=(dlcNorm(e.nom).match(/\d+/)||[])[0];const s=vocScore(e.nom,words);const full=s>=0.85&&(!dg||(nums.length>=2&&nums.includes(+dg)));return {e,s,dg,full};}).filter(x=>x.s>0).sort((a,b)=>(b.full-a.full)||(b.s-a.s));
+      let cands=eqs.map(e=>{const dg=(dlcNorm(e.nom).match(/\d+/)||[])[0];const s=vocScore(e.nom,words);const full=s>=0.85&&(!dg||(said!=null&&+dg===said&&nums.length>=2));return {e,s,dg,full};}).filter(x=>x.s>0).sort((a,b)=>(b.full-a.full)||(b.s-a.s));
       const fulls=cands.filter(x=>x.full);
       let eq=fulls.length===1?fulls[0].e:(eqs.length===1?eqs[0]:null);
       const dg=eq?((dlcNorm(eq.nom).match(/\d+/)||[])[0]):null;
-      const vals=nums.filter((n,i)=>!(dg!=null&&n===+dg&&i===nums.indexOf(+dg)&&nums.length>1));
+      // la température = l'autre nombre (pas celui collé à « frigo »)
+      const skip=said!=null&&nums.length>1?nums.indexOf(said):-1;const vals=nums.filter((n,i)=>i!==skip);
       const val=vals.length?vals[vals.length-1]:nums[nums.length-1];
       P.push({k:'temp',eq:eq?eq.id:null,val,choices:eq?null:(cands.length?cands.map(x=>x.e.id):eqs.map(e=>e.id))});
     });
@@ -16318,10 +16364,10 @@ function vocParse(raw){
   }
   // étiquettes (mot « étiquette » / « imprime », ou « 3 steak haché » quand le produit est connu)
   const items=vocEtqItems();
-  const wantEtq=has(/(etiquette|imprim|dlc)/);
+  const wantEtq=has(/(etiquette|imprim)/)||has(/(^| )(une|\d+) dlc( |$)/);
   const segs=t.replace(/(etiquettes?|imprimer?|imprime moi|dlc)/g,' ').split(/ (?:et|puis|aussi|plus) |, /);
   const E=[];
-  segs.forEach(seg=>{
+  segs.flatMap(x=>x.split(/ (?=\d+( |$))/)).filter(x=>x&&!/^\s*$/.test(x)).forEach(seg=>{
     const m=seg.match(/(^| )(\d+)( |$)/);const q=m?Math.min(50,+m[2]):1;
     const words=vocWords(seg);if(!words.length)return;
     // si on a dit des mots en plus qui ne sont pas dans le nom (« sauce tartare » ≠ « Rumsteck (tartare) »), il faut une vraie ressemblance
@@ -16394,10 +16440,11 @@ function vocListen(){
   vocModal('listen');
   let rec;try{rec=new SR();}catch(e){vocModal('nomic');return;}
   VOC.rec=rec;VOC.on=true;let fin='';
-  rec.lang='fr-FR';rec.interimResults=true;rec.continuous=false;rec.maxAlternatives=1;
-  rec.onresult=e=>{let s='';for(let i=0;i<e.results.length;i++){s+=e.results[i][0].transcript;}fin=s;const el=document.getElementById('voc-live');if(el)el.textContent=s;LAST_ACT=Date.now();};
+  rec.lang='fr-FR';rec.interimResults=true;rec.continuous=false;rec.maxAlternatives=4;let alts=[];
+  rec.onresult=e=>{let s='';for(let i=0;i<e.results.length;i++){s+=e.results[i][0].transcript;}fin=s;
+    try{const last=e.results[e.results.length-1];const pre=[...e.results].slice(0,-1).map(r=>r[0].transcript).join('');alts=[...last].map(a=>pre+a.transcript);}catch(_){alts=[s];}const el=document.getElementById('voc-live');if(el)el.textContent=s;LAST_ACT=Date.now();};
   rec.onerror=e=>{VOC.on=false;if(e.error==='not-allowed'||e.error==='service-not-allowed'){VOC.blocked=true;vocModal('nomic');}else if(e.error==='audio-capture'){vocModal('nomic');}};
-  rec.onend=()=>{VOC.on=false;if(!document.querySelector('.voc-modal'))return;if(fin.trim())vocUnderstand(fin);else if(document.getElementById('voc-live'))vocModal('nomic');};
+  rec.onend=()=>{VOC.on=false;if(!document.querySelector('.voc-modal'))return;if(fin.trim()){const ok=alts.find(a=>a&&vocParse(a).length);vocUnderstand(ok||fin);}else if(document.getElementById('voc-live'))vocModal('nomic');};
   try{rec.start();}catch(e){vocModal('nomic');}
 }
 function vocUnderstand(txt){VOC.txt=txt.trim();VOC.plan=vocParse(VOC.txt);LAST_ACT=Date.now();vocModal(VOC.plan.length?'result':'none');}

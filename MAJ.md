@@ -5,6 +5,17 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.13 — Dis Léon comprend toutes les façons de parler (branche `etiquettes-15.09`)
+Dans `legacy/v15_vocal.js`. Test : `node scripts/check/vocal.cjs` → 126 phrases, 126 OK.
+- Hésitations et politesse ignorées : « euh », « bon alors », « Léon tu peux me », « il me faudrait », « s'il te plaît »…
+- Corrections : « 3 étiquettes steak haché… non 4 », « crevettes, non pardon, moules », « frigo 1 à 3 degrés, non 4 ».
+- Mots mal entendus par l'iPad : « et tiquette », « steak acheté », « de gré », « frigaud », « congélo », « troie »…
+- Températures dans tous les ordres : « 3 degrés frigo 2 », « il fait 3 dans le frigo 3 », « frigo 3 à 3 virgule 5 », plusieurs frigos dans la même phrase ; le numéro collé à « frigo » est celui de l'appareil.
+- Tâches au passé ou en raccourci : « friteuse nettoyée », « poubelles c'est fait », « la trancheuse est propre », « mains lavées ».
+- Pointage : « je suis là », « coucou j'arrive », « pause clope », « c'est reparti », « je rentre chez moi », « à demain »…
+- Produit ouvert : « je viens d'ouvrir un paquet de lardons » → « Lardons ».
+- L'iPad propose plusieurs façons d'avoir entendu : Léon prend la première qu'il comprend.
+
 ## 15.12 — « Dis Léon » à la voix sur la tablette (version gratuite) (branche `etiquettes-15.09`)
 Module `legacy/v15_vocal.js`. Pas d'IA payante : la voix est reconnue par l'iPad, Léon comprend avec les listes du resto.
 - Une fois la personne connectée avec son code, un bouton doré « Dis Léon » en bas à droite de tous les écrans de la tablette. On appuie, on parle, Léon affiche une note écrite de ce qu'il a compris, on valide d'un ✓ (rien n'est fait sans ✓).
