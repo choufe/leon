@@ -145,3 +145,5 @@ Tenu à jour par Claude à partir des échanges avec Maurice. Une idée = quelqu
 - Le retour « la semaine était bien ? » doit se faire en quelques mots (trop de monde, ouverture pas assez tôt, pas assez en prépa…), pas en 3 boutons.
 - Règle de travail : Claude regarde lui-même chaque écran, comme un humain, pas seulement le code.
 
+
+- ✅ 27 nov. 2026 · Étiquettes DLC (15.09) : sur la tablette on touche le produit (juste le nom), on règle le nombre sur la même carte, on valide en bas, tout part dans UNE fenêtre d'impression. Étiquette 62 × 29 mm : produit, préparé le (date + heure), DLC selon la durée réglée par produit, qui l'a imprimée. Imprimante : Brother QL-820NWBc Wi-Fi + DK-44205, AirPrint depuis l'iPad. Durées et produits réglés par le patron sur PC.

@@ -137,3 +137,50 @@ html[data-taille] #qe-root .qe.sheet{max-height:calc(86dvh / var(--leon-z,1))}
   .v15-ret .ret-ex::-webkit-scrollbar{display:none}
   .v15-ret .ret-ex .chip{flex:none}
 }
+
+/* ---------- 15.09 · étiquettes DLC ---------- */
+.etq-g{font-size:13px;font-weight:700;color:var(--ink-2);margin:18px 0 8px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.04em}
+.etq-g:first-of-type{margin-top:4px}
+.etq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;align-items:start}
+.etq-c{border:1.5px solid var(--line-2);background:var(--surface);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s,background .15s}
+.etq-c-n{all:unset;box-sizing:border-box;cursor:pointer;min-height:74px;padding:14px 10px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:16px;font-weight:700;line-height:1.2;-webkit-tap-highlight-color:transparent}
+.etq-c-n:active{background:var(--hover)}
+.etq-c-q{display:none;align-items:center;justify-content:space-between;border-top:1px solid var(--line);background:var(--surface-2,var(--hover))}
+.etq-c-q button{all:unset;cursor:pointer;width:56px;height:48px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:var(--ink);-webkit-tap-highlight-color:transparent}
+.etq-c-q button:active{background:var(--hover)}
+.etq-c-q b{font-size:22px;font-variant-numeric:tabular-nums}
+.etq-c.on{border-color:var(--accent,var(--ok));box-shadow:0 0 0 1.5px var(--accent,var(--ok));background:color-mix(in srgb,var(--accent,var(--ok)) 8%,var(--surface))}
+.etq-c.on .etq-c-q{display:flex}
+.etq-other{margin:22px 0 8px;border:1px dashed var(--line-2);border-radius:12px;padding:10px 14px}
+.etq-other summary{cursor:pointer;font-weight:650;display:flex;align-items:center;gap:6px;padding:4px 0}
+.etq-other[open] summary{margin-bottom:10px}
+.etq-pad{height:96px}
+.etq-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));width:min(1000px,calc(100% - 24px));box-sizing:border-box;margin:0;padding:10px 10px 10px 16px;border-radius:14px;background:var(--surface);border:1px solid var(--line-2);display:flex;align-items:center;gap:10px;z-index:3;box-shadow:0 -6px 16px rgba(0,0,0,.06)}
+.etq-bar-t{flex:1;font-size:14.5px;color:var(--ink-2)}
+.etq-bar.on .etq-bar-t{color:var(--ink)}
+.etq-bar .btn.big{min-width:170px}
+@media (max-width:640px){.etq-bar{padding:8px 8px 8px 12px}.etq-bar-t{font-size:13px}.etq-grid{grid-template-columns:repeat(2,1fr)}.etq-bar .btn.big{min-width:0}}
+.etq-set-g{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:var(--surface)}
+.etq-set-g>summary{cursor:pointer;padding:12px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.etq-set-g>summary .faint{font-size:12.5px;margin-left:auto}
+.etq-set-g .tbl-wrap{padding:0 8px 8px}
+.etq-sw{display:inline-flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;white-space:nowrap}
+.etq-sw input{width:18px;height:18px}
+/* l'étiquette elle-même : 62 × 29 mm, une page par étiquette */
+.etq-l{box-sizing:border-box;width:62mm;height:29mm;padding:1.6mm 2.6mm 1.4mm;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;background:#fff;color:#000;font-family:'Instrument Sans',Arial,sans-serif;line-height:1.1}
+.etq-n{font-family:'Bricolage Grotesque','Instrument Sans',Arial,sans-serif;font-size:14pt;font-weight:800;line-height:1.05;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.etq-n.s{font-size:11.5pt}.etq-n.xs{font-size:9.5pt}
+.etq-p{font-size:7.5pt}
+.etq-d{font-size:11pt;font-weight:800;border:.5mm solid #000;border-radius:1mm;padding:.4mm 1.2mm;align-self:flex-start;white-space:nowrap}
+.etq-f{font-size:6.5pt;display:flex;justify-content:space-between;gap:2mm;white-space:nowrap;overflow:hidden}
+.etq-f span:last-child{overflow:hidden;text-overflow:ellipsis}
+@media print{
+  html:has(body.printing-etq),body.printing-etq{margin:0!important;padding:0!important;background:#fff!important;width:auto!important;height:auto!important;min-height:0!important;overflow:visible!important}
+  body.printing-etq>*:not(#print-label){display:none!important}
+  body.printing-etq>#print-label{display:block!important;position:static!important;inset:auto!important;padding:0!important;margin:0!important;background:#fff!important}
+  body.printing-etq .etq-l{break-after:page;page-break-after:always;break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body.printing-etq .etq-l:last-child{break-after:auto;page-break-after:auto}
+}
+.etq-add{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) auto;gap:10px;align-items:end;margin:0 0 14px}
+.etq-add .field{margin:0}
+@media (max-width:640px){.etq-add{grid-template-columns:1fr 96px}.etq-add .field:last-child{grid-column:1/-1}.etq-add .btn{width:100%}}

@@ -5,6 +5,16 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.09 — Étiquettes DLC en un geste (branche `etiquettes-15.09`)
+Pas encore en ligne (attend le go de Maurice). Module `legacy/v15_etiquettes.js`. Imprimante visée : Brother QL-820NWBc en Wi-Fi, rouleau DK-44205 (continu amovible 62 mm), AirPrint depuis l'iPad.
+- **Tablette › Hygiène › Étiquetage** : tous les produits sur un seul écran, rangés par zone (préparations maison en premier), le bouton n'affiche que le nom. On touche = 1 étiquette ; le − / + apparaît sur la même carte. Barre fixe en bas : « 2 produits · 4 étiquettes » + **Imprimer 4**. Une seule fenêtre d'impression pour tout (une page = une étiquette), puis la sélection se vide.
+- **L'étiquette 62 × 29 mm** : nom du produit en gros, « Préparé le 27/11 à 11:04 », **DLC ven. 30/11 · 11:04** encadrée (calculée avec la durée du produit), « Par Camille » + nom du resto.
+- **PC › Hygiène › Traçabilité & étiquettes** : le patron règle la durée de chaque produit (vide = 3 jours), coche ce qui est sur la tablette (chambre froide et congélateur cochés d'office), ajoute ses préparations maison (sauce burger…), imprime une étiquette test, et voit l'historique des étiquettes imprimées (date, heure, produit, nombre, DLC, qui).
+- Les anciennes impressions (produit ouvert, étiquette rapide, étiquette test du démarrage) sortent au même format 62 × 29.
+- « Autre produit » (nom + durée) reste en bas, replié.
+- Vérifié à l'écran : tablette paysage, téléphone, PC ; PDF des étiquettes contrôlé (4 pages de 62 × 29 mm). `npm run build` OK.
+- **À tester avec la vraie imprimante** : sur l'iPad, dans la fenêtre d'impression, choisir le format 62 × 29 mm si iOS le propose (sinon régler la longueur dans la page web de l'imprimante). Vérifier aussi que l'impression marche depuis l'icône « Léon Tablette » (sinon passer par Safari).
+
 ## 15.08 — Le nom officiel « Dis Léon » sur le site et dans l'appli (branche `nom-15.08`)
 Mis en ligne le 25 nov. 2026 (accord de Maurice).
 - **La marque devient « Dis Léon »** : titre du site et des onglets, nom de l'appli sur l'écran d'accueil du téléphone, aperçu des liens partagés, bas de page (© 2026 Dis Léon), offre (« Dis Léon, par établissement »), mentions légales, confidentialité, note d'information des salariés.
