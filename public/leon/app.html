@@ -16302,6 +16302,7 @@ const VOC_FIX=[
   [/(^| )(congelo|congelos|congelateurs|congel|congele)( |$)/g,'$1congelateur$3'],
   [/(^| )(troie|troies)( |$)/g,'$13$3'],[/(^| )quatres( |$)/g,'$14$2'],[/(^| )(sinq|cinque)( |$)/g,'$15$3'],[/(^| )dizaine( |$)/g,'$110$2'],
   [/(^| )(fritteuse|friteuze|frite use|frit euse)( |$)/g,'$1friteuse$3'],
+  [/(^| )(enfaite|enfait|en faite|en fete)( |$)/g,'$1en fait$3'],
   [/(^| )(poubel|poubelles)( |$)/g,'$1poubelle$3'],
 ];
 // hésitations et débuts de phrase qui ne veulent rien dire pour Léon
@@ -16313,14 +16314,16 @@ function vocClean(t){
   return x.replace(/\s+/g,' ').trim();
 }
 // « 3 étiquettes steak haché… non 4 » : on garde la correction
-const VOC_OOPS=/ (?:non|non non|pardon|enfin|plutot|je veux dire|je voulais dire|ah non|oups|je me suis trompe|correction|attends) /;
+const VOC_OOPS=/ (?:non en fait|non|non non|en fait|pardon|enfin|plutot|ou plutot|je veux dire|je voulais dire|ah non|oups|je me suis trompe|correction|attends) /;
+// ce qu'on dit en fin de phrase quand on n'a pas fini (« moules marinières… non… »)
+const VOC_PENDING=/( (non|attends|enfin|en fait|enfaite|enfait|pardon|plutot|euh+|heu+|et|ou|puis|avec|mais|alors|donc|du coup))+$/;
 function vocParse(raw){
-  const t0=vocNorm(raw);if(!t0)return [];
+  const t0=vocNorm(raw).replace(VOC_PENDING,'').trim();if(!t0)return [];
   const parts=(' '+t0+' ').split(VOC_OOPS).map(x=>x.trim()).filter(Boolean);
   if(parts.length>1){
-    let tail=vocClean(parts[parts.length-1]);for(let k=0;k<3;k++)tail=tail.replace(/^(non|pardon|enfin|plutot|attends|oups)( |$)/,'').trim();const head=parts.slice(0,-1).join(' ');
+    let tail=vocClean(parts[parts.length-1]);for(let k=0;k<3;k++)tail=tail.replace(/^(non|pardon|enfin|plutot|attends|oups|en fait)( |$)/,'').trim();const head=parts.slice(0,-1).join(' ');
     const n=tail.match(/^(-?\d+(\.\d+)?)( degres)?$/);
-    if(n){const h=head.replace(/-?\d+(\.\d+)?(?!.*-?\d)/,n[1]);return vocParse1(vocClean(h),raw);}
+    if(n){const h=/-?\d/.test(head)?head.replace(/-?\d+(\.\d+)?(?!.*-?\d)/,n[1]):n[1]+' '+head;return vocParse1(vocClean(h),raw);}
     const pt=vocParse1(tail,raw);if(pt.length)return pt;
     return vocParse1(vocClean(head),raw);
   }
@@ -16434,7 +16437,7 @@ function vocModal(state){
   const type=`<div class="voc-type"><input class="inp" id="voc-in" placeholder="${T('Ou écris-le ici')}" value="${state==='result'||state==='none'?esc(VOC.txt):''}" enterkeyhint="go"><button class="btn" data-act="voc-send" aria-label="OK">OK</button></div>`;
   let body='';
   if(state==='listen')body=`<button class="voc-mic on" data-act="voc-stop" aria-label="${T('J’ai fini')}">${ic('spark')}</button>
-    <p class="voc-live" id="voc-live">${T('Je t’écoute…')}</p><button class="btn block" data-act="voc-stop">${T('J’ai fini')}</button>${type}`;
+    <p class="voc-live" id="voc-live">${T('Je t’écoute…')}</p><p class="faint voc-ex" style="text-align:center">Prends ton temps, tu peux te corriger (« non, 4 »). Appuie sur « J’ai fini » quand tu as terminé.</p><button class="btn block" data-act="voc-stop">${T('J’ai fini')}</button>${type}`;
   else if(state==='nomic')body=`<p class="voc-live">${T('Le micro n’est pas disponible ici : écris ta demande.')}</p>${VOC.blocked?`<p class="faint voc-ex">Le micro est bloqué pour ce site. Sur l’iPad : Réglages › Safari › Microphone › Autoriser (ou « Demander »). Sur ordinateur : clique sur le cadenas à gauche de l’adresse › Micro › Autoriser.</p>`:''}${type}<p class="faint voc-ex">${T('Par exemple :')} ${VOC_EX.join(' · ')}</p>`;
   else if(state==='none')body=`<p class="voc-heard">« ${esc(VOC.txt)} »</p><p class="voc-live"><b>${T('Je n’ai pas compris.')}</b></p><p class="faint voc-ex">${T('Par exemple :')} ${VOC_EX.join(' · ')}</p>
     <button class="btn primary big block" data-act="voc-again">${ic('spark','s')} ${T('Recommencer')}</button>${type}`;
@@ -16445,17 +16448,26 @@ function vocModal(state){
 }
 function vocPlanOk(){return VOC.plan&&VOC.plan.length&&VOC.plan.every(s=>(s.k!=='temp'||s.eq)&&(s.k!=='badge'||vocBadgeOk(s.t)===true)&&(s.k!=='task'||!(tkDoneOf(TODAY_ISO,s.l).items||{})[s.i]));}
 function vocStop(){try{VOC.rec&&VOC.rec.stop();}catch(e){}VOC.on=false;}
-function vocListen(){
-  const SR=vocSR();VOC.txt='';VOC.plan=null;
+function vocListen(prefix=''){
+  const SR=vocSR();if(!prefix){VOC.txt='';VOC.plan=null;}
   if(!SR){vocModal('nomic');return;}
-  vocModal('listen');
+  if(!prefix)vocModal('listen');
   let rec;try{rec=new SR();}catch(e){vocModal('nomic');return;}
-  VOC.rec=rec;VOC.on=true;let fin='';
-  rec.lang='fr-FR';rec.interimResults=true;rec.continuous=false;rec.maxAlternatives=4;let alts=[];
-  rec.onresult=e=>{let s='';for(let i=0;i<e.results.length;i++){s+=e.results[i][0].transcript;}fin=s;
-    try{const last=e.results[e.results.length-1];const pre=[...e.results].slice(0,-1).map(r=>r[0].transcript).join('');alts=[...last].map(a=>pre+a.transcript);}catch(_){alts=[s];}const el=document.getElementById('voc-live');if(el)el.textContent=s;LAST_ACT=Date.now();};
-  rec.onerror=e=>{VOC.on=false;if(e.error==='not-allowed'||e.error==='service-not-allowed'){VOC.blocked=true;vocModal('nomic');}else if(e.error==='audio-capture'){vocModal('nomic');}};
-  rec.onend=()=>{VOC.on=false;if(!document.querySelector('.voc-modal'))return;if(fin.trim()){const ok=alts.find(a=>a&&vocParse(a).length);vocUnderstand(ok||fin);}else if(document.getElementById('voc-live'))vocModal('nomic');};
+  VOC.rec=rec;VOC.on=true;let fin=prefix,alts=[];let timer=null;
+  // on laisse le temps de parler : 7 s pour commencer, puis 2,5 s de silence ; plus si la phrase n'est pas finie
+  const arm=ms=>{clearTimeout(timer);timer=setTimeout(()=>{try{rec.stop();}catch(_){}},ms);};
+  const wait=txt=>VOC_PENDING.test(' '+vocNorm(txt))||/(^| )(etiquettes?|frigo|congelateur|de|du|des|la|le|les|une?|a)$/.test(vocNorm(txt))?4500:2500;
+  rec.lang='fr-FR';rec.interimResults=true;rec.continuous=true;rec.maxAlternatives=4;
+  rec.onresult=e=>{let s='';for(let i=0;i<e.results.length;i++){s+=e.results[i][0].transcript+' ';}s=((prefix?prefix+' ':'')+s).replace(/\s+/g,' ').trim();fin=s;
+    try{const last=e.results[e.results.length-1];const pre=(prefix?prefix+' ':'')+[...e.results].slice(0,-1).map(r=>r[0].transcript).join(' ');alts=[...last].map(a=>(pre+' '+a.transcript).replace(/\s+/g,' ').trim());}catch(_){alts=[s];}
+    const el=document.getElementById('voc-live');if(el)el.textContent=s;LAST_ACT=Date.now();arm(wait(s));};
+  rec.onerror=e=>{VOC.on=false;clearTimeout(timer);if(e.error==='not-allowed'||e.error==='service-not-allowed'){VOC.blocked=true;vocModal('nomic');}else if(e.error==='audio-capture'){vocModal('nomic');}};
+  rec.onend=()=>{VOC.on=false;clearTimeout(timer);if(!document.querySelector('.voc-modal')||!document.getElementById('voc-live'))return;
+    // l'iPad a coupé alors qu'on n'avait pas fini (« … non ») : on réécoute la suite
+    if(fin.trim()&&VOC_PENDING.test(' '+vocNorm(fin))&&!VOC.stopAsked&&(VOC.again=(VOC.again||0)+1)<=2){vocListen(fin.trim());return;}
+    VOC.again=0;VOC.stopAsked=false;
+    if(fin.trim()){const ok=alts.find(a=>a&&vocParse(a).length);vocUnderstand(ok||fin);}else vocModal('nomic');};
+  arm(prefix?4500:7000);
   try{rec.start();}catch(e){vocModal('nomic');}
 }
 function vocUnderstand(txt){VOC.txt=txt.trim();VOC.plan=vocParse(VOC.txt);LAST_ACT=Date.now();vocModal(VOC.plan.length?'result':'none');}
@@ -16492,7 +16504,7 @@ function vocGo(v){
 }
 Object.assign(ACT,{
   'voc-open'(){LAST_ACT=Date.now();vocListen();},
-  'voc-stop'(){vocStop();},
+  'voc-stop'(){VOC.stopAsked=true;vocStop();},
   'voc-again'(){vocStop();vocListen();},
   'voc-close'(){vocStop();closeModal();},
   'voc-send'(){const v=(($('#voc-in')||{}).value||'').trim();if(!v)return;vocStop();vocUnderstand(v);},

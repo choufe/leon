@@ -5,6 +5,12 @@ Version actuelle = la dernière entrée en bas de la liste (la plus récente en 
 
 ---
 
+## 15.14 — Dis Léon écoute jusqu'au bout (retour de Maurice : « il a écouté trop vite »)
+- Écoute continue : 7 s pour commencer, puis Léon attend 2,5 s de silence (4,5 s si la phrase n'est pas finie : « … non », « euh », « et », « une étiquette de… »). Le bouton « J'ai fini » coupe tout de suite.
+- Si l'iPad coupe quand même alors que la phrase finit par « non / attends / en fait… », Léon réécoute la suite et recolle les deux morceaux.
+- « en fait », « enfaite », « non en fait » = correction. Un « non » laissé en fin de phrase n'est plus collé au nom du produit.
+- « une étiquette moule marinière non en fait 2 » → 2 étiquettes Moule marinière (testé avec un faux micro lent, et avec un iPad qui coupe). 179 phrases OK.
+
 ## 15.13 — Dis Léon comprend toutes les façons de parler (branche `etiquettes-15.09`)
 Dans `legacy/v15_vocal.js`. Test : `node scripts/check/vocal.cjs` → 172 phrases, toutes OK.
 - En plus : « x3 », « 3 fois », nombre dit après le produit (« steak haché trois étiquettes »), « dix-huit », « vingt et un », « serpillière » = sol, « je vais manger » = pause, « on fait l'inventaire ».

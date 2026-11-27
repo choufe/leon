@@ -686,5 +686,33 @@
 [
 "combien de jours pour les crevettes",
 "info:Crevettes grises décortiquées"
+],
+[
+"une étiquette moule marinière non",
+"etq:1×Moule marinière*"
+],
+[
+"une étiquette moule marinière non en fait 2",
+"etq:2×Moule marinière*"
+],
+[
+"moules marinières enfaite 2 étiquettes",
+"etq:2×Moules marinières*"
+],
+[
+"3 étiquettes steak haché non en fait 2",
+"etq:2×Bœuf haché 15 % MG"
+],
+[
+"2 étiquettes beurre euh",
+"etq:2×Beurre doux"
+],
+[
+"frigo 1 à 3 attends",
+"temp:Frigo 1=3"
+],
+[
+"une étiquette crevettes non en fait moules",
+"etq:1×Moules de bouchot"
 ]
 ]
