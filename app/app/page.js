@@ -226,7 +226,7 @@ export default function LeonApp() {
   }
   return (
     <>
-      <iframe src="/leon/app.html" title="Dis Léon" className="leon-frame" allow="clipboard-write" />
+      <iframe src="/leon/app.html" title="Dis Léon" className="leon-frame" allow="clipboard-write; microphone" />
       {aide && (
         <a href="/createur" className="aide-pill">Mode aide · Revenir à mes restos</a>
       )}

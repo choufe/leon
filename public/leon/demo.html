@@ -16823,7 +16823,7 @@ function vocModal(state){
   let body='';
   if(state==='listen')body=`<button class="voc-mic on" data-act="voc-stop" aria-label="${T('J’ai fini')}">${ic('spark')}</button>
     <p class="voc-live" id="voc-live">${T('Je t’écoute…')}</p><button class="btn block" data-act="voc-stop">${T('J’ai fini')}</button>${type}`;
-  else if(state==='nomic')body=`<p class="voc-live">${T('Le micro n’est pas disponible ici : écris ta demande.')}</p>${type}<p class="faint voc-ex">${T('Par exemple :')} ${VOC_EX.join(' · ')}</p>`;
+  else if(state==='nomic')body=`<p class="voc-live">${T('Le micro n’est pas disponible ici : écris ta demande.')}</p>${VOC.blocked?`<p class="faint voc-ex">Le micro est bloqué pour ce site. Sur l’iPad : Réglages › Safari › Microphone › Autoriser (ou « Demander »). Sur ordinateur : clique sur le cadenas à gauche de l’adresse › Micro › Autoriser.</p>`:''}${type}<p class="faint voc-ex">${T('Par exemple :')} ${VOC_EX.join(' · ')}</p>`;
   else if(state==='none')body=`<p class="voc-heard">« ${esc(VOC.txt)} »</p><p class="voc-live"><b>${T('Je n’ai pas compris.')}</b></p><p class="faint voc-ex">${T('Par exemple :')} ${VOC_EX.join(' · ')}</p>
     <button class="btn primary big block" data-act="voc-again">${ic('spark','s')} ${T('Recommencer')}</button>${type}`;
   else if(state==='result'){const ok=vocPlanOk();
@@ -16841,7 +16841,7 @@ function vocListen(){
   VOC.rec=rec;VOC.on=true;let fin='';
   rec.lang='fr-FR';rec.interimResults=true;rec.continuous=false;rec.maxAlternatives=1;
   rec.onresult=e=>{let s='';for(let i=0;i<e.results.length;i++){s+=e.results[i][0].transcript;}fin=s;const el=document.getElementById('voc-live');if(el)el.textContent=s;LAST_ACT=Date.now();};
-  rec.onerror=e=>{VOC.on=false;if(e.error==='not-allowed'||e.error==='service-not-allowed'||e.error==='audio-capture'){vocModal('nomic');}};
+  rec.onerror=e=>{VOC.on=false;if(e.error==='not-allowed'||e.error==='service-not-allowed'){VOC.blocked=true;vocModal('nomic');}else if(e.error==='audio-capture'){vocModal('nomic');}};
   rec.onend=()=>{VOC.on=false;if(!document.querySelector('.voc-modal'))return;if(fin.trim())vocUnderstand(fin);else if(document.getElementById('voc-live'))vocModal('nomic');};
   try{rec.start();}catch(e){vocModal('nomic');}
 }
